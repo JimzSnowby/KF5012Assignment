@@ -8,7 +8,8 @@ package com.mycompany.kf5012assessment;
  *
  * @author w21023500
  */
-// Group work, This is the list of chores
-public class AssigningChoreList {
+// Nihal
+// This is a list of the available chores
+public class FactoryChoreList {
     
 }
