@@ -11,4 +11,5 @@ package com.mycompany.kf5012assessment;
 // Group work, This is the list of chores that a user has been assigned
 public class AssignedChoresList {
     
+    // testing github
 }
