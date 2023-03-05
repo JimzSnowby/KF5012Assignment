@@ -9,7 +9,7 @@ package com.mycompany.kf5012assessment;
  * @author w21023500
  */
 
-//Nihal
+//Nihal - james 
 //This is the class for the chores themselves e.g cleaning
 public class Chore {
     

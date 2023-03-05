@@ -9,8 +9,8 @@ package com.mycompany.kf5012assessment;
  * @author w21023500
  */
 
-// Nihal
+// Nihal Kejman 
 // This is the actual user
 public class User {
-    
+ 
 }

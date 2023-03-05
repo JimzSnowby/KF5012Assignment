@@ -4,14 +4,14 @@
  */
 package com.mycompany.kf5012assessment;
 
-import java.util.ArrayList;
-
 /**
  *
- * @author w21023500
+ * @author w21010679
  */
-// Nihal Kejman 
-// This is a list of users
-public class UserList {
-    
+
+//Nihal 
+
+// UserTask class represents a task that a specific user needs to complete
+public class UserTask {
+   
 }
