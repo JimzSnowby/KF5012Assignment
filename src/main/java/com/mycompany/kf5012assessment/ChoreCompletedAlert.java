@@ -13,3 +13,8 @@ package com.mycompany.kf5012assessment;
 public class ChoreCompletedAlert {
     
 }
+
+/**
+ * 
+ * test comment
+ */
