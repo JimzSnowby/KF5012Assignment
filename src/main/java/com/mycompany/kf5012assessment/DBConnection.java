@@ -1,4 +1,4 @@
-package mavenproject1.mavenproject2;
+package com.mycompany.kf5012assessment;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

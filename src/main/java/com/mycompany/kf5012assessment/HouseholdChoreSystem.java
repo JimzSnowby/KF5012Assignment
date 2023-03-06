@@ -16,6 +16,17 @@ public class HouseholdChoreSystem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        DBConnection db = new DBConnection();
+        
+        String filename = "kf5012db.db";
+        
+        if (!db.Connect(filename)){
+            System.out.println("Didn't connect.");
+        }
+        else {
+            System.out.println("connect.");
+        }
         // TODO code application logic here
    //  some dummy data for CommonTasks
        /* CommonTasks task1 = new CommonTasks("Task 1", "Description 1", 2, "High");
