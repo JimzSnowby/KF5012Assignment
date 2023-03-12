@@ -9,8 +9,67 @@ package com.mycompany.kf5012assessment;
  * @author w21023500
  */
 
-//Nihal - james 
+//james 
 //This is the class for the chores themselves e.g cleaning
 public class Chore {
+    private int choreID;    // PK for DB
+    private String choreName;
+    private String choreDesc;   // for more details e.g shopping list
+    private int frequency;  // number of times in a week
+    private int estimatedTime;  // for user to input their time estimate
+    private int chorePoints;    // for motivation component
+    private int day;    // int that correlates to day of the week 1-7
+
+    public int getChoreID() {
+        return choreID;
+    }
+
+    public void setChoreID(int choreID) {
+        this.choreID = choreID;
+    }
+
+    public String getChoreName() {
+        return choreName;
+    }
+
+    public void setChoreName(String choreName) {
+        this.choreName = choreName;
+    }
+
+    public String getChoreDesc() {
+        return choreDesc;
+    }
+
+    public void setChoreDesc(String choreDesc) {
+        this.choreDesc = choreDesc;
+    }
+
+    public int getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(int frequency) {
+        this.frequency = frequency;
+    }
+
+    public int getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public void setEstimatedTime(int estimatedTime) {
+        this.estimatedTime = estimatedTime;
+    }
+
+    public int getChorePoints() {
+        return chorePoints;
+    }
+
+    public void setChorePoints(int chorePoints) {
+        this.chorePoints = chorePoints;
+    }
+
+    public int getDay() {
+        return day;
+    }
     
 }
