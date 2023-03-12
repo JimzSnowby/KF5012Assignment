@@ -4,6 +4,8 @@
  */
 package com.mycompany.kf5012assessment;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author w21023500
@@ -15,7 +17,7 @@ public class HouseholdChoreSystem {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         
         DBConnection db = new DBConnection();
         
@@ -58,7 +60,18 @@ public class HouseholdChoreSystem {
         for (CommonTasks task : taskList.getTasks()) {
             System.out.println(task.getName() + " (" + task.getPriority() + ") - " + task.getEstimatedTime() + " hours");
         }
-*/
+    */
+       
+       /*
+       For testing purposes 
+       
+       Calling the choresList() function example:
+       ChoresDatabase m;
+        m = new ChoresDatabase();
+        m.choresList();
+       
+       */
+
     }
 
     
