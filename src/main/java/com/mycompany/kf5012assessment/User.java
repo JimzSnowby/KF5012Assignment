@@ -14,6 +14,8 @@ public class User {
     private int id; // PK for DB
     private String userName;
     private String password;
+    private int weekScore;
+    private int totalScore;
     private boolean activeUser = false; // is this the current active user
     private AssignedChoresList listOfChores;    // This is the list of chores that have been assigned to the user
 
@@ -51,5 +53,21 @@ public class User {
 
     public void setListOfChores(AssignedChoresList listOfChores) {
         this.listOfChores = listOfChores;
+    }
+
+    public int getWeekScore() {
+        return weekScore;
+    }
+
+    public void setWeekScore(int weekScore) {
+        this.weekScore = weekScore;
+    }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
     }
 }

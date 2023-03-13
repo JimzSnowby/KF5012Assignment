@@ -36,6 +36,10 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         daySelectorLabel = new javax.swing.JLabel();
         cancelButton = new javax.swing.JButton();
         acceptButton = new javax.swing.JButton();
+        weekScoreLabel = new javax.swing.JLabel();
+        totalScoreLabel = new javax.swing.JLabel();
+        weekScore = new javax.swing.JLabel();
+        totalScore = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuEdit = new javax.swing.JMenu();
@@ -85,6 +89,14 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
 
         acceptButton.setText("accept");
 
+        weekScoreLabel.setText("This weeks score:");
+
+        totalScoreLabel.setText("Total score:");
+
+        weekScore.setText("0");
+
+        totalScore.setText("0");
+
         menuFile.setText("File");
         menuBar.add(menuFile);
 
@@ -99,15 +111,25 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(112, 112, 112)
-                            .addComponent(daySelectorLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(186, 186, 186)
-                            .addComponent(Title)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Title)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(daySelectorLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(totalScoreLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(totalScore))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(weekScoreLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(weekScore))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -122,11 +144,17 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(daySelectorLabel))
+                    .addComponent(Title)
+                    .addComponent(weekScoreLabel)
+                    .addComponent(weekScore))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(daySelectorLabel)
+                        .addComponent(totalScoreLabel))
+                    .addComponent(totalScore, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -189,6 +217,10 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
     private javax.swing.JScrollPane tableContainer;
+    private javax.swing.JLabel totalScore;
+    private javax.swing.JLabel totalScoreLabel;
+    private javax.swing.JLabel weekScore;
+    private javax.swing.JLabel weekScoreLabel;
     // End of variables declaration//GEN-END:variables
     
     void displayTableData(AssignedChoresList tableData){

@@ -22,6 +22,7 @@ public class HouseholdChoreSystem {
         DBConnection db = new DBConnection();
         AssignedChoresGUI choreGUI = new AssignedChoresGUI();
         
+        
         choreGUI.setVisible(true);
         
         String filename = "kf5012db.db";

@@ -43,16 +43,29 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
-                          <Component id="daySelectorLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="daySelector" min="-2" pref="122" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="Title" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                              <Component id="daySelectorLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="daySelector" min="-2" pref="122" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="186" max="-2" attributes="0"/>
-                          <Component id="Title" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="totalScoreLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="totalScore" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="weekScoreLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="weekScore" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -74,11 +87,19 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="Title" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="daySelector" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="daySelectorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Title" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="weekScoreLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="weekScore" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="daySelector" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="daySelectorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="totalScoreLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="totalScore" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="tableContainer" min="-2" pref="114" max="-2" attributes="0"/>
@@ -177,6 +198,26 @@
     <Component class="javax.swing.JButton" name="acceptButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="accept"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="weekScoreLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="This weeks score:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="totalScoreLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Total score:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="weekScore">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="totalScore">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
   </SubComponents>
