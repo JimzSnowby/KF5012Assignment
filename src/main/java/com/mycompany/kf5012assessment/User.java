@@ -15,6 +15,7 @@ public class User {
     private String userName;
     private String password;
     private boolean activeUser = false; // is this the current active user
+    private AssignedChoresList listOfChores;    // This is the list of chores that have been assigned to the user
 
     public int getId() {
         return id;
@@ -42,5 +43,13 @@ public class User {
 
     public void setActiveUser(boolean activeUser) {
         this.activeUser = activeUser;
+    }
+
+    public AssignedChoresList getListOfChores() {
+        return listOfChores;
+    }
+
+    public void setListOfChores(AssignedChoresList listOfChores) {
+        this.listOfChores = listOfChores;
     }
 }

@@ -26,62 +26,119 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        Title = new javax.swing.JLabel();
+        daySelector = new javax.swing.JComboBox<>();
+        tableContainer = new javax.swing.JScrollPane();
+        choreTable = new javax.swing.JTable();
+        daySelectorLabel = new javax.swing.JLabel();
+        cancelButton = new javax.swing.JButton();
+        acceptButton = new javax.swing.JButton();
+        menuBar = new javax.swing.JMenuBar();
+        menuFile = new javax.swing.JMenu();
+        menuEdit = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("This weeks chores");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Title.setText("This weeks chores");
+
+        daySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }));
+        daySelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                daySelectorActionPerformed(evt);
+            }
+        });
+
+        choreTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Chore", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+                "Chore", "Description", "Complete"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tableContainer.setViewportView(choreTable);
+        if (choreTable.getColumnModel().getColumnCount() > 0) {
+            choreTable.getColumnModel().getColumn(0).setPreferredWidth(150);
+            choreTable.getColumnModel().getColumn(0).setMaxWidth(150);
+            choreTable.getColumnModel().getColumn(2).setMaxWidth(100);
+        }
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setText("This weeks chores");
+        daySelectorLabel.setText("Day of the week:");
+
+        cancelButton.setText("cancel");
+
+        acceptButton.setText("accept");
+
+        menuFile.setText("File");
+        menuBar.add(menuFile);
+
+        menuEdit.setText("Edit");
+        menuBar.add(menuEdit);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(119, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(145, 145, 145))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(112, 112, 112)
+                            .addComponent(daySelectorLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(186, 186, 186)
+                            .addComponent(Title)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(acceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(Title)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(daySelectorLabel))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(272, Short.MAX_VALUE))
+                .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelButton)
+                    .addComponent(acceptButton))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void daySelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daySelectorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_daySelectorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -119,8 +176,15 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel Title;
+    private javax.swing.JButton acceptButton;
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JTable choreTable;
+    private javax.swing.JComboBox<String> daySelector;
+    private javax.swing.JLabel daySelectorLabel;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu menuEdit;
+    private javax.swing.JMenu menuFile;
+    private javax.swing.JScrollPane tableContainer;
     // End of variables declaration//GEN-END:variables
 }
