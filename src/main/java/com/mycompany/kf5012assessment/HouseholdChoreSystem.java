@@ -20,6 +20,9 @@ public class HouseholdChoreSystem {
     public static void main(String[] args) throws SQLException {
         
         DBConnection db = new DBConnection();
+        AssignedChoresGUI choreGUI = new AssignedChoresGUI();
+        
+        choreGUI.setVisible(true);
         
         String filename = "kf5012db.db";
         
