@@ -4,6 +4,9 @@
  */
 package com.mycompany.kf5012assessment;
 
+import java.util.*;
+import javax.swing.table.*;
+
 /**
  *
  * @author james
@@ -187,4 +190,19 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private javax.swing.JMenu menuFile;
     private javax.swing.JScrollPane tableContainer;
     // End of variables declaration//GEN-END:variables
+    
+    void displayTableData(AssignedChoresList tableData){
+        // Empty the existing data
+        DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
+        tableModel.setRowCount(0);
+        
+        List<Chore> list = tableData.getAssignedChoresList();
+        
+        for(int i = 0; i < list.size(); i++){
+            tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).getChoreDesc(), list.get(i).isComplete()});
+        }
+        
+        
+    }
 }
+

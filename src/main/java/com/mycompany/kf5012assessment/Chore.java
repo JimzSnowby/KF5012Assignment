@@ -19,6 +19,7 @@ public class Chore {
     private int estimatedTime;  // for user to input their time estimate
     private int chorePoints;    // for motivation component
     private int day;    // int that correlates to day of the week 1-7
+    private boolean complete = false; // true if the user has completed the task
 
     public int getChoreID() {
         return choreID;
@@ -70,6 +71,14 @@ public class Chore {
 
     public int getDay() {
         return day;
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
     
 }
