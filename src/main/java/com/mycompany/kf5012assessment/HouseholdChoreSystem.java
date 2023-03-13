@@ -21,9 +21,22 @@ public class HouseholdChoreSystem {
         
         DBConnection db = new DBConnection();
         AssignedChoresGUI choreGUI = new AssignedChoresGUI();
+        Chore cleaning = new Chore();
+        cleaning.setChoreID(0);
+        cleaning.setChoreName("Cleaning");
+        cleaning.setChoreDesc("Cleaning something");
+        cleaning.setFrequency(3);
+        cleaning.setEstimatedTime(60);
+        cleaning.setChorePoints(50);
+        cleaning.setDay(1);
+        AssignedChoresList list = new AssignedChoresList();
+        list.addToChoreList(cleaning);
         
         
+        
+        choreGUI.displayTableData(list);
         choreGUI.setVisible(true);
+        
         
         String filename = "kf5012db.db";
         

@@ -40,6 +40,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         totalScoreLabel = new javax.swing.JLabel();
         weekScore = new javax.swing.JLabel();
         totalScore = new javax.swing.JLabel();
+        totalChoresLabel = new javax.swing.JLabel();
+        totalChores = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuEdit = new javax.swing.JMenu();
@@ -71,16 +73,25 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
+        choreTable.getTableHeader().setReorderingAllowed(false);
         tableContainer.setViewportView(choreTable);
         if (choreTable.getColumnModel().getColumnCount() > 0) {
+            choreTable.getColumnModel().getColumn(0).setResizable(false);
             choreTable.getColumnModel().getColumn(0).setPreferredWidth(150);
-            choreTable.getColumnModel().getColumn(0).setMaxWidth(150);
-            choreTable.getColumnModel().getColumn(2).setMaxWidth(100);
+            choreTable.getColumnModel().getColumn(1).setResizable(false);
+            choreTable.getColumnModel().getColumn(2).setResizable(false);
         }
 
         daySelectorLabel.setText("Day of the week:");
@@ -97,6 +108,10 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
 
         totalScore.setText("0");
 
+        totalChoresLabel.setText("Total chores:");
+
+        totalChores.setText("0");
+
         menuFile.setText("File");
         menuBar.add(menuFile);
 
@@ -112,32 +127,38 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Title)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(daySelectorLabel)
-                                .addGap(18, 18, 18)
-                                .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(totalScoreLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(totalScore))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(weekScoreLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(weekScore))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(151, 151, 151)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(62, 62, 62)
-                        .addComponent(acceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(acceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(46, 46, 46)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(Title)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(totalChoresLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(totalChores))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(daySelectorLabel)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(totalScoreLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(totalScore))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(weekScoreLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(weekScore))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(38, 38, 38)
+                            .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -147,21 +168,22 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Title)
                     .addComponent(weekScoreLabel)
-                    .addComponent(weekScore))
+                    .addComponent(weekScore)
+                    .addComponent(totalChoresLabel)
+                    .addComponent(totalChores))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(daySelectorLabel)
-                        .addComponent(totalScoreLabel))
-                    .addComponent(totalScore, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(daySelectorLabel)
+                    .addComponent(totalScoreLabel)
+                    .addComponent(totalScore))
                 .addGap(18, 18, 18)
                 .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
                     .addComponent(acceptButton))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -204,6 +226,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 new AssignedChoresGUI().setVisible(true);
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -217,6 +241,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
     private javax.swing.JScrollPane tableContainer;
+    private javax.swing.JLabel totalChores;
+    private javax.swing.JLabel totalChoresLabel;
     private javax.swing.JLabel totalScore;
     private javax.swing.JLabel totalScoreLabel;
     private javax.swing.JLabel weekScore;
@@ -230,11 +256,15 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         
         List<Chore> list = tableData.getAssignedChoresList();
         
+        Object selected = daySelector.getSelectedItem();
+        if(selected.toString().equals("Monday")){
+            list = tableData.getMon();
+        }
+        
         for(int i = 0; i < list.size(); i++){
             tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).getChoreDesc(), list.get(i).isComplete()});
         }
-        
-        
     }
+    
 }
 

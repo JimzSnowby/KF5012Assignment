@@ -17,7 +17,7 @@ public class Chore {
     private String choreDesc;   // for more details e.g shopping list
     private int frequency;  // number of times in a week
     private int estimatedTime;  // for user to input their time estimate
-    private int chorePoints;    // for motivation component
+    private int chorePoints;    // The amount of points completing this chore will reward
     private int day;    // int that correlates to day of the week 1-7
     private boolean complete = false; // true if the user has completed the task
 
@@ -71,6 +71,10 @@ public class Chore {
 
     public int getDay() {
         return day;
+    }
+    
+    public void setDay(int day){
+        this.day = day;
     }
 
     public boolean isComplete() {
