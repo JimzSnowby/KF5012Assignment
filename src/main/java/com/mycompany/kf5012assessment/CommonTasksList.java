@@ -6,16 +6,16 @@ package com.mycompany.kf5012assessment;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTextArea;
 
 /**
  *
  * @author w21010679
  */
-
 //Nihal 
 // CommonTasksList class represents the list of common weekly tasks
-
 public class CommonTasksList {
+
     private List<CommonTasks> tasks; // list of tasks
 
     // constructor to initialize the list
@@ -34,12 +34,10 @@ public class CommonTasksList {
     }
 
     // method to modify a task in the list
-    public void modifyTask(CommonTasks task, String newName, String newDescription, int newEstimatedTime, String newPriotiy) {
+    public void modifyTask(CommonTasks task, String newName, int newEstimatedTime) {
         task.setName(newName);
-        task.setDescription(newDescription);
-        task.setEstimatedTime(newEstimatedTime);  
-        task.setPriority(newPriotiy);  
-
+        task.setEstimatedTime(newEstimatedTime);
     }
     
+
 }
