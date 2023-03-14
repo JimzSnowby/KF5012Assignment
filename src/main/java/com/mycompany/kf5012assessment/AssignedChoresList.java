@@ -60,31 +60,7 @@ public class AssignedChoresList {
     
     public void removeFromChoreList(Chore chore){
         assignedChoresList.remove(chore);
-        switch (chore.getDay()) {
-            case 1:
-                mon.remove(chore);
-                break;
-            case 2:
-                tues.remove(chore);
-                break;
-            case 3:
-                wed.remove(chore);
-                break;
-            case 4:
-                thur.remove(chore);
-                break;
-            case 5:
-                fri.remove(chore);
-                break;
-            case 6:
-                sat.remove(chore);
-                break;
-            case 7:
-                sun.remove(chore);
-                break;
-            default:
-                throw new IndexOutOfBoundsException("case must be between 1-7");
-        }
+        
     }
 
     public List<Chore> getMon() {

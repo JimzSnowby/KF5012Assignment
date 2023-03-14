@@ -12,7 +12,7 @@ import javax.swing.table.*;
  * @author james
  */
 public class AssignedChoresGUI extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form AssignedChoresGUI
      */
@@ -190,7 +190,9 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void daySelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daySelectorActionPerformed
-        // TODO add your handling code here:
+       Object selected = daySelector.getSelectedItem();
+       System.out.println("Event happened");
+       list = selected;
     }//GEN-LAST:event_daySelectorActionPerformed
 
     /**
@@ -224,10 +226,9 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AssignedChoresGUI().setVisible(true);
+                
             }
         });
-        
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -255,9 +256,12 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         tableModel.setRowCount(0);
         
         List<Chore> list = tableData.getAssignedChoresList();
-        
         Object selected = daySelector.getSelectedItem();
+        
         if(selected.toString().equals("Monday")){
+            list = tableData.getMon();
+        }
+        if(selected.toString().equals("Tuesday")){
             list = tableData.getMon();
         }
         
@@ -265,6 +269,5 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).getChoreDesc(), list.get(i).isComplete()});
         }
     }
-    
 }
 

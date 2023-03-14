@@ -27,8 +27,26 @@ public class HouseholdChoreSystem {
         else {
             System.out.println("connect.");
         }
-        GUIOfCommonChores msGUI = new GUIOfCommonChores();
-	msGUI.setVisible(true);
+        //GUIOfCommonChores msGUI = new GUIOfCommonChores();
+	//msGUI.setVisible(true);
+        
+        // Test data for chore completion--------------------------------------
+        Chore cleaning = new Chore();
+        cleaning.setChoreID(1);
+        cleaning.setChoreName("Cleaning");
+        cleaning.setChoreDesc("Cleaning something");
+        cleaning.setFrequency(3);
+        cleaning.setEstimatedTime(30);
+        cleaning.setChorePoints(10);
+        cleaning.setDay(2);
+        AssignedChoresList testList = new AssignedChoresList();
+        testList.addToChoreList(cleaning);
+        
+        
+        AssignedChoresGUI acGUI = new AssignedChoresGUI();
+        acGUI.displayTableData(testList);
+        acGUI.setVisible(true);
+        // --------------------------------------------------------------------
         
       
 
