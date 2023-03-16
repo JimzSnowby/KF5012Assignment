@@ -37,8 +37,8 @@ public class HouseholdChoreSystem {
         cleaning.setChoreDesc("Cleaning something");
         cleaning.setFrequency(3);
         cleaning.setEstimatedTime(30);
-        cleaning.setChorePoints(10);
-        cleaning.setDay(2);
+        cleaning.setChorePoint(10);
+        cleaning.setDay(1);
         AssignedChoresList testList = new AssignedChoresList();
         testList.addToChoreList(cleaning);
         

@@ -10,6 +10,7 @@ import java.util.*;
  * @author w21023500
  */
 public class ChoreList {
+
     private List<Chore> choreList = new ArrayList();
 
     public List<Chore> getChoreList() {
