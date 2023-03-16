@@ -26,53 +26,17 @@ public class ChoresDatabase {
      * Functions to be included here
      *
      */
-    private int choreID;
-    private String choreName;
-    private String choreEstimateTime;
-    private int chorePoint;
 
-    public int getChoreID() {
-        return choreID;
-    }
-
-    public void setChoreID(int choreID) {
-        this.choreID = choreID;
-    }
-
-    public String getChoreName() {
-        return choreName;
-    }
-
-    public void setChoreName(String choreName) {
-        this.choreName = choreName;
-    }
-
-    public String getChoreEstimateTime() {
-        return choreEstimateTime;
-    }
-
-    public void setChoreEstimateTime(String choreEstimateTime) {
-        this.choreEstimateTime = choreEstimateTime;
-    }
-
-    public int getChorePoint() {
-        return chorePoint;
-    }
-
-    public void setChorePoint(int chorePoint) {
-        this.chorePoint = chorePoint;
-    }
-
-    public ArrayList<ChoresDatabase> choresList() throws SQLException {
+    public ArrayList<Chore> choresList() throws SQLException {
 
         String sqlString = "SELECT choreID, choreName, choreEstimateTime, chorePoint FROM chores;";
 
         ResultSet choreList = database.RunSQLQuery(sqlString);
-        ArrayList<ChoresDatabase> chores = new ArrayList<ChoresDatabase>();
+        ArrayList<Chore> chores = new ArrayList<Chore>();
 
         try {
             while (choreList.next()) {
-                ChoresDatabase newChore = new ChoresDatabase();
+                Chore newChore = new Chore();
                 newChore.setChoreID(choreList.getInt(1));
                 newChore.setChoreName(choreList.getString(2));
                 newChore.setChoreEstimateTime(choreList.getString(3));
