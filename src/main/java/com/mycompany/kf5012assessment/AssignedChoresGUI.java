@@ -195,8 +195,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private void daySelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daySelectorActionPerformed
        Object selected = daySelector.getSelectedItem();
        System.out.println("Event happened");
-        updateDisplayTableData(selected);
-       
+       updateDisplayTableData(selected);
     }//GEN-LAST:event_daySelectorActionPerformed
 
     /**

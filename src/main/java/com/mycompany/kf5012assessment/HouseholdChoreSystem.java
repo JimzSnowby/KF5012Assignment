@@ -29,11 +29,7 @@ public class HouseholdChoreSystem {
         }
         //GUIOfCommonChores msGUI = new GUIOfCommonChores();
 	//msGUI.setVisible(true);
-        
-        // Test data for chore completion--------------------------------------
-        
-        // --------------------------------------------------------------------
-        
+         
       
 
         // TODO code application logic here
