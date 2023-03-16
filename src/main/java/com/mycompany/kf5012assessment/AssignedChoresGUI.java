@@ -12,12 +12,15 @@ import javax.swing.table.*;
  * @author james
  */
 public class AssignedChoresGUI extends javax.swing.JFrame {
-    
-    /**
+    private AssignedChoresList dummyList;
+    /*
      * Creates new form AssignedChoresGUI
      */
     public AssignedChoresGUI() {
+        createDummyData();
         initComponents();
+        displayTableData(dummyList);
+        
     }
 
     /**
@@ -192,7 +195,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private void daySelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daySelectorActionPerformed
        Object selected = daySelector.getSelectedItem();
        System.out.println("Event happened");
-       list = selected;
+        updateDisplayTableData(selected);
+       
     }//GEN-LAST:event_daySelectorActionPerformed
 
     /**
@@ -250,7 +254,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private javax.swing.JLabel weekScoreLabel;
     // End of variables declaration//GEN-END:variables
     
-    void displayTableData(AssignedChoresList tableData){
+    public void displayTableData(AssignedChoresList tableData){
         // Empty the existing data
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
@@ -262,12 +266,50 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             list = tableData.getMon();
         }
         if(selected.toString().equals("Tuesday")){
-            list = tableData.getMon();
+            list = tableData.getTues();
         }
         
         for(int i = 0; i < list.size(); i++){
             tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).getChoreDesc(), list.get(i).isComplete()});
         }
     }
+    
+    public void updateDisplayTableData(Object selected){
+        DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
+        tableModel.setRowCount(0);
+        List<Chore> list = dummyList.getAssignedChoresList();
+        if(selected.toString().equals("Monday")){
+            list = dummyList.getMon();
+        }
+        if(selected.toString().equals("Tuesday")){
+            list = dummyList.getTues();
+        }
+        
+        for(int i = 0; i < list.size(); i++){
+            tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).getChoreDesc(), list.get(i).isComplete()});
+        }
+        
+    }
+    
+    public void createDummyData(){
+        Chore cleaning = new Chore();
+        cleaning.setChoreID(1);
+        cleaning.setChoreName("Cleaning");
+        cleaning.setChoreDesc("Cleaning something");
+        cleaning.setFrequency(3);
+        cleaning.setChoreEstimateTime(30);
+        cleaning.setChorePoint(10);
+        cleaning.setDay(2);
+        this.dummyList = new AssignedChoresList();
+        dummyList.addToChoreList(cleaning);
+        
+        
+       
+       // AssignedChoresGUI acGUI = new AssignedChoresGUI();
+        //displayTableData(dummyList);
+        
+    }
+    
+    
 }
 

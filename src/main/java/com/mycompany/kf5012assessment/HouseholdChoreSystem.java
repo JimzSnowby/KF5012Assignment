@@ -31,21 +31,7 @@ public class HouseholdChoreSystem {
 	//msGUI.setVisible(true);
         
         // Test data for chore completion--------------------------------------
-        Chore cleaning = new Chore();
-        cleaning.setChoreID(1);
-        cleaning.setChoreName("Cleaning");
-        cleaning.setChoreDesc("Cleaning something");
-        cleaning.setFrequency(3);
-        cleaning.setChoreEstimateTime(30);
-        cleaning.setChorePoint(10);
-        cleaning.setDay(1);
-        AssignedChoresList testList = new AssignedChoresList();
-        testList.addToChoreList(cleaning);
         
-        
-        AssignedChoresGUI acGUI = new AssignedChoresGUI();
-        acGUI.displayTableData(testList);
-        acGUI.setVisible(true);
         // --------------------------------------------------------------------
         
       

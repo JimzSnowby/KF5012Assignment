@@ -4,7 +4,7 @@
  */
 package com.mycompany.kf5012assessment;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  *
@@ -13,5 +13,16 @@ import java.util.ArrayList;
 // Nihal Kejman 
 // This is a list of users
 public class UserList {
-    
+    private List<User> userList = new ArrayList(); //This is the list of all the users
+
+    public UserList() {
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
 }
