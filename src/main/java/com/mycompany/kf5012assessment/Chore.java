@@ -53,12 +53,12 @@ public class Chore {
         this.frequency = frequency;
     }
 
-    public int getEstimateTime() {
+    public int getChoreEstimateTime() {
         return choreEstimateTime;
     }
 
-    public void setEstimateTime(int estimateTime) {
-        this.choreEstimateTime = estimateTime;
+    public void setChoreEstimateTime(int choreEstimateTime) {
+        this.choreEstimateTime = choreEstimateTime;
     }
 
     public int getChorePoint() {

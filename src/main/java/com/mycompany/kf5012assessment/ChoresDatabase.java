@@ -39,7 +39,7 @@ public class ChoresDatabase {
                 Chore newChore = new Chore();
                 newChore.setChoreID(choreList.getInt(1));
                 newChore.setChoreName(choreList.getString(2));
-                newChore.setChoreEstimateTime(choreList.getString(3));
+                newChore.setChoreEstimateTime(choreList.getInt(3));
                 newChore.setChorePoint(choreList.getInt(4));
 
                 chores.add(newChore);
