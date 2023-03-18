@@ -14,24 +14,26 @@ import java.util.ArrayList;
  */
 public class ChoresDatabase {
 
-    private DBConnection database;
+    private static DBConnection database;
 
+    //Chore newChore;
     public ChoresDatabase() {
         database = new DBConnection();
         database.Connect("/Users/majabosy/NetBeansProjects/kf5012assessment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+
     }
 
     /**
      *
-     * Functions to be included here
+     * Functions below
      *
      */
+    //Select all chores
+    public ArrayList<Chore> selectChores() throws SQLException {
 
-    public ArrayList<Chore> choresList() throws SQLException {
+        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, chorePoint FROM chores;";
 
-        String sqlString = "SELECT choreID, choreName, choreEstimateTime, chorePoint FROM chores;";
-
-        ResultSet choreList = database.RunSQLQuery(sqlString);
+        ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
         ArrayList<Chore> chores = new ArrayList<Chore>();
 
         try {
@@ -46,14 +48,138 @@ public class ChoresDatabase {
 
             }
         } catch (SQLException e) {
-            System.out.println("Failed to process query in choresList()");
-            System.out.println("SQL attempted: " + sqlString);
+            System.out.println("Failed to process query in selectChores()");
+            System.out.println("SQL attempted: " + sqlSelectChores);
             System.out.println("Error: " + e.getErrorCode());
             System.out.println("Message: " + e.getMessage());
             e.printStackTrace();
         }
-
         return chores;
+    }
+    
+    //Select all users
+    public ArrayList<User> selectUsers() throws SQLException {
+
+        String sqlSelectUsers = "SELECT userID, userName, userPassword, userActive FROM users;";
+
+        ResultSet userList = database.RunSQLQuery(sqlSelectUsers);
+        ArrayList<User> users = new ArrayList<User>();
+
+        try {
+            while (userList.next()) {
+                User newUser = new User();
+                newUser.setId(userList.getInt(1));
+                newUser.setUserName(userList.getString(2));
+                newUser.setPassword(userList.getString(3));
+                newUser.setActiveUser(userList.getInt(4));
+
+                users.add(newUser);
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to process query in selectUsers()");
+            System.out.println("SQL attempted: " + sqlSelectUsers);
+            System.out.println("Error: " + e.getErrorCode());
+            System.out.println("Message: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return users;
+    }
+    
+    //Add a new chore
+    public static void addChore(Chore newChore) {
+
+        String rs = ("select max(choreID) from chores");
+        database.RunSQLQuery(rs);
+        int max = Integer.parseInt(rs) + 1;
+        String placeholder = "n/a";
+
+        String sqlAddChoreL = "INSERT INTO chores (choreID, choreName,choreFrequency, choreEstimateTime) VALUES("
+                + max + ", "
+                + newChore.getChoreName() + ", "
+                + placeholder + ", "
+                + newChore.getChoreEstimateTime() + ", '"
+                + " '); ";
+
+        boolean success;
+        success = database.RunSQL(sqlAddChoreL);
+
+        if (!success) {
+            System.out.println("Failed to process query" + sqlAddChoreL);
+        }
+
+    }
+    
+    //Add a new user
+    public static void addUser(User newUser) {
+
+        String rs = ("select max(userID) from users");
+        database.RunSQLQuery(rs);
+        int max = Integer.parseInt(rs) + 1;
+
+        int placeholder = 0;
+
+        String sqlAddChoreL = "INSERT INTO users (userID, userName, userPassword, userActive) VALUES("
+                + max + ", "
+                + newUser.getUserName() + ", "
+                + newUser.getPassword() + ", "
+                + placeholder + ", '"
+                + " '); ";
+
+        boolean success;
+        success = database.RunSQL(sqlAddChoreL);
+
+        if (!success) {
+            System.out.println("Failed to process query" + sqlAddChoreL);
+        }
+
+    }
+
+    //Delete an user
+    public void deleteUser(String userName) {
+        String sqlDeleteUser = "DELETE FROM users WHERE userName = '" + userName + "';";
+
+        boolean success = database.RunSQL(sqlDeleteUser);
+
+        if (!success) {
+            System.out.println("Failed to process query" + sqlDeleteUser);
+        }
+
+    }
+    
+    //Delete a chore
+    public void deleteChore(String choreName) {
+        String sqlDeleteChore = "DELETE FROM chores WHERE choreName = '" + choreName + "';";
+
+        boolean success = database.RunSQL(sqlDeleteChore);
+
+        if (!success) {
+            System.out.println("Failed to process query" + sqlDeleteChore);
+        }
+
+    }
+    
+    //Delete chores table
+    public void dropChoresTable() {
+        String sqlDropChores = "DROP TABLE chores";
+
+        boolean success = database.RunSQL(sqlDropChores);
+
+        if (!success) {
+            System.out.println("Failed to process query" + sqlDropChores);
+        }
+
+    }
+    
+    //Delete users table
+    public void dropUsersTable() {
+        String sqlDropUsers = "DROP TABLE users";
+
+        boolean success = database.RunSQL(sqlDropUsers);
+
+        if (!success) {
+            System.out.println("Failed to process query" + sqlDropUsers);
+        }
 
     }
 

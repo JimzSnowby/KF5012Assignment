@@ -16,13 +16,17 @@ public class User {
     private String password;
     private int weekScore;
     private int totalScore;
-    private boolean activeUser = false; // is this the current active user
+    private int activeUser; // is this the current active user
     private AssignedChoresList listOfChores;    // This is the list of chores that have been assigned to the user
 
     public int getId() {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getUserName() {
         return userName;
     }
@@ -39,11 +43,11 @@ public class User {
         this.password = password;
     }
 
-    public boolean isActiveUser() {
+    public int isActiveUser() {
         return activeUser;
     }
 
-    public void setActiveUser(boolean activeUser) {
+    public void setActiveUser(int activeUser) {
         this.activeUser = activeUser;
     }
 
