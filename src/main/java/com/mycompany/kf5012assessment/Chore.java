@@ -14,7 +14,7 @@ package com.mycompany.kf5012assessment;
 public class Chore {
     private int choreID;    // PK for DB
     private String choreName;
-    private String choreDesc;   // for more details e.g shopping list
+    //sprivate String choreDesc;   // for more details e.g shopping list
     private int frequency;  // number of times in a week
     private int choreEstimateTime;  // for user to input their time estimate
     private int chorePoint;    // The amount of points completing this chore will reward
@@ -36,7 +36,8 @@ public class Chore {
     public void setChoreName(String choreName) {
         this.choreName = choreName;
     }
-
+    
+    /*
     public String getChoreDesc() {
         return choreDesc;
     }
@@ -44,6 +45,7 @@ public class Chore {
     public void setChoreDesc(String choreDesc) {
         this.choreDesc = choreDesc;
     }
+    s*/
 
     public int getFrequency() {
         return frequency;
