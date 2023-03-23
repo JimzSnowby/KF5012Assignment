@@ -89,7 +89,7 @@ public class ChoresDatabase {
     //Add a new chore
     public static void addChore(Chore newChore) {
 
-        String rs = ("select max(choreID) from chores");
+        String rs = ("select max(choreID) from chores;");
         database.RunSQLQuery(rs);
         int max = Integer.parseInt(rs) + 1;
         String placeholder = "n/a";
@@ -182,5 +182,17 @@ public class ChoresDatabase {
         }
 
     }
+    /*
+    pls dont delete, testing purposes
+    public static void main(String[] args){
+        ChoresDatabase x = new ChoresDatabase();
+        Chore c  =  new Chore();
+        
+        c.setChoreID(21);
+        c.setName()
+                
+                
+        x.ad
+    }*/
 
 }
