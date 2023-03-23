@@ -13,6 +13,7 @@ import javax.swing.table.*;
  */
 public class AssignedChoresGUI extends javax.swing.JFrame {
     private AssignedChoresList dummyList;
+    private ChoresDatabase db = new ChoresDatabase();
     /*
      * Creates new form AssignedChoresGUI
      */
