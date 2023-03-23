@@ -27,8 +27,8 @@ public class HouseholdChoreSystem {
         else {
             System.out.println("connect.");
         }
-        //GUIOfCommonChores msGUI = new GUIOfCommonChores();
-	//msGUI.setVisible(true);
+        GUIOfCommonChores msGUI = new GUIOfCommonChores();
+	msGUI.setVisible(true);
          
       
 

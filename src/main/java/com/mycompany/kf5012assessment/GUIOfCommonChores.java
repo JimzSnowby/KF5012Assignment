@@ -4,8 +4,12 @@
  */
 package com.mycompany.kf5012assessment;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,16 +22,24 @@ public class GUIOfCommonChores extends javax.swing.JFrame {
      * Creates new form GUIOfCommonChores
      */
     // Define a private ArrayList of Strings to store the chores
-    private ArrayList<String> Chores;
+    private ArrayList<Chore> choresArrayList;
 
     public GUIOfCommonChores() {
         // sotring the list 
+        ChoresDatabase choresDB = new ChoresDatabase();
+        try {
+            choresArrayList = choresDB.selectChores();
+        } catch (Exception e) {
+            System.out.println("Error occured in extracting data");
+        }
+        /*
         Chores = new ArrayList<String>();
         Chores.add("clean Dishes");
         Chores.add("Vaccum the floor");
         Chores.add("take the bins out");
         Chores.add("clean Dishes");
-        Chores.add("clean Dishes");
+        Chores.add("clean Dishes");#
+         */
         // Call the initComponents method to set up the GUI
 
         initComponents();
@@ -36,27 +48,34 @@ public class GUIOfCommonChores extends javax.swing.JFrame {
         updateChoreTable();
         // Add a new chore to the list
 
-        AddNewChore("Wash thw car");
+        //AddNewChore("Wash thw car");
     }
 
+    
     public void updateChoreTable() {
         if (choreTable != null && choreTable.getModel() instanceof DefaultTableModel) {
             DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
             tableModel.setRowCount(0);
-
-            for (String s : Chores) {
-                tableModel.addRow(new Object[]{s});
+            for (int i = 0; i < choresArrayList.size(); i++) {
+                tableModel.addRow(new Object[]{choresArrayList.get(i).getChoreName()});
             }
         } else {
-            // Handle the error gracefully
+            // it Handles the error gracefully 
             JOptionPane.showMessageDialog(this, "Error: The chore table or table model is null.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
-    // This method adds a new chore to the list and updates the table
+    // this method is going add a new a chore to the list and also update the table. 
 
-    public void AddNewChore(String name) {
-        Chores.add(name);
+    public void AddNewChore(String name, int frequency, int estimateTime) {
+        Chore newChore = new Chore();
+        ChoresDatabase choresDBAdding = new ChoresDatabase();
+        newChore.setChoreName(name);
+        newChore.setFrequency(frequency);
+        newChore.setFrequency(estimateTime);
+
+        choresDBAdding.addChore(newChore);
+
         updateChoreTable();
     }
 
