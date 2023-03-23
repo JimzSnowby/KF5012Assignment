@@ -11,13 +11,13 @@ package com.mycompany.kf5012assessment;
 
 // Main Class for running the system
 public class HouseholdChoreSystem {
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         
         DBConnection db = new DBConnection();
+        
         
         String filename = "kf5012db.db";
         
@@ -27,9 +27,12 @@ public class HouseholdChoreSystem {
         else {
             System.out.println("connect.");
         }
-        GUIOfCommonChores msGUI = new GUIOfCommonChores();
-	msGUI.setVisible(true);
+
+        //GUIOfCommonChores msGUI = new GUIOfCommonChores();
+	//msGUI.setVisible(true);
          
+        
+        
       
 
         // TODO code application logic here
