@@ -17,7 +17,15 @@ import java.util.logging.Logger;
 public class AssigningChoresAlgo{
     
     
+    
     public static void main(String[] args) {
+        
+        int user1Total = 0;
+        int user2Total = 0;
+        
+        for(Chore li : ChoreList.getChoreList){
+            
+        }
         /*ChoresDatabase db = new ChoresDatabase();
         try {
             db.selectChores();
