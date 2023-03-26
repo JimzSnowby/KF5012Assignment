@@ -270,7 +270,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         }
         
         for(int i = 0; i < list.size(); i++){
-            tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).getChoreDesc(), list.get(i).isComplete()});
+            tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).isComplete()});
         }
     }
     
@@ -286,7 +286,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         }
         
         for(int i = 0; i < list.size(); i++){
-            tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).getChoreDesc(), list.get(i).isComplete()});
+            tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).isComplete()});
         }
         
     }
@@ -295,7 +295,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         Chore cleaning = new Chore();
         cleaning.setChoreID(1);
         cleaning.setChoreName("Cleaning");
-        cleaning.setChoreDesc("Cleaning something");
+        
         cleaning.setFrequency(3);
         cleaning.setChoreEstimateTime(30);
         cleaning.setChorePoint(10);

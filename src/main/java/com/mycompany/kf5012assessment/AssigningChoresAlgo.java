@@ -14,12 +14,8 @@ import java.util.logging.Logger;
  * @author w21023500
  */
 // For Task 7 Group work
-public class AssigningChoresAlgo {
-
-    AssignedChoresList user1 = new AssignedChoresList();
-    AssignedChoresList user2 = new AssignedChoresList();
+public class AssigningChoresAlgo{
     
-
     
     public static void main(String[] args) {
         /*ChoresDatabase db = new ChoresDatabase();
