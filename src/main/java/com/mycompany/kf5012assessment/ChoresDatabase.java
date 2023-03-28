@@ -56,7 +56,67 @@ public class ChoresDatabase {
         }
         return chores;
     }
-    
+
+    //Select weekly chores
+    public ArrayList<Chore> selectChoresFrequencyWeekly() throws SQLException {
+
+      String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, chorePoint FROM chores "
+                + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID WHERE choreFrequency = 1;";
+
+        ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
+        ArrayList<Chore> chores = new ArrayList<Chore>();
+
+        try {
+            while (choreList.next()) {
+                Chore newChore = new Chore();
+                newChore.setChoreID(choreList.getInt(1));
+                newChore.setChoreName(choreList.getString(2));
+                newChore.setChoreEstimateTime(choreList.getInt(3));
+                newChore.setChorePoint(choreList.getInt(4));
+
+                chores.add(newChore);
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to process query in selectChores()");
+            System.out.println("SQL attempted: " + sqlSelectChores);
+            System.out.println("Error: " + e.getErrorCode());
+            System.out.println("Message: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return chores;
+    }
+
+    //Select one-off chores 
+    public ArrayList<Chore> selectChoresFrequencyOneOff() throws SQLException {
+
+        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, chorePoint FROM chores "
+                + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID WHERE choreFrequency = 2;";
+
+        ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
+        ArrayList<Chore> chores = new ArrayList<Chore>();
+
+        try {
+            while (choreList.next()) {
+                Chore newChore = new Chore();
+                newChore.setChoreID(choreList.getInt(1));
+                newChore.setChoreName(choreList.getString(2));
+                newChore.setChoreEstimateTime(choreList.getInt(3));
+                newChore.setChorePoint(choreList.getInt(4));
+
+                chores.add(newChore);
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to process query in selectChores()");
+            System.out.println("SQL attempted: " + sqlSelectChores);
+            System.out.println("Error: " + e.getErrorCode());
+            System.out.println("Message: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return chores;
+    }
+
     //Select all users
     public ArrayList<User> selectUsers() throws SQLException {
 
@@ -85,7 +145,7 @@ public class ChoresDatabase {
         }
         return users;
     }
-    
+
     //Add a new chore
     public static void addChore(Chore newChore) {
 
@@ -109,7 +169,7 @@ public class ChoresDatabase {
         }
 
     }
-    
+
     //Add a new user
     public static void addUser(User newUser) {
 
@@ -146,7 +206,7 @@ public class ChoresDatabase {
         }
 
     }
-    
+
     //Delete a chore
     public void deleteChore(String choreName) {
         String sqlDeleteChore = "DELETE FROM chores WHERE choreName = '" + choreName + "';";
@@ -158,7 +218,7 @@ public class ChoresDatabase {
         }
 
     }
-    
+
     //Delete chores table
     public void dropChoresTable() {
         String sqlDropChores = "DROP TABLE chores";
@@ -170,7 +230,7 @@ public class ChoresDatabase {
         }
 
     }
-    
+
     //Delete users table
     public void dropUsersTable() {
         String sqlDropUsers = "DROP TABLE users";
