@@ -60,8 +60,10 @@ public class ChoresDatabase {
     //Select weekly chores
     public ArrayList<Chore> selectChoresFrequencyWeekly() throws SQLException {
 
-      String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, chorePoint FROM chores "
-                + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID WHERE choreFrequency = 1;";
+        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, chorePoint "
+                + "FROM chores "
+                + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID "
+                + "WHERE choreFrequency = 1;";
 
         ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
         ArrayList<Chore> chores = new ArrayList<Chore>();
@@ -90,8 +92,10 @@ public class ChoresDatabase {
     //Select one-off chores 
     public ArrayList<Chore> selectChoresFrequencyOneOff() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, chorePoint FROM chores "
-                + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID WHERE choreFrequency = 2;";
+        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, chorePoint "
+                + "FROM chores "
+                + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID "
+                + "WHERE choreFrequency = 2;";
 
         ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
         ArrayList<Chore> chores = new ArrayList<Chore>();
@@ -153,8 +157,6 @@ public class ChoresDatabase {
         database.RunSQLQuery(rs);
         int max = Integer.parseInt(rs) + 1;
         int placeholder = 1;
-        
-        
 
         String sqlAddChoreL = "INSERT INTO chores (choreID, choreName, choreFrequencyID, choreEstimateTime) VALUES("
                 + max + ", "
