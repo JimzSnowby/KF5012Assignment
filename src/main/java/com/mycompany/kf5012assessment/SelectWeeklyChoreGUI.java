@@ -4,6 +4,11 @@
  */
 package com.mycompany.kf5012assessment;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author w21023500
@@ -13,8 +18,21 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
     /**
      * Creates new form SelectWeeklyChoreGUI
      */
+    // Define a private ArrayList of Strings to store the chores
+    private ArrayList<Chore> choresArrayList;
+    private SelectWeeklyChoreGUI dummyList;
+
     public SelectWeeklyChoreGUI() {
+        // sotring the list 
+        ChoresDatabase choresDB = new ChoresDatabase();
+        try {
+            choresArrayList = choresDB.selectChores();
+        } catch (Exception e) {
+            System.out.println("Error occured in extracting data");
+        }
+
         initComponents();
+
     }
 
     /**
@@ -26,13 +44,13 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane6 = new javax.swing.JScrollPane();
+        choreScrollPane = new javax.swing.JScrollPane();
         choreTable = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        chooseDayChore = new javax.swing.JComboBox<>();
+        chooseChoreLabel = new javax.swing.JLabel();
+        submitChoreButton = new javax.swing.JButton();
+        addChoreButton = new javax.swing.JButton();
+        menueBarOne = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,69 +74,140 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane6.setViewportView(choreTable);
+        choreScrollPane.setViewportView(choreTable);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        chooseDayChore.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }));
+        chooseDayChore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                chooseDayChoreActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Choose day of tasks");
+        chooseChoreLabel.setText("Choose day of chores ");
 
-        jButton1.setText("Submit");
+        submitChoreButton.setText("Submit");
 
-        jButton2.setText("Add Chore");
+        addChoreButton.setText("Add Chore");
+        addChoreButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addChoreButtonActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Home");
-        jMenuBar1.add(jMenu1);
+        menueBarOne.add(jMenu1);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menueBarOne);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)
+            .addComponent(choreScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(chooseChoreLabel)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(chooseDayChore, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(addChoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(submitChoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(chooseChoreLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(chooseDayChore, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addChoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(choreScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(submitChoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+
+    private void chooseDayChoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseDayChoreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+        Object selected = chooseDayChore.getSelectedItem();
+        System.out.println("Event happened");
+        updateDisplayTableData(selected);
+    }//GEN-LAST:event_chooseDayChoreActionPerformed
+
+    private void addChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addChoreButtonActionPerformed
+        try {
+            CreateNewChoreGUI nc = new CreateNewChoreGUI(this, true);
+            nc.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_addChoreButtonActionPerformed
+    public void displayTableData(ChoreList tableData) {
+        // Empty the existing data
+        DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
+        tableModel.setRowCount(0);
+
+        List<Chore> list = tableData.getChoreList();
+        Object selected = chooseDayChore.getSelectedItem();
+
+        if (selected.toString().equals("Monday")) {
+            list = tableData.getMon();
+        }
+        if (selected.toString().equals("Tuesday")) {
+            list = tableData.getTues();
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).isComplete()});
+        }
+    }
+
+    public void updateDisplayTableData(Object selected) {
+        DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
+        tableModel.setRowCount(0);
+        ChoreList dummyList = new ChoreList();
+        List<Chore> list = dummyList.getChoreList();
+        if (selected.toString().equals("Monday")) {
+            list = dummyList.getMon();
+        }
+        if (selected.toString().equals("Tuesday")) {
+            list = dummyList.getTues();
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).isComplete()});
+        }
+
+    }
+
+    public void createDummyData() {
+        Chore cleaning = new Chore("Clean The Bin");
+        cleaning.setChoreID(1);
+        cleaning.setChoreName("Cleaning");
+
+        cleaning.setFrequency(3);
+        cleaning.setChoreEstimateTime(30);
+        cleaning.setChorePoint(10);
+        cleaning.setDay(2);
+        ChoreList dummyList = new ChoreList();
+        dummyList.addToChoreList(cleaning);
+
+        // AssignedChoresGUI acGUI = new AssignedChoresGUI();
+        //displayTableData(dummyList);
+    }
 
     /**
      * @param args the command line arguments
@@ -156,13 +245,17 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addChoreButton;
+    private javax.swing.JLabel chooseChoreLabel;
+    private javax.swing.JComboBox<String> chooseDayChore;
+    private javax.swing.JScrollPane choreScrollPane;
     private javax.swing.JTable choreTable;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JMenuBar menueBarOne;
+    private javax.swing.JButton submitChoreButton;
     // End of variables declaration//GEN-END:variables
+
+    void AddNewChore(String taskName) {
+        System.out.println(taskName);
+    }
 }

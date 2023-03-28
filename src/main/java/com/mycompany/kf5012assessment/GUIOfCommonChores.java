@@ -392,4 +392,8 @@ public class GUIOfCommonChores extends javax.swing.JFrame {
     private javax.swing.JButton nextButton;
     private javax.swing.JButton submitButton;
     // End of variables declaration//GEN-END:variables
+
+    void AddNewChore(String taskName) {
+        
+    }
 }
