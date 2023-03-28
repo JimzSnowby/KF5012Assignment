@@ -365,7 +365,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         Chore cleaning = new Chore();
         cleaning.setChoreID(1);
         cleaning.setChoreName("Cleaning");
-        
         cleaning.setFrequency(3);
         cleaning.setChoreEstimateTime(30);
         cleaning.setChorePoint(10);

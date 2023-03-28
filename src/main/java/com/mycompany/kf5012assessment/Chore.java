@@ -22,7 +22,6 @@ public class Chore {
     private boolean complete = false; // true if the user has completed the task
 
     
-
     public int getChoreID() {
         return choreID;
     }
