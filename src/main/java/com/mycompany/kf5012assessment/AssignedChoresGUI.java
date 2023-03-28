@@ -105,6 +105,11 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         cancelButton.setText("cancel");
 
         acceptButton.setText("accept");
+        acceptButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acceptButtonActionPerformed(evt);
+            }
+        });
 
         weekScoreLabel.setText("This weeks score:");
 
@@ -197,9 +202,13 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
 
     private void daySelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daySelectorActionPerformed
        int selection = daySelector.getSelectedIndex();
-       System.out.println("Event happened");
        updateDisplayTableData(selection);
     }//GEN-LAST:event_daySelectorActionPerformed
+
+    private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptButtonActionPerformed
+        System.out.println("Accept Pressed");
+        submitData();
+    }//GEN-LAST:event_acceptButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,6 +339,23 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         
         for(int i = 0; i < list.size(); i++){
             tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).isComplete()});
+        }
+        
+    }
+    
+    public void submitData(){
+        DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
+        boolean checkBox;
+        for(int i  = 0; i < dummyList.getAssignedChoresList().size(); i++){
+            try {
+                checkBox = (boolean) tableModel.getValueAt(i, 2);
+                if (checkBox) {
+                    System.out.println("Checked");
+                }
+            }catch(Exception e){
+                System.out.println("Nothing is checked");
+            }
+            
         }
         
     }

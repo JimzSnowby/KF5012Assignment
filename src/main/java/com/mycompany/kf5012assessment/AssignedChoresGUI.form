@@ -208,6 +208,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="accept"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="acceptButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="weekScoreLabel">
       <Properties>
