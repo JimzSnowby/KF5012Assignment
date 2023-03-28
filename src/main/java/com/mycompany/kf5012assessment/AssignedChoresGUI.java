@@ -21,6 +21,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         createDummyData();
         try{
             db.selectChores();
+            
         }catch(Exception e){
             System.out.print("Error has occurred: " + e);
         }

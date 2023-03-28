@@ -19,12 +19,13 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
      * Creates new form SelectWeeklyChoreGUI
      */
     // Define a private ArrayList of Strings to store the chores
-    private ArrayList<Chore> choresArrayList;
+   
     private SelectWeeklyChoreGUI dummyList;
 
     public SelectWeeklyChoreGUI() {
         // sotring the list 
         ChoresDatabase choresDB = new ChoresDatabase();
+        ArrayList<Chore> choresArrayList = new ArrayList();
         try {
             choresArrayList = choresDB.selectChores();
         } catch (Exception e) {

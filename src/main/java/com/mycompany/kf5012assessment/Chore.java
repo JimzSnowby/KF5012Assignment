@@ -21,9 +21,7 @@ public class Chore {
     private int day;    // int that correlates to day of the week 1-7
     private boolean complete = false; // true if the user has completed the task
 
-    Chore(String choreName) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 
     public int getChoreID() {
         return choreID;
