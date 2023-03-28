@@ -10,12 +10,17 @@ import java.util.*;
  *
  * @author w21023500
  */
-// Nihal Kejman 
-// This is a list of users
+// This is a list of users collected from the database
 public class UserList {
     private List<User> userList = new ArrayList(); //This is the list of all the users
-
+    
     public UserList() {
+        ChoresDatabase db = new ChoresDatabase();
+        try {
+            userList = db.selectUsers();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
     }
 
     public List<User> getUserList() {

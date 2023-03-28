@@ -14,6 +14,7 @@ import javax.swing.table.*;
 public class AssignedChoresGUI extends javax.swing.JFrame {
     private AssignedChoresList dummyList;
     private ChoresDatabase db = new ChoresDatabase();
+    private UserList users = new UserList();
     /*
      * Creates new form AssignedChoresGUI
      */
@@ -23,6 +24,9 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             db.selectChores();
         }catch(Exception e){
             System.out.print("Error has occurred: " + e);
+        }
+        for(int i = 0; i < users.getUserList().size(); i++){
+            System.out.println(users.getUserList().get(i).getUserName());
         }
         initComponents();
         displayTableData(dummyList);
@@ -364,6 +368,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     }
     
     public int awardPoints(){
+        
         int difficulty = 1;
         // Algorithm if faster than estimate
             // (EstimateTime - ActualTime) * choreDifficulty(Based on time, < 15 min is easy = 1, < 30 min is med =  1.5, > 30 is hard  = 2)
