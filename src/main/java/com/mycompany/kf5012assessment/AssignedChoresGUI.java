@@ -21,7 +21,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         createDummyData();
         try{
             db.selectChores();
-            
         }catch(Exception e){
             System.out.print("Error has occurred: " + e);
         }
@@ -50,8 +49,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         totalScoreLabel = new javax.swing.JLabel();
         weekScore = new javax.swing.JLabel();
         totalScore = new javax.swing.JLabel();
-        totalChoresLabel = new javax.swing.JLabel();
         totalChores = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
 
@@ -60,7 +59,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         setResizable(false);
 
         Title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        Title.setText("This weeks chores");
+        Title.setText("This weeks chores:");
 
         daySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }));
         daySelector.addActionListener(new java.awt.event.ActionListener() {
@@ -124,9 +123,10 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
 
         totalScore.setText("0");
 
-        totalChoresLabel.setText("Total chores:");
-
+        totalChores.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         totalChores.setText("0");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User1", "User2" }));
 
         menuFile.setText("File");
         menuBar.add(menuFile);
@@ -145,30 +145,28 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                         .addGap(62, 62, 62)
                         .addComponent(acceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGap(46, 46, 46)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(Title)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(totalChoresLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(totalChores))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(6, 6, 6)
                                     .addComponent(daySelectorLabel)
                                     .addGap(18, 18, 18)
-                                    .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(totalScoreLabel)
+                                    .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(Title)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(totalScore))
-                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(totalChores))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(33, 33, 33)
                                     .addComponent(weekScoreLabel)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(weekScore))))
+                                    .addComponent(weekScore)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(totalScoreLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(totalScore))))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGap(38, 38, 38)
                             .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -177,20 +175,22 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Title)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(weekScoreLabel)
                     .addComponent(weekScore)
-                    .addComponent(totalChoresLabel)
-                    .addComponent(totalChores))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(daySelectorLabel)
                     .addComponent(totalScoreLabel)
                     .addComponent(totalScore))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Title)
+                        .addComponent(totalChores))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(daySelectorLabel)))
+                .addGap(18, 18, 18)
                 .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -255,11 +255,11 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private javax.swing.JTable choreTable;
     private javax.swing.JComboBox<String> daySelector;
     private javax.swing.JLabel daySelectorLabel;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuFile;
     private javax.swing.JScrollPane tableContainer;
     private javax.swing.JLabel totalChores;
-    private javax.swing.JLabel totalChoresLabel;
     private javax.swing.JLabel totalScore;
     private javax.swing.JLabel totalScoreLabel;
     private javax.swing.JLabel weekScore;
@@ -352,6 +352,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 checkBox = (boolean) tableModel.getValueAt(i, 2);
                 if (checkBox) {
                     System.out.println("Checked");
+                }else{
+                    System.out.println("Not Checked");
                 }
             }catch(Exception e){
                 System.out.println("Nothing is checked");
@@ -359,6 +361,16 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             
         }
         
+    }
+    
+    public int awardPoints(){
+        int difficulty = 1;
+        // Algorithm if faster than estimate
+            // (EstimateTime - ActualTime) * choreDifficulty(Based on time, < 15 min is easy = 1, < 30 min is med =  1.5, > 30 is hard  = 2)
+        // Algorithm if slower than estimate, has a 5-10 minute leeway on lateness
+            // ((ActualTime - EstimateTime) * difficulty) * 0.5
+        
+        return 1;
     }
     
     public void createDummyData(){
