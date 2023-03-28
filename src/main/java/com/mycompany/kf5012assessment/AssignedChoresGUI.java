@@ -52,6 +52,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("This weeks chores");
+        setResizable(false);
 
         Title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Title.setText("This weeks chores");
@@ -65,6 +66,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
 
         choreTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
@@ -181,22 +183,22 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                     .addComponent(daySelectorLabel)
                     .addComponent(totalScoreLabel)
                     .addComponent(totalScore))
-                .addGap(18, 18, 18)
-                .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
                     .addComponent(acceptButton))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void daySelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daySelectorActionPerformed
-       Object selected = daySelector.getSelectedItem();
+       int selection = daySelector.getSelectedIndex();
        System.out.println("Event happened");
-       updateDisplayTableData(selected);
+       updateDisplayTableData(selection);
     }//GEN-LAST:event_daySelectorActionPerformed
 
     /**
@@ -260,13 +262,33 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         tableModel.setRowCount(0);
         
         List<Chore> list = tableData.getAssignedChoresList();
-        Object selected = daySelector.getSelectedItem();
+        int selection = daySelector.getSelectedIndex();
         
-        if(selected.toString().equals("Monday")){
-            list = tableData.getMon();
-        }
-        if(selected.toString().equals("Tuesday")){
-            list = tableData.getTues();
+        switch (selection){
+            case 0:
+                list = dummyList.getMon();
+                break;
+            case 1:
+                list = dummyList.getTues();
+                break;
+            case 2:
+                list = dummyList.getWed();
+                break;
+            case 3:
+                list = dummyList.getThur();
+                break;
+            case 4:
+                list = dummyList.getFri();
+                break;
+            case 5:
+                list = dummyList.getSat();
+                break;
+            case 6:
+                list = dummyList.getSun();
+                break;
+            default:
+                list = dummyList.getAssignedChoresList();
+                break;
         }
         
         for(int i = 0; i < list.size(); i++){
@@ -274,15 +296,36 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         }
     }
     
-    public void updateDisplayTableData(Object selected){
+    public void updateDisplayTableData(int selection){
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
         List<Chore> list = dummyList.getAssignedChoresList();
-        if(selected.toString().equals("Monday")){
-            list = dummyList.getMon();
-        }
-        if(selected.toString().equals("Tuesday")){
-            list = dummyList.getTues();
+
+        switch (selection){
+            case 0:
+                list = dummyList.getMon();
+                break;
+            case 1:
+                list = dummyList.getTues();
+                break;
+            case 2:
+                list = dummyList.getWed();
+                break;
+            case 3:
+                list = dummyList.getThur();
+                break;
+            case 4:
+                list = dummyList.getFri();
+                break;
+            case 5:
+                list = dummyList.getSat();
+                break;
+            case 6:
+                list = dummyList.getSun();
+                break;
+            default:
+                list = dummyList.getAssignedChoresList();
+                break;
         }
         
         for(int i = 0; i < list.size(); i++){
