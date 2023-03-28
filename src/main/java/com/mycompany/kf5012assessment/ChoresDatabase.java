@@ -152,9 +152,11 @@ public class ChoresDatabase {
         String rs = ("select max(choreID) from chores;");
         database.RunSQLQuery(rs);
         int max = Integer.parseInt(rs) + 1;
-        String placeholder = "n/a";
+        int placeholder = 1;
+        
+        
 
-        String sqlAddChoreL = "INSERT INTO chores (choreID, choreName,choreFrequency, choreEstimateTime) VALUES("
+        String sqlAddChoreL = "INSERT INTO chores (choreID, choreName, choreFrequencyID, choreEstimateTime) VALUES("
                 + max + ", "
                 + newChore.getChoreName() + ", "
                 + placeholder + ", "
