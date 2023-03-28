@@ -19,6 +19,11 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
      */
     public AssignedChoresGUI() {
         createDummyData();
+        try{
+            db.selectChores();
+        }catch(Exception e){
+            System.out.print("Error has occurred: " + e);
+        }
         initComponents();
         displayTableData(dummyList);
         
@@ -48,7 +53,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         totalChores = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
-        menuEdit = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("This weeks chores");
@@ -125,9 +129,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
 
         menuFile.setText("File");
         menuBar.add(menuFile);
-
-        menuEdit.setText("Edit");
-        menuBar.add(menuEdit);
 
         setJMenuBar(menuBar);
 
@@ -254,7 +255,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> daySelector;
     private javax.swing.JLabel daySelectorLabel;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
     private javax.swing.JScrollPane tableContainer;
     private javax.swing.JLabel totalChores;
