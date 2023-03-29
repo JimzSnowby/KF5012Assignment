@@ -19,7 +19,7 @@ public class ChoresDatabase {
     //Chore newChore;
     public ChoresDatabase() {
         database = new DBConnection();
-        database.Connect("C:\\Users\\james\\Documents\\Year 2\\Semester2\\Software Engineering\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        database.Connect("C:\\Users\\nihal\\OneDrive - Northumbria University - Production Azure AD\\Documents\\YEAR 2\\Semester 2\\software engineer\\Group Work\\new new push\\kf5012db.db");
 
     }
 

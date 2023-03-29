@@ -194,7 +194,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         String choreName = jTextField1.getText(); // get the chore name from the text field
-        Chore chore = new Chore(choreName); // create a new Chore object with the given name
+        Chore chore = new Chore(); // create a new Chore object with the given name
         ChoreList choreList = new ChoreList(); // create a new instance of the ChoreList class
         choreList.getChoreList().add(chore); // add the chore to the list
     }//GEN-LAST:event_jTextField1ActionPerformed
@@ -216,7 +216,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         }
 
         // Add the new task to the main window's chore list
-        mainWindow.AddNewChore(taskName);
+        mainWindow.AddNewChore(taskName,7,8);
         // Close the dialogAddNewChore
         this.dispose();
         // TODO add your handling code here:

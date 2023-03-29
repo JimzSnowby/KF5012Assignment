@@ -20,22 +20,65 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
      */
     // Define a private ArrayList of Strings to store the chores
    
-    private SelectWeeklyChoreGUI dummyList;
+private ArrayList<Chore> dummyList;
+private ArrayList<Chore> choresArrayList;
 
-    public SelectWeeklyChoreGUI() {
-        // sotring the list 
-        ChoresDatabase choresDB = new ChoresDatabase();
-        ArrayList<Chore> choresArrayList = new ArrayList();
-        try {
-            choresArrayList = choresDB.selectChores();
-        } catch (Exception e) {
-            System.out.println("Error occured in extracting data");
-        }
-
-        initComponents();
-
+public SelectWeeklyChoreGUI() {
+    // initialize a new instance of ChoresDatabase and create a list of chores by calling its selectChores() method
+    ChoresDatabase choresDB = new ChoresDatabase();
+    ArrayList<Chore> choresArrayList = new ArrayList();
+    try {
+        choresArrayList = choresDB.selectChores();
+    } catch (Exception e) {
+        System.out.println("Error occured in extracting data");
     }
+    
+    // store the list in the dummyList field and call the initComponents() method to initialize the GUI
+    dummyList = choresArrayList;
+    initComponents();
+    
+    // call updateTableData() to populate the table with data
+    updateTableData();
+}
 
+
+public void AddNewChore(String name, int frequency, int estimateTime) {
+    // create a new Chore object and set its properties
+    Chore newChore = new Chore();
+    ChoresDatabase choresDBAdding = new ChoresDatabase();
+    newChore.setChoreName(name);
+    newChore.setFrequency(frequency);
+    newChore.setFrequency(estimateTime);
+
+    // add the new chore to the database and call updateChoreTable() to update the table with the new data
+    choresDBAdding.addChore(newChore);
+    updateChoreTable();
+}
+
+public void updateChoreTable() {
+    // check if the table exists and has a DefaultTableModel
+    if (choreTable != null && choreTable.getModel() instanceof DefaultTableModel) {
+        // if so, clear the table and add each chore in the list to a new row
+        DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
+        tableModel.setRowCount(0);
+        for (int i = 0; i < choresArrayList.size(); i++) {
+            tableModel.addRow(new Object[]{choresArrayList.get(i).getChoreName()});
+        }
+    } else {
+        // if the table or table model is null, display an error message
+        JOptionPane.showMessageDialog(this, "Error: The chore table or table model is null.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void updateTableData() {
+    // create a new DefaultTableModel and set its data using the dummyList
+    DefaultTableModel model = new DefaultTableModel(new Object[]{"Task", "Today"}, 0);
+    for (Chore chore : dummyList) {
+        model.addRow(new Object[]{chore.getChoreName(), false});
+    }
+    // set the choreTable model to the new DefaultTableModel
+    choreTable.setModel(model);
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,6 +130,11 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         chooseChoreLabel.setText("Choose day of chores ");
 
         submitChoreButton.setText("Submit");
+        submitChoreButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitChoreButtonActionPerformed(evt);
+            }
+        });
 
         addChoreButton.setText("Add Chore");
         addChoreButton.addActionListener(new java.awt.event.ActionListener() {
@@ -156,59 +204,125 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_addChoreButtonActionPerformed
-    public void displayTableData(ChoreList tableData) {
-        // Empty the existing data
-        DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
-        tableModel.setRowCount(0);
 
-        List<Chore> list = tableData.getChoreList();
-        Object selected = chooseDayChore.getSelectedItem();
+    private void submitChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitChoreButtonActionPerformed
+   DefaultTableModel choreTableModel = (DefaultTableModel) choreTable.getModel();
 
-        if (selected.toString().equals("Monday")) {
-            list = tableData.getMon();
-        }
-        if (selected.toString().equals("Tuesday")) {
-            list = tableData.getTues();
-        }
+    // Get the selected rows
+    int[] selectedRows = choreTable.getSelectedRows();
 
-        for (int i = 0; i < list.size(); i++) {
-            tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).isComplete()});
-        }
+    if (selectedRows.length == 0) {
+        JOptionPane.showMessageDialog(null, "You haven't selected any task.");
+    } else {
+
+       // Iterate through the selected rows
+for (int i = 0; i < selectedRows.length; i++) {
+    // Get the data from the selected row
+    Object[] rowData = new Object[choreTableModel.getColumnCount()];
+    for (int j = 0; j < choreTableModel.getColumnCount(); j++) {
+        rowData[j] = choreTableModel.getValueAt(selectedRows[i], j);
     }
+    // Create a new Chore object using the rowData and add it to the choresArrayList
+    Chore chore = new Chore();
+    chore.setChoreName((String) rowData[0]);
+    chore.setComplete((Boolean) rowData[1]);
+    choresArrayList.add(chore);
+}
 
-    public void updateDisplayTableData(Object selected) {
-        DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
-        tableModel.setRowCount(0);
-        ChoreList dummyList = new ChoreList();
-        List<Chore> list = dummyList.getChoreList();
-        if (selected.toString().equals("Monday")) {
-            list = dummyList.getMon();
-        }
-        if (selected.toString().equals("Tuesday")) {
-            list = dummyList.getTues();
-        }
-
-        for (int i = 0; i < list.size(); i++) {
-            tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).isComplete()});
-        }
+        // Create an instance of the EstimateTimeInputGUI and pass the selectedData ArrayList
+      EstimateTimeInputGUI estimateTimeInputGUI = new EstimateTimeInputGUI(choresArrayList);
+      estimateTimeInputGUI.setVisible(true);
 
     }
+ // TODO add your handling code here:
+    }//GEN-LAST:event_submitChoreButtonActionPerformed
+   public void displayTableData(ChoreList tableData) {
+    // Empty the existing data
+    DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
+    tableModel.setRowCount(0);
+
+    // Get the list of chores from the passed ChoreList object
+    List<Chore> list = tableData.getChoreList();
+    // Get the selected day of the week from the drop-down menu
+    Object selected = chooseDayChore.getSelectedItem();
+
+    // If Monday is selected, update the list to the Monday list
+    if (selected.toString().equals("Monday")) {
+        list = tableData.getMon();
+    }
+    // If Tuesday is selected, update the list to the Tuesday list
+    if (selected.toString().equals("Tuesday")) {
+        list = tableData.getTues();
+    }
+
+    // Iterate through the list and add each chore's data to the table
+    for (int i = 0; i < list.size(); i++) {
+        tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).isComplete()});
+    }
+}
+
+public void updateDisplayTableData(Object selected) {
+    // Empty the existing data
+    DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
+    tableModel.setRowCount(0);
+
+    // Create a dummy ChoreList object to get the list of chores
+    ChoreList dummyList = new ChoreList();
+    List<Chore> list = dummyList.getChoreList();
+    
+    // If Monday is selected, update the list to the Monday list
+    if (selected.toString().equals("Monday")) {
+        list = dummyList.getMon();
+    }
+    // If Tuesday is selected, update the list to the Tuesday list
+    if (selected.toString().equals("Tuesday")) {
+        list = dummyList.getTues();
+    }
+
+    // Iterate through the list and add each chore's data to the table
+    for (int i = 0; i < list.size(); i++) {
+        tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).isComplete()});
+    }
+}
+
+    
 
     public void createDummyData() {
-        Chore cleaning = new Chore("Clean The Bin");
-        cleaning.setChoreID(1);
-        cleaning.setChoreName("Cleaning");
+    Chore cleaning = new Chore();
+    cleaning.setChoreID(1);
+    cleaning.setChoreName("Cleaning");
+    cleaning.setFrequency(3);
+    cleaning.setDay(2);
+    cleaning.setChoreEstimateTime(30);
+    cleaning.setChorePoint(10);
+    
+    Chore cooking = new Chore();
+    cooking.setChoreID(2);
+    cooking.setChoreName("Cooking");
+    cooking.setFrequency(2);
+    cooking.setDay(5);
+    cooking.setChoreEstimateTime(60);
+    cooking.setChorePoint(20);
+    
+    Chore laundry = new Chore();
+    laundry.setChoreID(3);
+    laundry.setChoreName("Laundry");
+    laundry.setFrequency(1);
+    laundry.setDay(3);
+    laundry.setChoreEstimateTime(45);
+    laundry.setChorePoint(15);
+    
+    ChoreList dummyList = new ChoreList();
+    dummyList.addToChoreList(cleaning);
+    dummyList.addToChoreList(cooking);
+    dummyList.addToChoreList(laundry);
+}
 
-        cleaning.setFrequency(3);
-        cleaning.setChoreEstimateTime(30);
-        cleaning.setChorePoint(10);
-        cleaning.setDay(2);
-        ChoreList dummyList = new ChoreList();
-        dummyList.addToChoreList(cleaning);
 
-        // AssignedChoresGUI acGUI = new AssignedChoresGUI();
-        //displayTableData(dummyList);
-    }
+
+
+
+
 
     /**
      * @param args the command line arguments
@@ -255,8 +369,5 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
     private javax.swing.JMenuBar menueBarOne;
     private javax.swing.JButton submitChoreButton;
     // End of variables declaration//GEN-END:variables
-
-    void AddNewChore(String taskName) {
-        System.out.println(taskName);
-    }
+  
 }
