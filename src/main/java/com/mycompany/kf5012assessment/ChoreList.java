@@ -12,7 +12,7 @@ import java.util.*;
 public class ChoreList {
 
     private List<Chore> choreList = new ArrayList();
-   private List<Chore> mon = new ArrayList();
+    private List<Chore> mon = new ArrayList();
     private List<Chore> tues = new ArrayList();
     private List<Chore> wed = new ArrayList();
     private List<Chore> thur = new ArrayList();

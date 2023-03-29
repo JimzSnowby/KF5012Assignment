@@ -13,18 +13,18 @@ import javax.swing.table.*;
  */
 public class AssignedChoresGUI extends javax.swing.JFrame {
     private AssignedChoresList dummyList;
-    private ChoresDatabase db = new ChoresDatabase();
+    //private ChoresDatabase db = new ChoresDatabase();
     private UserList users = new UserList();
     /*
      * Creates new form AssignedChoresGUI
      */
     public AssignedChoresGUI() {
         createDummyData();
-        try{
+        /*try{
             db.selectChores();
         }catch(Exception e){
             System.out.print("Error has occurred: " + e);
-        }
+        }*/
         for(int i = 0; i < users.getUserList().size(); i++){
             System.out.println(users.getUserList().get(i).getUserName());
         }
