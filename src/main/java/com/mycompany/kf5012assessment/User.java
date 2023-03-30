@@ -20,7 +20,18 @@ public class User {
     private int totalScore;
     private int activeUser; // is this the current active user
     private AssignedChoresList listOfChores;    // This is the list of chores that have been assigned to the user
+    private int currentScore;
 
+    public int getCurrentScore() {
+        return currentScore;
+    }
+
+    public void setCurrentScore(int currentScore) {
+        this.currentScore = currentScore;
+    }
+    
+  
+    
     public int getId() {
         return id;
     }

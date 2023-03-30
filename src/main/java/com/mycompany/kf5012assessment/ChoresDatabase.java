@@ -19,7 +19,7 @@ public class ChoresDatabase {
     //Chore newChore;
     public ChoresDatabase() {
         database = new DBConnection();
-        database.Connect("C:\\Users\\james\\Documents\\Year 2\\Semester2\\Software Engineering\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        database.Connect("C:\\Users\\nihal\\OneDrive - Northumbria University - Production Azure AD\\Documents\\YEAR 2\\Semester 2\\software engineer\\Group Work\\new new push\\kf5012db.db");
 
     }
 
@@ -31,7 +31,7 @@ public class ChoresDatabase {
     //Select all chores
     public ArrayList<Chore> selectChores() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, userCurrentScore, userWeekScore FROM chores;";
+        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime FROM chores;";
 
         ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
         ArrayList<Chore> chores = new ArrayList<Chore>();
@@ -42,9 +42,6 @@ public class ChoresDatabase {
                 newChore.setChoreID(choreList.getInt(1));
                 newChore.setChoreName(choreList.getString(2));
                 newChore.setChoreEstimateTime(choreList.getInt(3));
-                newChore.setUserCurrentScore(choreList.getInt(4));
-                newChore.setUserWeekScore(choreList.getInt(5));
-
                 chores.add(newChore);
 
             }
@@ -61,7 +58,7 @@ public class ChoresDatabase {
     //Select weekly chores
     public ArrayList<Chore> selectChoresFrequencyWeekly() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, userCurrentScore, userWeekScore "
+        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime "
                 + "FROM chores "
                 + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID "
                 + "WHERE choreFrequency = 1;";
@@ -75,9 +72,6 @@ public class ChoresDatabase {
                 newChore.setChoreID(choreList.getInt(1));
                 newChore.setChoreName(choreList.getString(2));
                 newChore.setChoreEstimateTime(choreList.getInt(3));
-                newChore.setUserCurrentScore(choreList.getInt(4));
-                newChore.setUserWeekScore(choreList.getInt(5));
-
                 chores.add(newChore);
    
             }
@@ -94,7 +88,7 @@ public class ChoresDatabase {
     //Select one-off chores 
     public ArrayList<Chore> selectChoresFrequencyOneOff() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, userCurrentScore, userWeekScore "
+        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime "
                 + "FROM chores "
                 + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID "
                 + "WHERE choreFrequency = 2;";
@@ -108,8 +102,6 @@ public class ChoresDatabase {
                 newChore.setChoreID(choreList.getInt(1));
                 newChore.setChoreName(choreList.getString(2));
                 newChore.setChoreEstimateTime(choreList.getInt(3));
-                newChore.setUserCurrentScore(choreList.getInt(4));
-                newChore.setUserWeekScore(choreList.getInt(5));
                 chores.add(newChore);
 
             }
@@ -126,7 +118,7 @@ public class ChoresDatabase {
     //Select all users
     public ArrayList<User> selectUsers() throws SQLException {
 
-        String sqlSelectUsers = "SELECT userID, userName, userPassword, userActive FROM users;";
+        String sqlSelectUsers = "SELECT userID, userName, userPassword, userActive, userCurrentScore, userWeekScore FROM users;";
 
         ResultSet userList = database.RunSQLQuery(sqlSelectUsers);
         ArrayList<User> users = new ArrayList<User>();
@@ -138,6 +130,8 @@ public class ChoresDatabase {
                 newUser.setUserName(userList.getString(2));
                 newUser.setPassword(userList.getString(3));
                 newUser.setActiveUser(userList.getInt(4));
+                newUser.setWeekScore(userList.getInt(5));
+                newUser.setCurrentScore(userList.getInt(6));
 
                 users.add(newUser);
 
@@ -186,12 +180,17 @@ public class ChoresDatabase {
         int max = Integer.parseInt(rs) + 1;
 
         int placeholder = 0;
+        int placeholder2 = 0;
+        int placeholder3 = 0;
 
-        String sqlAddChoreL = "INSERT INTO users (userID, userName, userPassword, userActive) VALUES("
+        
+        String sqlAddChoreL = "INSERT INTO users (userID, userName, userPassword, userActive, userCurrentScore, userWeekScore) VALUES("
                 + max + ", "
                 + newUser.getUserName() + ", "
                 + newUser.getPassword() + ", "
                 + placeholder + ", '"
+                + placeholder2 + ", '"
+                + placeholder3 + ", '"
                 + " '); ";
 
         boolean success;
