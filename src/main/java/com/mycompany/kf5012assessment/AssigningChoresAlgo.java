@@ -18,7 +18,7 @@ public class AssigningChoresAlgo{
     
     private ArrayList<EstimateTimeInputGUI> user1EstimatedTimes;
     private ArrayList<EstimateTimeInputGUI> user2EstimatedTimes;
-    private ArrayList<SelectWeeklyChoreGUI> choresArrayList;
+    private ArrayList<Chore> choresArrayList;
     //private choresArrayList = dummyList;
     public void main(String[] args) {
         
@@ -63,7 +63,7 @@ public class AssigningChoresAlgo{
         cleaning.setFrequency(3);
         cleaning.setChoreEstimateTime(30);
         cleaning.setDay(2);
-        this.dummyList = new AssignedChoresList();
-        dummyList.addToChoreList(cleaning);
+        this.choresArrayList = new ArrayList();
+        choresArrayList.add(cleaning);
         }
 }

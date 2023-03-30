@@ -294,7 +294,7 @@ public void updateDisplayTableData(Object selected) {
     cleaning.setFrequency(3);
     cleaning.setDay(2);
     cleaning.setChoreEstimateTime(30);
-    cleaning.setChorePoint(10);
+    
     
     Chore cooking = new Chore();
     cooking.setChoreID(2);
@@ -302,7 +302,7 @@ public void updateDisplayTableData(Object selected) {
     cooking.setFrequency(2);
     cooking.setDay(5);
     cooking.setChoreEstimateTime(60);
-    cooking.setChorePoint(20);
+    
     
     Chore laundry = new Chore();
     laundry.setChoreID(3);
@@ -310,7 +310,7 @@ public void updateDisplayTableData(Object selected) {
     laundry.setFrequency(1);
     laundry.setDay(3);
     laundry.setChoreEstimateTime(45);
-    laundry.setChorePoint(15);
+    
     
     ChoreList dummyList = new ChoreList();
     dummyList.addToChoreList(cleaning);
