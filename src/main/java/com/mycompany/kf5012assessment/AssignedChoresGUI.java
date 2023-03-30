@@ -5,7 +5,6 @@
 package com.mycompany.kf5012assessment;
 
 import java.util.*;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.*;
 
 /**
@@ -15,6 +14,7 @@ import javax.swing.table.*;
 public class AssignedChoresGUI extends javax.swing.JFrame {
     private AssignedChoresList dummyList;
     private UserList users = new UserList();
+    private int currentUserIndex = 0;
     
     /*
      * Creates new form AssignedChoresGUI
@@ -220,9 +220,10 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_acceptButtonActionPerformed
 
     private void userSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSelectorActionPerformed
-        for(int i = 0; i < users.getUserList().size(); i++){
-                System.out.println(users.getUserList().get(i).getUserName());   
-            }
+        System.out.println(userSelector.getSelectedIndex());
+        currentUserIndex = userSelector.getSelectedIndex();
+        AssignedChoresList userSelect = users.getUserList().get(currentUserIndex).getListOfChores();
+        
     }//GEN-LAST:event_userSelectorActionPerformed
 
     /**
@@ -285,10 +286,10 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         tableModel.setRowCount(0);
         
         List<Chore> list = tableData.getAssignedChoresList();
-        int selection = daySelector.getSelectedIndex();
+        int selectionDay = daySelector.getSelectedIndex();
         
         // Get the list depending what day is selected in the comboBox
-        switch (selection){
+        switch (selectionDay){
             case 0:
                 list = dummyList.getMon();
                 break;
@@ -323,7 +324,9 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     public void updateDisplayTableData(int selection){
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
+        
         List<Chore> list = dummyList.getAssignedChoresList();
+        
 
         switch (selection){
             case 0:
@@ -405,7 +408,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         cleaning.setChoreName("Cleaning");
         cleaning.setFrequency(3);
         cleaning.setChoreEstimateTime(30);
-        cleaning.setChorePoint(10);
         cleaning.setDay(2);
         this.dummyList = new AssignedChoresList();
         dummyList.addToChoreList(cleaning);
