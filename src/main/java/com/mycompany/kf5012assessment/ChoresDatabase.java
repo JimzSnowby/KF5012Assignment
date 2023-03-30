@@ -42,7 +42,8 @@ public class ChoresDatabase {
                 newChore.setChoreID(choreList.getInt(1));
                 newChore.setChoreName(choreList.getString(2));
                 newChore.setChoreEstimateTime(choreList.getInt(3));
-                newChore.setChorePoint(choreList.getInt(4));
+                newChore.setUserCurrentScore(choreList.getInt(4));
+                newChore.setUserWeekScore(choreList.getInt(5));
 
                 chores.add(newChore);
 
@@ -74,10 +75,11 @@ public class ChoresDatabase {
                 newChore.setChoreID(choreList.getInt(1));
                 newChore.setChoreName(choreList.getString(2));
                 newChore.setChoreEstimateTime(choreList.getInt(3));
-                newChore.setChorePoint(choreList.getInt(4));
+                newChore.setUserCurrentScore(choreList.getInt(4));
+                newChore.setUserWeekScore(choreList.getInt(5));
 
                 chores.add(newChore);
-
+   
             }
         } catch (SQLException e) {
             System.out.println("Failed to process query in selectChores()");
@@ -106,8 +108,8 @@ public class ChoresDatabase {
                 newChore.setChoreID(choreList.getInt(1));
                 newChore.setChoreName(choreList.getString(2));
                 newChore.setChoreEstimateTime(choreList.getInt(3));
-                newChore.setChorePoint(choreList.getInt(4));
-
+                newChore.setUserCurrentScore(choreList.getInt(4));
+                newChore.setUserWeekScore(choreList.getInt(5));
                 chores.add(newChore);
 
             }

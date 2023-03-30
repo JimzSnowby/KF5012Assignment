@@ -18,10 +18,28 @@ public class Chore {
     //sprivate String choreDesc;   // for more details e.g shopping list
     private int frequency;  // number of times in a week
     private int choreEstimateTime;  // for user to input their time estimate
-    private int chorePoint;    // The amount of points completing this chore will reward
     private int day;    // int that correlates to day of the week 1-7
     private boolean complete = false; // true if the user has completed the task
+    private int userCurrentScore;
+    private int userWeekScore;
 
+    public int getUserCurrentScore() {
+        return userCurrentScore;
+    }
+
+    public void setUserCurrentScore(int userCurrentScore) {
+        this.userCurrentScore = userCurrentScore;
+    }
+
+    public int getUserWeekScore() {
+        return userWeekScore;
+    }
+
+    public void setUserWeekScore(int userWeekScore) {
+        this.userWeekScore = userWeekScore;
+    }
+        
+    
     public int getChoreFrequencyID() {
         return choreFrequencyID;
     }
@@ -71,14 +89,6 @@ public class Chore {
 
     public void setChoreEstimateTime(int choreEstimateTime) {
         this.choreEstimateTime = choreEstimateTime;
-    }
-
-    public int getChorePoint() {
-        return chorePoint;
-    }
-
-    public void setChorePoint(int chorePoint) {
-        this.chorePoint = chorePoint;
     }
 
     public int getDay() {
