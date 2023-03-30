@@ -31,7 +31,7 @@ public class ChoresDatabase {
     //Select all chores
     public ArrayList<Chore> selectChores() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, chorePoint FROM chores;";
+        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, userCurrentScore, userWeekScore FROM chores;";
 
         ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
         ArrayList<Chore> chores = new ArrayList<Chore>();
@@ -60,7 +60,7 @@ public class ChoresDatabase {
     //Select weekly chores
     public ArrayList<Chore> selectChoresFrequencyWeekly() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, chorePoint "
+        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, userCurrentScore, userWeekScore "
                 + "FROM chores "
                 + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID "
                 + "WHERE choreFrequency = 1;";
@@ -92,7 +92,7 @@ public class ChoresDatabase {
     //Select one-off chores 
     public ArrayList<Chore> selectChoresFrequencyOneOff() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, chorePoint "
+        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTime, userCurrentScore, userWeekScore "
                 + "FROM chores "
                 + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID "
                 + "WHERE choreFrequency = 2;";
@@ -157,12 +157,15 @@ public class ChoresDatabase {
         database.RunSQLQuery(rs);
         int max = Integer.parseInt(rs) + 1;
         int placeholder = 1;
+        int placeholder2 = 1;
 
-        String sqlAddChoreL = "INSERT INTO chores (choreID, choreName, choreFrequencyID, choreEstimateTime) VALUES("
+
+        String sqlAddChoreL = "INSERT INTO chores (choreID, choreName, choreEstimateTime, choreFrequencyID) VALUES("
                 + max + ", "
                 + newChore.getChoreName() + ", "
                 + placeholder + ", "
-                + newChore.getChoreEstimateTime() + ", '"
+                + newChore.getChoreEstimateTime() + ", "
+                + placeholder2 + ", '"
                 + " '); ";
 
         boolean success;
