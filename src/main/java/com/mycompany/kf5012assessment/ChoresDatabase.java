@@ -118,7 +118,7 @@ public class ChoresDatabase {
     //Select all users
     public ArrayList<User> selectUsers() throws SQLException {
 
-        String sqlSelectUsers = "SELECT userID, userName, userPassword, userActive, userCurrentScore, userWeekScore FROM users;";
+        String sqlSelectUsers = "SELECT userID, userName, userPassword, userActive, userWeekScore, userTotalScore FROM users;";
 
         ResultSet userList = database.RunSQLQuery(sqlSelectUsers);
         ArrayList<User> users = new ArrayList<User>();
@@ -131,7 +131,7 @@ public class ChoresDatabase {
                 newUser.setPassword(userList.getString(3));
                 newUser.setActiveUser(userList.getInt(4));
                 newUser.setWeekScore(userList.getInt(5));
-                newUser.setCurrentScore(userList.getInt(6));
+                newUser.setTotalScore(userList.getInt(6));
 
                 users.add(newUser);
 
