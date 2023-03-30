@@ -161,7 +161,6 @@ public class ChoresDatabase {
         int placeholder = 1;
         int placeholder2 = 1;
 
-
         String sqlAddChoreL = "INSERT INTO chores (choreID, choreName, choreEstimateTime, choreFrequencyID) VALUES("
                 + max + ", "
                 + newChore.getChoreName() + ", "
