@@ -20,25 +20,6 @@ public class Chore {
     private int choreEstimateTime;  // for user to input their time estimate
     private int day;    // int that correlates to day of the week 1-7
     private boolean complete = false; // true if the user has completed the task
-    private int userCurrentScore;
-    private int userWeekScore;
-
-    public int getUserCurrentScore() {
-        return userCurrentScore;
-    }
-
-    public void setUserCurrentScore(int userCurrentScore) {
-        this.userCurrentScore = userCurrentScore;
-    }
-
-    public int getUserWeekScore() {
-        return userWeekScore;
-    }
-
-    public void setUserWeekScore(int userWeekScore) {
-        this.userWeekScore = userWeekScore;
-    }
-        
     
     public int getChoreFrequencyID() {
         return choreFrequencyID;

@@ -16,21 +16,11 @@ public class User {
     private int id; // PK for DB
     private String userName;
     private String password;
-    private int weekScore;
-    private int totalScore;
     private int activeUser; // is this the current active user
     private AssignedChoresList listOfChores;    // This is the list of chores that have been assigned to the user
-    private int currentScore;
+    private int totalScore; // Grand total score
+    private int weekScore;  // Score for this week
 
-    public int getCurrentScore() {
-        return currentScore;
-    }
-
-    public void setCurrentScore(int currentScore) {
-        this.currentScore = currentScore;
-    }
-    
-  
     
     public int getId() {
         return id;
