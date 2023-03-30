@@ -145,7 +145,8 @@ public class ChoresDatabase {
         }
         return users;
     }
-
+    
+   
     //Add a new chore
     public static void addChore(Chore newChore) {
 
@@ -184,7 +185,7 @@ public class ChoresDatabase {
         int placeholder3 = 0;
 
         
-        String sqlAddChoreL = "INSERT INTO users (userID, userName, userPassword, userActive, userCurrentScore, userWeekScore) VALUES("
+        String sqlAddChoreL = "INSERT INTO users (userID, userName, userPassword, userActive, userWeekScore, userTotalScore) VALUES("
                 + max + ", "
                 + newUser.getUserName() + ", "
                 + newUser.getPassword() + ", "
