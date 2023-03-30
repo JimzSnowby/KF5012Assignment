@@ -20,7 +20,6 @@ public class User {
     private int totalScore;
     private int activeUser; // is this the current active user
     private AssignedChoresList listOfChores;    // This is the list of chores that have been assigned to the user
-    private ArrayList<Chore> chores;
 
     public int getId() {
         return id;
@@ -76,12 +75,5 @@ public class User {
 
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
-    }
-     public ArrayList<Chore> getChores() {
-        return chores;
-    }
-    
-    public void addChore(Chore chore) {
-        chores.add(chore);
     }
 }

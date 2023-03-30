@@ -5,6 +5,7 @@
 package com.mycompany.kf5012assessment;
 
 import java.util.*;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.*;
 
 /**
@@ -13,22 +14,20 @@ import javax.swing.table.*;
  */
 public class AssignedChoresGUI extends javax.swing.JFrame {
     private AssignedChoresList dummyList;
-    //private ChoresDatabase db = new ChoresDatabase();
     private UserList users = new UserList();
+    
     /*
      * Creates new form AssignedChoresGUI
      */
     public AssignedChoresGUI() {
-        createDummyData();
-        /*try{
-            db.selectChores();
-        }catch(Exception e){
-            System.out.print("Error has occurred: " + e);
-        }*/
-        for(int i = 0; i < users.getUserList().size(); i++){
-            System.out.println(users.getUserList().get(i).getUserName());
-        }
+        createDummyData(); 
         initComponents();
+        
+        try{
+            initializeUserList();
+        }catch (Exception e){
+            System.out.print("An error has ocurred: " + e);
+        }
         displayTableData(dummyList);
         
     }
@@ -54,7 +53,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         weekScore = new javax.swing.JLabel();
         totalScore = new javax.swing.JLabel();
         totalChores = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        userSelector = new javax.swing.JComboBox<>();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
 
@@ -130,7 +129,11 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         totalChores.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         totalChores.setText("0");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User1", "User2" }));
+        userSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userSelectorActionPerformed(evt);
+            }
+        });
 
         menuFile.setText("File");
         menuBar.add(menuFile);
@@ -162,7 +165,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(totalChores))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(userSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(33, 33, 33)
                                     .addComponent(weekScoreLabel)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -181,7 +184,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(weekScoreLabel)
                     .addComponent(weekScore)
                     .addComponent(totalScoreLabel)
@@ -215,6 +218,12 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         System.out.println("Accept Pressed");
         submitData();
     }//GEN-LAST:event_acceptButtonActionPerformed
+
+    private void userSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSelectorActionPerformed
+        for(int i = 0; i < users.getUserList().size(); i++){
+                System.out.println(users.getUserList().get(i).getUserName());   
+            }
+    }//GEN-LAST:event_userSelectorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,13 +268,13 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private javax.swing.JTable choreTable;
     private javax.swing.JComboBox<String> daySelector;
     private javax.swing.JLabel daySelectorLabel;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuFile;
     private javax.swing.JScrollPane tableContainer;
     private javax.swing.JLabel totalChores;
     private javax.swing.JLabel totalScore;
     private javax.swing.JLabel totalScoreLabel;
+    private javax.swing.JComboBox<String> userSelector;
     private javax.swing.JLabel weekScore;
     private javax.swing.JLabel weekScoreLabel;
     // End of variables declaration//GEN-END:variables
@@ -278,6 +287,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         List<Chore> list = tableData.getAssignedChoresList();
         int selection = daySelector.getSelectedIndex();
         
+        // Get the list depending what day is selected in the comboBox
         switch (selection){
             case 0:
                 list = dummyList.getMon();
@@ -350,7 +360,9 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     
     public void submitData(){
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
-        boolean checkBox;
+        boolean checkBox; 
+        
+        // Iterates over the list to see which chores have their completed box ticked
         for(int i  = 0; i < dummyList.getAssignedChoresList().size(); i++){
             try {
                 checkBox = (boolean) tableModel.getValueAt(i, 2);
@@ -378,6 +390,15 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         return 1;
     }
     
+    public void initializeUserList(){
+        // Retrieves the list of all the users and adds them to the combobox
+        for(int i = 0; i < users.getUserList().size(); i++){
+            userSelector.addItem(users.getUserList().get(i).getUserName());
+        }
+        
+        // add code to change the choreTable depending on user
+    }
+    
     public void createDummyData(){
         Chore cleaning = new Chore();
         cleaning.setChoreID(1);
@@ -388,11 +409,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         cleaning.setDay(2);
         this.dummyList = new AssignedChoresList();
         dummyList.addToChoreList(cleaning);
-        
-        
-       
-       // AssignedChoresGUI acGUI = new AssignedChoresGUI();
-        //displayTableData(dummyList);
         
     }
     
