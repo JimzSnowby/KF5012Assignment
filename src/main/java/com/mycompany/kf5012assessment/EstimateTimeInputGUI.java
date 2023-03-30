@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class EstimateTimeInputGUI extends javax.swing.JFrame {
 
-    private ArrayList<Chore> choresArrayList;
+    private ArrayList<SelectWeeklyChoreGUI> choresArrayList;
     private ChoresDatabase db = new ChoresDatabase();
     private UserList users = new UserList();
  // Declare two ArrayLists to store estimated chore times for each user
@@ -25,7 +25,7 @@ ArrayList<Integer> user2EstimatedTimes = new ArrayList<Integer>();
     /**
      * Creates new form EstimateTimeInputGUI
      */
-    public EstimateTimeInputGUI(ArrayList<Chore> choresArrayList) {
+    public EstimateTimeInputGUI(ArrayList<SelectWeeklyChoreGUI> choresArrayList) {
         this.choresArrayList = choresArrayList;
         for (int i = 0; i < users.getUserList().size(); i++) {
             System.out.println(users.getUserList().get(i).getUserName());
@@ -218,9 +218,9 @@ if (selectedUser.equals("user1")) {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+        //</editor-folds
 
-        ArrayList<Chore> chores = new ArrayList<>();
+        ArrayList<SelectWeeklyChoreGUI> chores = new ArrayList<>();
 // add some chores to the list...
 
         EstimateTimeInputGUI inputGUI = new EstimateTimeInputGUI(chores);
