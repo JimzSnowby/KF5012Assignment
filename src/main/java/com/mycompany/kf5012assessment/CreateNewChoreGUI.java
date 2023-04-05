@@ -216,7 +216,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         }
 
         // Add the new task to the main window's chore list
-        mainWindow.AddNewChore(taskName,7,8);
+        mainWindow.AddNewChore;
         // Close the dialogAddNewChore
         this.dispose();
         // TODO add your handling code here:

@@ -56,9 +56,11 @@ public class GUIOfCommonChores extends javax.swing.JFrame {
         if (choreTable != null && choreTable.getModel() instanceof DefaultTableModel) {
             DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
             tableModel.setRowCount(0);
-            for (int i = 0; i < choresArrayList.size(); i++) {
-                tableModel.addRow(new Object[]{choresArrayList.get(i).getChoreName()});
-            }
+          //  for (int i = 0; i < choresArrayList.size(); i++) {
+             //   tableModel.addRow(new Object[]{choresArrayList.get(i).getChoreName()});
+         //   }
+         tableModel.addRow(Object[]{"clean",false});
+        
         } else {
             // it Handles the error gracefully 
             JOptionPane.showMessageDialog(this, "Error: The chore table or table model is null.", "Error", JOptionPane.ERROR_MESSAGE);

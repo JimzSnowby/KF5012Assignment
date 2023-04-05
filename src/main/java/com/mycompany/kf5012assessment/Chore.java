@@ -20,7 +20,15 @@ public class Chore {
     private int choreEstimateTime;  // for user to input their time estimate
     private int day;    // int that correlates to day of the week 1-7
     private boolean complete = false; // true if the user has completed the task
-    
+    private boolean selectedForThisWeek =true;
+
+    public boolean isSelectedForThisWeek() {
+        return selectedForThisWeek;
+    }
+
+    public void setSelectedForThisWeek(boolean selectedForThisWeek) {
+        this.selectedForThisWeek = selectedForThisWeek;
+    }
     public int getChoreFrequencyID() {
         return choreFrequencyID;
     }
@@ -87,5 +95,6 @@ public class Chore {
     public void setComplete(boolean complete) {
         this.complete = complete;
     }
+    
     
 }
