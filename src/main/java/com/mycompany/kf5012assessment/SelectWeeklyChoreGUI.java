@@ -206,9 +206,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
                 choresArrayList.add(chore);
             }
 
-            // Create an instance of the EstimateTimeInputGUI and pass the selectedData ArrayList
-            EstimateTimeInputGUI estimateTimeInputGUI = new EstimateTimeInputGUI(choresArrayList);
-            estimateTimeInputGUI.setVisible(true);
+            
 
         }
 

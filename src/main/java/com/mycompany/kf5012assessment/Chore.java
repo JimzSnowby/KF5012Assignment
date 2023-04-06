@@ -21,6 +21,9 @@ public class Chore {
     private int day;    // int that correlates to day of the week 1-7
     private boolean complete = false; // true if the user has completed the task
     private boolean selectedForThisWeek =true;
+    private int estimateTimeUserOne;
+   private int estimateTimeUserTwo;
+
 
     public boolean isSelectedForThisWeek() {
         return selectedForThisWeek;
