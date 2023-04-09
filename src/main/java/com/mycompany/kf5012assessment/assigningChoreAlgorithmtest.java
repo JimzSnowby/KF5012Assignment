@@ -4,23 +4,23 @@
  */
 package com.mycompany.kf5012assessment;
 
-import java.sql.SQLException;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 
 /**
  *
- * @author w21023500
+ * @author nihal
  */
-// For Task 7 Group work
-public class AssigningChoresAlgo {
+public class assigningChoreAlgorithmtest {
 
-    private ArrayList<Chore> choresArrayList;
+    /**
+     * @param args the command line arguments
+     */
+    
+     private ArrayList<Chore> choresArrayList;
     private int userOneTotal =0;
     private int userTwoTotal =0;
-    //private choresArrayList = dummyList;
-    public AssigningChoresAlgo() {
+    
+    public assigningChoreAlgorithmtest() {
 
         ChoresDatabase choresDB = new ChoresDatabase();
 
@@ -29,21 +29,24 @@ public class AssigningChoresAlgo {
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
-        calculation();
+                        calculation();
+
     }
-      
     
-    public void calculation() {
+    public int calculation() {
     
         for(int i = 0; i < choresArrayList.size(); i++){
             userOneTotal = userOneTotal + choresArrayList.get(i +1).getEstimateTimeUserOne();
-            System.out.println(userOneTotal);
+          
         }
+          System.out.println("hi"+userOneTotal+choresArrayList.size());
+          System.out.println("heelo");
+         return 0;
 }
+    public static void main(String[] args) {
+        // TODO code application logic here
+          System.out.println("heelo");
 
-    public void main(String[] args) {
-        
     }
-
-  
+    
 }
