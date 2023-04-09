@@ -6,6 +6,7 @@ package com.mycompany.kf5012assessment;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.AbstractTableModel;
@@ -39,19 +40,6 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
         // call updateTableData() to populate the table with data
         updateTableForSelectedDay(0);
-    }
-
-    public void AddNewChore(String name, int frequency, int estimateTime) {
-        // create a new Chore object and set its properties
-        Chore newChore = new Chore();
-        ChoresDatabase choresDBAdding = new ChoresDatabase();
-        newChore.setChoreName(name);
-        newChore.setFrequency(frequency);
-        newChore.setFrequency(estimateTime);
-
-        // add the new chore to the database and call updateChoreTable() to update the table with the new data
-        choresArrayList.add(newChore);
-
     }
 
     /**
@@ -164,6 +152,29 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void addChore(String choreName, String choreType, List<String> days) {
+    ChoresDatabase choresDB = new ChoresDatabase();
+
+    try {
+        Chore newChore = new Chore();
+       // choresDB.insertChore(newChore);
+        choresArrayList.add(newChore);
+        JOptionPane.showMessageDialog(null, "New chore added successfully");
+    } catch (Exception e) {
+        System.out.println("Error occured in inserting data");
+        JOptionPane.showMessageDialog(null, "Error occured in adding chore");
+    }
+
+    updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
+}
+
+
+
+
+
+
+
+
 
     private void chooseDayChoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseDayChoreActionPerformed
         // TODO add your handling code here:
@@ -174,47 +185,57 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_chooseDayChoreActionPerformed
 
     private void addChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addChoreButtonActionPerformed
-        try {
-            CreateNewChoreGUI nc = new CreateNewChoreGUI(this, true);
-            nc.setVisible(true);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }        // TODO add your handling code here:
+    CreateNewChoreGUI addChoreGUI = new CreateNewChoreGUI();
+    addChoreGUI.setVisible(true);
+    addChoreGUI.pack();
+    addChoreGUI.setLocationRelativeTo(null);
+    addChoreGUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_addChoreButtonActionPerformed
 
     private void submitChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitChoreButtonActionPerformed
-        DefaultTableModel choreTableModel = (DefaultTableModel) choreTable.getModel();
-
-        // Get the selected rows
-        int[] selectedRows = choreTable.getSelectedRows();
-
-        if (selectedRows.length == 0) {
-            JOptionPane.showMessageDialog(null, "You haven't selected any task.");
-        } else {
-
-            // Iterate through the selected rows
-            for (int i = 0; i < selectedRows.length; i++) {
-                // Get the data from the selected row
-                Object[] rowData = new Object[choreTableModel.getColumnCount()];
-                for (int j = 0; j < choreTableModel.getColumnCount(); j++) {
-                    rowData[j] = choreTableModel.getValueAt(selectedRows[i], j);
+        // iterate over the choresArrayList and update the database with the selected day
+        ChoresDatabase choresDB = new ChoresDatabase();
+        for (int i = 0; i < choresArrayList.size(); i++) {
+            Chore chore = choresArrayList.get(i);
+            int day = chore.getDay();
+            int newDay = chooseDayChore.getSelectedIndex() - 1;
+            if (day != newDay) {
+                chore.setDay(newDay);
+                try {
+                    //  choresDB.updateChore(chore);
+                } catch (Exception e) {
+                    System.out.println("Error occurred in updating data");
                 }
-                // Create a new Chore object using the rowData and add it to the choresArrayList
-                Chore chore = new Chore();
-                chore.setChoreName((String) rowData[0]);
-                chore.setComplete((boolean) rowData[1]);
-                choresArrayList.add(chore);
             }
-
-            // Create an instance of the EstimateTimeInputGUI and pass the selectedData ArrayList
-            EstimateTimeInputGUI estimateTimeInputGUI = new EstimateTimeInputGUI(choresArrayList);
-            estimateTimeInputGUI.setVisible(true);
-
         }
+
+        // update the table to reflect the changes
+        updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
 
         // TODO add your handling code here:
 
     }//GEN-LAST:event_submitChoreButtonActionPerformed
+    private void addNewChore(String task, int day) {
+        // Create a new instance of Chore with the given task and day
+        Chore newChore = new Chore();
+        newChore.setChoreName(task);
+        newChore.setDay(day);
+
+        // Add the new chore to the list of chores in memory
+        choresArrayList.add(newChore);
+
+        // Add the new chore to the database
+        ChoresDatabase choresDB = new ChoresDatabase();
+        try {
+            //  choresDB.insertChore(newChore);
+        } catch (Exception e) {
+            System.out.println("Error occurred while inserting chore to database");
+        }
+
+        // Update the table to show the new chore
+        updateTableForSelectedDay(0);
+    }
+
     public void displayTableData(ChoreList tableData) {
         // Empty the existing data
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
