@@ -19,7 +19,9 @@ public class ChoresDatabase {
     //Chore newChore;
     public ChoresDatabase() {
         database = new DBConnection();
-        database.Connect("C:\\Users\\nihal\\OneDrive - Northumbria University - Production Azure AD\\Documents\\YEAR 2\\Semester 2\\software engineer\\Group Work\\new new push\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+
+        database.Connect("C:\\Users\\james\\Documents\\Year 2\\Semester2\\Software Engineering\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+
 
     }
 
@@ -33,7 +35,7 @@ public class ChoresDatabase {
     //Select all chores
     public ArrayList<Chore> selectChores() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreID, choreName, choreFrequencyID  FROM chores;";
+        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTimeUserOne, choreEstimateTimeUserTwo FROM chores;";
 
         ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
         ArrayList<Chore> chores = new ArrayList<Chore>();
@@ -43,7 +45,8 @@ public class ChoresDatabase {
                 Chore newChore = new Chore();
                 newChore.setChoreID(choreList.getInt(1));
                 newChore.setChoreName(choreList.getString(2));
-                newChore.setChoreFrequencyID(choreList.getInt(3));
+                newChore.setEstimateTimeUserOne(choreList.getInt(3));
+                newChore.setEstimateTimeUserTwo(choreList.getInt(4));
                 chores.add(newChore);
 
             }
@@ -159,7 +162,7 @@ public class ChoresDatabase {
         String rs = ("select max(choreID) from chores;");
         database.RunSQLQuery(rs);
         int max = Integer.parseInt(rs) + 1;
-        int placeholder  = 1;
+        int placeholder = 1;
         int placeholder2 = 1;
 
         String sqlAddChoreL = "INSERT INTO chores (choreID, choreName, choreEstimateTimeUserOne, choreEstimateTimeUserTwo, choreFrequencyID) VALUES("

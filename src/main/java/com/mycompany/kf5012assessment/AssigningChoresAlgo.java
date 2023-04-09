@@ -17,8 +17,7 @@ import java.util.logging.Logger;
 public class AssigningChoresAlgo {
 
     private ArrayList<Chore> choresArrayList;
-    private int userOneTotal =0;
-    private int userTwoTotal =0;
+
     //private choresArrayList = dummyList;
     public AssigningChoresAlgo() {
 
@@ -30,20 +29,48 @@ public class AssigningChoresAlgo {
             System.out.println("Error occured in extracting data");
         }
         calculation();
-    }
-      
-    
-    public void calculation() {
-    
-        for(int i = 0; i < choresArrayList.size(); i++){
-            userOneTotal = userOneTotal + choresArrayList.get(i +1).getEstimateTimeUserOne();
-            System.out.println(userOneTotal);
-        }
-}
-
-    public void main(String[] args) {
         
     }
+      
+    private int userOneTotal =0;
+    private int userTwoTotal =0;
+    
+    public int calculation() {
+    
+        for(int i = 0; i < choresArrayList.size(); i++){
+            userOneTotal = userOneTotal + choresArrayList.get(i+1).getEstimateTimeUserOne();
+            System.out.println(userOneTotal);
+        }
+        
+        return userOneTotal;
+    }
 
-  
+    public void main(String[] args) {
+        calculation();
+
+        for (int i = 0; i < choresArrayList.size(); i++) {
+            //user1Total += user1Total + choresArrayList.get(i);
+            //user2Total += user2Total + choresArrayList.get(i);
+            System.out.println(choresArrayList.get(i));
+        }
+
+        // for(Chore li : ChoreList.getChoreList){
+        //}
+        /*ChoresDatabase db = new ChoresDatabase();
+        try {
+            db.selectChores();
+        } catch (SQLException ex) {
+            Logger.getLogger(AssigningChoresAlgo.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        //NormaliseTotalTime();
+    }
+
+    /*  public void NormaliseTotalTime() {
+        ArrayList<Chore> total = new ArrayList();
+        user1.getAssignedChoresList();
+        for(int i = 0; i < user1.getAssignedChoresList().size(); i++){
+            System.out.println("Loop" + i);
+        }
+
+    }  */
 }
