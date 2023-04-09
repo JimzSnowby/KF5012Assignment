@@ -28,21 +28,25 @@ public class AssigningChoresAlgo {
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
+        calculation();
+        
     }
       
     private int userOneTotal =0;
     private int userTwoTotal =0;
     
-    public void calculation() {
+    public int calculation() {
     
         for(int i = 0; i < choresArrayList.size(); i++){
-            userOneTotal = userOneTotal + choresArrayList.get(i).getEstimateTimeUserOne();
+            userOneTotal = userOneTotal + choresArrayList.get(i+1).getEstimateTimeUserOne();
+            System.out.println(userOneTotal);
         }
-}
+        
+        return userOneTotal;
+    }
 
     public void main(String[] args) {
-
-
+        calculation();
 
         for (int i = 0; i < choresArrayList.size(); i++) {
             //user1Total += user1Total + choresArrayList.get(i);
