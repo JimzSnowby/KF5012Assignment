@@ -14,26 +14,45 @@ import java.util.logging.Logger;
  * @author w21023500
  */
 // For Task 7 Group work
-public class AssigningChoresAlgo{
-    
-    private ArrayList<EstimateTimeInputGUI> user1EstimatedTimes;
-    private ArrayList<EstimateTimeInputGUI> user2EstimatedTimes;
+public class AssigningChoresAlgo {
+
     private ArrayList<Chore> choresArrayList;
+
     //private choresArrayList = dummyList;
+    public AssigningChoresAlgo() {
+
+        ChoresDatabase choresDB = new ChoresDatabase();
+
+        try {
+            choresArrayList = choresDB.selectChores();
+        } catch (Exception e) {
+            System.out.println("Error occured in extracting data");
+        }
+    }
+      
+    private int userOneTotal =0;
+    private int userTwoTotal =0;
+    
+    public void calculation() {
+    
+        for(Chore chore:choresArrayList){
+            userOneTotal= userOneTotal + choresArrayList.get(chore.
+            
+                    
+        }
+}
+
     public void main(String[] args) {
-        
-        int user1Total = 0;
-        int user2Total = 0;
-        
-        
-        for(int i = 0; i<choresArrayList.size();i++){
+
+
+
+        for (int i = 0; i < choresArrayList.size(); i++) {
             //user1Total += user1Total + choresArrayList.get(i);
             //user2Total += user2Total + choresArrayList.get(i);
             System.out.println(choresArrayList.get(i));
         }
-        
-       // for(Chore li : ChoreList.getChoreList){
-            
+
+        // for(Chore li : ChoreList.getChoreList){
         //}
         /*ChoresDatabase db = new ChoresDatabase();
         try {
@@ -44,26 +63,12 @@ public class AssigningChoresAlgo{
         //NormaliseTotalTime();
     }
 
-    public AssigningChoresAlgo() {
-    }
-   
-  /*  public void NormaliseTotalTime() {
+    /*  public void NormaliseTotalTime() {
         ArrayList<Chore> total = new ArrayList();
         user1.getAssignedChoresList();
         for(int i = 0; i < user1.getAssignedChoresList().size(); i++){
             System.out.println("Loop" + i);
         }
 
-    }  */  
-    
-        public void createDummyData(){
-        Chore cleaning = new Chore();
-        cleaning.setChoreID(1);
-        cleaning.setChoreName("Cleaning");
-        cleaning.setFrequency(3);
-        cleaning.setChoreEstimateTime(30);
-        cleaning.setDay(2);
-        this.choresArrayList = new ArrayList();
-        choresArrayList.add(cleaning);
-        }
+    }  */
 }
