@@ -407,7 +407,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         cleaning.setChoreID(1);
         cleaning.setChoreName("Cleaning");
         cleaning.setFrequency(3);
-        cleaning.setChoreEstimateTime(30);
         cleaning.setDay(2);
         this.dummyList = new AssignedChoresList();
         dummyList.addToChoreList(cleaning);
