@@ -17,10 +17,29 @@ public class Chore {
     private int choreFrequencyID;
     //sprivate String choreDesc;   // for more details e.g shopping list
     private int frequency;  // number of times in a week
-    private int choreEstimateTime;  // for user to input their time estimate
     private int day;    // int that correlates to day of the week 1-7
     private boolean complete = false; // true if the user has completed the task
     private boolean selectedForThisWeek =true;
+    private int estimateTimeUserOne;
+    private int estimateTimeUserTwo;
+
+    public int getEstimateTimeUserOne() {
+        return estimateTimeUserOne;
+    }
+
+    public void setEstimateTimeUserOne(int estimateTimeUserOne) {
+        this.estimateTimeUserOne = estimateTimeUserOne;
+    }
+
+    public int getEstimateTimeUserTwo() {
+        return estimateTimeUserTwo;
+    }
+
+    public void setEstimateTimeUserTwo(int estimateTimeUserTwo) {
+        this.estimateTimeUserTwo = estimateTimeUserTwo;
+    }
+    
+    
 
     public boolean isSelectedForThisWeek() {
         return selectedForThisWeek;
@@ -72,13 +91,6 @@ public class Chore {
         this.frequency = frequency;
     }
 
-    public int getChoreEstimateTime() {
-        return choreEstimateTime;
-    }
-
-    public void setChoreEstimateTime(int choreEstimateTime) {
-        this.choreEstimateTime = choreEstimateTime;
-    }
 
     public int getDay() {
         return day;
