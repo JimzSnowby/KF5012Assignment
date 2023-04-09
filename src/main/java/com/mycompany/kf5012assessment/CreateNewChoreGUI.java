@@ -34,10 +34,8 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         setVisible(true); // make the GUI visible
     }
 
-    /*private CreateNewChoreGUI() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-     */
+  
+     
     public SelectWeeklyChoreGUI getMainWindow() {
         return mainWindow;
     }
@@ -55,7 +53,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         weeklyChoreType = new javax.swing.JRadioButton();
         oneOffChoreType = new javax.swing.JRadioButton();
-        jTextField1 = new javax.swing.JTextField();
+        newChoreTextField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         newDaysTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
@@ -82,10 +80,10 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
             }
         });
 
-        jTextField1.setText("Chore");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        newChoreTextField.setText("Chore");
+        newChoreTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                newChoreTextFieldActionPerformed(evt);
             }
         });
 
@@ -138,7 +136,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(newChoreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
@@ -161,7 +159,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(newChoreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -181,6 +179,9 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+  
+    
     private void oneOffChoreTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneOffChoreTypeActionPerformed
         // TODO add your handling code here:
 
@@ -192,34 +193,13 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
 
     }//GEN-LAST:event_weeklyChoreTypeActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        String choreName = jTextField1.getText(); // get the chore name from the text field
-        Chore chore = new Chore(); // create a new Chore object with the given name
-        ChoreList choreList = new ChoreList(); // create a new instance of the ChoreList class
-        choreList.getChoreList().add(chore); // add the chore to the list
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void newChoreTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newChoreTextFieldActionPerformed
+ 
+    }//GEN-LAST:event_newChoreTextFieldActionPerformed
 
     private void submitNewChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitNewChoreButtonActionPerformed
-        // Get the task name entered by the user
-        String taskName = jTextField1.getText().trim();
-        // Check if the task name is empty
-        if (taskName.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a task name.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        // Check if the task name contains only letters
-        for (char c : taskName.toCharArray()) {
-            if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
-                JOptionPane.showMessageDialog(this, "Task name can only contain letters and spaces.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        }
-
-        // Add the new task to the main window's chore list
-        mainWindow.AddNewChore;
-        // Close the dialogAddNewChore
-        this.dispose();
-        // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_submitNewChoreButtonActionPerformed
 
     /**
@@ -257,6 +237,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
             }
         });
     }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelNewChoreButton;
@@ -264,7 +245,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField newChoreTextField;
     private javax.swing.JTable newDaysTable;
     private javax.swing.JRadioButton oneOffChoreType;
     private javax.swing.JButton submitNewChoreButton;
