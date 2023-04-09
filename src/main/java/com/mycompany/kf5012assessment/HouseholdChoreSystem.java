@@ -27,6 +27,9 @@ public class HouseholdChoreSystem {
         else {
             System.out.println("connect.");
         }
+        
+        AssigningChoresAlgo test = new AssigningChoresAlgo();
+        test.calculation();
 
         //GUIOfCommonChores msGUI = new GUIOfCommonChores();
 	//msGUI.setVisible(true);
