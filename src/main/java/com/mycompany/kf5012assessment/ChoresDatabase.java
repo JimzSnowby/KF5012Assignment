@@ -27,6 +27,8 @@ public class ChoresDatabase {
      *
      * Functions below
      *
+     * 
+     * 
      */
     //Select all chores
     public ArrayList<Chore> selectChores() throws SQLException {
@@ -54,6 +56,8 @@ public class ChoresDatabase {
         }
         return chores;
     }
+    
+  
 
     //Select weekly chores
     public ArrayList<Chore> selectChoresFrequencyWeekly() throws SQLException {
