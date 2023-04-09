@@ -15,11 +15,10 @@ public class assigningChoreAlgorithmtest {
     /**
      * @param args the command line arguments
      */
-    
-     private ArrayList<Chore> choresArrayList;
-    private int userOneTotal =0;
-    private int userTwoTotal =0;
-    
+    private ArrayList<Chore> choresArrayList;
+    int user1Total = 0;
+    int user2Total = 0;
+
     public assigningChoreAlgorithmtest() {
 
         ChoresDatabase choresDB = new ChoresDatabase();
@@ -29,24 +28,26 @@ public class assigningChoreAlgorithmtest {
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
-                        calculation();
-
+        calculation();
     }
-    
+
     public int calculation() {
-    
-        for(int i = 0; i < choresArrayList.size(); i++){
-            userOneTotal = userOneTotal + choresArrayList.get(i +1).getEstimateTimeUserOne();
-          
+        for (Chore nextChore : choresArrayList) {
+            user1Total += nextChore.getEstimateTimeUserOne();
+            user2Total += nextChore.getEstimateTimeUserTwo();
+              System.out.println(user1Total);
+
         }
-          System.out.println("hi"+userOneTotal+choresArrayList.size());
-          System.out.println("heelo");
-         return 0;
-}
+
+        for (Chore nextChore : choresArrayList) {
+            nextChore.setEstimateTimeUserOne(nextChore.getEstimateTimeUserOne() / user1Total);
+            nextChore.setEstimateTimeUserOne(nextChore.getEstimateTimeUserOne() / user2Total);
+        }
+        return 0;
+    }
+
     public static void main(String[] args) {
         // TODO code application logic here
-          System.out.println("heelo");
-
     }
-    
+
 }
