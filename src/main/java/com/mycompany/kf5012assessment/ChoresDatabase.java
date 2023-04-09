@@ -31,7 +31,7 @@ public class ChoresDatabase {
     //Select all chores
     public ArrayList<Chore> selectChores() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTimeUserOne, choreEstimateTimeUserTwo FROM chores;";
+        String sqlSelectChores = "SELECT choreID, choreName, choreFrequencyID  FROM chores;";
 
         ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
         ArrayList<Chore> chores = new ArrayList<Chore>();
@@ -41,8 +41,7 @@ public class ChoresDatabase {
                 Chore newChore = new Chore();
                 newChore.setChoreID(choreList.getInt(1));
                 newChore.setChoreName(choreList.getString(2));
-                newChore.setEstimateTimeUserOne(choreList.getInt(3));
-                newChore.setEstimateTimeUserTwo(choreList.getInt(4));
+                newChore.setChoreFrequencyID(choreList.getInt(3));
                 chores.add(newChore);
 
             }
@@ -156,7 +155,7 @@ public class ChoresDatabase {
         String rs = ("select max(choreID) from chores;");
         database.RunSQLQuery(rs);
         int max = Integer.parseInt(rs) + 1;
-        int placeholder = 1;
+        int placeholder  = 1;
         int placeholder2 = 1;
 
         String sqlAddChoreL = "INSERT INTO chores (choreID, choreName, choreEstimateTimeUserOne, choreEstimateTimeUserTwo, choreFrequencyID) VALUES("
