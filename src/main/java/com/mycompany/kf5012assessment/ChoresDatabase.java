@@ -15,13 +15,18 @@ import java.util.ArrayList;
 public class ChoresDatabase {
 
     private static DBConnection database;
+    static Chore newchore = new Chore();
+ 
+    
+    
+
+    
 
     //Chore newChore;
     public ChoresDatabase() {
         database = new DBConnection();
 
-        database.Connect("C:\\\\Users\\\\james\\\\Documents\\\\Year 2\\\\Semester2\\\\Software Engineering\\\\KF5012Assignment\\\\src\\\\main\\\\java\\\\com\\\\mycompany\\\\kf5012assessment\\\\kf5012db.db");
-
+        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
 
     }
 
@@ -29,8 +34,6 @@ public class ChoresDatabase {
      *
      * Functions below
      *
-     * 
-     * 
      */
     //Select all chores
     public ArrayList<Chore> selectChores() throws SQLException {
@@ -58,13 +61,35 @@ public class ChoresDatabase {
         }
         return chores;
     }
-    
-  
+
+    //Update estimate time for user 1
+    public void updateEstimateTimeUserOne() throws SQLException {
+        String sqlUpdateEstimateTime1 = "UPDATE estimateTime SET choreEstimateTime = '" + newchore.getEstimateTimeUserOne() + "' "
+                + "WHERE userID = 1 ;";
+
+        boolean success = database.RunSQL(sqlUpdateEstimateTime1);
+
+        if (!success) {
+            System.out.println("Failed to process query" + sqlUpdateEstimateTime1);
+        }
+    }
+
+    //Update estimate time for user 2
+    public void updateEstimateTimeUserTwo() throws SQLException {
+        String sqlUpdateEstimateTime2 = "UPDATE estimateTime SET choreEstimateTime = '" + newchore.getEstimateTimeUserTwo() + "' "
+                + "WHERE userID = 2 ;";
+
+        boolean success = database.RunSQL(sqlUpdateEstimateTime2);
+
+        if (!success) {
+            System.out.println("Failed to process query" + sqlUpdateEstimateTime2);
+        }
+    }
 
     //Select weekly chores
     public ArrayList<Chore> selectChoresFrequencyWeekly() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTimeUserOne, choreEstimateTimeUserTwo "
+        String sqlSelectChores = "SELECT choreID, choreName "
                 + "FROM chores "
                 + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID "
                 + "WHERE choreFrequency = 1;";
@@ -77,9 +102,6 @@ public class ChoresDatabase {
                 Chore newChore = new Chore();
                 newChore.setChoreID(choreList.getInt(1));
                 newChore.setChoreName(choreList.getString(2));
-                newChore.setEstimateTimeUserOne(choreList.getInt(3));
-                newChore.setEstimateTimeUserTwo(choreList.getInt(4));
-
                 chores.add(newChore);
 
             }
@@ -96,7 +118,7 @@ public class ChoresDatabase {
     //Select one-off chores 
     public ArrayList<Chore> selectChoresFrequencyOneOff() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreID, choreName, choreEstimateTimeUserOne, choreEstimateTimeUserTwo "
+        String sqlSelectChores = "SELECT choreID, choreName "
                 + "FROM chores "
                 + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID "
                 + "WHERE choreFrequency = 2;";
@@ -109,8 +131,6 @@ public class ChoresDatabase {
                 Chore newChore = new Chore();
                 newChore.setChoreID(choreList.getInt(1));
                 newChore.setChoreName(choreList.getString(2));
-                newChore.setEstimateTimeUserOne(choreList.getInt(3));
-                newChore.setEstimateTimeUserTwo(choreList.getInt(4));
                 chores.add(newChore);
 
             }
@@ -156,7 +176,7 @@ public class ChoresDatabase {
     }
 
     //Add a new chore
-    public static void addChore(Chore newChore) {
+    public void addChore(Chore newChore) {
 
         String rs = ("select max(choreID) from chores;");
         database.RunSQLQuery(rs);
@@ -164,20 +184,18 @@ public class ChoresDatabase {
         int placeholder = 1;
         int placeholder2 = 1;
 
-        String sqlAddChoreL = "INSERT INTO chores (choreID, choreName, choreEstimateTimeUserOne, choreEstimateTimeUserTwo, choreFrequencyID) VALUES("
+        String sqlAddChore = "INSERT INTO chores (choreID, choreName, choreFrequencyID, daysOfWeekID) VALUES("
                 + max + ", "
                 + newChore.getChoreName() + ", "
-                + placeholder + ", "
-                + newChore.getEstimateTimeUserOne() + ", "
-                + newChore.getEstimateTimeUserTwo() + ", "
-                + placeholder2 + ", '"
+                + placeholder + ", '"
+                + newchore.getDay() + ", '"
                 + " '); ";
 
         boolean success;
-        success = database.RunSQL(sqlAddChoreL);
+        success = database.RunSQL(sqlAddChore);
 
         if (!success) {
-            System.out.println("Failed to process query" + sqlAddChoreL);
+            System.out.println("Failed to process query" + sqlAddChore);
         }
 
     }
@@ -258,8 +276,11 @@ public class ChoresDatabase {
         }
 
     }
+    
     /*
-    pls dont delete, testing purposes
+    Please don't delete, testing mission purposes
+    
+    //Testing the adding
     public static void main(String[] args){
         ChoresDatabase x = new ChoresDatabase();
         Chore c  =  new Chore();
@@ -269,6 +290,17 @@ public class ChoresDatabase {
                 
                 
         x.ad
-    }*/
+    
+    //Testing the update
+    public static void main(String[] args) throws SQLException {
+        ChoresDatabase x = new ChoresDatabase();
+        Chore c  =  new Chore();
+        
+        newchore.setEstimateTimeUserTwo(666);
 
+        //c.setEstimateTimeUserTwo(667);
+        x.updateEstimateTimeUserTwo();
+
+    }
+    }*/
 }
