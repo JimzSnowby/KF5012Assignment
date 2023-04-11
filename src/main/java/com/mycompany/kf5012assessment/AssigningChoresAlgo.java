@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 public class AssigningChoresAlgo {
 
     private ArrayList<Chore> choresArrayList;
+    private ArrayList<Chore> choresArrayListTwo;
 
     //private choresArrayList = dummyList;
     public AssigningChoresAlgo() {
@@ -25,28 +26,33 @@ public class AssigningChoresAlgo {
 
         try {
             choresArrayList = choresDB.selectEstimateTimeUserOne();
-            
+            choresArrayListTwo = choresDB.selectEstimateTimeUserTwo();
+
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
         calculation();
-        
+
     }
-      
-    private int userOneTotal =0;
-    private int userTwoTotal =0;
-    
+
+    private int userOneTotal = 0;
+    private int userTwoTotal = 0;
+
     public int calculation() {
-    
-        for(int i = 0; i < choresArrayList.size(); i++){
-            userOneTotal = userOneTotal + choresArrayList.get(i).getEstimateTimeUserOne();
-            userTwoTotal = userTwoTotal + choresArrayList.get(i).getEstimateTimeUserTwo();
-           
-            System.out.println(userOneTotal);
-            System.out.println(userTwoTotal);
+
+        if (choresArrayList.size() == choresArrayListTwo.size()) {
+
+            for (int i = 0; i < choresArrayList.size(); i++) {
+                userOneTotal = userOneTotal + choresArrayList.get(i).getEstimateTimeUserOne();
+                userTwoTotal = userTwoTotal + choresArrayList.get(i).getEstimateTimeUserTwo();
+
+                System.out.println(userOneTotal);
+                System.out.println(userTwoTotal);
+            }
+
         }
-        
         return userOneTotal;
+
     }
 
     public void main(String[] args) {
