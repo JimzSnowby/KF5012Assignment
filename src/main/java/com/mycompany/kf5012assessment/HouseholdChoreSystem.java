@@ -28,6 +28,7 @@ public class HouseholdChoreSystem {
             System.out.println("connect.");
         }
         
+        //James version:
         AssigningChoresAlgo test = new AssigningChoresAlgo();
         test.calculation();
 
@@ -35,7 +36,10 @@ public class HouseholdChoreSystem {
 	//msGUI.setVisible(true);
          
         
-        
+        //Nihal version: 
+        //assigningChoreAlgorithmtest testing = new assigningChoreAlgorithmtest();
+        //testing.calculation();
+
       
 
         // TODO code application logic here

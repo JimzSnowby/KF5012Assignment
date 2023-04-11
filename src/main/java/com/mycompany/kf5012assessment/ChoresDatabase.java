@@ -16,11 +16,7 @@ public class ChoresDatabase {
 
     private static DBConnection database;
     static Chore newchore = new Chore();
- 
-    
-    
-
-    
+    static ArrayList<Chore> choresArrayList = new ArrayList<Chore>();
 
     //Chore newChore;
     public ChoresDatabase() {
@@ -49,6 +45,56 @@ public class ChoresDatabase {
                 newChore.setChoreID(choreList.getInt(1));
                 newChore.setChoreName(choreList.getString(2));
                 newChore.setChoreFrequencyID(choreList.getInt(3));
+                chores.add(newChore);
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to process query in selectChores()");
+            System.out.println("SQL attempted: " + sqlSelectChores);
+            System.out.println("Error: " + e.getErrorCode());
+            System.out.println("Message: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return chores;
+    }
+
+    public ArrayList<Chore> selectEstimateTimeUserOne() throws SQLException {
+
+        String sqlSelectChores = "SELECT choreEstimateTime, choreID  FROM estimateTime WHERE userID = 1;";
+
+        ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
+        ArrayList<Chore> chores = new ArrayList<Chore>();
+
+        try {
+            while (choreList.next()) {
+                Chore newChore = new Chore();
+                newChore.setEstimateTimeUserOne(choreList.getInt(1));
+                newChore.setChoreID(choreList.getInt(3));
+                chores.add(newChore);
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to process query in selectChores()");
+            System.out.println("SQL attempted: " + sqlSelectChores);
+            System.out.println("Error: " + e.getErrorCode());
+            System.out.println("Message: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return chores;
+    }
+    
+     public ArrayList<Chore> selectEstimateTimeUserTwo() throws SQLException {
+
+        String sqlSelectChores = "SELECT choreEstimateTime, choreID  FROM estimateTime WHERE userID = 2;";
+
+        ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
+        ArrayList<Chore> chores = new ArrayList<Chore>();
+
+        try {
+            while (choreList.next()) {
+                Chore newChore = new Chore();
+                newChore.setEstimateTimeUserTwo(choreList.getInt(1));
+                newChore.setChoreID(choreList.getInt(3));
                 chores.add(newChore);
 
             }
@@ -276,7 +322,16 @@ public class ChoresDatabase {
         }
 
     }
-    
+
+    //Ask about the arraylist
+    public static void main(String[] args) {
+        //String update = "UPDATE chores SET choreName = ?, choreFrequencyID = ?, daysOfWeekID WHERE choreID = ? ";
+
+        for (int i = 0; i < choresArrayList.size(); i++) {
+            System.out.println(i);
+        }
+    }
+
     /*
     Please don't delete, testing mission purposes
     

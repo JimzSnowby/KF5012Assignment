@@ -45,7 +45,10 @@ public class assigningChoreAlgorithmtest {
         }
         return 0;
     }
+    
 
+    
+        
     public static void main(String[] args) {
         // TODO code application logic here
     }
