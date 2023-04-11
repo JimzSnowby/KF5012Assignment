@@ -24,7 +24,8 @@ public class AssigningChoresAlgo {
         ChoresDatabase choresDB = new ChoresDatabase();
 
         try {
-            choresArrayList = choresDB.selectChores();
+            choresArrayList = choresDB.selectEstimateTimeUserOne();
+            
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
@@ -40,6 +41,7 @@ public class AssigningChoresAlgo {
         for(int i = 0; i < choresArrayList.size(); i++){
             userOneTotal = userOneTotal + choresArrayList.get(i+1).getEstimateTimeUserOne();
             userTwoTotal = userTwoTotal + choresArrayList.get(i+1).getEstimateTimeUserTwo();
+           
             System.out.println(userOneTotal);
             System.out.println(userTwoTotal);
         }
