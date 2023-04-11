@@ -35,22 +35,31 @@ public class AssigningChoresAlgo {
 
     }
 
-    private int userOneTotal = 0;
-    private int userTwoTotal = 0;
+    private float userOneTotal = 0;
+    private float userTwoTotal = 0;
 
-    public int calculation() {
+    public float calculation() {
 
         if (choresArrayList.size() == choresArrayListTwo.size()) {
 
             for (int i = 0; i < choresArrayList.size(); i++) {
                 userOneTotal = userOneTotal + choresArrayList.get(i).getEstimateTimeUserOne();
-                userTwoTotal = userTwoTotal + choresArrayList.get(i).getEstimateTimeUserTwo();
+                userTwoTotal = userTwoTotal + choresArrayListTwo.get(i).getEstimateTimeUserTwo();
 
                 System.out.println(userOneTotal);
                 System.out.println(userTwoTotal);
             }
 
+            for (int i = 0; i < choresArrayList.size(); i++) {
+                choresArrayList.get(i).setEstimateTimeUserOne(choresArrayList.get(i).getEstimateTimeUserOne() / userOneTotal);
+                System.out.println(choresArrayList.get(i).getEstimateTimeUserOne());
+
+                choresArrayListTwo.get(i).setEstimateTimeUserTwo(choresArrayListTwo.get(i).getEstimateTimeUserTwo() / userTwoTotal);
+                System.out.println(choresArrayListTwo.get(i).getEstimateTimeUserTwo());
+            }
+
         }
+
         return userOneTotal;
 
     }

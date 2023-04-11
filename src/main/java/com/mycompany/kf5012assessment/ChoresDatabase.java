@@ -77,7 +77,7 @@ public class ChoresDatabase {
         try {
             while (choreList.next()) {
                 Chore newChore = new Chore();
-                newChore.setEstimateTimeUserOne(choreList.getInt(1));
+                newChore.setEstimateTimeUserOne(choreList.getFloat(1));
                 newChore.setChoreID(choreList.getInt(2));
                 chores.add(newChore);
 
@@ -102,7 +102,7 @@ public class ChoresDatabase {
         try {
             while (choreList.next()) {
                 Chore newChore = new Chore();
-                newChore.setEstimateTimeUserTwo(choreList.getInt(1));
+                newChore.setEstimateTimeUserTwo(choreList.getFloat(1));
                 newChore.setChoreID(choreList.getInt(2));
                 chores.add(newChore);
 

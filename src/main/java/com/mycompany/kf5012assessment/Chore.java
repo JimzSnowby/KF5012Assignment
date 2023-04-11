@@ -20,22 +20,22 @@ public class Chore {
     private int day;    // int that correlates to day of the week 1-7
     private boolean complete = false; // true if the user has completed the task
     private boolean selectedForThisWeek =true;
-    private int estimateTimeUserOne;
-    private int estimateTimeUserTwo;
+    private float estimateTimeUserOne;
+    private float estimateTimeUserTwo;
 
-    public int getEstimateTimeUserOne() {
+    public float getEstimateTimeUserOne() {
         return estimateTimeUserOne;
     }
 
-    public void setEstimateTimeUserOne(int estimateTimeUserOne) {
+    public void setEstimateTimeUserOne(float estimateTimeUserOne) {
         this.estimateTimeUserOne = estimateTimeUserOne;
     }
 
-    public int getEstimateTimeUserTwo() {
+    public float getEstimateTimeUserTwo() {
         return estimateTimeUserTwo;
     }
 
-    public void setEstimateTimeUserTwo(int estimateTimeUserTwo) {
+    public void setEstimateTimeUserTwo(float estimateTimeUserTwo) {
         this.estimateTimeUserTwo = estimateTimeUserTwo;
     }
     
