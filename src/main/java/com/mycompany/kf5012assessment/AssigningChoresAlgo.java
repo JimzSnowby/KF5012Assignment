@@ -39,8 +39,8 @@ public class AssigningChoresAlgo {
     public int calculation() {
     
         for(int i = 0; i < choresArrayList.size(); i++){
-            userOneTotal = userOneTotal + choresArrayList.get(i+1).getEstimateTimeUserOne();
-            userTwoTotal = userTwoTotal + choresArrayList.get(i+1).getEstimateTimeUserTwo();
+            userOneTotal = userOneTotal + choresArrayList.get(i).getEstimateTimeUserOne();
+            userTwoTotal = userTwoTotal + choresArrayList.get(i).getEstimateTimeUserTwo();
            
             System.out.println(userOneTotal);
             System.out.println(userTwoTotal);
