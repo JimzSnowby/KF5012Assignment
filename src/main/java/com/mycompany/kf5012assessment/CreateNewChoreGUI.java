@@ -195,6 +195,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
 
     private void newChoreTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newChoreTextFieldActionPerformed
  
+        
     }//GEN-LAST:event_newChoreTextFieldActionPerformed
 
     private void submitNewChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitNewChoreButtonActionPerformed
@@ -202,6 +203,26 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         
     }//GEN-LAST:event_submitNewChoreButtonActionPerformed
 
+       public void submitData(){
+        DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
+        boolean checkBox; 
+        
+        // Iterates over the list to see which chores have their completed box ticked
+        for(int i  = 0; i < dummyList.getAssignedChoresList().size(); i++){
+            try {
+                checkBox = (boolean) tableModel.getValueAt(i, 2);
+                if (checkBox) {
+                    System.out.println("Checked");
+                }else{
+                    System.out.println("Not Checked");
+                }
+            }catch(Exception e){
+                System.out.println("Nothing is checked");
+            }
+            
+        }
+        
+    }
     /**
      * @param args the command line arguments
      */

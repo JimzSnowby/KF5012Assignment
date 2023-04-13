@@ -37,6 +37,7 @@ public class AssigningChoresAlgo {
 
     private float userOneTotal = 0;
     private float userTwoTotal = 0;
+    // private float userTwoTotal = 0;
 
     public float calculation() {
 
@@ -60,10 +61,34 @@ public class AssigningChoresAlgo {
 
         }
 
+        float User1Load = 0;     // variables for this weeks chore 
+        float User2Load = 0; //// variables for this weeks chore 
+        float User1LoadCarriedOver = 0; //// variables for last weeks imbalance 
+        float User2LoadCarriedOver = 0;//variables for last weeks imbalance
+
+        int i = 0;
+        while (choresArrayList.size() > 0) {
+            if (User1Load < User2Load) {
+                Collections.sort(choresArrayList, new Comparator<Chore>() {
+                    @Override
+                    public int compare(Chore c1, Chore c2) {
+                        return Double.compare(c1.getEstimateTimeUserOne(), c2.getEstimateTimeUserTwo());
+                    }
+                });
+
+            }
+        }
+
         return userOneTotal;
 
     }
 
+    /*    Collection.sort(choresArrayList,new comparator<Chore>) {
+                @Override
+                public int compare ( choresArrayList. Chore c2){
+                    return Double.compare(c2,);
+                }
+            }*/
     public void main(String[] args) {
         calculation();
 
