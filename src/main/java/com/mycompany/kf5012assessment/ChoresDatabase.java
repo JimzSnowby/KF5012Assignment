@@ -204,7 +204,7 @@ public class ChoresDatabase {
     //Select all users
     public ArrayList<User> selectUsers() throws SQLException {
 
-        String sqlSelectUsers = "SELECT userID, userName, userPassword, userActive, userWeekScore, userTotalScore FROM users;";
+        String sqlSelectUsers = "SELECT userID, userActive, userWeekScore, userTotalScore FROM users;";
 
         ResultSet userList = database.RunSQLQuery(sqlSelectUsers);
         ArrayList<User> users = new ArrayList<User>();
@@ -213,11 +213,9 @@ public class ChoresDatabase {
             while (userList.next()) {
                 User newUser = new User();
                 newUser.setId(userList.getInt(1));
-                newUser.setUserName(userList.getString(2));
-                newUser.setPassword(userList.getString(3));
-                newUser.setActiveUser(userList.getInt(4));
-                newUser.setWeekScore(userList.getInt(5));
-                newUser.setTotalScore(userList.getInt(6));
+                newUser.setActiveUser(userList.getInt(2));
+                newUser.setWeekScore(userList.getInt(3));
+                newUser.setTotalScore(userList.getInt(4));
 
                 users.add(newUser);
 
@@ -268,10 +266,8 @@ public class ChoresDatabase {
         int placeholder2 = 0;
         int placeholder3 = 0;
 
-        String sqlAddChoreL = "INSERT INTO users (userID, userName, userPassword, userActive, userWeekScore, userTotalScore) VALUES("
+        String sqlAddChoreL = "INSERT INTO users (userID, userActive, userWeekScore, userTotalScore) VALUES("
                 + max + ", "
-                + newUser.getUserName() + ", "
-                + newUser.getPassword() + ", "
                 + placeholder + ", '"
                 + placeholder2 + ", '"
                 + placeholder3 + ", '"
