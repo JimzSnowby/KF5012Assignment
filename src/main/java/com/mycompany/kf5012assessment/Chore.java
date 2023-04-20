@@ -17,7 +17,7 @@ public class Chore {
     private int choreFrequencyID; // If == 0 is a one-off, if == 1 is permanent
     //sprivate String choreDesc;   // for more details e.g shopping list
     private int frequency;  // number of times in a week
-    private int day;    // int that correlates to day of the week 1-7
+    private int day;    // int that correlates to day of the week 1-8
     private boolean complete = false; // true if the user has completed the task
     private boolean selectedForThisWeek =true;
     private float estimateTimeUserOne;
@@ -38,8 +38,6 @@ public class Chore {
     public void setEstimateTimeUserTwo(float estimateTimeUserTwo) {
         this.estimateTimeUserTwo = estimateTimeUserTwo;
     }
-    
-    
 
     public boolean isSelectedForThisWeek() {
         return selectedForThisWeek;

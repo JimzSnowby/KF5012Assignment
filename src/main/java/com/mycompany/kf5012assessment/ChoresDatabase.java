@@ -29,10 +29,12 @@ public class ChoresDatabase {
         //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
     
         //Nihal:
-        database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
     
         //Yoyo:
         ///database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        
+        database.Connect("D:\\Assessment\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
     }   
 
     /**

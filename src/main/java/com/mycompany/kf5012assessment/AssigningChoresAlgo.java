@@ -18,6 +18,8 @@ public class AssigningChoresAlgo {
 
     private ArrayList<Chore> choresArrayList;
     private ArrayList<Chore> choresArrayListTwo;
+    private User user1;
+    private User user2;
 
     //private choresArrayList = dummyList;
     public AssigningChoresAlgo() {
@@ -75,8 +77,26 @@ public class AssigningChoresAlgo {
                         return Double.compare(c1.getEstimateTimeUserOne(), c2.getEstimateTimeUserTwo());
                     }
                 });
+                
+                Chore chosenChore = null;
+                for(Chore c : choresArrayList){
+                    if(choresArrayList.indexOf(c.getEstimateTimeUserOne()) < choresArrayList.indexOf(c.getEstimateTimeUserTwo())){
+                        chosenChore = c;
+                        break;
+                    }
+                }
+                if (chosenChore == null){
+                    chosenChore = choresArrayList.get(i);
+                }
+                
+                
+                
 
             }
+            
+            System.out.println("list1: "+choresArrayList.size());
+            System.out.println("list2: "+choresArrayListTwo.size());
+            
         }
 
         return userOneTotal;
@@ -91,6 +111,8 @@ public class AssigningChoresAlgo {
             }*/
     public void main(String[] args) {
         calculation();
+        System.out.println(choresArrayList.size());
+        System.out.println(choresArrayListTwo.size());
 
         for (int i = 0; i < choresArrayList.size(); i++) {
             //user1Total += user1Total + choresArrayList.get(i);

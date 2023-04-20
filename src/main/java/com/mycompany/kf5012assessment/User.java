@@ -13,8 +13,6 @@ package com.mycompany.kf5012assessment;
 // This is the actual user
 public class User {
     private int id; // PK for DB
-    private String userName;
-    private String password;
     private int activeUser; // is this the current active user
     private AssignedChoresList listOfChores;    // This is the list of chores that have been assigned to the user
     private int totalScore; // Grand total score
@@ -27,22 +25,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-    
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public int isActiveUser() {
