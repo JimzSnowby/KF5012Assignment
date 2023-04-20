@@ -21,6 +21,9 @@ public class AssigningChoresAlgo {
     private User user1;
     private User user2;
 
+    public ArrayList<Chore> user1ChoresAssigned;
+    public ArrayList<Chore> user2ChoresAssigned;
+    
     //private choresArrayList = dummyList;
     public AssigningChoresAlgo() {
 
@@ -89,14 +92,33 @@ public class AssigningChoresAlgo {
                     chosenChore = choresArrayList.get(i);
                 }
                 
+                user1ChoresAssigned.add(chosenChore);
+                User1Load += chosenChore.getEstimateTimeUserOne();
+            } else{
+                Collections.sort(choresArrayList, new Comparator<Chore>() {
+                    @Override
+                    public int compare(Chore c1, Chore c2) {
+                        return Double.compare(c1.getEstimateTimeUserOne(), c2.getEstimateTimeUserTwo());
+                    }
+                });
                 
+                Chore chosenChore = null;
+                for(Chore c : choresArrayList){
+                    if(choresArrayList.indexOf(c.getEstimateTimeUserTwo()) < choresArrayList.indexOf(c.getEstimateTimeUserOne())){
+                        chosenChore = c;
+                        break;
+                    }
+                }
+                if (chosenChore == null){
+                    chosenChore = choresArrayList.get(i);
+                }
                 
-
+                user2ChoresAssigned.add(chosenChore);
+                User2Load += chosenChore.getEstimateTimeUserTwo();
             }
-            
-            System.out.println("list1: "+choresArrayList.size());
-            System.out.println("list2: "+choresArrayListTwo.size());
-            
+            System.out.println(user1ChoresAssigned.size());
+            System.out.println(user2ChoresAssigned.size());
+            break;
         }
 
         return userOneTotal;
