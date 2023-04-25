@@ -58,4 +58,5 @@ public class AssignedChoresList {
         assignedChoresList.remove(chore);
         
     }
+    
 }

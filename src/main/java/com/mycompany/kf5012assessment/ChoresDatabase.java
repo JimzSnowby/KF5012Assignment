@@ -34,7 +34,7 @@ public class ChoresDatabase {
         //Yoyo:
         ///database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         
-        database.Connect("D:\\Assessment\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
     }   
 
     /**
@@ -106,6 +106,29 @@ public class ChoresDatabase {
                 Chore newChore = new Chore();
                 newChore.setEstimateTimeUserTwo(choreList.getFloat(1));
                 newChore.setChoreID(choreList.getInt(2));
+                chores.add(newChore);
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to process query in selectChores()");
+            System.out.println("SQL attempted: " + sqlSelectChores);
+            System.out.println("Error: " + e.getErrorCode());
+            System.out.println("Message: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return chores;
+    }
+    public ArrayList<Chore> selectEstimateTimes() throws SQLException {
+
+        String sqlSelectChores = "SELECT choreEstimateTime, userID, choreID FROM estimateTime;";
+
+        ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
+        ArrayList<Chore> chores = new ArrayList<Chore>();
+
+        try {
+            while (choreList.next()) {
+                Chore newChore = new Chore();
+                newChore.setEstimateTime(choreList.getFloat(1));
                 chores.add(newChore);
 
             }
