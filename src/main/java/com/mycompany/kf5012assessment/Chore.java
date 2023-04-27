@@ -8,10 +8,10 @@ package com.mycompany.kf5012assessment;
  *
  * @author w21023500
  */
-
 //james 
 //This is the class for the chores themselves e.g cleaning
 public class Chore {
+
     private int choreID;    // PK for DB
     private String choreName;
     private int choreFrequencyID; // If == 0 is a one-off, if == 1 is permanent
@@ -19,8 +19,9 @@ public class Chore {
     private int frequency;  // number of times in a week
     private int day;    // int that correlates to day of the week 1-8
     private boolean complete = false; // true if the user has completed the task
-    private boolean selectedForThisWeek =true;
-    
+    private boolean selectedForThisWeek = true;
+    private int assignto;
+
     private float estimateTimeUserOne;
     private float estimateTimeUserTwo;
     private float estimateTime;
@@ -32,9 +33,7 @@ public class Chore {
     public void setEstimateTime(float estimateTime) {
         this.estimateTime = estimateTime;
     }
-    
-    
-    
+
     public float getEstimateTimeUserOne() {
         return estimateTimeUserOne;
     }
@@ -58,6 +57,7 @@ public class Chore {
     public void setSelectedForThisWeek(boolean selectedForThisWeek) {
         this.selectedForThisWeek = selectedForThisWeek;
     }
+
     public int getChoreFrequencyID() {
         return choreFrequencyID;
     }
@@ -66,7 +66,6 @@ public class Chore {
         this.choreFrequencyID = choreFrequencyID;
     }
 
-    
     public int getChoreID() {
         return choreID;
     }
@@ -82,7 +81,7 @@ public class Chore {
     public void setChoreName(String choreName) {
         this.choreName = choreName;
     }
-    
+
     /*
     public String getChoreDesc() {
         return choreDesc;
@@ -92,7 +91,6 @@ public class Chore {
         this.choreDesc = choreDesc;
     }
     s*/
-
     public int getFrequency() {
         return frequency;
     }
@@ -101,12 +99,11 @@ public class Chore {
         this.frequency = frequency;
     }
 
-
     public int getDay() {
         return day;
     }
-    
-    public void setDay(int day){
+
+    public void setDay(int day) {
         this.day = day;
     }
 
@@ -117,6 +114,28 @@ public class Chore {
     public void setComplete(boolean complete) {
         this.complete = complete;
     }
+
+    public void assignTo(int v){
+        assignto= v;
+    }
     
+    public int getassignTo(){
+        return assignto;
+    }
+    public Chore() {
+        choreName = "not set";
+        estimateTimeUserOne = 0;
+        estimateTimeUserTwo = 0;
+        assignto = 0;
+        selectedForThisWeek = false;
+
+    }
     
+    public Chore(String name, float estimateOne, float estimateTwo, boolean selected){
+        choreName = name;
+        estimateTimeUserOne = estimateOne;
+        estimateTimeUserTwo = estimateTwo;
+        assignto = 0;
+        selectedForThisWeek = selected;
+    }
 }

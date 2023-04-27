@@ -4,6 +4,9 @@
  */
 package com.mycompany.kf5012assessment;
 
+import static com.mycompany.kf5012assessment.AssigningChoresAlgo.calculation;
+import java.util.ArrayList;
+
 /**
  *
  * @author w21023500
@@ -16,20 +19,45 @@ public class HouseholdChoreSystem {
      */
     public static void main(String[] args) {
         
-        DBConnection db = new DBConnection();
+        ArrayList<Chore> list = new ArrayList();
+        Chore c1 = new Chore("Clean dishes", 20, 15, true);
+        list.add(c1);
+        Chore c2 = new Chore("clean floor", 30, 25, true);
+        list.add(c2);
+        Chore c3 = new Chore("walk the dog", 40, 30, true);
+        list.add(c3);
+        Chore c4 = new Chore("clean carpet", 20, 10, true);
+        list.add(c4);
+        Chore c5 = new Chore("wash clothes", 20, 30, true);
+        list.add(c5);
+        Chore c6 = new Chore("clean bathroom", 40, 25, true);
+        list.add(c6);
+        Chore c7 = new Chore("Clean room", 10, 15, true);
+        list.add(c7);
+
+            
+        AssigningChoresAlgo.calculation(list);
         
-        
-        String filename = "kf5012db.db";
-        
-        if (!db.Connect(filename)){
-            System.out.println("Didn't connect.");
+        for( Chore c: list){
+            System.out.println(c.getChoreName()+" assign to "+c.getassignTo());
         }
-        else {
-            System.out.println("connect.");
-        }
+    
+        
+        
+   //     DBConnection db = new DBConnection();
+        
+        
+    //    String filename = "kf5012db.db";
+        
+      //  if (!db.Connect(filename)){
+         //   System.out.println("Didn't connect.");
+     //   }
+     //   else {
+      //      System.out.println("connect.");
+      //  }
         
         //James version:
-        AssigningChoresAlgo test = new AssigningChoresAlgo();
+    /*    AssigningChoresAlgo test = new AssigningChoresAlgo();
         test.calculation();
 
         //GUIOfCommonChores msGUI = new GUIOfCommonChores();
@@ -74,7 +102,7 @@ public class HouseholdChoreSystem {
             System.out.println(task.getName() + " (" + task.getPriority() + ") - " + task.getEstimatedTime() + " hours");
         }
 */
-    }
+}
 
     
 }

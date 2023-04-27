@@ -34,7 +34,7 @@ public class ChoresDatabase {
         //Yoyo:
         ///database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         
-        database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        database.Connect("D:\\Assessment\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
     }   
 
     /**
@@ -126,7 +126,11 @@ public class ChoresDatabase {
         ArrayList<Chore> chores = new ArrayList<Chore>();
 
         try {
-            while (choreList.next()) {
+            while (choreList
+            e.printStackTrace();
+        }
+        return chores;
+    }.next()) {
                 Chore newChore = new Chore();
                 newChore.setEstimateTime(choreList.getFloat(1));
                 chores.add(newChore);
