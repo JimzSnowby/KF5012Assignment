@@ -82,7 +82,6 @@ public class AssigningChoresAlgo {
             
         }
         
-        int i = choreList.size();
         ArrayList<Chore> temp = new ArrayList();
         for(Chore c : choreList){
             if(c.getassignTo() == 1 || c.getassignTo() == 2){
@@ -90,7 +89,7 @@ public class AssigningChoresAlgo {
             }
         }
       
-        while (!temp.isEmpty()){
+        while (unass)){
             if (User1Load < User2Load) {
                 Collections.sort(choreList, new Comparator<Chore>() {
                     @Override
@@ -114,7 +113,7 @@ public class AssigningChoresAlgo {
                 
                 user1ChoresAssigned.addToChoreList(chosenChore);
                 User1Load = User1Load + chosenChore.getEstimateTimeUserOne();
-                choreList.remove(chosenChore);
+                temp.remove(chosenChore);
                 
             } else {
                 Collections.sort(choreList, new Comparator<Chore>() {
@@ -139,7 +138,7 @@ public class AssigningChoresAlgo {
                 
                 user2ChoresAssigned.addToChoreList(chosenChore);
                 User2Load = User2Load + chosenChore.getEstimateTimeUserTwo();
-                choreList.remove(chosenChore);
+                temp.remove(chosenChore);
             }
 
             
