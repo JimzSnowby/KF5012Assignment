@@ -84,12 +84,12 @@ public class AssigningChoresAlgo {
         
         ArrayList<Chore> temp = new ArrayList();
         for(Chore c : choreList){
-            if(c.getassignTo() == 1 || c.getassignTo() == 2){
+            if(c.getassignTo() == 0){
                 temp.add(c);
             }
         }
       
-        while (unass)){
+        while (!temp.isEmpty()){
             if (User1Load < User2Load) {
                 Collections.sort(choreList, new Comparator<Chore>() {
                     @Override
