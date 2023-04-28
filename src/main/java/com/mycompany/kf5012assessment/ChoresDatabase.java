@@ -30,7 +30,7 @@ public class ChoresDatabase {
         //database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Yoyo:
         ///database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
-        database.Connect("D:\\Assessment\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        database.Connect("D:\\CLONE\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
     }
 
     /**
@@ -63,6 +63,17 @@ public class ChoresDatabase {
             e.printStackTrace();
         }
         return chores;
+    }
+
+    public void assignChore(String choreName, int assignedTo) throws SQLException {
+        String sqlUpdateChore = "UPDATE chores SET assignedTo = '" + assignedTo + "' "
+                + "WHERE choreName = '" + choreName + "' ;";
+
+        boolean success = database.RunSQL(sqlUpdateChore);
+
+        if (!success) {
+            System.out.println("Failed to process query" + sqlUpdateChore);
+        }
     }
 
     public ArrayList<Chore> selectEstimateTimeUserOne() throws SQLException {
@@ -121,7 +132,7 @@ public class ChoresDatabase {
 
         ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
         ArrayList<Chore> chores = new ArrayList<Chore>();
-        
+
         try {
             while (choreList.next()) {
                 Chore newChore = new Chore();

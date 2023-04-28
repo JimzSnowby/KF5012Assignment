@@ -19,7 +19,7 @@ public class Chore {
     private int frequency;  // number of times in a week
     private int day;    // int that correlates to day of the week 1-8
     private boolean complete = false; // true if the user has completed the task
-    private boolean selectedForThisWeek = true;
+    private boolean selectedForThisWeek;
     private int assignto;
 
     private float estimateTimeUserOne;
