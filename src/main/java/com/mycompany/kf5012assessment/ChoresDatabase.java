@@ -23,19 +23,15 @@ public class ChoresDatabase {
         database = new DBConnection();
 
         //James:
-      //  database.Connect("C:\\Users\\james\\Documents\\Year 2\\Semester2\\Software Engineering\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        
+        //  database.Connect("C:\\Users\\james\\Documents\\Year 2\\Semester2\\Software Engineering\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
         //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
-    
         //Nihal:
         //database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-    
         //Yoyo:
         ///database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
-        
         database.Connect("D:\\Assessment\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-    }   
+    }
 
     /**
      *
@@ -93,8 +89,8 @@ public class ChoresDatabase {
         }
         return chores;
     }
-    
-     public ArrayList<Chore> selectEstimateTimeUserTwo() throws SQLException {
+
+    public ArrayList<Chore> selectEstimateTimeUserTwo() throws SQLException {
 
         String sqlSelectChores = "SELECT choreEstimateTime, choreID  FROM estimateTime WHERE userID = 2;";
 
@@ -118,21 +114,19 @@ public class ChoresDatabase {
         }
         return chores;
     }
+
     public ArrayList<Chore> selectEstimateTimes() throws SQLException {
 
         String sqlSelectChores = "SELECT choreEstimateTime, userID, choreID FROM estimateTime;";
 
         ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
         ArrayList<Chore> chores = new ArrayList<Chore>();
-
+        
         try {
-            while (choreList
-            e.printStackTrace();
-        }
-        return chores;
-    }.next()) {
+            while (choreList.next()) {
                 Chore newChore = new Chore();
                 newChore.setEstimateTime(choreList.getFloat(1));
+                newChore.setChoreID(choreList.getInt(2));
                 chores.add(newChore);
 
             }
@@ -144,6 +138,7 @@ public class ChoresDatabase {
             e.printStackTrace();
         }
         return chores;
+
     }
 
     //Update estimate time for user 1
