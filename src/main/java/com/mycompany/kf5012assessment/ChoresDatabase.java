@@ -65,6 +65,7 @@ public class ChoresDatabase {
         return chores;
     }
 
+    //Assign a chore
     public void assignChore(String choreName, int assignedTo) throws SQLException {
         String sqlUpdateChore = "UPDATE chores SET assignedTo = '" + assignedTo + "' "
                 + "WHERE choreName = '" + choreName + "' ;";
@@ -76,6 +77,18 @@ public class ChoresDatabase {
         }
     }
 
+    //Delete a chore
+    public void deleteChore(String choreName, int assignedTo) throws SQLException {
+        String sqlDeleteChore = "DELETE FROM chores WHERE choreName = '" + choreName + "';";
+
+        boolean success = database.RunSQL(sqlDeleteChore);
+
+        if (!success) {
+            System.out.println("Failed to process query" + sqlDeleteChore);
+        }
+    }
+
+    //Select estimate times for user 1
     public ArrayList<Chore> selectEstimateTimeUserOne() throws SQLException {
 
         String sqlSelectChores = "SELECT choreEstimateTime, choreID  FROM estimateTime WHERE userID = 1;";
@@ -101,6 +114,7 @@ public class ChoresDatabase {
         return chores;
     }
 
+    //Select estimate times for user 2
     public ArrayList<Chore> selectEstimateTimeUserTwo() throws SQLException {
 
         String sqlSelectChores = "SELECT choreEstimateTime, choreID  FROM estimateTime WHERE userID = 2;";
