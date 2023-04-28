@@ -114,9 +114,8 @@ public class AssigningChoresAlgo {
                             break;
                         }
                     }
-
                 }
-
+                
                 //  user1ChoresAssigned.addToChoreList(chosenChore);
                 User1Load = User1Load + chosenChore.getEstimateTimeUserOne();
                 chosenChore.assignTo(1);
@@ -133,7 +132,7 @@ public class AssigningChoresAlgo {
                 Chore chosenChore = null;
 
                 for (Chore c : choreList) {
-                    if (c.getEstimateTimeUserTwo() < c.getEstimateTimeUserOne()&& c.getassignTo()==0) {
+                    if (c.getEstimateTimeUserTwo() < c.getEstimateTimeUserOne() && c.getassignTo() == 0) {
                         chosenChore = c;
                         break;
                     }

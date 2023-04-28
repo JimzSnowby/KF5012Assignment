@@ -33,8 +33,9 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
             System.out.println("Error occured in extracting data");
         }
         //forces chore 2 to be tuesday
+        //choresArrayList.get(2).setDay(2);
 
-        choresArrayList.get(2).setDay(2);
+        choresArrayList.get(WIDTH);
 
         initComponents();
 
@@ -157,7 +158,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
     try {
         Chore newChore = new Chore();
-       // choresDB.insertChore(newChore);
+        choresDB.addChore(newChore);
         choresArrayList.add(newChore);
         JOptionPane.showMessageDialog(null, "New chore added successfully");
     } catch (Exception e) {
@@ -167,14 +168,6 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
     updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
 }
-
-
-
-
-
-
-
-
 
     private void chooseDayChoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseDayChoreActionPerformed
         // TODO add your handling code here:
@@ -202,7 +195,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
             if (day != newDay) {
                 chore.setDay(newDay);
                 try {
-                    //  choresDB.updateChore(chore);
+                    // choresDB.updateChore(chore);
                 } catch (Exception e) {
                     System.out.println("Error occurred in updating data");
                 }

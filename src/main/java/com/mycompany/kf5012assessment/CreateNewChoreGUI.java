@@ -32,10 +32,9 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
     public CreateNewChoreGUI() {
         initComponents(); // initialize the components of your GUI
         setVisible(true); // make the GUI visible
+        
     }
 
-  
-     
     public SelectWeeklyChoreGUI getMainWindow() {
         return mainWindow;
     }
@@ -122,6 +121,11 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         });
 
         cancelNewChoreButton.setText("Cancel");
+        cancelNewChoreButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelNewChoreButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,8 +184,6 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
 
-  
-    
     private void oneOffChoreTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneOffChoreTypeActionPerformed
         // TODO add your handling code here:
 
@@ -194,35 +196,34 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_weeklyChoreTypeActionPerformed
 
     private void newChoreTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newChoreTextFieldActionPerformed
- 
-        
+
+
     }//GEN-LAST:event_newChoreTextFieldActionPerformed
 
     private void submitNewChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitNewChoreButtonActionPerformed
-        
-        
-    }//GEN-LAST:event_submitNewChoreButtonActionPerformed
 
-       public void submitData(){
-        DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
-        boolean checkBox; 
-        
-        // Iterates over the list to see which chores have their completed box ticked
-        for(int i  = 0; i < dummyList.getAssignedChoresList().size(); i++){
-            try {
-                checkBox = (boolean) tableModel.getValueAt(i, 2);
-                if (checkBox) {
-                    System.out.println("Checked");
-                }else{
-                    System.out.println("Not Checked");
-                }
-            }catch(Exception e){
-                System.out.println("Nothing is checked");
-            }
+        if (newChoreTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "pls fill in a chore!");
+
+        } else {
+            String textNewChore = newChoreTextField.getText().trim();
             
         }
-        
-    }
+        Chore chore = new Chore();
+
+        // Close the dialog
+        this.dispose();
+
+
+    }//GEN-LAST:event_submitNewChoreButtonActionPerformed
+
+    private void cancelNewChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelNewChoreButtonActionPerformed
+   int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            this.dispose(); //gets rid of the screen  
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelNewChoreButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -258,7 +259,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
             }
         });
     }
-  
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelNewChoreButton;

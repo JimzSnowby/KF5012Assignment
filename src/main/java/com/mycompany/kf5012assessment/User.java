@@ -12,7 +12,7 @@ package com.mycompany.kf5012assessment;
 
 // This is the actual user
 public class User {
-    private int id; // PK for DB
+    private int id; // PK for DB 
     private int activeUser; // is this the current active user
     private AssignedChoresList listOfChores;    // This is the list of chores that have been assigned to the user
     private int totalScore; // Grand total score

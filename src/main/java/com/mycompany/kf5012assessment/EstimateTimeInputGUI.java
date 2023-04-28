@@ -25,10 +25,12 @@ ArrayList<Integer> user2EstimatedTimes = new ArrayList<Integer>();
     /**
      * Creates new form EstimateTimeInputGUI
      */
+
+
     public EstimateTimeInputGUI(ArrayList<Chore>choresArrayList) {
         this.choresArrayList = choresArrayList;
         for (int i = 0; i < users.getUserList().size(); i++) {
-            System.out.println(users.getUserList().get(i).getUserName());
+            System.out.println(users.getUserList().get(i).getId());
         }
         initComponents();
     }
