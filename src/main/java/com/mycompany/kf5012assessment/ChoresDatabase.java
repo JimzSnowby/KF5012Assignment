@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author majabosy
  */
-public class ChoresDatabase {
+ public class ChoresDatabase {
 
     private static DBConnection database;
     static Chore newchore = new Chore();
@@ -27,20 +27,11 @@ public class ChoresDatabase {
         //Maja:
         //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
-        database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-<<<<<<< Updated upstream
+        //database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Yoyo:
         ///database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
-        //database.Connect("D:\\CLONE\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        database.Connect("D:\\CLONE\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
     }
-=======
-    
-        //Yoyo:
-        ///database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
-        
-       // database.Connect("D:\\Assessment\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-    }   
->>>>>>> Stashed changes
 
     /**
      *
@@ -73,7 +64,6 @@ public class ChoresDatabase {
         }
         return chores;
     }
-
     //Assign a chore
     public void assignChore(String choreName, int assignedTo) throws SQLException {
         String sqlUpdateChore = "UPDATE chores SET assignedTo = '" + assignedTo + "' "
