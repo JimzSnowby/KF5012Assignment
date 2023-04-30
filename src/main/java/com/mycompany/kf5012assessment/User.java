@@ -12,27 +12,27 @@ package com.mycompany.kf5012assessment;
 
 // This is the actual user
 public class User {
-    private int id; // PK for DB 
-    private int activeUser; // is this the current active user
+    private int userID; // PK for DB 
+    private int userActive; // is this the current active user
     private AssignedChoresList listOfChores;    // This is the list of chores that have been assigned to the user
-    private int totalScore; // Grand total score
-    private int weekScore;  // Score for this week
+    private int userTotalScore; // Grand total score
+    private int userWeekScore;  // Score for this week
 
     
-    public int getId() {
-        return id;
+    public int getUserID() {
+        return userID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserID(int id) {
+        this.userID = id;
     }
 
-    public int isActiveUser() {
-        return activeUser;
+    public int isUserActive() {
+        return userActive;
     }
 
-    public void setActiveUser(int activeUser) {
-        this.activeUser = activeUser;
+    public void setUserActive(int activeUser) {
+        this.userActive = activeUser;
     }
 
     public AssignedChoresList getListOfChores() {
@@ -43,19 +43,19 @@ public class User {
         this.listOfChores = listOfChores;
     }
 
-    public int getWeekScore() {
-        return weekScore;
+    public int getUserWeekScore() {
+        return userWeekScore;
     }
 
-    public void setWeekScore(int weekScore) {
-        this.weekScore = weekScore;
+    public void setUserWeekScore(int weekScore) {
+        this.userWeekScore = weekScore;
     }
 
-    public int getTotalScore() {
-        return totalScore;
+    public int getUserTotalScore() {
+        return userTotalScore;
     }
 
-    public void setTotalScore(int totalScore) {
-        this.totalScore = totalScore;
+    public void setUserTotalScore(int totalScore) {
+        this.userTotalScore = totalScore;
     }
 }

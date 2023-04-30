@@ -30,7 +30,7 @@ ArrayList<Integer> user2EstimatedTimes = new ArrayList<Integer>();
     public EstimateTimeInputGUI(ArrayList<Chore>choresArrayList) {
         this.choresArrayList = choresArrayList;
         for (int i = 0; i < users.getUserList().size(); i++) {
-            System.out.println(users.getUserList().get(i).getId());
+            System.out.println(users.getUserList().get(i).getUserID());
         }
         initComponents();
     }

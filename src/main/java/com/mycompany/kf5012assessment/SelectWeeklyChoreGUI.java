@@ -190,10 +190,10 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         ChoresDatabase choresDB = new ChoresDatabase();
         for (int i = 0; i < choresArrayList.size(); i++) {
             Chore chore = choresArrayList.get(i);
-            int day = chore.getDay();
+            int day = chore.getChoreDay();
             int newDay = chooseDayChore.getSelectedIndex() - 1;
             if (day != newDay) {
-                chore.setDay(newDay);
+                chore.setChoreDay(newDay);
                 try {
                     // choresDB.updateChore(chore);
                 } catch (Exception e) {
@@ -212,7 +212,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         // Create a new instance of Chore with the given task and day
         Chore newChore = new Chore();
         newChore.setChoreName(task);
-        newChore.setDay(day);
+        newChore.setChoreDay(day);
 
         // Add the new chore to the list of chores in memory
         choresArrayList.add(newChore);
@@ -262,7 +262,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
         // Iterate through the list and add each chore's data to the table
         for (int i = 0; i < choresArrayList.size(); i++) {
-            if (choresArrayList.get(i).getDay() == dayNumberselected) {
+            if (choresArrayList.get(i).getChoreDay() == dayNumberselected) {
                 tableModel.addRow(new Object[]{choresArrayList.get(i).getChoreName(), choresArrayList.get(i).isSelectedForThisWeek()});
 
             }

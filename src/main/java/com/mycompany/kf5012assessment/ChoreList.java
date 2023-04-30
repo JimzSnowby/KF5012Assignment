@@ -29,7 +29,7 @@ public class ChoreList {
     }
      public void addToChoreList(Chore chore){
         choreList.add(chore);
-        switch (chore.getDay()) {
+        switch (chore.getChoreDay()) {
             case 1:
                 mon.add(chore);
                 break;

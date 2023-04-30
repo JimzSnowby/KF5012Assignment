@@ -29,8 +29,8 @@ import java.util.ArrayList;
         //Nihal:
         //database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Yoyo:
-        ///database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
-        database.Connect("D:\\CLONE\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        //database.Connect("D:\\CLONE\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
     }
 
     /**
@@ -258,10 +258,10 @@ import java.util.ArrayList;
         try {
             while (userList.next()) {
                 User newUser = new User();
-                newUser.setId(userList.getInt(1));
-                newUser.setActiveUser(userList.getInt(2));
-                newUser.setWeekScore(userList.getInt(3));
-                newUser.setTotalScore(userList.getInt(4));
+                newUser.setUserID(userList.getInt(1));
+                newUser.setUserActive(userList.getInt(2));
+                newUser.setUserWeekScore(userList.getInt(3));
+                newUser.setUserTotalScore(userList.getInt(4));
 
                 users.add(newUser);
 
@@ -289,7 +289,7 @@ import java.util.ArrayList;
                 + max + ", "
                 + newChore.getChoreName() + ", "
                 + placeholder + ", '"
-                + newchore.getDay() + ", '"
+                + newchore.getChoreDay() + ", '"
                 + " '); ";
 
         boolean success;

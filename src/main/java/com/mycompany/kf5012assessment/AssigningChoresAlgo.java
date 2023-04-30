@@ -39,7 +39,7 @@ public class AssigningChoresAlgo {
 
     public boolean unassignedChore(ArrayList<Chore> choreList) {
         for (Chore c : choreList) {
-            if (c.getassignTo() == 0) {
+            if (c.getChoreAssignTo() == 0) {
                 return true;
             }
         }
@@ -101,7 +101,7 @@ public class AssigningChoresAlgo {
                 Chore chosenChore = null;
 
                 for (Chore c : choreList) {
-                    if (c.getEstimateTimeUserOne() < c.getEstimateTimeUserTwo() && c.getassignTo() == 0) {
+                    if (c.getEstimateTimeUserOne() < c.getEstimateTimeUserTwo() && c.getChoreAssignTo() == 0) {
                         chosenChore = c;
                         break;
                     }
@@ -109,7 +109,7 @@ public class AssigningChoresAlgo {
 
                 if (chosenChore == null) {
                     for (Chore c : choreList) {
-                        if (c.getassignTo() == 0) {
+                        if (c.getChoreAssignTo() == 0) {
                             chosenChore = c;
                             break;
                         }
@@ -132,7 +132,7 @@ public class AssigningChoresAlgo {
                 Chore chosenChore = null;
 
                 for (Chore c : choreList) {
-                    if (c.getEstimateTimeUserTwo() < c.getEstimateTimeUserOne() && c.getassignTo() == 0) {
+                    if (c.getEstimateTimeUserTwo() < c.getEstimateTimeUserOne() && c.getChoreAssignTo() == 0) {
                         chosenChore = c;
                         break;
                     }
@@ -140,7 +140,7 @@ public class AssigningChoresAlgo {
 
                 if (chosenChore == null) {
                     for (Chore c : choreList) {
-                        if (c.getassignTo() == 0) {
+                        if (c.getChoreAssignTo() == 0) {
                             chosenChore = c;
                             break;
                         }

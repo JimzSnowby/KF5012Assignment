@@ -16,11 +16,11 @@ public class Chore {
     private String choreName;
     private int choreFrequencyID; // If == 0 is a one-off, if == 1 is permanent
     //sprivate String choreDesc;   // for more details e.g shopping list
-    private int frequency;  // number of times in a week
-    private int day;    // int that correlates to day of the week 1-8
-    private boolean complete = false; // true if the user has completed the task
+    private int choreFrequency;  // number of times in a week
+    private int choreDay;    // int that correlates to day of the week 1-8
+    private boolean choreComplete = false; // true if the user has completed the task
     private boolean selectedForThisWeek;
-    private int assignto;
+    private int choreAssignTo;
 
     private float estimateTimeUserOne;
     private float estimateTimeUserTwo;
@@ -91,42 +91,42 @@ public class Chore {
         this.choreDesc = choreDesc;
     }
     s*/
-    public int getFrequency() {
-        return frequency;
+    public int getChoreFrequency() {
+        return choreFrequency;
     }
 
-    public void setFrequency(int frequency) {
-        this.frequency = frequency;
+    public void setChoreFrequency(int frequency) {
+        this.choreFrequency = frequency;
     }
 
-    public int getDay() {
-        return day;
+    public int getChoreDay() {
+        return choreDay;
     }
 
-    public void setDay(int day) {
-        this.day = day;
+    public void setChoreDay(int day) {
+        this.choreDay = day;
     }
 
-    public boolean isComplete() {
-        return complete;
+    public boolean isChoreComplete() {
+        return choreComplete;
     }
 
-    public void setComplete(boolean complete) {
-        this.complete = complete;
+    public void setChoreComplete(boolean complete) {
+        this.choreComplete = complete;
     }
 
     public void assignTo(int v){
-        assignto= v;
+        choreAssignTo= v;
     }
     
-    public int getassignTo(){
-        return assignto;
+    public int getChoreAssignTo(){
+        return choreAssignTo;
     }
     public Chore() {
         choreName = "not set";
         estimateTimeUserOne = 0;
         estimateTimeUserTwo = 0;
-        assignto = 0;
+        choreAssignTo = 0;
         selectedForThisWeek = false;
 
     }
@@ -135,7 +135,7 @@ public class Chore {
         choreName = name;
         estimateTimeUserOne = estimateOne;
         estimateTimeUserTwo = estimateTwo;
-        assignto = 0;
+        choreAssignTo = 0;
         selectedForThisWeek = selected;
     }
     

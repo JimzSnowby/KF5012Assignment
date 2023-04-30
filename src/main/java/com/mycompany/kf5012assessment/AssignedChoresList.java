@@ -24,30 +24,30 @@ public class AssignedChoresList {
     
     public void addToChoreList(Chore chore){
         assignedChoresList.add(chore);
-        switch (chore.getDay()) {
+        switch (chore.getChoreDay()) {
             case 1:
-                chore.setDay(1);
+                chore.setChoreDay(1);
                 break;
             case 2:
-                chore.setDay(2);
+                chore.setChoreDay(2);
                 break;
             case 3:
-                chore.setDay(3);
+                chore.setChoreDay(3);
                 break;
             case 4:
-                chore.setDay(4);
+                chore.setChoreDay(4);
                 break;
             case 5:
-                chore.setDay(5);
+                chore.setChoreDay(5);
                 break;
             case 6:
-                chore.setDay(6);
+                chore.setChoreDay(6);
                 break;
             case 7:
-                chore.setDay(7);
+                chore.setChoreDay(7);
                 break;
             case 8:
-                chore.setDay(8);
+                chore.setChoreDay(8);
                 break;
             default:
                 throw new IndexOutOfBoundsException("case must be between 1-8");
