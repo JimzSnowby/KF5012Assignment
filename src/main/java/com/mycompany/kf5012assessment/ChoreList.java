@@ -20,6 +20,12 @@ public class ChoreList {
     private List<Chore> sat = new ArrayList();
     private List<Chore> sun = new ArrayList();
 
+    //Constructor
+    public ChoreList() {
+    }
+
+   
+    
     public List<Chore> getChoreList() {
         return choreList;
     }

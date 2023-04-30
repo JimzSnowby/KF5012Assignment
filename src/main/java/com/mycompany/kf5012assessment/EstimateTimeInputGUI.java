@@ -19,8 +19,8 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
     private ChoresDatabase db = new ChoresDatabase();
     private UserList users = new UserList();
  // Declare two ArrayLists to store estimated chore times for each user
-ArrayList<Integer> user1EstimatedTimes = new ArrayList<Integer>();
-ArrayList<Integer> user2EstimatedTimes = new ArrayList<Integer>();
+ArrayList<Integer> userOneEstimatedTimes = new ArrayList<Integer>();
+ArrayList<Integer> userTwoEstimatedTimes = new ArrayList<Integer>();
 
     /**
      * Creates new form EstimateTimeInputGUI
@@ -153,17 +153,17 @@ for (int i = 0; i < estimateTimeTable.getRowCount(); i++) {
 
     // Store the estimated time in the corresponding ArrayList
     if (selectedUser.equals("user1")) {
-        user1EstimatedTimes.add(estimatedTime);
+        userOneEstimatedTimes.add(estimatedTime);
     } else if (selectedUser.equals("user2")) {
-        user2EstimatedTimes.add(estimatedTime);
+        userTwoEstimatedTimes.add(estimatedTime);
     }
 }
 
 // Print the estimated times for each user for debugging purposes
 if (selectedUser.equals("user1")) {
-    System.out.println("User 1's estimated times: " + user1EstimatedTimes);
+    System.out.println("User 1's estimated times: " + userOneEstimatedTimes);
 } else if (selectedUser.equals("user2")) {
-    System.out.println("User 2's estimated times: " + user2EstimatedTimes);
+    System.out.println("User 2's estimated times: " + userTwoEstimatedTimes);
 }
 
 // Show a success message to the user
@@ -183,11 +183,11 @@ model.setRowCount(0);
 
 // Populate the table with the corresponding user's chore estimate times
 if (selectedUser.equals("user1")) {
-    for (Integer estimatedTime : user1EstimatedTimes) {
+    for (Integer estimatedTime : userOneEstimatedTimes) {
         model.addRow(new Object[]{"", estimatedTime});
     }
 } else if (selectedUser.equals("user2")) {
-    for (Integer estimatedTime : user2EstimatedTimes) {
+    for (Integer estimatedTime : userTwoEstimatedTimes) {
         model.addRow(new Object[]{"", estimatedTime});
     }
 }

@@ -139,7 +139,7 @@ import java.util.ArrayList;
         return chores;
     }
 
-    public ArrayList<Chore> selectEstimateTimes() throws SQLException {
+  /*  public ArrayList<Chore> selectEstimateTimes() throws SQLException {
 
         String sqlSelectChores = "SELECT choreEstimateTime, userID, choreID FROM estimateTime;";
 
@@ -149,7 +149,7 @@ import java.util.ArrayList;
         try {
             while (choreList.next()) {
                 Chore newChore = new Chore();
-                newChore.setEstimateTime(choreList.getFloat(1));
+            //    newChore.setEstimateTime(choreList.getFloat(1));
                 newChore.setChoreID(choreList.getInt(2));
                 chores.add(newChore);
 
@@ -163,7 +163,7 @@ import java.util.ArrayList;
         }
         return chores;
 
-    }
+    }*/
 
     //Update estimate time for user 1
     public void updateEstimateTimeUserOne() throws SQLException {

@@ -24,15 +24,15 @@ public class Chore {
 
     private float estimateTimeUserOne;
     private float estimateTimeUserTwo;
-    private float estimateTime;
+    //private float estimateTime;
 
-    public float getEstimateTime() {
-        return estimateTime;
+   /* public float getEstimateTime() {
+       return estimateTime;
     }
 
-    public void setEstimateTime(float estimateTime) {
+      public void setEstimateTime(float estimateTime) {
         this.estimateTime = estimateTime;
-    }
+    }*/
 
     public float getEstimateTimeUserOne() {
         return estimateTimeUserOne;

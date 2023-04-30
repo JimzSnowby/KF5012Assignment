@@ -16,10 +16,10 @@ import java.util.logging.Logger;
 // For Task 7 Group work
 public class AssigningChoresAlgo {
 
-    private ArrayList<Chore> choresArrayList;
-    private ArrayList<Chore> choresArrayListTwo;
-    private User user1;
-    private User user2;
+    private ArrayList<Chore> choresArrayListUserOne;
+    private ArrayList<Chore> choresArrayListUserTwo;
+    //private User userOne;
+    //private User userTwo;
 
     //private choresArrayList = dummyList;
     public AssigningChoresAlgo() {
@@ -27,8 +27,8 @@ public class AssigningChoresAlgo {
         ChoresDatabase choresDB = new ChoresDatabase();
 
         try {
-            choresArrayList = choresDB.selectEstimateTimeUserOne();
-            choresArrayListTwo = choresDB.selectEstimateTimeUserTwo();
+            choresArrayListUserOne = choresDB.selectEstimateTimeUserOne();
+            choresArrayListUserTwo = choresDB.selectEstimateTimeUserTwo();
 
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");

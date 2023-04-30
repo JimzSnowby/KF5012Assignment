@@ -14,6 +14,11 @@ import java.util.*;
 public class AssignedChoresList {
     private List<Chore> assignedChoresList = new ArrayList();
 
+    //Constructor
+    public AssignedChoresList() {
+    }
+
+    
     public List<Chore> getAssignedChoresList() {
         return assignedChoresList;
     }
