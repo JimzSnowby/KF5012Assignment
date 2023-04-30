@@ -10,7 +10,7 @@ package com.mycompany.kf5012assessment;
  */
 // James
 // End of week alert when a chore hasn't been completed
-public class ChoreCompletedAlert {
+public class ChoreReminderAlert {
     
 }
 
