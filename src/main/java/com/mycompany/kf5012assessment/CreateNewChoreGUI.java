@@ -5,6 +5,7 @@
 package com.mycompany.kf5012assessment;
 
 import java.util.ArrayList;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,9 +13,9 @@ import javax.swing.JOptionPane;
  * @author w21023500
  */
 public class CreateNewChoreGUI extends javax.swing.JDialog {
-    ArrayList<Chore> choress; 
-    
-    
+
+    ArrayList<Chore> choress;
+
     /**
      * Creates new form CreateNewChoreGUI
      */
@@ -29,13 +30,17 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         super(parent, modal);
         this.mainWindow = parent;
         initComponents();
-        choress= new ArrayList<Chore>();
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(oneOffChoreType);
+        bg.add(weeklyChoreType);
+        weeklyChoreType.setSelected(true);
+
     }
 
     public CreateNewChoreGUI() {
         initComponents(); // initialize the components of your GUI
         setVisible(true); // make the GUI visible
-        
+
     }
 
     public SelectWeeklyChoreGUI getMainWindow() {
@@ -210,7 +215,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
 
         } else {
             String textNewChore = newChoreTextField.getText().trim();
-            
+
         }
         Chore chore = new Chore();
 
@@ -221,7 +226,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_submitNewChoreButtonActionPerformed
 
     private void cancelNewChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelNewChoreButtonActionPerformed
-   int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
             this.dispose(); //gets rid of the screen  
         }        // TODO add your handling code here:

@@ -165,11 +165,13 @@ JOptionPane.showMessageDialog(this, "Your estimates have been recorded.", "Succe
 // Close this GUI
 this.dispose();
     }//GEN-LAST:event_submitEstimeTimeActionPerformed
-
+    }
+    
+   /* 
     private void changeUserForEstimateTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeUserForEstimateTimeActionPerformed
  
     }//GEN-LAST:event_changeUserForEstimateTimeActionPerformed
-
+*/
     /**
      * @param args the command line arguments
      */

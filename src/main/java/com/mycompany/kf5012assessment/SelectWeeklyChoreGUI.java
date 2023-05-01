@@ -158,7 +158,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
     try {
         Chore newChore = new Chore();
-        choresDB.addChore(newChore);
+    //    choresDB.addChore(newChore);
         choresArrayList.add(newChore);
         JOptionPane.showMessageDialog(null, "New chore added successfully");
     } catch (Exception e) {
