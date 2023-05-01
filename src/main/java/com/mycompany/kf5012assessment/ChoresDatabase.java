@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author majabosy
  */
- public class ChoresDatabase {
+public class ChoresDatabase {
 
     private static DBConnection database;
     static Chore newchore = new Chore();
@@ -25,18 +25,18 @@ import java.util.ArrayList;
         //James:
         //  database.Connect("C:\\Users\\james\\Documents\\Year 2\\Semester2\\Software Engineering\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-        //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
         //database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Yoyo:
-       // database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        // database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //database.Connect("D:\\CLONE\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
     }
 
     /**
      *
-     * Functions below
+     * Functions
      *
      */
     //Select all chores
@@ -65,6 +65,7 @@ import java.util.ArrayList;
         }
         return chores;
     }
+
     //Assign a chore
     public void assignChore(String choreName, int assignedTo) throws SQLException {
         String sqlUpdateChore = "UPDATE chores SET assignedTo = '" + assignedTo + "' "
@@ -140,7 +141,7 @@ import java.util.ArrayList;
         return chores;
     }
 
-  /*  public ArrayList<Chore> selectEstimateTimes() throws SQLException {
+    /*  public ArrayList<Chore> selectEstimateTimes() throws SQLException {
 
         String sqlSelectChores = "SELECT choreEstimateTime, userID, choreID FROM estimateTime;";
 
@@ -165,7 +166,6 @@ import java.util.ArrayList;
         return chores;
 
     }*/
-
     //Update estimate time for user 1
     public void updateEstimateTimeUserOne() throws SQLException {
         String sqlUpdateEstimateTime1 = "UPDATE estimateTime SET choreEstimateTime = '" + newchore.getEstimateTimeUserOne() + "' "
@@ -278,19 +278,19 @@ import java.util.ArrayList;
     }
 
     //Add a new chore
-    public void addChore(Chore newChore) {
+    public void addChore(Chore newChore, int choreFrequencyID, int assignedTo) {
 
         String rs = ("select max(choreID) from chores;");
         database.RunSQLQuery(rs);
         int max = Integer.parseInt(rs) + 1;
-        int placeholder = 1;
-        int placeholder2 = 1;
 
-        String sqlAddChore = "INSERT INTO chores (choreID, choreName, choreFrequencyID, daysOfWeekID) VALUES("
+
+        String sqlAddChore = "INSERT INTO chores (choreID, choreName, choreFrequencyID, daysOfWeekID, assignedTo) VALUES("
                 + max + ", "
                 + newChore.getChoreName() + ", "
-                + placeholder + ", '"
+                + choreFrequencyID + ", '"
                 + newchore.getChoreDay() + ", '"
+                + assignedTo + ", '"
                 + " '); ";
 
         boolean success;
@@ -330,8 +330,8 @@ import java.util.ArrayList;
     }
 
     //Delete an user
-    public void deleteUser(String userName) {
-        String sqlDeleteUser = "DELETE FROM users WHERE userName = '" + userName + "';";
+    public void deleteUser(String userID) {
+        String sqlDeleteUser = "DELETE FROM users WHERE userID = '" + userID + "';";
 
         boolean success = database.RunSQL(sqlDeleteUser);
 
@@ -377,6 +377,7 @@ import java.util.ArrayList;
 
     }
 
+    /*
     //Ask about the arraylist
     public static void main(String[] args) {
         //String update = "UPDATE chores SET choreName = ?, choreFrequencyID = ?, daysOfWeekID WHERE choreID = ? ";
@@ -386,30 +387,34 @@ import java.util.ArrayList;
         }
     }
 
-    /*
+   
     Please don't delete, testing mission purposes
     
     //Testing the adding
-    public static void main(String[] args){
-        ChoresDatabase x = new ChoresDatabase();
-        Chore c  =  new Chore();
-        
-        c.setChoreID(21);
-        c.setName()
-                
-                
-        x.ad
+
     
     //Testing the update
     public static void main(String[] args) throws SQLException {
         ChoresDatabase x = new ChoresDatabase();
-        Chore c  =  new Chore();
-        
-        newchore.setEstimateTimeUserTwo(666);
+        Chore c = new Chore();
 
-        //c.setEstimateTimeUserTwo(667);
+        newchore.setEstimateTimeUserOne(66);
+        newchore.setEstimateTimeUserTwo(11);
+
         x.updateEstimateTimeUserTwo();
+        x.updateEstimateTimeUserOne();
+    } 
+    public static void main(String[] args) {
+        ChoresDatabase x = new ChoresDatabase();
+        Chore c = new Chore();
 
-    }
+        c.setChoreID(21);
+        c.setChoreName("Testing");
+        c.setChoreFrequencyID(1);
+        c.setChoreDay(1);
+        c.assignTo(1);
+                
+        x.addChore(newchore);
     }*/
+
 }
