@@ -143,32 +143,7 @@ public class ChoresDatabase {
         }
         return chores;
     }
-
-    /*  public ArrayList<Chore> selectEstimateTimes() throws SQLException {
-
-        String sqlSelectChores = "SELECT choreEstimateTime, userID, choreID FROM estimateTime;";
-
-        ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
-        ArrayList<Chore> chores = new ArrayList<Chore>();
-
-        try {
-            while (choreList.next()) {
-                Chore newChore = new Chore();
-            //    newChore.setEstimateTime(choreList.getFloat(1));
-                newChore.setChoreID(choreList.getInt(2));
-                chores.add(newChore);
-
-            }
-        } catch (SQLException e) {
-            System.out.println("Failed to process query in selectChores()");
-            System.out.println("SQL attempted: " + sqlSelectChores);
-            System.out.println("Error: " + e.getErrorCode());
-            System.out.println("Message: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return chores;
-
-    }*/
+    
     //Update estimate time for user 1
     public void updateEstimateTimeUserOne() throws SQLException {
         String sqlUpdateEstimateTime1 = "UPDATE estimateTime SET choreEstimateTime = '" + newchore.getEstimateTimeUserOne() + "' "
