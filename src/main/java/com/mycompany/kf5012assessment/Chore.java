@@ -21,8 +21,7 @@ public class Chore {
     private boolean choreComplete = false; // true if the user has completed the task
     private boolean selectedForThisWeek;
     private int choreAssignTo;
-    private int estimateTimeUser1;
-    private int estimateTimeUser2;
+
     private float estimateTimeUserOne;
     private float estimateTimeUserTwo;
     //private float estimateTime;
