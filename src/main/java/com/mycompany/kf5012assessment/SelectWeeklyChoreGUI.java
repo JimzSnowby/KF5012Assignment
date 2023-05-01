@@ -186,6 +186,8 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_addChoreButtonActionPerformed
 
     private void submitChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitChoreButtonActionPerformed
+      DefaultTableModel choreTableModel = (DefaultTableModel) choreTable.getModel();
+      //  DefaultTableModel estimateTimeTableModel = (DefaultTableModel) estimateTimeTable.getModel();
         // iterate over the choresArrayList and update the database with the selected day
         ChoresDatabase choresDB = new ChoresDatabase();
         for (int i = 0; i < choresArrayList.size(); i++) {
@@ -198,6 +200,28 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
                     // choresDB.updateChore(chore);
                 } catch (Exception e) {
                     System.out.println("Error occurred in updating data");
+                }
+            }
+        }
+        
+        // Get the selected rows
+        int[] selectedRows = choreTable.getSelectedRows();
+
+        if (selectedRows.length == 0) {
+            JOptionPane.showMessageDialog(null, "You haven't selected any task.");
+        } else {
+            // Ask for confirmation to the user  before moving rows
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to move the selected rows?");
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Iterate through the selected rows
+                for (int i = 0; i < selectedRows.length; i++) {
+                    // Get the data from the selected row
+                    Object[] rowData = new Object[choreTableModel.getColumnCount()];
+                    for (int j = 0; j < choreTableModel.getColumnCount(); j++) {
+                        rowData[j] = choreTableModel.getValueAt(selectedRows[i], j);
+                    }
+                    // Add the data to choreNameTable
+                   // choreNameTableModel.addRow(rowData);
                 }
             }
         }
@@ -244,7 +268,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
             String choreName = (String) tableModel.getValueAt(i, 0);
             for (Chore nc : choresArrayList) {
 
-                if (nc.getChoreName() == choreName) {
+                if (nc.getChoreName().equals(choreName)) {
                     nc.setSelectedForThisWeek((boolean) tableModel.getValueAt(i, 1));
                 }
 

@@ -147,7 +147,6 @@ ArrayList<Integer> userTwoEstimatedTimes = new ArrayList<Integer>();
 
     private void submitEstimeTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitEstimeTimeActionPerformed
 
-
 // Get the selected user from the dropdown menu
 //String selectedUser = (String) changeUserForEstimateTime.getSelectedItem();
 
@@ -166,10 +165,13 @@ JOptionPane.showMessageDialog(this, "Your estimates have been recorded.", "Succe
 this.dispose();
     }//GEN-LAST:event_submitEstimeTimeActionPerformed
 
+    }
+    
     private void changeUserForEstimateTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeUserForEstimateTimeActionPerformed
- 
+
     }//GEN-LAST:event_changeUserForEstimateTimeActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */
@@ -197,8 +199,8 @@ this.dispose();
         }
 
  
-    //EstimateTimeInputGUI gui = new EstimateTimeInputGUI();
-   // gui.setVisible(true);
+       // EstimateTimeInputGUI inputGUI = new EstimateTimeInputGUI();
+      //  inputGUI.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
