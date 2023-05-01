@@ -21,19 +21,19 @@ public class Chore {
     private boolean choreComplete = false; // true if the user has completed the task
     private boolean selectedForThisWeek;
     private int choreAssignTo;
-
+    private int estimateTimeUser1;
+    private int estimateTimeUser2;
     private float estimateTimeUserOne;
     private float estimateTimeUserTwo;
     //private float estimateTime;
 
-   /* public float getEstimateTime() {
+    /* public float getEstimateTime() {
        return estimateTime;
     }
 
       public void setEstimateTime(float estimateTime) {
         this.estimateTime = estimateTime;
     }*/
-
     public float getEstimateTimeUserOne() {
         return estimateTimeUserOne;
     }
@@ -115,13 +115,14 @@ public class Chore {
         this.choreComplete = complete;
     }
 
-    public void assignTo(int v){
-        choreAssignTo= v;
+    public void assignTo(int v) {
+        choreAssignTo = v;
     }
-    
-    public int getChoreAssignTo(){
+
+    public int getChoreAssignTo() {
         return choreAssignTo;
     }
+
     public Chore() {
         choreName = "not set";
         estimateTimeUserOne = 0;
@@ -130,14 +131,13 @@ public class Chore {
         selectedForThisWeek = false;
 
     }
-    
-    public Chore(String name, float estimateOne, float estimateTwo, boolean selected){
+
+    public Chore(String name, float estimateOne, float estimateTwo, boolean selected) {
         choreName = name;
         estimateTimeUserOne = estimateOne;
         estimateTimeUserTwo = estimateTwo;
         choreAssignTo = 0;
         selectedForThisWeek = selected;
     }
-    
-    
+
 }

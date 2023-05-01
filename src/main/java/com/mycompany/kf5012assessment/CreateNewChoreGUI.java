@@ -12,7 +12,9 @@ import javax.swing.JOptionPane;
  * @author w21023500
  */
 public class CreateNewChoreGUI extends javax.swing.JDialog {
-
+    ArrayList<Chore> choress; 
+    
+    
     /**
      * Creates new form CreateNewChoreGUI
      */
@@ -27,6 +29,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         super(parent, modal);
         this.mainWindow = parent;
         initComponents();
+        choress= new ArrayList<Chore>();
     }
 
     public CreateNewChoreGUI() {

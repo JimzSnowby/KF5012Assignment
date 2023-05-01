@@ -26,13 +26,31 @@ ArrayList<Integer> userTwoEstimatedTimes = new ArrayList<Integer>();
      * Creates new form EstimateTimeInputGUI
      */
 
+    private int currectUser; 
 
-    public EstimateTimeInputGUI(ArrayList<Chore>choresArrayList) {
-        this.choresArrayList = choresArrayList;
+    public EstimateTimeInputGUI(int selectedUsers) {
+      currectUser = selectedUsers;
+        ChoresDatabase choresDB = new ChoresDatabase();
+
+        try {
+            choresArrayList = choresDB.selectChores();
+        } catch (Exception e) {
+            System.out.println("Error occured in extracting data");
+        }
         for (int i = 0; i < users.getUserList().size(); i++) {
             System.out.println(users.getUserList().get(i).getUserID());
         }
         initComponents();
+        
+         if (selectedUsers ==1){
+             
+            nameLabelb.setText("Bob");
+            
+        } else {
+            if (selectedUsers ==2){
+                nameLabelb.setText("Alice");
+            }
+        }
     }
 
     /**
@@ -44,22 +62,14 @@ ArrayList<Integer> userTwoEstimatedTimes = new ArrayList<Integer>();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        changeUserForEstimateTime = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         estimateTimeTable = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        nameLabelb = new javax.swing.JLabel();
         submitEstimeTime = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        changeUserForEstimateTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User 1", "User 2" }));
-        changeUserForEstimateTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changeUserForEstimateTimeActionPerformed(evt);
-            }
-        });
 
         estimateTimeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,7 +99,8 @@ ArrayList<Integer> userTwoEstimatedTimes = new ArrayList<Integer>();
         });
         jScrollPane1.setViewportView(estimateTimeTable);
 
-        jLabel1.setText("Select User:");
+        nameLabelb.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        nameLabelb.setText("Select User:");
 
         submitEstimeTime.setText("Submit");
         submitEstimeTime.addActionListener(new java.awt.event.ActionListener() {
@@ -111,28 +122,25 @@ ArrayList<Integer> userTwoEstimatedTimes = new ArrayList<Integer>();
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(submitEstimeTime, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(6, 6, 6)
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(changeUserForEstimateTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(nameLabelb, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(changeUserForEstimateTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                .addGap(29, 29, 29)
+                .addComponent(nameLabelb)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addComponent(submitEstimeTime, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
+
+        nameLabelb.getAccessibleContext().setAccessibleName("ERROR");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -141,7 +149,7 @@ ArrayList<Integer> userTwoEstimatedTimes = new ArrayList<Integer>();
 
 
 // Get the selected user from the dropdown menu
-String selectedUser = (String) changeUserForEstimateTime.getSelectedItem();
+//String selectedUser = (String) changeUserForEstimateTime.getSelectedItem();
 
 // Loop over each row in the estimateTimeTable
 for (int i = 0; i < estimateTimeTable.getRowCount(); i++) {
@@ -151,21 +159,6 @@ for (int i = 0; i < estimateTimeTable.getRowCount(); i++) {
     // Get the estimated time for the chore from the second column
     int estimatedTime = (int) estimateTimeTable.getValueAt(i, 1);
 
-    // Store the estimated time in the corresponding ArrayList
-    if (selectedUser.equals("user1")) {
-        userOneEstimatedTimes.add(estimatedTime);
-    } else if (selectedUser.equals("user2")) {
-        userTwoEstimatedTimes.add(estimatedTime);
-    }
-}
-
-// Print the estimated times for each user for debugging purposes
-if (selectedUser.equals("user1")) {
-    System.out.println("User 1's estimated times: " + userOneEstimatedTimes);
-} else if (selectedUser.equals("user2")) {
-    System.out.println("User 2's estimated times: " + userTwoEstimatedTimes);
-}
-
 // Show a success message to the user
 JOptionPane.showMessageDialog(this, "Your estimates have been recorded.", "Success", JOptionPane.INFORMATION_MESSAGE);
 
@@ -174,25 +167,7 @@ this.dispose();
     }//GEN-LAST:event_submitEstimeTimeActionPerformed
 
     private void changeUserForEstimateTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeUserForEstimateTimeActionPerformed
-    // Get the selected user from the dropdown menu
-String selectedUser = (String) changeUserForEstimateTime.getSelectedItem();
-
-// Clear the existing values in the estimateTimeTable
-DefaultTableModel model = (DefaultTableModel) estimateTimeTable.getModel();
-model.setRowCount(0);
-
-// Populate the table with the corresponding user's chore estimate times
-if (selectedUser.equals("user1")) {
-    for (Integer estimatedTime : userOneEstimatedTimes) {
-        model.addRow(new Object[]{"", estimatedTime});
-    }
-} else if (selectedUser.equals("user2")) {
-    for (Integer estimatedTime : userTwoEstimatedTimes) {
-        model.addRow(new Object[]{"", estimatedTime});
-    }
-}
-
-    
+ 
     }//GEN-LAST:event_changeUserForEstimateTimeActionPerformed
 
     /**
@@ -221,18 +196,17 @@ if (selectedUser.equals("user1")) {
             java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-   ArrayList<Chore> choresArrayList = new ArrayList<>();
-    EstimateTimeInputGUI gui = new EstimateTimeInputGUI(choresArrayList);
-    gui.setVisible(true);
+ 
+    //EstimateTimeInputGUI gui = new EstimateTimeInputGUI();
+   // gui.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> changeUserForEstimateTime;
     private javax.swing.JTable estimateTimeTable;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel nameLabelb;
     private javax.swing.JButton submitEstimeTime;
     // End of variables declaration//GEN-END:variables
 }
