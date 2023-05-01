@@ -29,6 +29,9 @@ public class ChoresDatabase {
         //Nihal:
         //database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+
+        //database.Connect("D:\\KF5012Assignment\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+
         //Yoyo:
         // database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //database.Connect("D:\\CLONE\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
@@ -303,7 +306,7 @@ public class ChoresDatabase {
     }
 
     //Add a new user
-    public static void addUser(User newUser) {
+    public static void addUser(User newUser, int userActive, int weekScore, int totalScore) {
 
         String rs = ("select max(userID) from users");
         database.RunSQLQuery(rs);
@@ -315,9 +318,9 @@ public class ChoresDatabase {
 
         String sqlAddChoreL = "INSERT INTO users (userID, userActive, userWeekScore, userTotalScore) VALUES("
                 + max + ", "
-                + placeholder + ", '"
-                + placeholder2 + ", '"
-                + placeholder3 + ", '"
+                + userActive + ", '"
+                + weekScore + ", '"
+                + totalScore + ", '"
                 + " '); ";
 
         boolean success;
