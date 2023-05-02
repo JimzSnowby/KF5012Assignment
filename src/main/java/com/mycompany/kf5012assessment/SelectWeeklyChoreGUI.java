@@ -4,8 +4,11 @@
  */
 package com.mycompany.kf5012assessment;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -188,26 +191,38 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_addChoreButtonActionPerformed
 
     private void submitChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitChoreButtonActionPerformed
-        // iterate over the choresArrayList and update the database with the selected day
-        ChoresDatabase choresDB = new ChoresDatabase();
-        for (int i = 0; i < choresArrayList.size(); i++) {
-            Chore chore = choresArrayList.get(i);
-            int day = chore.getChoreDay();
-            int newDay = chooseDayChore.getSelectedIndex() - 1;
-            if (day != newDay) {
-                chore.setChoreDay(newDay);
+       // iterate over the choresArrayList and update the database with the selected day
+    ChoresDatabase choresDB = new ChoresDatabase();
+    for (int i = 0; i < choresArrayList.size(); i++) {
+        Chore chore = choresArrayList.get(i);
+        int day = chore.getChoreDay();
+        int newDay = chooseDayChore.getSelectedIndex() - 1;
+        if (day != newDay) {
+            chore.setChoreDay(newDay);
+           
+            // Update chore's selection status
+            if (newDay != -1) {
                 try {
-                    // choresDB.updateChore(chore);
-                } catch (Exception e) {
-                    System.out.println("Error occurred in updating data");
+                    choresDB.updateToSelected();
+                } catch (SQLException ex) {
+                    Logger.getLogger(SelectWeeklyChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+;
+            } else {
+                try {
+                    choresDB.updateToUnselected();
+                } catch (SQLException ex) {
+                    Logger.getLogger(SelectWeeklyChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } // handle exception
         }
+    }
 
-        // update the table to reflect the changes
-        updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
+    // update the table to reflect the changes
+    updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
 
-        this.dispose();
+    this.dispose();
+
 
         // TODO add your handling code here:
 

@@ -17,12 +17,14 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private ArrayList<Chore> allChores = new ArrayList(); // list of all chores
     private ArrayList<Chore> user1List = new ArrayList(); // list of chores assigned to user1
     private ArrayList<Chore> user2List = new ArrayList(); // list of chores assigned to user2
+    private String choreCount;
+    private int currentUser;
+    private ChoresDatabase choresDB = new ChoresDatabase();
 
     /*
      * Creates new form AssignedChoresGUI
      */
     public AssignedChoresGUI() {
-        ChoresDatabase choresDB = new ChoresDatabase();
         try {
             usersList = choresDB.selectUsers();
             allChores = choresDB.selectChores();
@@ -37,29 +39,24 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
-
+        initComponents(); // Initializes GUI elements, PUT ALL METHODS AFTER THIS
         
-        //createDummyData(); 
-        initComponents();
-        daySelector.setSelectedIndex(0);
+        choreCount = Integer.toString(user1List.size());
+        
+        totalChores.setText(choreCount);
         int selection = daySelector.getSelectedIndex();
-        
         for (User u : usersList){
                 if (u.isUserActive() == 1){
+                    currentUser = u.getUserID();
                     updateDisplayTableDataUser1(selection);
+                    System.out.println(currentUser);
                     break;
                 } else if (u.isUserActive() == 2){
+                    currentUser = u.getUserID();
                     updateDisplayTableDataUser2(selection);
                     break;
                 }
         }
-
-        //AssignedChoresList list = new AssignedChoresList();
-        //list.getAssignedChoresList();
-
-        //displayTableData(dummyList);
-        
-        
     }
 
     /**
@@ -319,8 +316,7 @@ this.dispose();        // TODO add your handling code here:
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
         
-        ArrayList<Chore> list = new ArrayList();
-        //List<Chore> list = dummyList.getAssignedChoresList();
+        ArrayList<Chore> list = new ArrayList(); // Temp list to update the table
         
         switch (selection){
             case 0:
@@ -399,12 +395,11 @@ this.dispose();        // TODO add your handling code here:
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
         
-        ArrayList<Chore> list = new ArrayList();
-        //List<Chore> list = dummyList.getAssignedChoresList();
+        ArrayList<Chore> list = new ArrayList(); // Temp list to update the table
         
         switch (selection){
             case 0:
-                for (Chore c : list){
+                for (Chore c : user2List){
                     if (c.getChoreDay() == 1){
                         list.add(c);
                     }
@@ -412,7 +407,7 @@ this.dispose();        // TODO add your handling code here:
                 System.out.println("Monday");
                 break;
             case 1:
-                for (Chore c : list){
+                for (Chore c : user2List){
                     if (c.getChoreDay() == 2){
                         list.add(c);
                     }
@@ -420,7 +415,7 @@ this.dispose();        // TODO add your handling code here:
                 System.out.println("Tuesday");
                 break;
             case 2:
-                for (Chore c : list){
+                for (Chore c : user2List){
                     if (c.getChoreDay() == 3){
                         list.add(c);
                     }
@@ -428,7 +423,7 @@ this.dispose();        // TODO add your handling code here:
                 System.out.println("Wednesday");
                 break;
             case 3:
-                for (Chore c : list){
+                for (Chore c : user2List){
                     if (c.getChoreDay() == 4){
                         list.add(c);
                     }
@@ -436,7 +431,7 @@ this.dispose();        // TODO add your handling code here:
                 System.out.println("Thursday");
                 break;
             case 4:
-                for (Chore c : list){
+                for (Chore c : user2List){
                     if (c.getChoreDay() == 5){
                         list.add(c);
                     }
@@ -444,7 +439,7 @@ this.dispose();        // TODO add your handling code here:
                 System.out.println("Friday");
                 break;
             case 5:
-                for (Chore c : list){
+                for (Chore c : user2List){
                     if (c.getChoreDay() == 6){
                         list.add(c);
                     }
@@ -452,7 +447,7 @@ this.dispose();        // TODO add your handling code here:
                 System.out.println("Saturday");
                 break;
             case 6:
-                for (Chore c : list){
+                for (Chore c : user2List){
                     if (c.getChoreDay() == 7){
                         list.add(c);
                     }
@@ -460,7 +455,7 @@ this.dispose();        // TODO add your handling code here:
                 System.out.println("Sunday");
                 break;
             default:
-                for (Chore c : list){
+                for (Chore c : user2List){
                     list.add(c);
                 }
                 System.out.println("All days");
@@ -478,7 +473,7 @@ this.dispose();        // TODO add your handling code here:
         boolean checkBox; 
         
         // Iterates over the list to see which chores have their completed box ticked
-        for(int i  = 0; i < dummyList.getAssignedChoresList().size(); i++){
+        /*for(int i  = 0; i < dummyList.getAssignedChoresList().size(); i++){
             try {
                 checkBox = (boolean) tableModel.getValueAt(i, 2);
                 if (checkBox) {
@@ -487,10 +482,44 @@ this.dispose();        // TODO add your handling code here:
                     System.out.println("Not Checked");
                 }
             }catch(Exception e){
-                System.out.println("Nothing is checked");
+                
             }
-            
+        }*/
+        
+        if (currentUser == 1) {
+            for (int i = 0; i < user1List.size(); i++) {
+                try {
+                    checkBox = (boolean) tableModel.getValueAt(i, 2);
+                    System.out.println(checkBox);
+                    if (checkBox) {
+                        user1List.remove(i); // Remove from temp list
+                        System.out.println("YEH BOI");
+                        if (user1List.get(i).getChoreFrequencyID() == 2) {
+                            choresDB.deleteChore(user1List.get(i+1).getChoreName());
+                        }
+                        choreCount = Integer.toString(user1List.size());
+                    }
+                } catch (Exception e) {
+                    System.out.println("Submit Error: " + e);
+                }
+            }
+        } else if (currentUser == 2){
+            for (int i = 0; i < user2List.size(); i++) {
+                try {
+                    checkBox = (boolean) tableModel.getValueAt(i, 2);
+                    if (checkBox) {
+                        user2List.remove(i); // Remove from temp list
+                        if (user2List.get(i).getChoreFrequencyID() == 2) {
+                            choresDB.deleteChore(user2List.get(i+1).getChoreName());
+                        }
+                        choreCount = Integer.toString(user2List.size());
+                    }
+                } catch (Exception e) {
+                    System.out.println("Submit Error: " + e);
+                }
+            }
         }
+        
         
     }
     
@@ -504,18 +533,6 @@ this.dispose();        // TODO add your handling code here:
         
         return 1;
     }    
-    
-    public void createDummyData(){
-        Chore cleaning = new Chore();
-        cleaning.setChoreID(1);
-        cleaning.setChoreName("Cleaning");
-        cleaning.setChoreFrequency("Tuesday");
-        cleaning.setChoreDay(2);
-        this.dummyList = new AssignedChoresList();
-        dummyList.addToChoreList(cleaning);
-        
-    }
-    
     
 }
 
