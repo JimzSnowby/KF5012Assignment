@@ -490,11 +490,14 @@ this.dispose();        // TODO add your handling code here:
             for (int i = 0; i < user1List.size(); i++) {
                 try {
                     checkBox = (boolean) tableModel.getValueAt(i, 2);
+                    System.out.println(checkBox);
                     if (checkBox) {
                         user1List.remove(i); // Remove from temp list
+                        System.out.println("YEH BOI");
                         if (user1List.get(i).getChoreFrequencyID() == 2) {
-                            choresDB.deleteChore(user1List.get(i).getChoreName());
+                            choresDB.deleteChore(user1List.get(i+1).getChoreName());
                         }
+                        choreCount = Integer.toString(user1List.size());
                     }
                 } catch (Exception e) {
                     System.out.println("Submit Error: " + e);
@@ -509,6 +512,7 @@ this.dispose();        // TODO add your handling code here:
                         if (user2List.get(i).getChoreFrequencyID() == 2) {
                             choresDB.deleteChore(user2List.get(i+1).getChoreName());
                         }
+                        choreCount = Integer.toString(user2List.size());
                     }
                 } catch (Exception e) {
                     System.out.println("Submit Error: " + e);
