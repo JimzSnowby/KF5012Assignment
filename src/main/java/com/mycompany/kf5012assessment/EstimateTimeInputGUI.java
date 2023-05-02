@@ -168,8 +168,7 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
 
     private void submitEstimeTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitEstimeTimeActionPerformed
 
-// Get the selected user from the dropdown menu
-//String selectedUser = (String) changeUserForEstimateTime.getSelectedItem();
+        
 // Loop over each row in the estimateTimeTable
         for (int i = 0; i < estimateTimeTable.getRowCount(); i++) {
             // Get the name of the chore from the first column
@@ -178,13 +177,16 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
             // Get the estimated time for the chore from the second column
             int estimatedTime = (int) estimateTimeTable.getValueAt(i, 1);
 
-// Show a success message to the user
+            // Show a success message to the user
             JOptionPane.showMessageDialog(this, "Your estimates have been recorded.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
 
 // Close this GUI
+
             this.dispose();
+    
     }//GEN-LAST:event_submitEstimeTimeActionPerformed
-       }
+       
 
        /*
     private void changeUserForEstimateTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeUserForEstimateTimeActionPerformed
