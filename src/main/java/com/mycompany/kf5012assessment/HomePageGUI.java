@@ -28,7 +28,7 @@ public class HomePageGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        selectChoresButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -37,7 +37,12 @@ public class HomePageGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Select Chores");
+        selectChoresButton.setText("Select Chores");
+        selectChoresButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectChoresButtonActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Bob Time Estimate ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -72,7 +77,7 @@ public class HomePageGUI extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(selectChoresButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(36, 36, 36))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -84,7 +89,7 @@ public class HomePageGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(20, 20, 20)
-                .addComponent(jButton1)
+                .addComponent(selectChoresButton)
                 .addGap(39, 39, 39)
                 .addComponent(jButton2)
                 .addGap(44, 44, 44)
@@ -109,6 +114,13 @@ public class HomePageGUI extends javax.swing.JFrame {
        etgi.setVisible(true);
 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void selectChoresButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectChoresButtonActionPerformed
+SelectWeeklyChoreGUI selectWeeklyChoreGUI = new SelectWeeklyChoreGUI();
+    selectWeeklyChoreGUI.setVisible(true);
+    // hide the current GUI
+    this.setVisible(false);
+    }//GEN-LAST:event_selectChoresButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,11 +159,11 @@ public class HomePageGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JButton selectChoresButton;
     // End of variables declaration//GEN-END:variables
 }

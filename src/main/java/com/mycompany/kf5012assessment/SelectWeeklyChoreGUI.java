@@ -35,7 +35,9 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         //forces chore 2 to be tuesday
         //choresArrayList.get(2).setDay(2);
 
-        choresArrayList.get(WIDTH);
+        choresArrayList.get(1);
+          choresArrayList.get(2);
+
 
         initComponents();
 
@@ -154,20 +156,20 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void addChore(String choreName, String choreType, List<String> days) {
-    ChoresDatabase choresDB = new ChoresDatabase();
+        ChoresDatabase choresDB = new ChoresDatabase();
 
-    try {
-        Chore newChore = new Chore();
-    //    choresDB.addChore(newChore);
-        choresArrayList.add(newChore);
-        JOptionPane.showMessageDialog(null, "New chore added successfully");
-    } catch (Exception e) {
-        System.out.println("Error occured in inserting data");
-        JOptionPane.showMessageDialog(null, "Error occured in adding chore");
+        try {
+            Chore newChore = new Chore();
+            //    choresDB.addChore(newChore);
+            choresArrayList.add(newChore);
+            JOptionPane.showMessageDialog(null, "New chore added successfully");
+        } catch (Exception e) {
+            System.out.println("Error occured in inserting data");
+            JOptionPane.showMessageDialog(null, "Error occured in adding chore");
+        }
+
+        updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
     }
-
-    updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
-}
 
     private void chooseDayChoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseDayChoreActionPerformed
         // TODO add your handling code here:
@@ -178,11 +180,11 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_chooseDayChoreActionPerformed
 
     private void addChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addChoreButtonActionPerformed
-    CreateNewChoreGUI addChoreGUI = new CreateNewChoreGUI(this,true);
-    addChoreGUI.setVisible(true);
-    addChoreGUI.pack();
-    addChoreGUI.setLocationRelativeTo(null);
-    addChoreGUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        CreateNewChoreGUI addChoreGUI = new CreateNewChoreGUI(this, true);
+        addChoreGUI.setVisible(true);
+        addChoreGUI.pack();
+        addChoreGUI.setLocationRelativeTo(null);
+        addChoreGUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_addChoreButtonActionPerformed
 
     private void submitChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitChoreButtonActionPerformed
@@ -204,6 +206,8 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
         // update the table to reflect the changes
         updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
+
+        this.dispose();
 
         // TODO add your handling code here:
 
