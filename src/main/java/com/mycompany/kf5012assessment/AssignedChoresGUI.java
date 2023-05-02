@@ -253,6 +253,12 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         System.out.println("Accept Pressed");
         System.out.println("Current user: " + currentUser);
         submitData();
+        if (currentUser == 1){
+            updateDisplayTableDataUser1(daySelector.getSelectedIndex());
+        } else if (currentUser == 2){
+            updateDisplayTableDataUser2(daySelector.getSelectedIndex());
+        }
+        
     }//GEN-LAST:event_acceptButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -489,11 +495,10 @@ this.dispose();        // TODO add your handling code here:
         if (currentUser == 1) {
             for (int i = 0; i < user1List.size(); i++) {
                 try {
-                    checkBox = (boolean) tableModel.getValueAt(i, 2);
+                    checkBox = (boolean) tableModel.getValueAt(i, 1);
                     System.out.println(checkBox);
                     if (checkBox) {
                         user1List.remove(i); // Remove from temp list
-                        System.out.println("YEH BOI");
                         if (user1List.get(i).getChoreFrequencyID() == 2) {
                             choresDB.deleteChore(user1List.get(i).getChoreName());
                         }
@@ -510,7 +515,7 @@ this.dispose();        // TODO add your handling code here:
         if (currentUser == 2) {
             for (int i = 0; i < user2List.size(); i++) {
                 try {
-                    checkBox = (boolean) tableModel.getValueAt(i, 2);
+                    checkBox = (boolean) tableModel.getValueAt(i, 1);
                     if (checkBox) {
                         user2List.remove(i); // Remove from temp list
                         if (user2List.get(i).getChoreFrequencyID() == 2) {
