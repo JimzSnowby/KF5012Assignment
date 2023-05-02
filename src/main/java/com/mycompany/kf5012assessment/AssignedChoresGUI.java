@@ -17,7 +17,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private ArrayList<Chore> allChores = new ArrayList(); // list of all chores
     private ArrayList<Chore> user1List = new ArrayList(); // list of chores assigned to user1
     private ArrayList<Chore> user2List = new ArrayList(); // list of chores assigned to user2
-    private String choreCount;
+    private String choreCount; // chore count not changing
     private int currentUser;
     private ChoresDatabase choresDB = new ChoresDatabase();
 
@@ -491,6 +491,10 @@ this.dispose();        // TODO add your handling code here:
         for(int i = 0; i < list.size(); i++){
             tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).isChoreComplete()});
         }
+        
+    }
+    
+    public void updateChoreCount(){
         
     }
     
