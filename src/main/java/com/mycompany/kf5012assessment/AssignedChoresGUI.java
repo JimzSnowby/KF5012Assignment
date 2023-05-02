@@ -251,6 +251,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
 
     private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptButtonActionPerformed
         System.out.println("Accept Pressed");
+        System.out.println("Current user: " + currentUser);
         submitData();
     }//GEN-LAST:event_acceptButtonActionPerformed
 
@@ -485,7 +486,6 @@ this.dispose();        // TODO add your handling code here:
                 
             }
         }*/
-        
         if (currentUser == 1) {
             for (int i = 0; i < user1List.size(); i++) {
                 try {
@@ -495,22 +495,27 @@ this.dispose();        // TODO add your handling code here:
                         user1List.remove(i); // Remove from temp list
                         System.out.println("YEH BOI");
                         if (user1List.get(i).getChoreFrequencyID() == 2) {
-                            choresDB.deleteChore(user1List.get(i+1).getChoreName());
+                            choresDB.deleteChore(user1List.get(i).getChoreName());
                         }
                         choreCount = Integer.toString(user1List.size());
+                    } else {
+                        System.out.println("Not checked");
                     }
+
                 } catch (Exception e) {
                     System.out.println("Submit Error: " + e);
                 }
             }
-        } else if (currentUser == 2){
+        }
+        if (currentUser == 2) {
             for (int i = 0; i < user2List.size(); i++) {
                 try {
                     checkBox = (boolean) tableModel.getValueAt(i, 2);
                     if (checkBox) {
                         user2List.remove(i); // Remove from temp list
                         if (user2List.get(i).getChoreFrequencyID() == 2) {
-                            choresDB.deleteChore(user2List.get(i+1).getChoreName());
+                            choresDB.deleteChore(user2List.get(i).getChoreName());
+                            System.out.println("Submit Success");
                         }
                         choreCount = Integer.toString(user2List.size());
                     }
@@ -519,7 +524,7 @@ this.dispose();        // TODO add your handling code here:
                 }
             }
         }
-        
+
         
     }
     
