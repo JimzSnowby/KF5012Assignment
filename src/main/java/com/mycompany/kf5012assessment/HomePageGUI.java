@@ -44,14 +44,14 @@ public class HomePageGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Bob Time Estimate ");
+        jButton2.setText("Bob Profile");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Alice Time Estimate ");
+        jButton3.setText("Alice Profile");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);

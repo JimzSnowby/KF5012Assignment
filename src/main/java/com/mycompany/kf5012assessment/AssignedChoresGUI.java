@@ -17,7 +17,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private ArrayList<Chore> allChores = new ArrayList(); // list of all chores
     private ArrayList<Chore> user1List = new ArrayList(); // list of chores assigned to user1
     private ArrayList<Chore> user2List = new ArrayList(); // list of chores assigned to user2
-    private String choreCount;
+    private String choreCount; // chore count not changing
     private int currentUser;
     private ChoresDatabase choresDB = new ChoresDatabase();
 
@@ -255,8 +255,12 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         submitData();
         if (currentUser == 1){
             updateDisplayTableDataUser1(daySelector.getSelectedIndex());
+            choreCount = Integer.toString(user1List.size());
+
         } else if (currentUser == 2){
             updateDisplayTableDataUser2(daySelector.getSelectedIndex());
+            choreCount = Integer.toString(user2List.size());
+
         }
         
     }//GEN-LAST:event_acceptButtonActionPerformed
@@ -382,12 +386,19 @@ this.dispose();        // TODO add your handling code here:
                 }
                 System.out.println("Sunday");
                 break;
+            case 7:
+                for (Chore c : user1List){
+                    if (c.getChoreDay() == 8){
+                        list.add(c);
+                    }
+                }
+                System.out.println("Any day");
+                break;
             default:
                 for (Chore c : user1List){
                     list.add(c);
                 }
-                System.out.println("All days");
-                
+                System.out.println("Default case");
                 break;
         }
         
@@ -461,17 +472,29 @@ this.dispose();        // TODO add your handling code here:
                 }
                 System.out.println("Sunday");
                 break;
+            case 7:
+                for (Chore c : user2List){
+                    if (c.getChoreDay() == 78){
+                        list.add(c);
+                    }
+                }
+                System.out.println("Sunday");
+                break;
             default:
                 for (Chore c : user2List){
                     list.add(c);
                 }
-                System.out.println("All days");
+                System.out.println("Default case");
                 break;
         }
         
         for(int i = 0; i < list.size(); i++){
             tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).isChoreComplete()});
         }
+        
+    }
+    
+    public void updateChoreCount(){
         
     }
     
@@ -498,15 +521,13 @@ this.dispose();        // TODO add your handling code here:
                     checkBox = (boolean) tableModel.getValueAt(i, 1);
                     System.out.println(checkBox);
                     if (checkBox) {
-                        user1List.remove(i); // Remove from temp list
                         if (user1List.get(i).getChoreFrequencyID() == 2) {
                             choresDB.deleteChore(user1List.get(i).getChoreName());
                         }
-                        choreCount = Integer.toString(user1List.size());
+                        user1List.remove(i); // Remove from temp list
                     } else {
                         System.out.println("Not checked");
                     }
-
                 } catch (Exception e) {
                     System.out.println("Submit Error: " + e);
                 }
@@ -517,11 +538,12 @@ this.dispose();        // TODO add your handling code here:
                 try {
                     checkBox = (boolean) tableModel.getValueAt(i, 1);
                     if (checkBox) {
-                        user2List.remove(i); // Remove from temp list
+                        
                         if (user2List.get(i).getChoreFrequencyID() == 2) {
                             choresDB.deleteChore(user2List.get(i).getChoreName());
                             System.out.println("Submit Success");
                         }
+                        user2List.remove(i); // Remove from temp list
                         choreCount = Integer.toString(user2List.size());
                     }
                 } catch (Exception e) {

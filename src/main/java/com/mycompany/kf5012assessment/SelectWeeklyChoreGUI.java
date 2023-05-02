@@ -216,6 +216,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
                     Logger.getLogger(SelectWeeklyChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } // handle exception
+            
         }
     }
 
@@ -223,6 +224,8 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
     updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
 
     this.dispose();
+       HomePageGUI mainForm = new HomePageGUI();
+        mainForm.setVisible(true);
 
     }//GEN-LAST:event_submitChoreButtonActionPerformed
     private void addNewChore(String task, int day) {
@@ -316,7 +319,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SelectWeeklyChoreGUI().setVisible(true);
+             //   new SelectWeeklyChoreGUI().setVisible(true);
             }
         });
     }
