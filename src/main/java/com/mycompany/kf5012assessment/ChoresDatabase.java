@@ -242,7 +242,7 @@ public class ChoresDatabase {
     //Select all selected chores
     public ArrayList<Chore> sqlSelectedChores() throws SQLException {
 
-        String sqlSelectedChores = "SELECT choreID, choreName FROM chores WHERE isSelected = 1';";
+        String sqlSelectedChores = "SELECT choreID, choreName FROM chores WHERE isSelected = 1;";
 
         ResultSet choreList = database.RunSQLQuery(sqlSelectedChores);
         ArrayList<Chore> chores = new ArrayList<Chore>();
