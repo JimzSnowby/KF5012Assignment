@@ -178,7 +178,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_chooseDayChoreActionPerformed
 
     private void addChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addChoreButtonActionPerformed
-    CreateNewChoreGUI addChoreGUI = new CreateNewChoreGUI();
+    CreateNewChoreGUI addChoreGUI = new CreateNewChoreGUI(this,true);
     addChoreGUI.setVisible(true);
     addChoreGUI.pack();
     addChoreGUI.setLocationRelativeTo(null);
