@@ -121,6 +121,11 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         daySelectorLabel.setText("Day of the week:");
 
         cancelButton.setText("cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
 
         acceptButton.setText("accept");
         acceptButton.addActionListener(new java.awt.event.ActionListener() {
@@ -225,6 +230,11 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         System.out.println("Accept Pressed");
         submitData();
     }//GEN-LAST:event_acceptButtonActionPerformed
+
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+
+this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelButtonActionPerformed
 
     /**
      * @param args the command line arguments
