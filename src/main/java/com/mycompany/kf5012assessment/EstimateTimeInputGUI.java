@@ -29,28 +29,28 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
     public void updateTable() {
         DefaultTableModel model = (DefaultTableModel) estimateTimeTable.getModel();
         model.setRowCount(0);
-        for (int i = 0; i < choresArrayList.size(); i++) {
-            Chore c = choresArrayList.get(i);
-            if (c.isSelectedForThisWeek()) {
-                model.addRow(new Object[]{c.getChoreName(), c.getEstimateTimeUserOne()});
-            }
+        ChoresDatabase choresDB = new ChoresDatabase();
+        choresArrayList = new ArrayList();
+        try {
+            choresArrayList = choresDB.sqlSelectedChores();
+        } catch (Exception e) {
+            System.out.println("Error occured in extracting data");
         }
     }
-    
 
     public EstimateTimeInputGUI(int selectedUsers) {
         currectUser = selectedUsers;
         ChoresDatabase choresDB = new ChoresDatabase();
 
         try {
-            choresArrayList = choresDB.selectChores();
+            choresArrayList = choresDB.sqlSelectedChores();
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
         //testing 
-        choresArrayList.get(3).setSelectedForThisWeek(true);
-        choresArrayList.get(5).setSelectedForThisWeek(true);
-        choresArrayList.get(1).setSelectedForThisWeek(true);
+        //choresArrayList.get(3).setSelectedForThisWeek(true);
+        //  choresArrayList.get(5).setSelectedForThisWeek(true);
+        //   choresArrayList.get(1).setSelectedForThisWeek(true);
 
         for (int i = 0; i < users.getUserList().size(); i++) {
             System.out.println(users.getUserList().get(i).getUserID());
