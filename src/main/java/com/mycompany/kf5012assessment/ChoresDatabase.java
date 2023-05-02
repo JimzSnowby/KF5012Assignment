@@ -48,7 +48,7 @@ public class ChoresDatabase {
     //Select all chores
     public ArrayList<Chore> selectChores() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreID, choreName, choreFrequencyID, assignedTo  FROM chores;";
+        String sqlSelectChores = "SELECT choreID, choreName, choreFrequencyID, assignedTo, daysOfWeekID  FROM chores;";
 
         ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
         ArrayList<Chore> chores = new ArrayList<Chore>();
@@ -60,6 +60,7 @@ public class ChoresDatabase {
                 newChore.setChoreName(choreList.getString(2));
                 newChore.setChoreFrequencyID(choreList.getInt(3));
                 newChore.assignTo(choreList.getInt(4));
+                newChore.setChoreDay(choreList.getInt(5));
                 chores.add(newChore);
 
                 System.out.println("Chore ID: " + newChore.getChoreID() + " Chore name: " + newChore.getChoreName());

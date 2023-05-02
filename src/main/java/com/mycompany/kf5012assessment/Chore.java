@@ -27,6 +27,20 @@ public class Chore {
     private float estimateTimeUserTwo;
     //private float estimateTime;
 
+    public Chore(int choreID, String choreName, int choreFrequencyID, String choreFrequency, int choreDay, boolean selectedForThisWeek, int choreAssignTo, int estimateTimeUser1, int estimateTimeUser2, float estimateTimeUserOne, float estimateTimeUserTwo) {
+        this.choreID = choreID;
+        this.choreName = choreName;
+        this.choreFrequencyID = choreFrequencyID;
+        this.choreFrequency = choreFrequency;
+        this.choreDay = choreDay;
+        this.selectedForThisWeek = selectedForThisWeek;
+        this.choreAssignTo = choreAssignTo;
+        this.estimateTimeUser1 = estimateTimeUser1;
+        this.estimateTimeUser2 = estimateTimeUser2;
+        this.estimateTimeUserOne = estimateTimeUserOne;
+        this.estimateTimeUserTwo = estimateTimeUserTwo;
+    }
+
     /* public float getEstimateTime() {
        return estimateTime;
     }
