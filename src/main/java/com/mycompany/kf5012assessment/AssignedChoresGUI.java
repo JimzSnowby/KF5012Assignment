@@ -18,6 +18,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private int currentUserIndex = 0;
     private ArrayList<Chore> user1List = new ArrayList();
     private ArrayList<Chore> user2List = new ArrayList();
+    private ArrayList<Chore> list = new ArrayList();
     
     /*
      * Creates new form AssignedChoresGUI
@@ -294,7 +295,6 @@ this.dispose();        // TODO add your handling code here:
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
         
-        ArrayList<Chore> list = new ArrayList();
         
         //List<Chore> list = tableData.getAssignedChoresList();
         
@@ -367,62 +367,71 @@ this.dispose();        // TODO add your handling code here:
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
         
-        List<Chore> list = dummyList.getAssignedChoresList();
+        //List<Chore> list = dummyList.getAssignedChoresList();
         
         switch (selection){
-            case 1:
+            case 0:
                 for (Chore c : list){
                     if (c.getChoreDay() == 1){
                         list.add(c);
                     }
+                    
                 }
+                System.out.println("Monday");
                 break;
-            case 2:
+            case 1:
                 for (Chore c : list){
                     if (c.getChoreDay() == 2){
                         list.add(c);
                     }
                 }
+                System.out.println("Tuesday");
                 break;
-            case 3:
+            case 2:
                 for (Chore c : list){
                     if (c.getChoreDay() == 3){
                         list.add(c);
                     }
                 }
+                System.out.println("Wednesday");
                 break;
-            case 4:
+            case 3:
                 for (Chore c : list){
                     if (c.getChoreDay() == 4){
                         list.add(c);
                     }
                 }
+                System.out.println("Thursday");
                 break;
-            case 5:
+            case 4:
                 for (Chore c : list){
                     if (c.getChoreDay() == 5){
                         list.add(c);
                     }
                 }
+                System.out.println("Friday");
                 break;
-            case 6:
+            case 5:
                 for (Chore c : list){
                     if (c.getChoreDay() == 6){
                         list.add(c);
                     }
                 }
+                System.out.println("Saturday");
                 break;
-            case 7:
+            case 6:
                 for (Chore c : list){
                     if (c.getChoreDay() == 7){
                         list.add(c);
                     }
                 }
+                System.out.println("Sunday");
                 break;
             default:
                 for (Chore c : list){
                     list.add(c);
                 }
+                System.out.println("All days");
                 break;
         }
         
