@@ -91,6 +91,7 @@ public class AssigningChoresAlgo {
         while (unassignedChores > 0) {
 
             if (User1Load < User2Load) {
+                // Sorting the list and coparing the estimate times
                 Collections.sort(choreList, new Comparator<Chore>() {
                     @Override
                     public int compare(Chore c1, Chore c2) {
@@ -122,6 +123,7 @@ public class AssigningChoresAlgo {
                 unassignedChores--;
 
             } else {
+                // Sorting the list and coparing the estimate times
                 Collections.sort(choreList, new Comparator<Chore>() {
                     @Override
                     public int compare(Chore c1, Chore c2) {
