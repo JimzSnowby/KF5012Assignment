@@ -498,15 +498,14 @@ this.dispose();        // TODO add your handling code here:
                     checkBox = (boolean) tableModel.getValueAt(i, 1);
                     System.out.println(checkBox);
                     if (checkBox) {
-                        user1List.remove(i); // Remove from temp list
                         if (user1List.get(i).getChoreFrequencyID() == 2) {
                             choresDB.deleteChore(user1List.get(i).getChoreName());
                         }
-                        choreCount = Integer.toString(user1List.size());
+                        user1List.remove(i); // Remove from temp list
                     } else {
                         System.out.println("Not checked");
                     }
-
+                    choreCount = Integer.toString(user1List.size());
                 } catch (Exception e) {
                     System.out.println("Submit Error: " + e);
                 }
@@ -517,11 +516,12 @@ this.dispose();        // TODO add your handling code here:
                 try {
                     checkBox = (boolean) tableModel.getValueAt(i, 1);
                     if (checkBox) {
-                        user2List.remove(i); // Remove from temp list
+                        
                         if (user2List.get(i).getChoreFrequencyID() == 2) {
                             choresDB.deleteChore(user2List.get(i).getChoreName());
                             System.out.println("Submit Success");
                         }
+                        user2List.remove(i); // Remove from temp list
                         choreCount = Integer.toString(user2List.size());
                     }
                 } catch (Exception e) {
