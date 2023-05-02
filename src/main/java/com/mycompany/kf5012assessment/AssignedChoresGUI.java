@@ -41,12 +41,15 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         
         //createDummyData(); 
         initComponents();
+        daySelector.setSelectedIndex(0);
+        int selection = daySelector.getSelectedIndex();
+        
         for (User u : usersList){
                 if (u.isUserActive() == 1){
-                    displayTableData(user1List);
+                    updateDisplayTableDataUser1(selection);
                     break;
                 } else if (u.isUserActive() == 2){
-                    displayTableData(user2List);
+                    updateDisplayTableDataUser2(selection);
                     break;
                 }
         }
@@ -312,78 +315,6 @@ this.dispose();        // TODO add your handling code here:
     private javax.swing.JLabel weekScoreLabel;
     // End of variables declaration//GEN-END:variables
     
-    public void displayTableData(ArrayList<Chore> tableData){
-        // Empty the existing data
-        DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
-        tableModel.setRowCount(0);
-        
-        ArrayList<Chore> list = new ArrayList();
-
-        int selectionDay = daySelector.getSelectedIndex();
-        
-        // Get the list depending what day is selected in the comboBox
-        switch (selectionDay){
-            case 0:
-                for (Chore c : list){
-                    if (c.getChoreDay() == 1){
-                        list.add(c);
-                    }
-                }
-                break;
-            case 1:
-                for (Chore c : list){
-                    if (c.getChoreDay() == 2){
-                        list.add(c);
-                    }
-                }
-                break;
-            case 2:
-                for (Chore c : list){
-                    if (c.getChoreDay() == 3){
-                        list.add(c);
-                    }
-                }
-                break;
-            case 3:
-                for (Chore c : list){
-                    if (c.getChoreDay() == 4){
-                        list.add(c);
-                    }
-                }
-                break;
-            case 4:
-                for (Chore c : list){
-                    if (c.getChoreDay() == 5){
-                        list.add(c);
-                    }
-                }
-                break;
-            case 5:
-                for (Chore c : list){
-                    if (c.getChoreDay() == 6){
-                        list.add(c);
-                    }
-                }
-                break;
-            case 6:
-                for (Chore c : list){
-                    if (c.getChoreDay() == 7){
-                        list.add(c);
-                    }
-                }
-                break;
-            default:
-                for (Chore c : list){
-                    list.add(c);
-                }
-                break;
-        }
-        
-        for(int i = 0; i < list.size(); i++){
-            tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).isChoreComplete()});
-        }
-    }
-    
     public void updateDisplayTableDataUser1(int selection){
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
@@ -451,7 +382,6 @@ this.dispose();        // TODO add your handling code here:
             default:
                 for (Chore c : user1List){
                     list.add(c);
-                    System.out.println(c.getChoreDay());
                 }
                 System.out.println("All days");
                 
