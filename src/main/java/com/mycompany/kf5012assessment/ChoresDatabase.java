@@ -25,11 +25,11 @@ public class ChoresDatabase {
         //James:
         //  database.Connect("C:\\Users\\james\\Documents\\Year 2\\Semester2\\Software Engineering\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-       // database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
         //database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-      //  database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        database.Connect("D:\\test\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //  database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("D:\\test\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Yoyo:
         // database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
@@ -228,6 +228,58 @@ public class ChoresDatabase {
             e.printStackTrace();
         }
         return chores;
+    }
+
+    //isSelected = 1 is selected
+    //isSelected = 0 is not selected
+    //Select all selected chores
+    public ArrayList<Chore> sqlSelectedChores() throws SQLException {
+
+        String sqlSelectedChores = "SELECT choreID, choreName FROM chores WHERE isSelected = 1';";
+
+        ResultSet choreList = database.RunSQLQuery(sqlSelectedChores);
+        ArrayList<Chore> chores = new ArrayList<Chore>();
+
+        try {
+            while (choreList.next()) {
+                Chore newChore = new Chore();
+                newChore.setChoreID(choreList.getInt(1));
+                newChore.setChoreName(choreList.getString(2));
+                chores.add(newChore);
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to process query in selectChores()");
+            System.out.println("SQL attempted: " + sqlSelectedChores);
+            System.out.println("Error: " + e.getErrorCode());
+            System.out.println("Message: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return chores;
+    }
+
+    //Update chore to be selected
+    public void updateToSelected() throws SQLException {
+        String updateToSelected = "UPDATE chores SET isSelected = 1 "
+                + "WHERE choreID = '" + newchore.getChoreID() + "' ;";
+
+        boolean success = database.RunSQL(updateToSelected);
+
+        if (!success) {
+            System.out.println("Failed to process query" + updateToSelected);
+        }
+    }
+
+    //Update chore to be unselected
+    public void updateToUnselected() throws SQLException {
+        String updateToUnselected = "UPDATE chores SET isSelected = 0 "
+                + "WHERE choreID = '" + newchore.getChoreID() + "' ;";
+
+        boolean success = database.RunSQL(updateToUnselected);
+
+        if (!success) {
+            System.out.println("Failed to process query" + updateToUnselected);
+        }
     }
 
     //Select all users
