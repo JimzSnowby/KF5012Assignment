@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -46,7 +47,28 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
     public SelectWeeklyChoreGUI getMainWindow() {
         return mainWindow;
     }
+    
+    public boolean[] getTickedRows(JTable table) {
+        try {
+            int rowCount = table.getRowCount();
+            boolean[] tickedRows = new boolean[rowCount];
 
+            // Loop through each row and check if it has been ticked
+            for (int i = 0; i < rowCount; i++) {
+                Boolean value = (Boolean) table.getValueAt(i, 0);
+                tickedRows[i] = value != null && value;
+            }
+
+            return tickedRows;
+        } catch (Exception e) {
+            // Log the error
+            System.out.println("Error: " + e.getMessage());
+            return new boolean[0];
+        }
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -224,6 +246,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
             
 
         }
+             
         if (oneOffChoreType.isSelected()) {
             ChoresDatabase choresDB = new ChoresDatabase();
             try {
