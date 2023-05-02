@@ -110,6 +110,11 @@ ArrayList<Integer> userTwoEstimatedTimes = new ArrayList<Integer>();
         });
 
         jMenu1.setText("Home");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -167,11 +172,18 @@ this.dispose();
     }//GEN-LAST:event_submitEstimeTimeActionPerformed
     }
     
-   /* 
+   /*
     private void changeUserForEstimateTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeUserForEstimateTimeActionPerformed
  
     }//GEN-LAST:event_changeUserForEstimateTimeActionPerformed
 */
+    
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        
+        HomePageGUI homeGUI = new HomePageGUI();
+      homeGUI.setVisible(true);
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
