@@ -25,13 +25,12 @@ public class ChoresDatabase {
         //James:
         //  database.Connect("C:\\Users\\james\\Documents\\Year 2\\Semester2\\Software Engineering\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-     //   database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
-        database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
 
         //database.Connect("D:\\KF5012Assignment\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-
         //Yoyo:
         // database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //database.Connect("D:\\CLONE\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
@@ -58,6 +57,7 @@ public class ChoresDatabase {
                 newChore.setChoreFrequencyID(choreList.getInt(3));
                 chores.add(newChore);
 
+                System.out.println("Chore ID: " + newChore.getChoreID() + " Chore name: " + newChore.getChoreName());
             }
         } catch (SQLException e) {
             System.out.println("Failed to process query in selectChores()");
@@ -143,7 +143,7 @@ public class ChoresDatabase {
         }
         return chores;
     }
-    
+
     //Update estimate time for user 1
     public void updateEstimateTimeUserOne() throws SQLException {
         String sqlUpdateEstimateTime1 = "UPDATE estimateTime SET choreEstimateTime = '" + newchore.getEstimateTimeUserOne() + "' "
@@ -171,10 +171,10 @@ public class ChoresDatabase {
     //Select weekly chores
     public ArrayList<Chore> selectChoresFrequencyWeekly() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreID, choreName "
+        String sqlSelectChores = "SELECT choreID, choreName, choreFrequency "
                 + "FROM chores "
                 + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID "
-                + "WHERE choreFrequency = 1;";
+                + "WHERE choreFrequency = 'Weekly';";
 
         ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
         ArrayList<Chore> chores = new ArrayList<Chore>();
@@ -184,7 +184,11 @@ public class ChoresDatabase {
                 Chore newChore = new Chore();
                 newChore.setChoreID(choreList.getInt(1));
                 newChore.setChoreName(choreList.getString(2));
+                newChore.setChoreFrequency(choreList.getString(3));
                 chores.add(newChore);
+
+                System.out.println("Chore ID: " + newChore.getChoreID() + " Frequency: "
+                        + newChore.getChoreFrequency() + " Chore name: " + newChore.getChoreName());
 
             }
         } catch (SQLException e) {
@@ -203,7 +207,7 @@ public class ChoresDatabase {
         String sqlSelectChores = "SELECT choreID, choreName "
                 + "FROM chores "
                 + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID "
-                + "WHERE choreFrequency = 2;";
+                + "WHERE choreFrequency = 'One-off';";
 
         ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
         ArrayList<Chore> chores = new ArrayList<Chore>();
@@ -262,7 +266,6 @@ public class ChoresDatabase {
         database.RunSQLQuery(rs);
         int max = Integer.parseInt(rs) + 1;
 
-
         String sqlAddChore = "INSERT INTO chores (choreID, choreName, choreFrequencyID, daysOfWeekID, assignedTo) VALUES("
                 + max + ", "
                 + newChore.getChoreName() + ", "
@@ -308,10 +311,14 @@ public class ChoresDatabase {
     }
 
     //Delete an user
-    public void deleteUser(String userID) {
+    public void deleteUser(int userID) {
         String sqlDeleteUser = "DELETE FROM users WHERE userID = '" + userID + "';";
 
         boolean success = database.RunSQL(sqlDeleteUser);
+
+        if (success) {
+            System.out.println("User " + userID + " was successfully deleted");
+        }
 
         if (!success) {
             System.out.println("Failed to process query" + sqlDeleteUser);
@@ -337,6 +344,10 @@ public class ChoresDatabase {
 
         boolean success = database.RunSQL(sqlDropChores);
 
+        if (success) {
+            System.out.println("Chores table was successfully deleted");
+        }
+
         if (!success) {
             System.out.println("Failed to process query" + sqlDropChores);
         }
@@ -356,6 +367,8 @@ public class ChoresDatabase {
     }
 
     /*
+    Please don't delete, testing mission purposes
+
     //Ask about the arraylist
     public static void main(String[] args) {
         //String update = "UPDATE chores SET choreName = ?, choreFrequencyID = ?, daysOfWeekID WHERE choreID = ? ";
@@ -364,13 +377,6 @@ public class ChoresDatabase {
             System.out.println(i);
         }
     }
-
-   
-    Please don't delete, testing mission purposes
-    
-    //Testing the adding
-
-    
     //Testing the update
     public static void main(String[] args) throws SQLException {
         ChoresDatabase x = new ChoresDatabase();
@@ -393,6 +399,27 @@ public class ChoresDatabase {
         c.assignTo(1);
                 
         x.addChore(newchore);
-    }*/
+    }
+    //Test of the delete chores table
+    public static void main(String[] args) {
+        ChoresDatabase x = new ChoresDatabase();
+        x.dropChoresTable();
 
+    }
+    //Test of the select chores table
+    public static void main(String[] args) throws SQLException {
+        ChoresDatabase x = new ChoresDatabase();
+        x.selectChores();
+    }
+    //Test of user 1 deletion
+    public static void main(String[] args) throws SQLException {
+        ChoresDatabase x = new ChoresDatabase();
+        int userID = 1;
+        x.deleteUser(userID);
+    }
+    public static void main(String[] args) throws SQLException {
+        ChoresDatabase x = new ChoresDatabase();
+        x.selectChoresFrequencyWeekly();
+    }
+     */
 }
