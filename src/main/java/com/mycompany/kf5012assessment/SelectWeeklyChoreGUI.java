@@ -204,6 +204,8 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
         // update the table to reflect the changes
         updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
+        
+        this.dispose();
 
         // TODO add your handling code here:
 

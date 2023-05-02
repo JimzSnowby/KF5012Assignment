@@ -82,8 +82,9 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
         estimateTimeTable = new javax.swing.JTable();
         nameLabelb = new javax.swing.JLabel();
         submitEstimeTime = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menueButton = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,13 +126,20 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("Home");
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
+                cancelButtonActionPerformed(evt);
             }
         });
-        jMenuBar1.add(jMenu1);
+
+        menueButton.setText("Home");
+        menueButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menueButtonActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(menueButton);
 
         setJMenuBar(jMenuBar1);
 
@@ -140,13 +148,19 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(submitEstimeTime, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(nameLabelb, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(nameLabelb, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(submitEstimeTime, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -157,7 +171,9 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(submitEstimeTime, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(submitEstimeTime, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(cancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(22, 22, 22))
         );
 
@@ -167,74 +183,110 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitEstimeTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitEstimeTimeActionPerformed
+        DefaultTableModel model = (DefaultTableModel) estimateTimeTable.getModel();
+        int numRows = model.getRowCount();
 
-        
-// Loop over each row in the estimateTimeTable
-        for (int i = 0; i < estimateTimeTable.getRowCount(); i++) {
-            // Get the name of the chore from the first column
-            String choreName = (String) estimateTimeTable.getValueAt(i, 0);
+        // Loop through the rows in the table
+        for (int i = 0; i < numRows; i++) {
+            Chore chore = choresArrayList.get(i);
+            // Get the estimated time value from the table
+            int estimatedTime = (int) Double.parseDouble(model.getValueAt(i, 1).toString());
 
-            // Get the estimated time for the chore from the second column
-            int estimatedTime = (int) estimateTimeTable.getValueAt(i, 1);
+            if (estimatedTime == 0) {
+                JOptionPane.showMessageDialog(null, "Please enter a non-zero estimated time value.");
+                return; // exit the method if the estimated time is 0
+            }
 
-            // Show a success message to the user
-            JOptionPane.showMessageDialog(this, "Your estimates have been recorded.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            // Add the estimated time value to the appropriate ArrayList based on the selected user
+            if (currectUser == 1) {
+                userOneEstimatedTimes.add(estimatedTime);
+            } else if (currectUser == 2) {
+                userTwoEstimatedTimes.add(estimatedTime);
+            }
+
+            // Set the estimated time value for the chore
+            if (currectUser == 1) {
+                chore.setEstimateTimeUserOne(estimatedTime);
+            } else if (currectUser == 2) {
+                chore.setEstimateTimeUserTwo(estimatedTime);
+            }
+
+            // Insert the estimated time value into the database
+            ChoresDatabase choresDB = new ChoresDatabase();
+
+            try {
+                // Use the appropriate insert query based on the current user
+                if (currectUser == 1) {
+                    choresDB.selectEstimateTimeUserOne();
+                } else if (currectUser == 2) {
+                    choresDB.selectEstimateTimeUserTwo();
+                }
+            } catch (Exception e) {
+                System.out.println("Error occurred while inserting data: " + e.getMessage());
+            }
         }
 
-// Close this GUI
+        // Clear the table and update it with the new estimated time values
+        model.setRowCount(0);
+        updateTable();
 
-            this.dispose();
-    
+        this.dispose();
+
     }//GEN-LAST:event_submitEstimeTimeActionPerformed
-       
 
-       /*
+
+    /*
     private void changeUserForEstimateTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeUserForEstimateTimeActionPerformed
  
     }//GEN-LAST:event_changeUserForEstimateTimeActionPerformed
 */
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+    private void menueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menueButtonActionPerformed
 
         HomePageGUI homeGUI = new HomePageGUI();
         homeGUI.setVisible(true);
-    }//GEN-LAST:event_jMenu1ActionPerformed
+    }//GEN-LAST:event_menueButtonActionPerformed
 
-       /**
-        * @param args the command line arguments
-        */
-       public static void main(String args[]) {
-           /* Set the Nimbus look and feel */
-           //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-           /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        this.dispose();   // TODO add your handling code here:
+    }//GEN-LAST:event_cancelButtonActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-            */
-           try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                   if ("Nimbus".equals(info.getName())) {
-                       javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                       break;
-                   }
-               }
-           } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-           } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-           } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-           } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-           }
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
 
-           //EstimateTimeInputGUI gui = new EstimateTimeInputGUI();
-           // gui.setVisible(true);
-       }
+        //EstimateTimeInputGUI gui = new EstimateTimeInputGUI();
+        // gui.setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelButton;
     private javax.swing.JTable estimateTimeTable;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenu menueButton;
     private javax.swing.JLabel nameLabelb;
     private javax.swing.JButton submitEstimeTime;
     // End of variables declaration//GEN-END:variables
