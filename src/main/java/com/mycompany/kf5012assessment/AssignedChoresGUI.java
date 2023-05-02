@@ -23,6 +23,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
      * Creates new form AssignedChoresGUI
      */
     public AssignedChoresGUI() {
+        System.out.println("Hello");
         createDummyData(); 
         initComponents();
         AssignedChoresList list = new AssignedChoresList();
@@ -75,7 +76,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         Title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Title.setText("Chores Left:");
 
-        daySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }));
+        daySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Any day" }));
         daySelector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 daySelectorActionPerformed(evt);
@@ -84,21 +85,21 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
 
         choreTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Chore", "Description", "Complete"
+                "Chore", "Complete"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -115,7 +116,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             choreTable.getColumnModel().getColumn(0).setResizable(false);
             choreTable.getColumnModel().getColumn(0).setPreferredWidth(150);
             choreTable.getColumnModel().getColumn(1).setResizable(false);
-            choreTable.getColumnModel().getColumn(2).setResizable(false);
         }
 
         daySelectorLabel.setText("Day of the week:");
@@ -359,31 +359,60 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         
         List<Chore> list = dummyList.getAssignedChoresList();
         
-
         switch (selection){
-            case 0:
-                
-                break;
             case 1:
-                
+                for (Chore c : list){
+                    if (c.getChoreDay() == 1){
+                        list.add(c);
+                    }
+                }
                 break;
             case 2:
-                
+                for (Chore c : list){
+                    if (c.getChoreDay() == 2){
+                        list.add(c);
+                    }
+                }
                 break;
             case 3:
-                
+                for (Chore c : list){
+                    if (c.getChoreDay() == 3){
+                        list.add(c);
+                    }
+                }
                 break;
             case 4:
-                
+                for (Chore c : list){
+                    if (c.getChoreDay() == 4){
+                        list.add(c);
+                    }
+                }
                 break;
             case 5:
-                
+                for (Chore c : list){
+                    if (c.getChoreDay() == 5){
+                        list.add(c);
+                    }
+                }
                 break;
             case 6:
-                
+                for (Chore c : list){
+                    if (c.getChoreDay() == 6){
+                        list.add(c);
+                    }
+                }
+                break;
+            case 7:
+                for (Chore c : list){
+                    if (c.getChoreDay() == 7){
+                        list.add(c);
+                    }
+                }
                 break;
             default:
-                list = dummyList.getAssignedChoresList();
+                for (Chore c : list){
+                    list.add(c);
+                }
                 break;
         }
         
@@ -429,7 +458,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         Chore cleaning = new Chore();
         cleaning.setChoreID(1);
         cleaning.setChoreName("Cleaning");
-        cleaning.setChoreFrequency("2");
+        cleaning.setChoreFrequency("Tuesday");
         cleaning.setChoreDay(2);
         this.dummyList = new AssignedChoresList();
         dummyList.addToChoreList(cleaning);
