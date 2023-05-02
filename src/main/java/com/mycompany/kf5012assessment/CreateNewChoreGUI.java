@@ -37,14 +37,11 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         bg.add(oneOffChoreType);
         bg.add(weeklyChoreType);
         weeklyChoreType.setSelected(true);
-
-    }
-
-    public CreateNewChoreGUI() {
-        initComponents(); // initialize the components of your GUI
+ initComponents(); // initialize the components of your GUI
         setVisible(true); // make the GUI visible
-
     }
+
+  
 
     public SelectWeeklyChoreGUI getMainWindow() {
         return mainWindow;
@@ -219,7 +216,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
 
     private void submitNewChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitNewChoreButtonActionPerformed
 
-        if (newChoreTextField.getText().isEmpty()) {
+             if (newChoreTextField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "pls fill in a chore!");
 
         } else {
@@ -248,7 +245,6 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
 
         // Close the dialog
         this.dispose();
-
 
     }//GEN-LAST:event_submitNewChoreButtonActionPerformed
 
@@ -287,12 +283,12 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new CreateNewChoreGUI().setVisible(true);
-            }
-        });
+      //  java.awt.EventQueue.invokeLater(new Runnable() {
+        //    @Override
+           // public void run() {
+           //     new CreateNewChoreGUI().setVisible(true);
+          //  }
+   //     });
     }
 
 

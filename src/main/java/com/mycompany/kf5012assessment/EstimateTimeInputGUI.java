@@ -12,24 +12,33 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author w21023500
  */
-
 public class EstimateTimeInputGUI extends javax.swing.JFrame {
 
     private ArrayList<Chore> choresArrayList;
     private ChoresDatabase db = new ChoresDatabase();
     private UserList users = new UserList();
- // Declare two ArrayLists to store estimated chore times for each user
-ArrayList<Integer> userOneEstimatedTimes = new ArrayList<Integer>();
-ArrayList<Integer> userTwoEstimatedTimes = new ArrayList<Integer>();
+    // Declare two ArrayLists to store estimated chore times for each user
+    ArrayList<Integer> userOneEstimatedTimes = new ArrayList<Integer>();
+    ArrayList<Integer> userTwoEstimatedTimes = new ArrayList<Integer>();
 
     /**
      * Creates new form EstimateTimeInputGUI
      */
+    private int currectUser;
 
-    private int currectUser; 
+    public void updateTable() {
+        DefaultTableModel model = (DefaultTableModel) estimateTimeTable.getModel();
+        model.setRowCount(0);
+        for (int i = 0; i < choresArrayList.size(); i++) {
+            Chore c = choresArrayList.get(i);
+            if (c.isSelectedForThisWeek()) {
+                model.addRow(new Object[]{c.getChoreName(), c.getEstimateTimeUserOne()});
+            }
+        }
+    }
 
     public EstimateTimeInputGUI(int selectedUsers) {
-      currectUser = selectedUsers;
+        currectUser = selectedUsers;
         ChoresDatabase choresDB = new ChoresDatabase();
 
         try {
@@ -37,17 +46,24 @@ ArrayList<Integer> userTwoEstimatedTimes = new ArrayList<Integer>();
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
+        //testing 
+        choresArrayList.get(3).setSelectedForThisWeek(true);
+        choresArrayList.get(5).setSelectedForThisWeek(true);
+        choresArrayList.get(1).setSelectedForThisWeek(true);
+
         for (int i = 0; i < users.getUserList().size(); i++) {
             System.out.println(users.getUserList().get(i).getUserID());
+            // estimateTimeTable.add(Chore)
         }
+
         initComponents();
-        
-         if (selectedUsers ==1){
-             
+        updateTable();
+        if (selectedUsers == 1) {
+
             nameLabelb.setText("Bob");
-            
+
         } else {
-            if (selectedUsers ==2){
+            if (selectedUsers == 2) {
                 nameLabelb.setText("Alice");
             }
         }
@@ -152,68 +168,65 @@ ArrayList<Integer> userTwoEstimatedTimes = new ArrayList<Integer>();
 
     private void submitEstimeTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitEstimeTimeActionPerformed
 
-
 // Get the selected user from the dropdown menu
 //String selectedUser = (String) changeUserForEstimateTime.getSelectedItem();
-
 // Loop over each row in the estimateTimeTable
-for (int i = 0; i < estimateTimeTable.getRowCount(); i++) {
-    // Get the name of the chore from the first column
-    String choreName = (String) estimateTimeTable.getValueAt(i, 0);
+        for (int i = 0; i < estimateTimeTable.getRowCount(); i++) {
+            // Get the name of the chore from the first column
+            String choreName = (String) estimateTimeTable.getValueAt(i, 0);
 
-    // Get the estimated time for the chore from the second column
-    int estimatedTime = (int) estimateTimeTable.getValueAt(i, 1);
+            // Get the estimated time for the chore from the second column
+            int estimatedTime = (int) estimateTimeTable.getValueAt(i, 1);
 
 // Show a success message to the user
-JOptionPane.showMessageDialog(this, "Your estimates have been recorded.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Your estimates have been recorded.", "Success", JOptionPane.INFORMATION_MESSAGE);
 
 // Close this GUI
-this.dispose();
+            this.dispose();
     }//GEN-LAST:event_submitEstimeTimeActionPerformed
-    }
-    
-   /*
+       }
+
+       /*
     private void changeUserForEstimateTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeUserForEstimateTimeActionPerformed
  
     }//GEN-LAST:event_changeUserForEstimateTimeActionPerformed
 */
-    
+
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-        
+
         HomePageGUI homeGUI = new HomePageGUI();
-      homeGUI.setVisible(true);
+        homeGUI.setVisible(true);
     }//GEN-LAST:event_jMenu1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+       /**
+        * @param args the command line arguments
+        */
+       public static void main(String args[]) {
+           /* Set the Nimbus look and feel */
+           //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+           /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+            */
+           try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                   if ("Nimbus".equals(info.getName())) {
+                       javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                       break;
+                   }
+               }
+           } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+           } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+           } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+           } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(EstimateTimeInputGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+           }
 
- 
-    //EstimateTimeInputGUI gui = new EstimateTimeInputGUI();
-   // gui.setVisible(true);
-    }
+           //EstimateTimeInputGUI gui = new EstimateTimeInputGUI();
+           // gui.setVisible(true);
+       }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable estimateTimeTable;
