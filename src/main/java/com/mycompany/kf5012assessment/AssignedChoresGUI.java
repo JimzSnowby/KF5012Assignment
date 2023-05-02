@@ -20,7 +20,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private String choreCount; // chore count not changing
     private int currentUser;
     private ChoresDatabase choresDB = new ChoresDatabase();
-
+    
     /*
      * Creates new form AssignedChoresGUI
      */
@@ -255,12 +255,11 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         submitData();
         if (currentUser == 1){
             updateDisplayTableDataUser1(daySelector.getSelectedIndex());
-            choreCount = Integer.toString(user1List.size());
-
-        } else if (currentUser == 2){
+            updateChoreCount(1);
+        } 
+        if (currentUser == 2){
             updateDisplayTableDataUser2(daySelector.getSelectedIndex());
-            choreCount = Integer.toString(user2List.size());
-
+            updateChoreCount(2);
         }
         
     }//GEN-LAST:event_acceptButtonActionPerformed
@@ -326,14 +325,14 @@ this.dispose();        // TODO add your handling code here:
     public void updateDisplayTableDataUser1(int selection){
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
-        
-        ArrayList<Chore> list = new ArrayList(); // Temp list to update the table
+        ArrayList<Chore> tableList = new ArrayList(); // Temp list to update the table
+
         
         switch (selection){
             case 0:
                 for (Chore c : user1List){
                     if (c.getChoreDay() == 1){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Monday");
@@ -341,7 +340,7 @@ this.dispose();        // TODO add your handling code here:
             case 1:
                 for (Chore c : user1List){
                     if (c.getChoreDay() == 2){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Tuesday");
@@ -349,7 +348,7 @@ this.dispose();        // TODO add your handling code here:
             case 2:
                 for (Chore c : user1List){
                     if (c.getChoreDay() == 3){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Wednesday");
@@ -357,7 +356,7 @@ this.dispose();        // TODO add your handling code here:
             case 3:
                 for (Chore c : user1List){
                     if (c.getChoreDay() == 4){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Thursday");
@@ -365,7 +364,7 @@ this.dispose();        // TODO add your handling code here:
             case 4:
                 for (Chore c : user1List){
                     if (c.getChoreDay() == 5){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Friday");
@@ -373,7 +372,7 @@ this.dispose();        // TODO add your handling code here:
             case 5:
                 for (Chore c : user1List){
                     if (c.getChoreDay() == 6){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Saturday");
@@ -381,7 +380,7 @@ this.dispose();        // TODO add your handling code here:
             case 6:
                 for (Chore c : user1List){
                     if (c.getChoreDay() == 7){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Sunday");
@@ -389,21 +388,21 @@ this.dispose();        // TODO add your handling code here:
             case 7:
                 for (Chore c : user1List){
                     if (c.getChoreDay() == 8){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Any day");
                 break;
             default:
                 for (Chore c : user1List){
-                    list.add(c);
+                    tableList.add(c);
                 }
                 System.out.println("Default case");
                 break;
         }
         
-        for(int i = 0; i < list.size(); i++){
-            tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).isChoreComplete()});
+        for(int i = 0; i < tableList.size(); i++){
+            tableModel.addRow(new Object[]{tableList.get(i).getChoreName(), tableList.get(i).isChoreComplete()});
             
         }
         
@@ -412,14 +411,13 @@ this.dispose();        // TODO add your handling code here:
     public void updateDisplayTableDataUser2(int selection){
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
-        
-        ArrayList<Chore> list = new ArrayList(); // Temp list to update the table
-        
+        ArrayList<Chore> tableList = new ArrayList(); // Temp list to update the table
+
         switch (selection){
             case 0:
                 for (Chore c : user2List){
                     if (c.getChoreDay() == 1){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Monday");
@@ -427,7 +425,7 @@ this.dispose();        // TODO add your handling code here:
             case 1:
                 for (Chore c : user2List){
                     if (c.getChoreDay() == 2){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Tuesday");
@@ -435,7 +433,7 @@ this.dispose();        // TODO add your handling code here:
             case 2:
                 for (Chore c : user2List){
                     if (c.getChoreDay() == 3){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Wednesday");
@@ -443,7 +441,7 @@ this.dispose();        // TODO add your handling code here:
             case 3:
                 for (Chore c : user2List){
                     if (c.getChoreDay() == 4){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Thursday");
@@ -451,7 +449,7 @@ this.dispose();        // TODO add your handling code here:
             case 4:
                 for (Chore c : user2List){
                     if (c.getChoreDay() == 5){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Friday");
@@ -459,7 +457,7 @@ this.dispose();        // TODO add your handling code here:
             case 5:
                 for (Chore c : user2List){
                     if (c.getChoreDay() == 6){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Saturday");
@@ -467,7 +465,7 @@ this.dispose();        // TODO add your handling code here:
             case 6:
                 for (Chore c : user2List){
                     if (c.getChoreDay() == 7){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Sunday");
@@ -475,26 +473,32 @@ this.dispose();        // TODO add your handling code here:
             case 7:
                 for (Chore c : user2List){
                     if (c.getChoreDay() == 78){
-                        list.add(c);
+                        tableList.add(c);
                     }
                 }
                 System.out.println("Sunday");
                 break;
             default:
                 for (Chore c : user2List){
-                    list.add(c);
+                    tableList.add(c);
                 }
                 System.out.println("Default case");
                 break;
         }
         
-        for(int i = 0; i < list.size(); i++){
-            tableModel.addRow(new Object[]{list.get(i).getChoreName(), list.get(i).isChoreComplete()});
+        for(int i = 0; i < tableList.size(); i++){
+            tableModel.addRow(new Object[]{tableList.get(i).getChoreName(), tableList.get(i).isChoreComplete()});
         }
         
     }
     
-    public void updateChoreCount(){
+    public void updateChoreCount(int currentUser){
+        if (currentUser == 1){
+            choreCount = Integer.toString(user1List.size());
+        }
+        if (currentUser == 2){
+            choreCount = Integer.toString(user2List.size());
+        }
         
     }
     
@@ -503,18 +507,6 @@ this.dispose();        // TODO add your handling code here:
         boolean checkBox; 
         
         // Iterates over the list to see which chores have their completed box ticked
-        /*for(int i  = 0; i < dummyList.getAssignedChoresList().size(); i++){
-            try {
-                checkBox = (boolean) tableModel.getValueAt(i, 2);
-                if (checkBox) {
-                    System.out.println("Checked");
-                }else{
-                    System.out.println("Not Checked");
-                }
-            }catch(Exception e){
-                
-            }
-        }*/
         if (currentUser == 1) {
             for (int i = 0; i < user1List.size(); i++) {
                 try {
@@ -525,6 +517,7 @@ this.dispose();        // TODO add your handling code here:
                             choresDB.deleteChore(user1List.get(i).getChoreName());
                         }
                         user1List.remove(i); // Remove from temp list
+                        
                     } else {
                         System.out.println("Not checked");
                     }
@@ -532,6 +525,7 @@ this.dispose();        // TODO add your handling code here:
                     System.out.println("Submit Error: " + e);
                 }
             }
+            updateDisplayTableDataUser1(daySelector.getSelectedIndex());
         }
         if (currentUser == 2) {
             for (int i = 0; i < user2List.size(); i++) {
@@ -544,12 +538,13 @@ this.dispose();        // TODO add your handling code here:
                             System.out.println("Submit Success");
                         }
                         user2List.remove(i); // Remove from temp list
-                        choreCount = Integer.toString(user2List.size());
+                        
                     }
                 } catch (Exception e) {
                     System.out.println("Submit Error: " + e);
                 }
             }
+            updateDisplayTableDataUser2(daySelector.getSelectedIndex());
         }
 
         
