@@ -186,11 +186,11 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                .addGap(134, 134, 134)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submitNewChoreButton)
                     .addComponent(cancelNewChoreButton))
-                .addGap(16, 16, 16))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -221,12 +221,13 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
 
         } else {
             String textNewChore = newChoreTextField.getText().trim();
+            
 
         }
         if (oneOffChoreType.isSelected()) {
             ChoresDatabase choresDB = new ChoresDatabase();
             try {
-                ArrayList<Chore> oneOffChores = choresDB.selectChoresFrequencyOneOff();
+                ArrayList<Chore> choresArrayList = choresDB.selectChoresFrequencyOneOff();
                 // Perform operations with oneOffChores ArrayList
             } catch (SQLException ex) {
                 Logger.getLogger(CreateNewChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -234,7 +235,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         } else if (weeklyChoreType.isSelected()) {
             ChoresDatabase choresDB = new ChoresDatabase();
             try {
-                ArrayList<Chore> weeklyChores = choresDB.selectChoresFrequencyWeekly();
+                ArrayList<Chore> choresArrayList = choresDB.selectChoresFrequencyWeekly();
                 // Perform operations with weeklyChores ArrayList
             } catch (SQLException ex) {
                 Logger.getLogger(CreateNewChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
