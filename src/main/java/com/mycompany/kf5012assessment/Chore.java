@@ -14,15 +14,13 @@ public class Chore {
 
     private int choreID;    // PK for DB
     private String choreName;
-    private int choreFrequencyID; // If == 0 is a one-off, if == 1 is permanent
+    private int choreFrequencyID; // If == 2 is a one-off, if == 1 is permanent
     //sprivate String choreDesc;   // for more details e.g shopping list
     private String choreFrequency;  // number of times in a week
     private int choreDay;    // int that correlates to day of the week 1-8
     private boolean choreComplete = false; // true if the user has completed the task
     private boolean selectedForThisWeek;
     private int choreAssignTo;
-    private int estimateTimeUser1;
-    private int estimateTimeUser2;
     private float estimateTimeUserOne;
     private float estimateTimeUserTwo;
     //private float estimateTime;
@@ -35,8 +33,6 @@ public class Chore {
         this.choreDay = choreDay;
         this.selectedForThisWeek = selectedForThisWeek;
         this.choreAssignTo = choreAssignTo;
-        this.estimateTimeUser1 = estimateTimeUser1;
-        this.estimateTimeUser2 = estimateTimeUser2;
         this.estimateTimeUserOne = estimateTimeUserOne;
         this.estimateTimeUserTwo = estimateTimeUserTwo;
     }
