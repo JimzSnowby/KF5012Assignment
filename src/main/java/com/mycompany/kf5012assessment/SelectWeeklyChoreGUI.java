@@ -191,7 +191,8 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_addChoreButtonActionPerformed
 
     private void submitChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitChoreButtonActionPerformed
-       // iterate over the choresArrayList and update the database with the selected day
+                                                 
+        // iterate over the choresArrayList and update the database with the selected day
     ChoresDatabase choresDB = new ChoresDatabase();
     for (int i = 0; i < choresArrayList.size(); i++) {
         Chore chore = choresArrayList.get(i);
@@ -207,7 +208,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(SelectWeeklyChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
-;
+
             } else {
                 try {
                     choresDB.updateToUnselected();
@@ -222,9 +223,6 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
     updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
 
     this.dispose();
-
-
-        // TODO add your handling code here:
 
     }//GEN-LAST:event_submitChoreButtonActionPerformed
     private void addNewChore(String task, int day) {
