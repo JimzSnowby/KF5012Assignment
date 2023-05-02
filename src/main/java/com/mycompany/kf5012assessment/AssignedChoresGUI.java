@@ -255,8 +255,12 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         submitData();
         if (currentUser == 1){
             updateDisplayTableDataUser1(daySelector.getSelectedIndex());
+            choreCount = Integer.toString(user1List.size());
+
         } else if (currentUser == 2){
             updateDisplayTableDataUser2(daySelector.getSelectedIndex());
+            choreCount = Integer.toString(user2List.size());
+
         }
         
     }//GEN-LAST:event_acceptButtonActionPerformed
@@ -382,12 +386,19 @@ this.dispose();        // TODO add your handling code here:
                 }
                 System.out.println("Sunday");
                 break;
+            case 7:
+                for (Chore c : user1List){
+                    if (c.getChoreDay() == 8){
+                        list.add(c);
+                    }
+                }
+                System.out.println("Any day");
+                break;
             default:
                 for (Chore c : user1List){
                     list.add(c);
                 }
-                System.out.println("All days");
-                
+                System.out.println("Default case");
                 break;
         }
         
@@ -461,11 +472,19 @@ this.dispose();        // TODO add your handling code here:
                 }
                 System.out.println("Sunday");
                 break;
+            case 7:
+                for (Chore c : user2List){
+                    if (c.getChoreDay() == 78){
+                        list.add(c);
+                    }
+                }
+                System.out.println("Sunday");
+                break;
             default:
                 for (Chore c : user2List){
                     list.add(c);
                 }
-                System.out.println("All days");
+                System.out.println("Default case");
                 break;
         }
         
@@ -505,7 +524,6 @@ this.dispose();        // TODO add your handling code here:
                     } else {
                         System.out.println("Not checked");
                     }
-                    choreCount = Integer.toString(user1List.size());
                 } catch (Exception e) {
                     System.out.println("Submit Error: " + e);
                 }
