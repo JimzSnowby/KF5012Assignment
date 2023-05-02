@@ -36,9 +36,11 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             }
         }
         
-        
+        if (users.getUserList().get(WIDTH).isUserActive() == 1 ){
+            displayTableData(user1List);
+        }
       
-        displayTableData(dummyList);
+        //displayTableData(dummyList);
         
     }
 
@@ -277,39 +279,72 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private javax.swing.JLabel weekScoreLabel;
     // End of variables declaration//GEN-END:variables
     
-    public void displayTableData(AssignedChoresList tableData){
+    public void displayTableData(ArrayList<Chore> tableData){
         // Empty the existing data
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
         
-        List<Chore> list = tableData.getAssignedChoresList();
+        ArrayList<Chore> list = new ArrayList();
+        
+        //List<Chore> list = tableData.getAssignedChoresList();
+        
         int selectionDay = daySelector.getSelectedIndex();
         
         // Get the list depending what day is selected in the comboBox
         switch (selectionDay){
-            case 0:
-              
-                break;
             case 1:
-                
+                for (Chore c : list){
+                    if (c.getChoreDay() == 1){
+                        list.add(c);
+                    }
+                }
                 break;
             case 2:
-                
+                for (Chore c : list){
+                    if (c.getChoreDay() == 2){
+                        list.add(c);
+                    }
+                }
                 break;
             case 3:
-                
+                for (Chore c : list){
+                    if (c.getChoreDay() == 3){
+                        list.add(c);
+                    }
+                }
                 break;
             case 4:
-                
+                for (Chore c : list){
+                    if (c.getChoreDay() == 4){
+                        list.add(c);
+                    }
+                }
                 break;
             case 5:
-                
+                for (Chore c : list){
+                    if (c.getChoreDay() == 5){
+                        list.add(c);
+                    }
+                }
                 break;
             case 6:
-                
+                for (Chore c : list){
+                    if (c.getChoreDay() == 6){
+                        list.add(c);
+                    }
+                }
+                break;
+            case 7:
+                for (Chore c : list){
+                    if (c.getChoreDay() == 7){
+                        list.add(c);
+                    }
+                }
                 break;
             default:
-                list = dummyList.getAssignedChoresList();
+                for (Chore c : list){
+                    list.add(c);
+                }
                 break;
         }
         
