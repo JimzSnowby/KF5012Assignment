@@ -18,7 +18,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private ArrayList<Chore> user1List = new ArrayList(); // list of chores assigned to user1
     private ArrayList<Chore> user2List = new ArrayList(); // list of chores assigned to user2
     private String choreCount; // chore count not changing
-    private int currentUser;
+    private int currentUser; // gets the ID of the current user
     private ChoresDatabase choresDB = new ChoresDatabase();
     
     /*
@@ -510,7 +510,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             for (int i = 0; i < user1List.size(); i++) {
                 try {
                     checkBox = (boolean) tableModel.getValueAt(i, 1);
-                    System.out.println(checkBox);
                     if (checkBox) {
                         user1List.remove(i); // Remove from temp list
                         if (user1List.get(i).getChoreFrequencyID() == 2) {
