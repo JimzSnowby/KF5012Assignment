@@ -24,9 +24,13 @@ public class ChoresDatabase {
 
         //James:
         // database.Connect("G:/University work/Year 2/Semester2/SE practice/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
-        //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
+<<<<<<< HEAD
        // database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+=======
+        //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+>>>>>>> 6cf710dcbb7ea2e4aa80f790926005f8bcf8795a
         //Nihal:
        database.Connect("C:\\Users\\nihal\\Documents\\newGroupWork\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
@@ -37,7 +41,7 @@ public class ChoresDatabase {
         //database.Connect("D:\\test\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Yoyo:
-        //    database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+     //    database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //database.Connect("D:\\CLONE\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
     }
 
@@ -242,7 +246,7 @@ public class ChoresDatabase {
     //Select all selected chores
     public ArrayList<Chore> sqlSelectedChores() throws SQLException {
 
-        String sqlSelectedChores = "SELECT choreID, choreName FROM chores WHERE isSelected = 1';";
+        String sqlSelectedChores = "SELECT choreID, choreName FROM chores WHERE isSelected = 1;";
 
         ResultSet choreList = database.RunSQLQuery(sqlSelectedChores);
         ArrayList<Chore> chores = new ArrayList<Chore>();
@@ -481,8 +485,4 @@ public class ChoresDatabase {
         x.selectChoresFrequencyWeekly();
     }
      */
-    public static void main(String[] args) throws SQLException {
-        ChoresDatabase x = new ChoresDatabase();
-        x.selectChores();
-    }
 }
