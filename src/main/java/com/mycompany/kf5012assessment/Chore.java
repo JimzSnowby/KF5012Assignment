@@ -19,13 +19,13 @@ public class Chore {
     private String choreFrequency;  // number of times in a week
     private int choreDay;    // int that correlates to day of the week 1-8
     private boolean choreComplete = false; // true if the user has completed the task
-    private boolean selectedForThisWeek;
+    private int selectedForThisWeek;
     private int choreAssignTo;
     private float estimateTimeUserOne;
     private float estimateTimeUserTwo;
     //private float estimateTime;
 
-    public Chore(int choreID, String choreName, int choreFrequencyID, String choreFrequency, int choreDay, boolean selectedForThisWeek, int choreAssignTo, int estimateTimeUser1, int estimateTimeUser2, float estimateTimeUserOne, float estimateTimeUserTwo) {
+    public Chore(int choreID, String choreName, int choreFrequencyID, String choreFrequency, int choreDay, int selectedForThisWeek, int choreAssignTo, int estimateTimeUser1, int estimateTimeUser2, float estimateTimeUserOne, float estimateTimeUserTwo) {
         this.choreID = choreID;
         this.choreName = choreName;
         this.choreFrequencyID = choreFrequencyID;
@@ -60,11 +60,11 @@ public class Chore {
         this.estimateTimeUserTwo = estimateTimeUserTwo;
     }
 
-    public boolean isSelectedForThisWeek() {
+    public int isSelectedForThisWeek() {
         return selectedForThisWeek;
     }
 
-    public void setSelectedForThisWeek(boolean selectedForThisWeek) {
+    public void setSelectedForThisWeek(int selectedForThisWeek) {
         this.selectedForThisWeek = selectedForThisWeek;
     }
 
@@ -138,11 +138,11 @@ public class Chore {
         estimateTimeUserOne = 0;
         estimateTimeUserTwo = 0;
         choreAssignTo = 0;
-        selectedForThisWeek = false;
+        selectedForThisWeek = 0;
 
     }
 
-    public Chore(String name, float estimateOne, float estimateTwo, boolean selected) {
+    public Chore(String name, float estimateOne, float estimateTwo, int selected) {
         choreName = name;
         estimateTimeUserOne = estimateOne;
         estimateTimeUserTwo = estimateTwo;

@@ -7,7 +7,6 @@ package com.mycompany.kf5012assessment;
 import java.util.*;
 import javax.swing.table.*;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -503,8 +502,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
         ArrayList<Chore> tableList = new ArrayList(); // Temp list to update the table
-
-        
         switch (selection){
             case 0:
                 for (Chore c : user1List){

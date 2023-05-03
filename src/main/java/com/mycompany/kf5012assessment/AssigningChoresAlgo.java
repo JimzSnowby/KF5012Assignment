@@ -51,7 +51,7 @@ public class AssigningChoresAlgo {
 
         ArrayList<Chore> choreList = new ArrayList<Chore>();
         for (Chore c : fullChoreList) {
-            if (c.isSelectedForThisWeek()) {
+            if (c.isSelectedForThisWeek() == 1) {
                 choreList.add(c);
 
             }

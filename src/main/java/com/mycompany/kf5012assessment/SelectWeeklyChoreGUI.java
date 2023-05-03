@@ -207,7 +207,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
             System.out.println(chore.getChoreName() + ", " + chore.getChoreID() + " " + chore.isSelectedForThisWeek());
            
             // Update chore's selection status
-            if (chore.isSelectedForThisWeek()) {
+            if (chore.isSelectedForThisWeek() == 1) {
                 try {
                     choresDB.updateToSelected();
                 } catch (SQLException ex) {
