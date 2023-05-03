@@ -17,7 +17,7 @@ public class Chore {
     private int choreFrequencyID; // If == 2 is a one-off, if == 1 is permanent
     //sprivate String choreDesc;   // for more details e.g shopping list
     private String choreFrequency;  // number of times in a week
-    private int choreDay;    // int that correlates to day of the week 1-8
+    private int choreDay;    // int that correlates to day of the week 1 to 8
     private boolean choreComplete = false; // true if the user has completed the task
     private boolean selectedForThisWeek;
     private int choreAssignTo;
