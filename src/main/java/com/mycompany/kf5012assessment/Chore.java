@@ -17,15 +17,15 @@ public class Chore {
     private int choreFrequencyID; // If == 2 is a one-off, if == 1 is permanent
     //sprivate String choreDesc;   // for more details e.g shopping list
     private String choreFrequency;  // number of times in a week
-    private int choreDay;    // int that correlates to day of the week 1-8
+    private int choreDay;    // int that correlates to day of the week 1 to 8
     private boolean choreComplete = false; // true if the user has completed the task
-    private boolean selectedForThisWeek;
+    private int selectedForThisWeek;
     private int choreAssignTo;
     private float estimateTimeUserOne;
     private float estimateTimeUserTwo;
     //private float estimateTime;
 
-    public Chore(int choreID, String choreName, int choreFrequencyID, String choreFrequency, int choreDay, boolean selectedForThisWeek, int choreAssignTo, int estimateTimeUser1, int estimateTimeUser2, float estimateTimeUserOne, float estimateTimeUserTwo) {
+    public Chore(int choreID, String choreName, int choreFrequencyID, String choreFrequency, int choreDay, int selectedForThisWeek, int choreAssignTo, int estimateTimeUser1, int estimateTimeUser2, float estimateTimeUserOne, float estimateTimeUserTwo) {
         this.choreID = choreID;
         this.choreName = choreName;
         this.choreFrequencyID = choreFrequencyID;
@@ -60,13 +60,13 @@ public class Chore {
         this.estimateTimeUserTwo = estimateTimeUserTwo;
     }
 
-    public boolean isSelectedForThisWeek() {
-        return selectedForThisWeek;
-    }
+  public int getSelectedForThisWeek() {
+    return selectedForThisWeek;
+}
 
-    public void setSelectedForThisWeek(boolean selectedForThisWeek) {
-        this.selectedForThisWeek = selectedForThisWeek;
-    }
+public void setSelectedForThisWeek(int selectedForThisWeek) {
+    this.selectedForThisWeek = selectedForThisWeek;
+}
 
     public int getChoreFrequencyID() {
         return choreFrequencyID;
@@ -138,16 +138,17 @@ public class Chore {
         estimateTimeUserOne = 0;
         estimateTimeUserTwo = 0;
         choreAssignTo = 0;
-        selectedForThisWeek = false;
+    selectedForThisWeek = 0;
 
     }
 
-    public Chore(String name, float estimateOne, float estimateTwo, boolean selected) {
-        choreName = name;
-        estimateTimeUserOne = estimateOne;
-        estimateTimeUserTwo = estimateTwo;
-        choreAssignTo = 0;
-        selectedForThisWeek = selected;
-    }
+public Chore(String name, float estimateOne, float estimateTwo, int selected) {
+    choreName = name;
+    estimateTimeUserOne = estimateOne;
+    estimateTimeUserTwo = estimateTwo;
+    choreAssignTo = 0;
+    selectedForThisWeek = selected;
+}
+
 
 }
