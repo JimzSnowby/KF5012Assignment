@@ -201,8 +201,51 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
+        dialogSubmit.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        dialogSubmit.setTitle("Success");
+        dialogSubmit.setAlwaysOnTop(true);
+        dialogSubmit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        dialogSubmit.setLocationByPlatform(true);
+        dialogSubmit.setMinimumSize(new java.awt.Dimension(400, 160));
+        dialogSubmit.setResizable(false);
+        dialogSubmit.setType(java.awt.Window.Type.POPUP);
+
+        successLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        successLabel.setText("Completed chores submitted successfully");
+
+        okButton.setText("OK");
+        okButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okButtonActionPerformed(evt);
+            }
+        });
+
+        dialogSubmit.getContentPane().setLayout(dialogSubmitLayout);
+        dialogSubmitLayout.setHorizontalGroup(
+            dialogSubmitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogSubmitLayout.createSequentialGroup()
+                .addContainerGap(37, Short.MAX_VALUE)
+                .addGroup(dialogSubmitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogSubmitLayout.createSequentialGroup()
+                        .addComponent(successLabel)
+                        .addGap(35, 35, 35))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogSubmitLayout.createSequentialGroup()
+                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(139, 139, 139))))
+        );
+        dialogSubmitLayout.setVerticalGroup(
+            dialogSubmitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogSubmitLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(successLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("This weeks chores");
+        setLocationByPlatform(true);
         setResizable(false);
 
         Title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -379,6 +422,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             updateDisplayTableDataUser2(daySelector.getSelectedIndex());
             updateChoreCount(2);
         }
+        dialogSubmit.setVisible(true);
     }//GEN-LAST:event_acceptButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -445,6 +489,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuFile;
+    private javax.swing.JButton okButton;
+    private javax.swing.JLabel successLabel;
     private javax.swing.JScrollPane tableContainer;
     private javax.swing.JLabel totalChores;
     private javax.swing.JLabel totalScore;
