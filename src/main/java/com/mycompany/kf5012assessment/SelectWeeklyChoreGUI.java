@@ -63,6 +63,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         chooseChoreLabel = new javax.swing.JLabel();
         submitChoreButton = new javax.swing.JButton();
         addChoreButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
         menueBarOne = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
@@ -113,6 +114,13 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
             }
         });
 
+        cancelButton.setText("Cancel ");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("Home");
         menueBarOne.add(jMenu1);
 
@@ -135,7 +143,9 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
                         .addComponent(addChoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addComponent(cancelButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(submitChoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
@@ -151,7 +161,9 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(choreScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(submitChoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(submitChoreButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelButton, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(27, 27, 27))
         );
 
@@ -233,6 +245,10 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         mainForm.setVisible(true);
 
     }//GEN-LAST:event_submitChoreButtonActionPerformed
+
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+       // TODO add your handling code here:
+    }//GEN-LAST:event_cancelButtonActionPerformed
     private void addNewChore(String task, int day) {
         // Create a new instance of Chore with the given task and day
         Chore newChore = new Chore();
@@ -331,6 +347,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addChoreButton;
+    private javax.swing.JButton cancelButton;
     private javax.swing.JLabel chooseChoreLabel;
     private javax.swing.JComboBox<String> chooseDayChore;
     private javax.swing.JScrollPane choreScrollPane;
