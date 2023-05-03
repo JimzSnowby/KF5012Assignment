@@ -41,9 +41,9 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         }
         initComponents(); // Initializes GUI elements, PUT ALL METHODS AFTER THIS
         
-        choreCount = Integer.toString(user1List.size());
+        choreCount = Integer.toString(user1List.size()); // Get list size as a string
+        totalChores.setText(choreCount); // change the total chores text
         
-        totalChores.setText(choreCount);
         int selection = daySelector.getSelectedIndex();
         for (User u : usersList){
                 if (u.isUserActive() == 1){
@@ -250,7 +250,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_daySelectorActionPerformed
 
     private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptButtonActionPerformed
-        System.out.println("Accept Pressed");
         System.out.println("Current user: " + currentUser);
         submitData();
         if (currentUser == 1){
@@ -261,12 +260,10 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             updateDisplayTableDataUser2(daySelector.getSelectedIndex());
             updateChoreCount(2);
         }
-        
     }//GEN-LAST:event_acceptButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-
-this.dispose();        // TODO add your handling code here:
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     /**
@@ -500,6 +497,8 @@ this.dispose();        // TODO add your handling code here:
             choreCount = Integer.toString(user2List.size());
         }
         
+        totalChores.setText(choreCount);
+        
     }
     
     public void submitData(){
@@ -513,11 +512,13 @@ this.dispose();        // TODO add your handling code here:
                     checkBox = (boolean) tableModel.getValueAt(i, 1);
                     System.out.println(checkBox);
                     if (checkBox) {
+                        user1List.remove(i); // Remove from temp list
                         if (user1List.get(i).getChoreFrequencyID() == 2) {
                             choresDB.deleteChore(user1List.get(i).getChoreName());
+                        } else {
+                            //  choresDB change assigned to 0
+                            choresDB.assignChore(user1List.get(i).getChoreName(), 0);
                         }
-                        user1List.remove(i); // Remove from temp list
-                        
                     } else {
                         System.out.println("Not checked");
                     }
@@ -525,7 +526,7 @@ this.dispose();        // TODO add your handling code here:
                     System.out.println("Submit Error: " + e);
                 }
             }
-            updateDisplayTableDataUser1(daySelector.getSelectedIndex());
+            //updateDisplayTableDataUser1(daySelector.getSelectedIndex());
         }
         if (currentUser == 2) {
             for (int i = 0; i < user2List.size(); i++) {
