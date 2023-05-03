@@ -43,11 +43,9 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         }
         initComponents(); // Initializes GUI elements, PUT ALL METHODS AFTER THIS
         
-<<<<<<< Updated upstream
-=======
         dialogSubmit.pack();
         dialogSubmit.setLocationRelativeTo(this);
->>>>>>> Stashed changes
+
         choreCount = Integer.toString(user1List.size()); // Get list size as a string
         totalChores.setText(choreCount); // change the total chores text
         
@@ -78,8 +76,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-<<<<<<< Updated upstream
-=======
         dialogSubmit = new javax.swing.JDialog();
         successLabel = new javax.swing.JLabel();
         okButton = new javax.swing.JButton();
@@ -88,7 +84,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         alertTable = new javax.swing.JTable();
         alertLabel = new javax.swing.JLabel();
         alertOk = new javax.swing.JButton();
->>>>>>> Stashed changes
         Title = new javax.swing.JLabel();
         daySelector = new javax.swing.JComboBox<>();
         tableContainer = new javax.swing.JScrollPane();
@@ -103,9 +98,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         totalChores = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
-
-<<<<<<< Updated upstream
-=======
         dialogSubmit.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         dialogSubmit.setTitle("Success");
         dialogSubmit.setAlwaysOnTop(true);
@@ -209,7 +201,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
->>>>>>> Stashed changes
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("This weeks chores");
         setResizable(false);
@@ -394,8 +385,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-<<<<<<< Updated upstream
-=======
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         this.dispose();
         dialogSubmit.dispose();
@@ -405,7 +394,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         endOfWeekAlert.dispose();
     }//GEN-LAST:event_alertOkActionPerformed
 
->>>>>>> Stashed changes
     /**
      * @param args the command line arguments
      */
@@ -452,12 +440,9 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private javax.swing.JTable choreTable;
     private javax.swing.JComboBox<String> daySelector;
     private javax.swing.JLabel daySelectorLabel;
-<<<<<<< Updated upstream
-=======
     private javax.swing.JDialog dialogSubmit;
     private javax.swing.JDialog endOfWeekAlert;
     private javax.swing.JScrollPane jScrollPane1;
->>>>>>> Stashed changes
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuFile;
     private javax.swing.JScrollPane tableContainer;
