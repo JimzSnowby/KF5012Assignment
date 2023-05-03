@@ -23,10 +23,10 @@ public class ChoresDatabase {
         database = new DBConnection();
 
         //James:
-        database.Connect("G:/University work/Year 2/Semester2/SE practice/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        // database.Connect("G:/University work/Year 2/Semester2/SE practice/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-        //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
         //database.Connect("C:\\Users\\nihal\\Documents\\newGroupWork\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
@@ -46,8 +46,6 @@ public class ChoresDatabase {
      * Functions
      *
      */
-    
-    
     //Select all chores
     public ArrayList<Chore> selectChores() throws SQLException {
 
@@ -197,12 +195,12 @@ public class ChoresDatabase {
                 newChore.setChoreName(choreList.getString(2));
                 newChore.setChoreFrequency(choreList.getString(3));
                 chores.add(newChore);
-                
+
                 //Testing   
                 /*
                 System.out.println("Chore ID: " + newChore.getChoreID() + " Frequency: "
                 + newChore.getChoreFrequency() + " Chore name: " + newChore.getChoreName());
-                */
+                 */
             }
         } catch (SQLException e) {
             System.out.println("Failed to process query in selectChores()");
@@ -245,7 +243,6 @@ public class ChoresDatabase {
 
     //isSelected = 1 is selected
     //isSelected = 0 is not selected
-    
     //Select all selected chores
     public ArrayList<Chore> sqlSelectedChores() throws SQLException {
 
@@ -377,14 +374,13 @@ public class ChoresDatabase {
         String sqlDeleteUser = "DELETE FROM users WHERE userID = '" + userID + "';";
 
         boolean success = database.RunSQL(sqlDeleteUser);
-        
+
         //Testing
         /*
         if (success) {
             System.out.println("User " + userID + " was successfully deleted");
         }
-        */
-        
+         */
         if (!success) {
             System.out.println("Failed to process query" + sqlDeleteUser);
         }
@@ -408,14 +404,13 @@ public class ChoresDatabase {
         String sqlDropChores = "DROP TABLE chores";
 
         boolean success = database.RunSQL(sqlDropChores);
-        
+
         //Testing
         /*
         if (success) {
             System.out.println("Chores table was successfully deleted");
         }
-        */
-
+         */
         if (!success) {
             System.out.println("Failed to process query" + sqlDropChores);
         }
@@ -487,10 +482,46 @@ public class ChoresDatabase {
         int userID = 1;
         x.deleteUser(userID);
     
+
+    }
     //Test select weekly chores function
     public static void main(String[] args) throws SQLException {
-       ChoresDatabase x = new ChoresDatabase();
-       x.selectChoresFrequencyWeekly();
+        ChoresDatabase x = new ChoresDatabase();
+        x.selectChores();
     }
-    }*/
+     */
+    //Trigger test
+    public static void main(String[] args) throws SQLException {
+        ChoresDatabase x = new ChoresDatabase();
+
+        //Trigger 1 - does not allow inserting numbers in the chore name
+        String triggerNoNumbersInChoreName = "CREATE TRIGGER no_numbers_in_chore_name "
+                + "BEFORE INSERT ON chores "
+                + "FOR EACH ROW "
+                + "WHEN NEW.choreName REGEXP '[0-9]' "
+                + "BEGIN "
+                + "SELECT RAISE(ABORT, 'Chore name field cannot contain numbers'); "
+                + "END;";
+
+        boolean success = database.RunSQL(triggerNoNumbersInChoreName);
+
+        if (!success) {
+            System.out.println("Failed to process query" + triggerNoNumbersInChoreName);
+        }
+
+        //Trigger 2 - allows chore frequency ID to be in the 1 - 8 range only
+        String triggerCheckChoreFrequency = "CREATE TRIGGER check_chore_frequency "
+                + "BEFORE INSERT ON chores "
+                + "FOR EACH ROW "
+                + "WHEN NEW.choreFrequencyID NOT BETWEEN 1 AND 8 "
+                + "BEGIN "
+                + "SELECT RAISE(ABORT, 'The chorefrequencyID must be between 1 and 8.');"
+                + "END;";
+        
+        boolean success2 = database.RunSQL(triggerCheckChoreFrequency);
+        
+        if (!success2) {
+            System.out.println("Failed to process query" + triggerNoNumbersInChoreName);
+        }
+    }
 }
