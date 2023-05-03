@@ -36,6 +36,13 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
+        
+        for (Chore chore : choresArrayList) {
+            model.addRow(new Object[] {
+                chore.getChoreName(),
+                (currectUser == 1) ? chore.getEstimateTimeUserOne() : chore.getEstimateTimeUserTwo()
+            });
+        }
     }
 
     public EstimateTimeInputGUI(int selectedUsers) {

@@ -184,25 +184,30 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
     private void addChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addChoreButtonActionPerformed
         CreateNewChoreGUI addChoreGUI = new CreateNewChoreGUI(this, true);
-        addChoreGUI.setVisible(true);
-        addChoreGUI.pack();
+        //addChoreGUI.pack();
         addChoreGUI.setLocationRelativeTo(null);
         addChoreGUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        addChoreGUI.setVisible(true);
+        
+        // doesnt work unless u refresh it 
     }//GEN-LAST:event_addChoreButtonActionPerformed
 
     private void submitChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitChoreButtonActionPerformed
-                                                 
+                  
+    recordTableChanges();
         // iterate over the choresArrayList and update the database with the selected day
     ChoresDatabase choresDB = new ChoresDatabase();
     for (int i = 0; i < choresArrayList.size(); i++) {
         Chore chore = choresArrayList.get(i);
+        ChoresDatabase.newchore = chore;
         int day = chore.getChoreDay();
         int newDay = chooseDayChore.getSelectedIndex() - 1;
-        if (day != newDay) {
-            chore.setChoreDay(newDay);
+        if (true) {
+            //chore.setChoreDay(newDay);
+            System.out.println(chore.getChoreName() + ", " + chore.getChoreID() + " " + chore.isSelectedForThisWeek());
            
             // Update chore's selection status
-            if (newDay != -1) {
+            if (chore.isSelectedForThisWeek()) {
                 try {
                     choresDB.updateToSelected();
                 } catch (SQLException ex) {
@@ -264,7 +269,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
             String choreName = (String) tableModel.getValueAt(i, 0);
             for (Chore nc : choresArrayList) {
 
-                if (nc.getChoreName() == choreName) {
+                if (nc.getChoreName().equals(choreName)) {
                     nc.setSelectedForThisWeek((boolean) tableModel.getValueAt(i, 1));
                 }
 
