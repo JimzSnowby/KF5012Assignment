@@ -46,6 +46,8 @@ public class ChoresDatabase {
      * Functions
      *
      */
+    
+    
     //Select all chores
     public ArrayList<Chore> selectChores() throws SQLException {
 
@@ -62,10 +64,10 @@ public class ChoresDatabase {
                 newChore.setChoreFrequencyID(choreList.getInt(3));
                 newChore.assignTo(choreList.getInt(4));
                 newChore.setChoreDay(choreList.getInt(5));
-                newChore.setSelectedForThisWeek(choreList.getInt(5));
+                newChore.setSelectedForThisWeek(choreList.getInt(6));
                 chores.add(newChore);
 
-                //Testing selection
+                //Testing
                 //System.out.println("Chore ID: " + newChore.getChoreID() + " Chore name: " + newChore.getChoreName());
             }
         } catch (SQLException e) {
@@ -196,10 +198,11 @@ public class ChoresDatabase {
                 newChore.setChoreFrequency(choreList.getString(3));
                 chores.add(newChore);
                 
-                //Testing selection
-                //System.out.println("Chore ID: " + newChore.getChoreID() + " Frequency: "
-                //       + newChore.getChoreFrequency() + " Chore name: " + newChore.getChoreName());
-
+                //Testing   
+                /*
+                System.out.println("Chore ID: " + newChore.getChoreID() + " Frequency: "
+                + newChore.getChoreFrequency() + " Chore name: " + newChore.getChoreName());
+                */
             }
         } catch (SQLException e) {
             System.out.println("Failed to process query in selectChores()");
@@ -242,6 +245,7 @@ public class ChoresDatabase {
 
     //isSelected = 1 is selected
     //isSelected = 0 is not selected
+    
     //Select all selected chores
     public ArrayList<Chore> sqlSelectedChores() throws SQLException {
 
@@ -373,11 +377,14 @@ public class ChoresDatabase {
         String sqlDeleteUser = "DELETE FROM users WHERE userID = '" + userID + "';";
 
         boolean success = database.RunSQL(sqlDeleteUser);
-
+        
+        //Testing
+        /*
         if (success) {
             System.out.println("User " + userID + " was successfully deleted");
         }
-
+        */
+        
         if (!success) {
             System.out.println("Failed to process query" + sqlDeleteUser);
         }
@@ -401,10 +408,13 @@ public class ChoresDatabase {
         String sqlDropChores = "DROP TABLE chores";
 
         boolean success = database.RunSQL(sqlDropChores);
-
+        
+        //Testing
+        /*
         if (success) {
             System.out.println("Chores table was successfully deleted");
         }
+        */
 
         if (!success) {
             System.out.println("Failed to process query" + sqlDropChores);
@@ -435,7 +445,7 @@ public class ChoresDatabase {
             System.out.println(i);
         }
     }
-    //Testing the update
+    //Test the update estimate function
     public static void main(String[] args) throws SQLException {
         ChoresDatabase x = new ChoresDatabase();
         Chore c = new Chore();
@@ -446,6 +456,7 @@ public class ChoresDatabase {
         x.updateEstimateTimeUserTwo();
         x.updateEstimateTimeUserOne();
     } 
+    //Test the Chore class
     public static void main(String[] args) {
         ChoresDatabase x = new ChoresDatabase();
         Chore c = new Chore();
@@ -458,26 +469,28 @@ public class ChoresDatabase {
                 
         x.addChore(newchore);
     }
-    //Test of the delete chores table
+    //Test delete chores table function
     public static void main(String[] args) {
         ChoresDatabase x = new ChoresDatabase();
         x.dropChoresTable();
-
     }
-    //Test of the select chores table
+    
+    //Test select chores function
     public static void main(String[] args) throws SQLException {
         ChoresDatabase x = new ChoresDatabase();
         x.selectChores();
     }
-    //Test of user 1 deletion
+    
+    //Test deletion function
     public static void main(String[] args) throws SQLException {
         ChoresDatabase x = new ChoresDatabase();
         int userID = 1;
         x.deleteUser(userID);
     
-        public static void main(String[] args) throws SQLException {
-        ChoresDatabase x = new ChoresDatabase();
-        x.selectChoresFrequencyWeekly();
+    //Test select weekly chores function
+    public static void main(String[] args) throws SQLException {
+       ChoresDatabase x = new ChoresDatabase();
+       x.selectChoresFrequencyWeekly();
     }
     }*/
 }
