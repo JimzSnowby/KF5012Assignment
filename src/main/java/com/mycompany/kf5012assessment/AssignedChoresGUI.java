@@ -18,6 +18,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private ArrayList<Chore> allChores = new ArrayList(); // list of all chores
     private ArrayList<Chore> user1List = new ArrayList(); // list of chores assigned to user1
     private ArrayList<Chore> user2List = new ArrayList(); // list of chores assigned to user2
+    private ArrayList<Chore> choreHistoryUser1 = new ArrayList(); // list of previously completed chores for U1
+    private ArrayList<Chore> choreHistoryUser2 = new ArrayList(); // list of previously completed chores for U2
     private String choreCount; // chore count not changing
     private int currentUser; // gets the ID of the current user
     private LocalDate date = LocalDate.now(); // Get system date
@@ -83,6 +85,10 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         alertTable = new javax.swing.JTable();
         alertLabel = new javax.swing.JLabel();
         alertOk = new javax.swing.JButton();
+        historyFrame = new javax.swing.JFrame();
+        historyLabel = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        historyTable = new javax.swing.JTable();
         Title = new javax.swing.JLabel();
         daySelector = new javax.swing.JComboBox<>();
         tableContainer = new javax.swing.JScrollPane();
@@ -95,8 +101,10 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         weekScore = new javax.swing.JLabel();
         totalScore = new javax.swing.JLabel();
         totalChores = new javax.swing.JLabel();
+        viewHistoryButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
+
         dialogSubmit.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         dialogSubmit.setTitle("Success");
         dialogSubmit.setAlwaysOnTop(true);
@@ -200,51 +208,62 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        dialogSubmit.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        dialogSubmit.setTitle("Success");
-        dialogSubmit.setAlwaysOnTop(true);
-        dialogSubmit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        dialogSubmit.setLocationByPlatform(true);
-        dialogSubmit.setMinimumSize(new java.awt.Dimension(400, 160));
-        dialogSubmit.setResizable(false);
-        dialogSubmit.setType(java.awt.Window.Type.POPUP);
+        historyFrame.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        historyFrame.setTitle("History");
+        historyFrame.setAlwaysOnTop(true);
 
-        successLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        successLabel.setText("Completed chores submitted successfully");
+        historyLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        historyLabel.setText("History");
 
-        okButton.setText("OK");
-        okButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okButtonActionPerformed(evt);
+        historyTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Chores"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        jScrollPane2.setViewportView(historyTable);
+        if (historyTable.getColumnModel().getColumnCount() > 0) {
+            historyTable.getColumnModel().getColumn(0).setResizable(false);
+        }
 
-        dialogSubmit.getContentPane().setLayout(dialogSubmitLayout);
-        dialogSubmitLayout.setHorizontalGroup(
-            dialogSubmitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogSubmitLayout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addGroup(dialogSubmitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogSubmitLayout.createSequentialGroup()
-                        .addComponent(successLabel)
-                        .addGap(35, 35, 35))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogSubmitLayout.createSequentialGroup()
-                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(139, 139, 139))))
-        );
-        dialogSubmitLayout.setVerticalGroup(
-            dialogSubmitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogSubmitLayout.createSequentialGroup()
+        javax.swing.GroupLayout historyFrameLayout = new javax.swing.GroupLayout(historyFrame.getContentPane());
+        historyFrame.getContentPane().setLayout(historyFrameLayout);
+        historyFrameLayout.setHorizontalGroup(
+            historyFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, historyFrameLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(historyLabel)
+                .addGap(172, 172, 172))
+            .addGroup(historyFrameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(successLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        historyFrameLayout.setVerticalGroup(
+            historyFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(historyFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(historyLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("This weeks chores");
-        setLocationByPlatform(true);
         setResizable(false);
 
         Title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -323,6 +342,13 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         totalChores.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         totalChores.setText("0");
 
+        viewHistoryButton.setText("View History");
+        viewHistoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewHistoryButtonActionPerformed(evt);
+            }
+        });
+
         menuFile.setText("File");
         menuBar.add(menuFile);
 
@@ -342,43 +368,44 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addGap(0, 0, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(totalScoreLabel)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(totalScore))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(weekScoreLabel)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(weekScore)))
-                                    .addGap(15, 15, 15))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(daySelectorLabel)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(26, 26, 26)
-                                    .addComponent(Title)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(totalChores)
-                                    .addGap(0, 0, Short.MAX_VALUE)))
-                            .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(weekScoreLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(weekScore)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(viewHistoryButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(totalScoreLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(totalScore))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(daySelectorLabel)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(26, 26, 26)
+                                        .addComponent(Title)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(totalChores))
+                                    .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(weekScoreLabel)
-                    .addComponent(weekScore))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(weekScoreLabel)
+                        .addComponent(weekScore))
+                    .addComponent(viewHistoryButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(totalScoreLabel)
                     .addComponent(totalScore))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(daySelectorLabel)
@@ -437,6 +464,18 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         endOfWeekAlert.dispose();
     }//GEN-LAST:event_alertOkActionPerformed
 
+    private void viewHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewHistoryButtonActionPerformed
+        historyFrame.setVisible(true);
+        historyFrame.pack();
+        historyFrame.setLocationRelativeTo(this);
+        if(currentUser == 1){
+            updateHistoryTableUser1();
+        }
+        if(currentUser == 2){
+            updateHistoryTableUser2();
+        }
+    }//GEN-LAST:event_viewHistoryButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -485,7 +524,11 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private javax.swing.JLabel daySelectorLabel;
     private javax.swing.JDialog dialogSubmit;
     private javax.swing.JDialog endOfWeekAlert;
+    private javax.swing.JFrame historyFrame;
+    private javax.swing.JLabel historyLabel;
+    private javax.swing.JTable historyTable;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuFile;
     private javax.swing.JButton okButton;
@@ -494,6 +537,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private javax.swing.JLabel totalChores;
     private javax.swing.JLabel totalScore;
     private javax.swing.JLabel totalScoreLabel;
+    private javax.swing.JButton viewHistoryButton;
     private javax.swing.JLabel weekScore;
     private javax.swing.JLabel weekScoreLabel;
     // End of variables declaration//GEN-END:variables
@@ -666,6 +710,24 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         
     }
     
+    public void updateHistoryTableUser1(){
+        DefaultTableModel tableModel = (DefaultTableModel) historyTable.getModel();
+        tableModel.setRowCount(0);
+        
+        for(int i = 0; i < choreHistoryUser1.size(); i++){
+            tableModel.addRow(new Object[]{choreHistoryUser1.get(i).getChoreName()});
+        }
+    }
+    
+    public void updateHistoryTableUser2(){
+        DefaultTableModel tableModel = (DefaultTableModel) historyTable.getModel();
+        tableModel.setRowCount(0);
+        
+        for(int i = 0; i < choreHistoryUser2.size(); i++){
+            tableModel.addRow(new Object[]{choreHistoryUser2.get(i).getChoreName()});
+        }
+    }
+    
     public void updateChoreCount(int currentUser){
         if (currentUser == 1){
             choreCount = Integer.toString(user1List.size());
@@ -673,7 +735,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         if (currentUser == 2){
             choreCount = Integer.toString(user2List.size());
         }
-        
         totalChores.setText(choreCount);
         
     }
@@ -694,6 +755,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                             //  change assigned to 0
                             choresDB.assignChore(user1List.get(i).getChoreName(), 0); 
                         }
+                        choreHistoryUser1.add(user1List.get(i));
                         user1List.remove(i); // Remove from temp list
                     } else {
                         System.out.println("Not checked");
@@ -714,6 +776,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                             //  change assigned to 0
                             choresDB.assignChore(user2List.get(i).getChoreName(), 0); 
                         }
+                        choreHistoryUser2.add(user2List.get(i));
                         user2List.remove(i); // Remove from temp list
                     } else {
                         System.out.println("Not checked");
@@ -731,7 +794,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         DefaultTableModel tableModel = (DefaultTableModel) alertTable.getModel();
         tableModel.setRowCount(0);
 
-        if (date.getDayOfWeek().equals(DayOfWeek.WEDNESDAY)) {
+        if (date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
             if (currentUser == 1) {
                 for (Chore c : user1List) {
                     tableModel.addRow(new Object[]{c.getChoreName()});
@@ -747,6 +810,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             endOfWeekAlert.setVisible(true);
         }
     }
+    
+    
     
     public int awardPoints(){
         
