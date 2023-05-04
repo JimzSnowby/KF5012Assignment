@@ -20,7 +20,9 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private ArrayList<Chore> user2List = new ArrayList(); // list of chores assigned to user2
     private String choreCount; // chore count not changing
     private int currentUser; // gets the ID of the current user
+    private User user;
     private LocalDate date = LocalDate.now(); // Get system date
+    private ChoreCompletionPoints completionPoints = new ChoreCompletionPoints();
 
     /*
      * Creates new form AssignedChoresGUI
@@ -32,6 +34,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             for (Chore c : allChores){
                 if(c.getChoreAssignTo() == 1){
                     user1List.add(c);
+                    
                 }
                 else if (c.getChoreAssignTo() == 2){
                     user2List.add(c);
@@ -45,24 +48,24 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         dialogSubmit.pack();
         dialogSubmit.setLocationRelativeTo(this);
 
-        choreCount = Integer.toString(user1List.size()); // Get list size as a string
-        totalChores.setText(choreCount); // change the total chores text
-        
         int selection = daySelector.getSelectedIndex();
         for (User u : usersList){
                 if (u.isUserActive() == 1){
                     currentUser = u.getUserID();
+                    user = u;
                     updateDisplayTableDataUser1(selection);
                     System.out.println(currentUser);
+                    choreCount = Integer.toString(user1List.size()); // Get list size as a string
                     break;
                 } else if (u.isUserActive() == 2){
                     currentUser = u.getUserID();
+                    user = u;
                     updateDisplayTableDataUser2(selection);
+                    choreCount = Integer.toString(user2List.size()); // Get list size as a string
                     break;
                 }
         }
-        
-        
+        totalChores.setText(choreCount); // change the total chores text
         endOfWeekAlert();
     }
 
@@ -97,6 +100,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         totalChores = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
+
         dialogSubmit.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         dialogSubmit.setTitle("Success");
         dialogSubmit.setAlwaysOnTop(true);
@@ -200,51 +204,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        dialogSubmit.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        dialogSubmit.setTitle("Success");
-        dialogSubmit.setAlwaysOnTop(true);
-        dialogSubmit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        dialogSubmit.setLocationByPlatform(true);
-        dialogSubmit.setMinimumSize(new java.awt.Dimension(400, 160));
-        dialogSubmit.setResizable(false);
-        dialogSubmit.setType(java.awt.Window.Type.POPUP);
-
-        successLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        successLabel.setText("Completed chores submitted successfully");
-
-        okButton.setText("OK");
-        okButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okButtonActionPerformed(evt);
-            }
-        });
-
-        dialogSubmit.getContentPane().setLayout(dialogSubmitLayout);
-        dialogSubmitLayout.setHorizontalGroup(
-            dialogSubmitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogSubmitLayout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addGroup(dialogSubmitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogSubmitLayout.createSequentialGroup()
-                        .addComponent(successLabel)
-                        .addGap(35, 35, 35))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogSubmitLayout.createSequentialGroup()
-                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(139, 139, 139))))
-        );
-        dialogSubmitLayout.setVerticalGroup(
-            dialogSubmitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogSubmitLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(successLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("This weeks chores");
-        setLocationByPlatform(true);
         setResizable(false);
 
         Title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -259,21 +220,21 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
 
         choreTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Chore", "Complete"
+                "Chore", "Complete", "Completion Time"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Boolean.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true
+                false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -290,6 +251,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             choreTable.getColumnModel().getColumn(0).setResizable(false);
             choreTable.getColumnModel().getColumn(0).setPreferredWidth(150);
             choreTable.getColumnModel().getColumn(1).setResizable(false);
+            choreTable.getColumnModel().getColumn(2).setResizable(false);
         }
 
         daySelectorLabel.setText("Day of the week:");
@@ -412,6 +374,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
 
     private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptButtonActionPerformed
         System.out.println("Current user: " + currentUser);
+
         submitData();
         if (currentUser == 1){
             updateDisplayTableDataUser1(daySelector.getSelectedIndex());
@@ -681,13 +644,17 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     public void submitData(){
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         boolean checkBox; 
+        float completeTime;
         
         // Iterates over the list to see which chores have their completed box ticked
         if (currentUser == 1) {
             for (int i = 0; i < user1List.size(); i++) {
                 try {
                     checkBox = (boolean) tableModel.getValueAt(i, 1);
+                    completeTime = (float) tableModel.getValueAt(i, 2);
                     if (checkBox) {
+                        user1List.get(i).setCompletionTime(completeTime);
+                        awardPoints(i); // USING COMPLETE TIME CALCULATE POINTS
                         if (user1List.get(i).getChoreFrequencyID() == 2) {
                             choresDB.deleteChore(user1List.get(i).getChoreName()); // Deletes chore from DB if its a 1 off
                         } else {
@@ -731,7 +698,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         DefaultTableModel tableModel = (DefaultTableModel) alertTable.getModel();
         tableModel.setRowCount(0);
 
-        if (date.getDayOfWeek().equals(DayOfWeek.WEDNESDAY)) {
+        if (date.getDayOfWeek().equals(DayOfWeek.THURSDAY)) {
             if (currentUser == 1) {
                 for (Chore c : user1List) {
                     tableModel.addRow(new Object[]{c.getChoreName()});
@@ -748,14 +715,33 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         }
     }
     
-    public int awardPoints(){
+    public int awardPoints(int chore){
+        int points = 0;
+        if (user.getUserID() == 1){
+            points = completionPoints.pointCalculation(user1List.get(chore), currentUser);
+        }
+        if (user.getUserID() == 2){
+            points = completionPoints.pointCalculation(user2List.get(chore), currentUser);
+        }
+        int currentPoints = user.getUserWeekScore();
+        int totalPoints = user.getUserTotalScore();
+
+        user.setUserWeekScore(currentPoints + points);
+        points = points + currentPoints;
+        totalPoints = totalPoints + points;
         
-        int difficulty = 1;
+        try{
+            choresDB.updateUserWeekScore(points, user.getUserID());
+            choresDB.updateUserTotalScore(totalPoints, user.getUserID());
+            System.out.println("Week: " + user.getUserWeekScore() + "Total: " + user.getUserTotalScore());
+        }catch (Exception e){
+            System.out.print("Error: " + e);
+        }
+        
         // Algorithm if faster than estimate
             // (EstimateTime - ActualTime) * choreDifficulty(Based on time, < 15 min is easy = 1, < 30 min is med =  1.5, > 30 is hard  = 2)
         // Algorithm if slower than estimate, has a 5-10 minute leeway on lateness
-            // ((ActualTime - EstimateTime) * difficulty) * 0.5
-        
+
         return 1;
     }    
     
