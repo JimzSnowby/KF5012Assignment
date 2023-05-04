@@ -46,7 +46,6 @@ public class ChoresDatabase {
      * Functions
      *
      */
-    
     //Select all chores
     public ArrayList<Chore> selectChores() throws SQLException {
 
@@ -91,6 +90,34 @@ public class ChoresDatabase {
     public void assignChore(String choreName, int assignedTo) throws SQLException {
         String sqlUpdateChore = "UPDATE chores SET assignedTo = '" + assignedTo + "' "
                 + "WHERE choreName = '" + choreName + "' ;";
+
+        boolean success = database.RunSQL(sqlUpdateChore);
+
+        if (!success) {
+            System.out.println("Failed to process query" + sqlUpdateChore);
+        }
+    }
+
+    //Update user week score
+    public void updateUserWeekScore(int userWeekScore, int userID) throws SQLException {
+        ArrayList<User> users = new ArrayList<User>();
+
+        String sqlUpdateChore = "UPDATE users SET userWeekScore = '" + userWeekScore + "' "
+                + "WHERE userActive = '" + users.get(userID) + "' ;";
+
+        boolean success = database.RunSQL(sqlUpdateChore);
+
+        if (!success) {
+            System.out.println("Failed to process query" + sqlUpdateChore);
+        }
+    }
+
+    //Update user total score
+    public void updateUserTotalScore(int userTotalScore, int userID) throws SQLException {
+        ArrayList<User> users = new ArrayList<User>();
+
+        String sqlUpdateChore = "UPDATE users SET userWeekScore = '" + userTotalScore + "' "
+                + "WHERE userActive = '" + users.get(userID) + "' ;";
 
         boolean success = database.RunSQL(sqlUpdateChore);
 
@@ -367,7 +394,7 @@ public class ChoresDatabase {
 
     public static void addUser(User newUser, int userActive, int weekScore, int totalScore) throws SQLException {
 
-        String rs = ("select max(userID) from users");        
+        String rs = ("select max(userID) from users");
         ResultSet maxID = database.RunSQLQuery(rs);
 
         int convertedMax = 0;
