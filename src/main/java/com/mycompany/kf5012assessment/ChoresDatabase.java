@@ -23,10 +23,10 @@ public class ChoresDatabase {
         database = new DBConnection();
 
         //James:
-        database.Connect("G:/University work/Year 2/Semester2/SE practice/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        // database.Connect("G:/University work/Year 2/Semester2/SE practice/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-        //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
         //database.Connect("C:\\Users\\nihal\\Documents\\newGroupWork\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
@@ -46,8 +46,6 @@ public class ChoresDatabase {
      * Functions
      *
      */
-    
-    
     //Select all chores
     public ArrayList<Chore> selectChores() throws SQLException {
 
@@ -64,7 +62,15 @@ public class ChoresDatabase {
                 newChore.setChoreFrequencyID(choreList.getInt(3));
                 newChore.assignTo(choreList.getInt(4));
                 newChore.setChoreDay(choreList.getInt(5));
-                newChore.setSelectedForThisWeek(choreList.getInt(6));
+
+                int sel = choreList.getInt(6);
+
+                if (sel == 0) {
+                    newChore.setSelectedForThisWeek(false);
+                } else {
+                    newChore.setSelectedForThisWeek(true);
+
+                }
                 chores.add(newChore);
 
                 //Testing
@@ -197,12 +203,12 @@ public class ChoresDatabase {
                 newChore.setChoreName(choreList.getString(2));
                 newChore.setChoreFrequency(choreList.getString(3));
                 chores.add(newChore);
-                
+
                 //Testing   
                 /*
                 System.out.println("Chore ID: " + newChore.getChoreID() + " Frequency: "
                 + newChore.getChoreFrequency() + " Chore name: " + newChore.getChoreName());
-                */
+                 */
             }
         } catch (SQLException e) {
             System.out.println("Failed to process query in selectChores()");
@@ -245,7 +251,6 @@ public class ChoresDatabase {
 
     //isSelected = 1 is selected
     //isSelected = 0 is not selected
-    
     //Select all selected chores
     public ArrayList<Chore> sqlSelectedChores() throws SQLException {
 
@@ -377,14 +382,13 @@ public class ChoresDatabase {
         String sqlDeleteUser = "DELETE FROM users WHERE userID = '" + userID + "';";
 
         boolean success = database.RunSQL(sqlDeleteUser);
-        
+
         //Testing
         /*
         if (success) {
             System.out.println("User " + userID + " was successfully deleted");
         }
-        */
-        
+         */
         if (!success) {
             System.out.println("Failed to process query" + sqlDeleteUser);
         }
@@ -408,14 +412,13 @@ public class ChoresDatabase {
         String sqlDropChores = "DROP TABLE chores";
 
         boolean success = database.RunSQL(sqlDropChores);
-        
+
         //Testing
         /*
         if (success) {
             System.out.println("Chores table was successfully deleted");
         }
-        */
-
+         */
         if (!success) {
             System.out.println("Failed to process query" + sqlDropChores);
         }
@@ -487,10 +490,15 @@ public class ChoresDatabase {
         int userID = 1;
         x.deleteUser(userID);
     
-    //Test select weekly chores function
-    public static void main(String[] args) throws SQLException {
-       ChoresDatabase x = new ChoresDatabase();
-       x.selectChoresFrequencyWeekly();
+
     }
-    }*/
+    //Test select weekly chores function
+ 
+     */
+    //Trigger test
+    public static void main(String[] args) throws SQLException {
+        ChoresDatabase x = new ChoresDatabase();
+
+        x.selectChores();
+    }
 }
