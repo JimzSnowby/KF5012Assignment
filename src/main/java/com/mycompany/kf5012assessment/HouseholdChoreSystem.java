@@ -20,30 +20,30 @@ public class HouseholdChoreSystem {
     public static void main(String[] args) {
 
         ArrayList<Chore> list = new ArrayList();
-        Chore c1 = new Chore("Clean dishes", 20, 10, 1);
-        c1.setChoreDay(1);
-        list.add(c1);
-        Chore c2 = new Chore("clean floor", 30, 25, 1);
-        c2.setChoreDay(2);
-        list.add(c2);
-        Chore c3 = new Chore("walk the dog", 40, 30, 1);
-        c3.setChoreDay(4);
-        list.add(c3);
-        Chore c4 = new Chore("clean carpet", 22, 10, 1);
-        c4.setChoreDay(8);
-        list.add(c4);
-        Chore c5 = new Chore("wash clothes", 29, 32, 1);
-        c5.setChoreDay(5);
-        list.add(c5);
-        Chore c6 = new Chore("clean bathroom", 44, 27, 1);
-        c6.setChoreDay(7);
-        list.add(c6);
-        Chore c7 = new Chore("Clean room", 10, 15, 1);
-        c7.setChoreDay(1);
-        list.add(c7);
-        Chore c8 = new Chore("Clean kitchen", 10, 15, 1);
-        c8.setChoreDay(1);
-        list.add(c8);
+//        Chore c1 = new Chore("Clean dishes", 20, 10, 1);
+//        c1.setChoreDay(1);
+//        list.add(c1);
+//        Chore c2 = new Chore("clean floor", 30, 25, 1);
+//        c2.setChoreDay(2);
+//        list.add(c2);
+//        Chore c3 = new Chore("walk the dog", 40, 30, 1);
+//        c3.setChoreDay(4);
+//        list.add(c3);
+//        Chore c4 = new Chore("clean carpet", 22, 10, 1);
+//        c4.setChoreDay(8);
+//        list.add(c4);
+//        Chore c5 = new Chore("wash clothes", 29, 32, 1);
+//        c5.setChoreDay(5);
+//        list.add(c5);
+//        Chore c6 = new Chore("clean bathroom", 44, 27, 1);
+//        c6.setChoreDay(7);
+//        list.add(c6);
+//        Chore c7 = new Chore("Clean room", 10, 15, 1);
+//        c7.setChoreDay(1);
+//        list.add(c7);
+//        Chore c8 = new Chore("Clean kitchen", 10, 15, 1);
+//        c8.setChoreDay(1);
+//        list.add(c8);
 
         AssigningChoresAlgo.calculation(list);
 

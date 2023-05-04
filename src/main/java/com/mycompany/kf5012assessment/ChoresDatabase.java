@@ -23,10 +23,10 @@ public class ChoresDatabase {
         database = new DBConnection();
 
         //James:
-        database.Connect("E:\\University work\\Year 2\\Semester2\\SE practice\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("E:\\University work\\Year 2\\Semester2\\SE practice\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-        // database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
 
         //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
@@ -88,7 +88,11 @@ public class ChoresDatabase {
         }
         return chores;
     }
-
+    
+    
+    //assignedTo = 1 it is assigned to User 1
+    //assignedTo = 2 it is assigned to User 2
+    
     //Assign a chore
     public void assignChore(String choreName, int assignedTo) throws SQLException {
         String sqlUpdateChore = "UPDATE chores SET assignedTo = '" + assignedTo + "' "
@@ -283,7 +287,7 @@ public class ChoresDatabase {
     //isSelected = 1 is selected
     //isSelected = 0 is not selected
     //Select all selected chores
-    public ArrayList<Chore> sqlSelectedChores() throws SQLException {
+    public ArrayList<Chore> selectedThisWeekChores() throws SQLException {
 
         String sqlSelectedChores = "SELECT choreID, choreName FROM chores WHERE isSelected = 1;";
 
@@ -370,14 +374,14 @@ public class ChoresDatabase {
         int convertedMax = 0;
 
         while (maxID.next()) {
-            convertedMax = maxID.getInt(1);
+            convertedMax = maxID.getInt(1) +1;
         }
 
         //System.out.println(convertedMax);
-        int max = Integer.parseInt(rs) + 1;
+        //int max = Integer.parseInt(rs) + 1;
 
         String sqlAddChore = "INSERT INTO chores (choreID, choreName, choreFrequencyID, daysOfWeekID, assignedTo, isSelected) VALUES("
-                + max + ", "
+                + convertedMax + ", "
                 + newChore.getChoreName() + ", "
                 + choreFrequencyID + ", '"
                 + newchore.getChoreDay() + ", '"
@@ -403,14 +407,14 @@ public class ChoresDatabase {
         int convertedMax = 0;
 
         while (maxID.next()) {
-            convertedMax = maxID.getInt(1);
+            convertedMax = maxID.getInt(1) +1;
         }
 
-        //System.out.println(convertedMax);
-        int max = Integer.parseInt(rs) + 1;
+        System.out.println(convertedMax);
+        //int max = Integer.parseInt(rs) + 1;
 
         String sqlAddChore = "INSERT INTO choresAssigned (choresAssignedID, choreID, userID, daysOfWeekID, choreCompletionTime, estimateTimeID) VALUES("
-                + max + ", "
+                + convertedMax + ", "
                 + newChore.getChoreID() + ", "
                 + newUser.getUserID() + ", '"
                 + newChore.getChoreDay() + ", '"
@@ -426,8 +430,8 @@ public class ChoresDatabase {
         }
 
     }
-    //Add a new user
 
+    //Add a new user
     public static void addUser(User newUser, int userActive, int weekScore, int totalScore) throws SQLException {
 
         String rs = ("select max(userID) from users");
@@ -436,14 +440,14 @@ public class ChoresDatabase {
         int convertedMax = 0;
 
         while (maxID.next()) {
-            convertedMax = maxID.getInt(1);
+            convertedMax = maxID.getInt(1) +1;
         }
 
         //System.out.println(convertedMax);
-        int max = Integer.parseInt(rs) + 1;
+        //int max = Integer.parseInt(rs) + 1;
 
         String sqlAddChoreL = "INSERT INTO users (userID, userActive, userWeekScore, userTotalScore) VALUES("
-                + max + ", "
+                + convertedMax + ", "
                 + userActive + ", '"
                 + weekScore + ", '"
                 + totalScore + ", '"

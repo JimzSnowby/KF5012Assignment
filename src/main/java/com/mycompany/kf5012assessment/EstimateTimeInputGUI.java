@@ -32,7 +32,7 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
         ChoresDatabase choresDB = new ChoresDatabase();
         choresArrayList = new ArrayList();
         try {
-            choresArrayList = choresDB.sqlSelectedChores();
+            choresArrayList = choresDB.selectedThisWeekChores();
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
@@ -50,7 +50,7 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
         ChoresDatabase choresDB = new ChoresDatabase();
 
         try {
-            choresArrayList = choresDB.sqlSelectedChores();
+            choresArrayList = choresDB.selectedThisWeekChores();
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
