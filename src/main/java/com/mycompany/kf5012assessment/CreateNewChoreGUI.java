@@ -220,7 +220,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
 
     private void oneOffChoreTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneOffChoreTypeActionPerformed
         // TODO add your handling code here:
-
+        
 
     }//GEN-LAST:event_oneOffChoreTypeActionPerformed
 
@@ -258,13 +258,16 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         Chore chore = new Chore();
         chore.setChoreName(jTextField1.getText());
         chore.setChoreDay(daySelect.getSelectedIndex() - 1);
+        chore.setChoreFrequencyID(weeklyChoreType.isSelected() ? 1 : 2);
         ChoresDatabase db = new ChoresDatabase();
         try {
-            db.addChore(chore, 0, 0, 0);
+            db.addChore(chore, chore.getChoreFrequencyID(), 0, 0);
             mainWindow.getData();
             mainWindow.displayTableData();
             mainWindow.recordTableChanges();
-        } catch (Exception E) {
+        } catch (SQLException E) {
+            System.err.println(E.getMessage());
+            E.printStackTrace();
             System.out.println("Exception occured");
         }
 
