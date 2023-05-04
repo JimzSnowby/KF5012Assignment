@@ -26,9 +26,9 @@ public class ChoresDatabase {
         // database.Connect("G:/University work/Year 2/Semester2/SE practice/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-       // database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
-        database.Connect("C:\\Users\\nihal\\Documents\\FINALL\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("C:\\Users\\nihal\\Documents\\FINALL\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("C:\\Users\\nihal\\Documents\\newGroupWork\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //  database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
@@ -214,6 +214,8 @@ public class ChoresDatabase {
         }
     }
 
+    //choreFrequency = 1 is Weekly
+    //choreFrequency = 2 is One-off
     //Select weekly chores
     public ArrayList<Chore> selectChoresFrequencyWeekly() throws SQLException {
 
@@ -391,8 +393,42 @@ public class ChoresDatabase {
         }
 
     }
-    //Add a new user
 
+    //Add an assigned chore
+    public static void addAssignedChore(User newUser, int userActive, int weekScore, int totalScore) throws SQLException {
+
+        ArrayList<Chore> chores = new ArrayList<Chore>();
+
+        String rs = ("select max(choresAssignedID) from choresAssigned");
+        ResultSet maxID = database.RunSQLQuery(rs);
+
+        int convertedMax = 0;
+
+        while (maxID.next()) {
+            convertedMax = maxID.getInt(1);
+        }
+
+        //System.out.println(convertedMax);
+        int max = Integer.parseInt(rs) + 1;
+
+        String sqlAddChoreL = "INSERT INTO choresAssigned (choresAssignedID, choreID, userID, daysOfWeekID, choreCompletionTime) VALUES("
+                + max + ", "
+                + newchore.getChoreID() + ", '"
+                + newUser.getUserID() + ", '"
+                + newchore.getChoreDay() + ", '"
+                + newchore.getChoreDay() + ", '"
+                + " '); ";
+
+        boolean success;
+        success = database.RunSQL(sqlAddChoreL);
+
+        if (!success) {
+            System.out.println("Failed to process query" + sqlAddChoreL);
+        }
+
+    }
+
+    //Add a new user
     public static void addUser(User newUser, int userActive, int weekScore, int totalScore) throws SQLException {
 
         String rs = ("select max(userID) from users");
