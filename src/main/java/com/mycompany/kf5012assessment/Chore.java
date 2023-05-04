@@ -11,7 +11,7 @@ package com.mycompany.kf5012assessment;
 //james 
 //This is the class for the chores themselves e.g cleaning
 public class Chore {
-
+//
     private int choreID;    // PK for DB
     private String choreName;
     private int choreFrequencyID; // If == 2 is a one-off, if == 1 is permanent
