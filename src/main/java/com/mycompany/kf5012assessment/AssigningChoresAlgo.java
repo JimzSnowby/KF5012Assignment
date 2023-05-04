@@ -18,6 +18,8 @@ public class AssigningChoresAlgo {
 
     private ArrayList<Chore> choresArrayListUserOne;
     private ArrayList<Chore> choresArrayListUserTwo;
+    private ArrayList<Chore> fullList;
+    private ArrayList<Chore> toSend;
     //private User userOne;
     //private User userTwo;
 
@@ -27,13 +29,19 @@ public class AssigningChoresAlgo {
         ChoresDatabase choresDB = new ChoresDatabase();
 
         try {
+            fullList = choresDB.selectedThisWeekChores();
             choresArrayListUserOne = choresDB.selectEstimateTimeUserOne();
             choresArrayListUserTwo = choresDB.selectEstimateTimeUserTwo();
 
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
-
+        toSend = calculation(fullList);
+        for(Chore c : toSend){
+            choresDB.addAssignedChore(c, USER, c.getChoreFrequencyID(), c.getChoreAssignTo());
+        }
+        
+        
         //   calculation();
     }
 
@@ -47,31 +55,22 @@ public class AssigningChoresAlgo {
     }
 
     // private float userTwoTotal = 0;
-    public static void calculation(ArrayList<Chore> fullChoreList) {
+    public static ArrayList<Chore> calculation(ArrayList<Chore> fullChoreList) {
 
-        ArrayList<Chore> choreList = new ArrayList<Chore>();
-        for (Chore c : fullChoreList) {
-            if (c.isSelectedForThisWeek() ) {
-                choreList.add(c);
-
-            }
-
-        }
-
-        fullChoreList.clear();
+        ArrayList<Chore> assignedList = new ArrayList<Chore>();
 
         //      AssignedChoresList user1ChoresAssigned = new AssignedChoresList();
         //     AssignedChoresList user2ChoresAssigned = new AssignedChoresList();
         float userOneTotal = 0;
         float userTwoTotal = 0;
 
-        for (Chore c : choreList) {
+        for (Chore c : fullChoreList) {
             userOneTotal = userOneTotal + c.getEstimateTimeUserOne();
             userTwoTotal = userTwoTotal + c.getEstimateTimeUserTwo();
 
         }
 
-        for (Chore c : choreList) {
+        for (Chore c : fullChoreList) {
             c.setEstimateTimeUserOne(c.getEstimateTimeUserOne() / userOneTotal);
             c.setEstimateTimeUserTwo(c.getEstimateTimeUserTwo() / userTwoTotal);
 
@@ -82,17 +81,14 @@ public class AssigningChoresAlgo {
         float User1LoadCarriedOver = 0; //// variables for last weeks imbalance 
         float User2LoadCarriedOver = 0;//variables for last weeks imbalance
         int numUnassignChores = 0;
-        for (Chore c : choreList) {
+        
 
-        }
-
-        int unassignedChores = choreList.size();
+        int unassignedChores = fullChoreList.size();
 
         while (unassignedChores > 0) {
-
             if (User1Load < User2Load) {
                 // Sorting the list and coparing the estimate times
-                Collections.sort(choreList, new Comparator<Chore>() {
+                Collections.sort(fullChoreList, new Comparator<Chore>() {
                     @Override
                     public int compare(Chore c1, Chore c2) {
                         return Double.compare(c2.getEstimateTimeUserOne(), c1.getEstimateTimeUserOne());
@@ -101,15 +97,15 @@ public class AssigningChoresAlgo {
 
                 Chore chosenChore = null;
 
-                for (Chore c : choreList) {
-                    if (c.getEstimateTimeUserOne() < c.getEstimateTimeUserTwo() && c.getChoreAssignTo() == 0) {
+                for (Chore c : fullChoreList) {
+                    if (c.getEstimateTimeUserOne() < c.getEstimateTimeUserTwo()) {
                         chosenChore = c;
                         break;
                     }
                 }
 
                 if (chosenChore == null) {
-                    for (Chore c : choreList) {
+                    for (Chore c : fullChoreList) {
                         if (c.getChoreAssignTo() == 0) {
                             chosenChore = c;
                             break;
@@ -120,11 +116,12 @@ public class AssigningChoresAlgo {
                 //  user1ChoresAssigned.addToChoreList(chosenChore);
                 User1Load = User1Load + chosenChore.getEstimateTimeUserOne();
                 chosenChore.assignTo(1);
+                assignedList.add(chosenChore);
                 unassignedChores--;
 
             } else {
                 // Sorting the list and coparing the estimate times
-                Collections.sort(choreList, new Comparator<Chore>() {
+                Collections.sort(fullChoreList, new Comparator<Chore>() {
                     @Override
                     public int compare(Chore c1, Chore c2) {
                         return Double.compare(c2.getEstimateTimeUserTwo(), c1.getEstimateTimeUserTwo());
@@ -133,92 +130,30 @@ public class AssigningChoresAlgo {
 
                 Chore chosenChore = null;
 
-                for (Chore c : choreList) {
-                    if (c.getEstimateTimeUserTwo() < c.getEstimateTimeUserOne() && c.getChoreAssignTo() == 0) {
+                for (Chore c : fullChoreList) {
+                    if (c.getEstimateTimeUserTwo() < c.getEstimateTimeUserOne()) {
                         chosenChore = c;
                         break;
                     }
                 }
 
                 if (chosenChore == null) {
-                    for (Chore c : choreList) {
+                    for (Chore c : fullChoreList) {
                         if (c.getChoreAssignTo() == 0) {
                             chosenChore = c;
                             break;
                         }
                     }
                 }
-
-                //       user2ChoresAssigned.addToChoreList(chosenChore);
-                User2Load = User2Load + chosenChore.getEstimateTimeUserTwo();
-                unassignedChores--;
+                
+                //  user1ChoresAssigned.addToChoreList(chosenChore);
+                User2Load = User1Load + chosenChore.getEstimateTimeUserTwo();
                 chosenChore.assignTo(2);
+                assignedList.add(chosenChore);
+                unassignedChores--;
             }
-
-            /*  int i = 0;
-            while (fullList.size() > 0) {
-
-                Chore chosenChore = null;
-                for (Chore c : fullList) {
-                    if (fullList.indexOf(c.getEstimateTimeUserOne()) < fullList.indexOf(c.getEstimateTimeUserTwo())) {
-                        chosenChore = c;
-                        break;
-                    }
-                }
-                if (chosenChore == null) {
-                    chosenChore = fullList.get(i);
-                }
-
-                System.out.println("Chosen chore:" + chosenChore.getChoreName());
-
-                //user1ChoresAssigned.add(chosenChore);
-                user1ChoresAssigned.addToChoreList(chosenChore);
-                User1Load += chosenChore.getEstimateTimeUserOne();
-                i++;
-            }else {
-                Collections.sort(fullList, new Comparator<Chore>() {
-                    @Override
-                    public int compare(Chore c1, Chore c2) {
-                        return Double.compare(c1.getEstimateTimeUserOne(), c2.getEstimateTimeUserTwo());
-                    }
-                });
-
-                Chore chosenChore = null;
-                for (Chore c : fullList) {
-                    if (fullList.indexOf(c.getEstimateTimeUserTwo()) < fullList.indexOf(c.getEstimateTimeUserOne())) {
-                        chosenChore = c;
-                        break;
-                    }
-                }
-                if (chosenChore == null) {
-                    chosenChore = fullList.get(i);
-                }
-
-                // user2ChoresAssigned.add(chosenChore);
-                user2ChoresAssigned.addToChoreList(chosenChore);
-                User2Load += chosenChore.getEstimateTimeUserTwo();
-                i++;
-            }
-            System.out.println(user1ChoresAssigned);
-            System.out.println(user2ChoresAssigned);
-            break;
-        }
-
-        return userOneTotal;
-
-    }
-
-    /*    Collection.sort(choresArrayList,new comparator<Chore>) {
-                @Override
-                public int compare ( choresArrayList. Chore c2){
-                    return Double.compare(c2,);
-                }
-            }*/
-        }
-        fullChoreList.clear();
-        for (Chore c : choreList) {
-
-            fullChoreList.add(c);
+            
+            return assignedList;
 
         }
 //Testing the assigning chores
