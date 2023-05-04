@@ -363,18 +363,14 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
        for (User u : usersList){
                 if (u.isUserActive() == 1){
                     updateDisplayTableDataUser1(selection);
-                    
                 } else if (u.isUserActive() == 2){
                     updateDisplayTableDataUser2(selection);
-                    
                 }
         }
-       
     }//GEN-LAST:event_daySelectorActionPerformed
 
     private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptButtonActionPerformed
         System.out.println("Current user: " + currentUser);
-
         submitData();
         if (currentUser == 1){
             updateDisplayTableDataUser1(daySelector.getSelectedIndex());
@@ -636,9 +632,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         if (currentUser == 2){
             choreCount = Integer.toString(user2List.size());
         }
-        
         totalChores.setText(choreCount);
-        
     }
     
     public void submitData(){
@@ -654,7 +648,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                     completeTime = (float) tableModel.getValueAt(i, 2);
                     if (checkBox) {
                         user1List.get(i).setCompletionTime(completeTime);
-                        awardPoints(i); // USING COMPLETE TIME CALCULATE POINTS
+                        //awardPoints(i); // USING COMPLETE TIME CALCULATE POINTS
                         if (user1List.get(i).getChoreFrequencyID() == 2) {
                             choresDB.deleteChore(user1List.get(i).getChoreName()); // Deletes chore from DB if its a 1 off
                         } else {
@@ -690,15 +684,14 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 } 
             }
         }
-
-        
+  
     }
     
     public void endOfWeekAlert() {
         DefaultTableModel tableModel = (DefaultTableModel) alertTable.getModel();
         tableModel.setRowCount(0);
 
-        if (date.getDayOfWeek().equals(DayOfWeek.THURSDAY)) {
+        if (date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
             if (currentUser == 1) {
                 for (Chore c : user1List) {
                     tableModel.addRow(new Object[]{c.getChoreName()});
