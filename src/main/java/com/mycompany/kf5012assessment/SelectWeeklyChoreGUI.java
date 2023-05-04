@@ -270,7 +270,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
             for (Chore nc : choresArrayList) {
 
                 if (nc.getChoreName().equals(choreName)) {
-                    nc.setSelectedForThisWeek((boolean) tableModel.getValueAt(i, 1));
+                    nc.setSelectedForThisWeek((int)tableModel.getValueAt(i, 1));
                 }
 
             }
