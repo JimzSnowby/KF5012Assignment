@@ -642,26 +642,26 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         
         // Iterates over the list to see which chores have their completed box ticked
         if (currentUser == 1) {
-            for (int i = 0; i < user1List.size(); i++) {
-                try {
+            try {
+                for (int i = 0; i < user1List.size(); i++) {
                     checkBox = (boolean) tableModel.getValueAt(i, 1);
-                    completeTime = (float) tableModel.getValueAt(i, 2);
+                    //completeTime = (float) tableModel.getValueAt(i, 2);
                     if (checkBox) {
-                        user1List.get(i).setCompletionTime(completeTime);
+                        //user1List.get(i).setCompletionTime(completeTime);
                         //awardPoints(i); // USING COMPLETE TIME CALCULATE POINTS
                         if (user1List.get(i).getChoreFrequencyID() == 2) {
                             choresDB.deleteChore(user1List.get(i).getChoreName()); // Deletes chore from DB if its a 1 off
                         } else {
                             //  change assigned to 0
-                            choresDB.assignChore(user1List.get(i).getChoreName(), 0); 
+                            choresDB.assignChore(user1List.get(i).getChoreName(), 0);
                         }
                         user1List.remove(i); // Remove from temp list
                     } else {
                         System.out.println("Not checked");
                     }
-                } catch (Exception e) {
-                    System.out.println("Submit Error: " + e);
-                } 
+                }
+            } catch (Exception e) {
+                System.out.println("Submit Error: " + e);
             }
         }
         if (currentUser == 2) {
