@@ -265,7 +265,11 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         chore.setChoreName(jTextField1.getText());
         chore.setChoreDay(daySelect.getSelectedIndex()-1);
         ChoresDatabase db = new ChoresDatabase();
-        db.addChore(chore, 0, 0);
+        try {
+        db.addChore(chore, 0, 0,0);
+        } catch (Exception E){
+        }
+                
 
         // Close the dialog
         this.dispose();
