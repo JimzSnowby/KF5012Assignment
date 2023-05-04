@@ -62,7 +62,15 @@ public class ChoresDatabase {
                 newChore.setChoreFrequencyID(choreList.getInt(3));
                 newChore.assignTo(choreList.getInt(4));
                 newChore.setChoreDay(choreList.getInt(5));
-                newChore.setSelectedForThisWeek(choreList.getInt(6));
+
+                int sel = choreList.getInt(6);
+
+                if (sel == 0) {
+                    newChore.setSelectedForThisWeek(false);
+                } else {
+                    newChore.setSelectedForThisWeek(true);
+
+                }
                 chores.add(newChore);
 
                 //Testing
@@ -485,43 +493,12 @@ public class ChoresDatabase {
 
     }
     //Test select weekly chores function
-    public static void main(String[] args) throws SQLException {
-        ChoresDatabase x = new ChoresDatabase();
-        x.selectChores();
-    }
+ 
      */
     //Trigger test
     public static void main(String[] args) throws SQLException {
         ChoresDatabase x = new ChoresDatabase();
 
-        //Trigger 1 - does not allow inserting numbers in the chore name
-        String triggerNoNumbersInChoreName = "CREATE TRIGGER no_numbers_in_chore_name "
-                + "BEFORE INSERT ON chores "
-                + "FOR EACH ROW "
-                + "WHEN NEW.choreName REGEXP '[0-9]' "
-                + "BEGIN "
-                + "SELECT RAISE(ABORT, 'Chore name field cannot contain numbers'); "
-                + "END;";
-
-        boolean success = database.RunSQL(triggerNoNumbersInChoreName);
-
-        if (!success) {
-            System.out.println("Failed to process query" + triggerNoNumbersInChoreName);
-        }
-
-        //Trigger 2 - allows chore frequency ID to be in the 1 - 8 range only
-        String triggerCheckChoreFrequency = "CREATE TRIGGER check_chore_frequency "
-                + "BEFORE INSERT ON chores "
-                + "FOR EACH ROW "
-                + "WHEN NEW.choreFrequencyID NOT BETWEEN 1 AND 8 "
-                + "BEGIN "
-                + "SELECT RAISE(ABORT, 'The chorefrequencyID must be between 1 and 8.');"
-                + "END;";
-        
-        boolean success2 = database.RunSQL(triggerCheckChoreFrequency);
-        
-        if (!success2) {
-            System.out.println("Failed to process query" + triggerNoNumbersInChoreName);
-        }
+        x.selectChores();
     }
 }
