@@ -14,7 +14,6 @@ package com.mycompany.kf5012assessment;
 public class User {
     private int userID; // PK for DB 
     private int userActive; // is this the current active user
-    private AssignedChoresList listOfChores;    // This is the list of chores that have been assigned to the user
     private int userTotalScore; // Grand total score
     private int userWeekScore;  // Score for this week
 
@@ -35,13 +34,6 @@ public class User {
         this.userActive = activeUser;
     }
 
-    public AssignedChoresList getListOfChores() {
-        return listOfChores;
-    }
-
-    public void setListOfChores(AssignedChoresList listOfChores) {
-        this.listOfChores = listOfChores;
-    }
 
     public int getUserWeekScore() {
         return userWeekScore;
