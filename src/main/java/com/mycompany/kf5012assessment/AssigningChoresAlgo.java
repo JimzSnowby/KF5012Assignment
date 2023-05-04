@@ -38,7 +38,7 @@ public class AssigningChoresAlgo {
         }
         toSend = calculation(fullList);
         for(Chore c : toSend){
-            choresDB.addAssignedChore(c, USER, c.getChoreFrequencyID(), c.getChoreAssignTo());
+            choresDB.addAssignedChore(c, c.getChoreFrequencyID(), c.getChoreAssignTo());
         }
         
         
