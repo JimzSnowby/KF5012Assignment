@@ -23,10 +23,10 @@ public class ChoresDatabase {
         database = new DBConnection();
 
         //James:
-        database.Connect("E:\\University work\\Year 2\\Semester2\\SE practice\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("E:\\University work\\Year 2\\Semester2\\SE practice\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-        //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
 
         //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
@@ -88,11 +88,9 @@ public class ChoresDatabase {
         }
         return chores;
     }
-    
-    
+
     //assignedTo = 1 it is assigned to User 1
     //assignedTo = 2 it is assigned to User 2
-    
     //Assign a chore
     public void assignChore(String choreName, int assignedTo) throws SQLException {
         String sqlUpdateChore = "UPDATE chores SET assignedTo = '" + assignedTo + "' "
@@ -374,20 +372,13 @@ public class ChoresDatabase {
         int convertedMax = 0;
 
         while (maxID.next()) {
-            convertedMax = maxID.getInt(1) +1;
+            convertedMax = maxID.getInt(1) + 1;
         }
 
         //System.out.println(convertedMax);
         //int max = Integer.parseInt(rs) + 1;
-
-        String sqlAddChore = "INSERT INTO chores (choreID, choreName, choreFrequencyID, daysOfWeekID, assignedTo, isSelected) VALUES("
-                + convertedMax + ", "
-                + newChore.getChoreName() + ", "
-                + choreFrequencyID + ", '"
-                + newchore.getChoreDay() + ", '"
-                + assignedTo + ", '"
-                + select + ", '"
-                + " '); ";
+        String sqlAddChore = "INSERT INTO chores (choreID, choreName, choreFrequencyID, daysOfWeekID, assignedTo, isSelected) "
+                + "VALUES (" + convertedMax + ", '" + newChore.getChoreName() + "' , " + choreFrequencyID + ", " + newchore.getChoreDay() + ", " + assignedTo + ", " + select + "); ";
 
         boolean success;
         success = database.RunSQL(sqlAddChore);
@@ -407,20 +398,14 @@ public class ChoresDatabase {
         int convertedMax = 0;
 
         while (maxID.next()) {
-            convertedMax = maxID.getInt(1) +1;
+            convertedMax = maxID.getInt(1) + 1;
         }
 
         System.out.println(convertedMax);
         //int max = Integer.parseInt(rs) + 1;
 
-        String sqlAddChore = "INSERT INTO choresAssigned (choresAssignedID, choreID, userID, daysOfWeekID, choreCompletionTime, estimateTimeID) VALUES("
-                + convertedMax + ", "
-                + newChore.getChoreID() + ", "
-                + newUser.getUserID() + ", '"
-                + newChore.getChoreDay() + ", '"
-                + newChore.getCompletionTime() + ", '"
-                + newUser.getEstimateTimeID() + ", '"
-                + " '); ";
+        String sqlAddChore = "INSERT INTO choresAssigned (choresAssignedID, choreID, userID, daysOfWeekID, choreCompletionTime, estimateTimeID) "
+                + "VALUES(" + convertedMax + ", " + newChore.getChoreID() + ", " + newUser.getUserID() + ", " + newChore.getChoreDay() + ", " + newChore.getCompletionTime() + ", " + newUser.getEstimateTimeID() + "); ";
 
         boolean success;
         success = database.RunSQL(sqlAddChore);
@@ -440,18 +425,13 @@ public class ChoresDatabase {
         int convertedMax = 0;
 
         while (maxID.next()) {
-            convertedMax = maxID.getInt(1) +1;
+            convertedMax = maxID.getInt(1) + 1;
         }
 
         //System.out.println(convertedMax);
         //int max = Integer.parseInt(rs) + 1;
-
-        String sqlAddChoreL = "INSERT INTO users (userID, userActive, userWeekScore, userTotalScore) VALUES("
-                + convertedMax + ", "
-                + userActive + ", '"
-                + weekScore + ", '"
-                + totalScore + ", '"
-                + " '); ";
+        String sqlAddChoreL = "INSERT INTO users (userID, userActive, userWeekScore, userTotalScore) "
+                + "VALUES(" + convertedMax + ", " + userActive + ", " + weekScore + ", " + totalScore + "); ";
 
         boolean success;
         success = database.RunSQL(sqlAddChoreL);
@@ -464,7 +444,7 @@ public class ChoresDatabase {
 
     //Delete an user
     public void deleteUser(int userID) {
-        String sqlDeleteUser = "DELETE FROM users WHERE userID = '" + userID + "';";
+        String sqlDeleteUser = "DELETE FROM users WHERE userID = " + userID + ";";
 
         boolean success = database.RunSQL(sqlDeleteUser);
 
