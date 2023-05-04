@@ -62,7 +62,7 @@ public class ChoresDatabase {
                 newChore.setChoreFrequencyID(choreList.getInt(3));
                 newChore.assignTo(choreList.getInt(4));
                 newChore.setChoreDay(choreList.getInt(5));
-                newChore.setSelectedForThisWeek(choreList.getInt(6));
+                newChore.setSelectedForThisWeek(choreList.getBoolean(6));
                 chores.add(newChore);
 
                 //Testing
