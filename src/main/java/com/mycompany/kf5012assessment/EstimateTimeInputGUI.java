@@ -4,6 +4,7 @@
  */
 package com.mycompany.kf5012assessment;
 
+import java.sql.SQLException;
 import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -17,9 +18,6 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
     private ArrayList<Chore> choresArrayList;
     private ChoresDatabase db = new ChoresDatabase();
     private UserList users = new UserList();
-    // Declare two ArrayLists to store estimated chore times for each user
-    ArrayList<Integer> userOneEstimatedTimes = new ArrayList<Integer>();
-    ArrayList<Integer> userTwoEstimatedTimes = new ArrayList<Integer>();
 
     /**
      * Creates new form EstimateTimeInputGUI
@@ -217,32 +215,25 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
                 return; // exit the method if the estimated time is 0
             }
 
-            // Add the estimated time value to the appropriate ArrayList based on the selected user
-            if (currectUser == 1) {
-                userOneEstimatedTimes.add(estimatedTime);
-            } else if (currectUser == 2) {
-                userTwoEstimatedTimes.add(estimatedTime);
-            }
-
             // Set the estimated time value for the chore
             if (currectUser == 1) {
                 chore.setEstimateTimeUserOne(estimatedTime);
             } else if (currectUser == 2) {
                 chore.setEstimateTimeUserTwo(estimatedTime);
             }
+            System.out.println("Estimated time for " + currectUser + ": " + estimatedTime);
 
             // Insert the estimated time value into the database
             ChoresDatabase choresDB = new ChoresDatabase();
-
+            ChoresDatabase.newchore = chore;
             try {
-                // Use the appropriate insert query based on the current user
                 if (currectUser == 1) {
-                    choresDB.selectEstimateTimeUserOne();
+                    choresDB.updateEstimateTimeUserOne();
                 } else if (currectUser == 2) {
-                    choresDB.selectEstimateTimeUserTwo();
+                    choresDB.updateEstimateTimeUserTwo();
                 }
-            } catch (Exception e) {
-                System.out.println("Error occurred while inserting data: " + e.getMessage());
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
             }
         }
 
