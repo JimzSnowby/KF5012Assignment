@@ -46,6 +46,7 @@ public class ChoresDatabase {
      * Functions
      *
      */
+    
     //Select all chores
     public ArrayList<Chore> selectChores() throws SQLException {
 
@@ -331,18 +332,27 @@ public class ChoresDatabase {
     }
 
     //Add a new chore
-    public void addChore(Chore newChore, int choreFrequencyID, int assignedTo) {
+    public void addChore(Chore newChore, int choreFrequencyID, int assignedTo, int select) throws SQLException {
 
         String rs = ("select max(choreID) from chores;");
-        database.RunSQLQuery(rs);
+        ResultSet maxID = database.RunSQLQuery(rs);
+
+        int convertedMax = 0;
+
+        while (maxID.next()) {
+            convertedMax = maxID.getInt(1);
+        }
+
+        //System.out.println(convertedMax);
         int max = Integer.parseInt(rs) + 1;
 
-        String sqlAddChore = "INSERT INTO chores (choreID, choreName, choreFrequencyID, daysOfWeekID, assignedTo) VALUES("
+        String sqlAddChore = "INSERT INTO chores (choreID, choreName, choreFrequencyID, daysOfWeekID, assignedTo, isSelected) VALUES("
                 + max + ", "
                 + newChore.getChoreName() + ", "
                 + choreFrequencyID + ", '"
                 + newchore.getChoreDay() + ", '"
                 + assignedTo + ", '"
+                + select + ", '"
                 + " '); ";
 
         boolean success;
@@ -353,12 +363,20 @@ public class ChoresDatabase {
         }
 
     }
-
     //Add a new user
-    public static void addUser(User newUser, int userActive, int weekScore, int totalScore) {
 
-        String rs = ("select max(userID) from users");
-        database.RunSQLQuery(rs);
+    public static void addUser(User newUser, int userActive, int weekScore, int totalScore) throws SQLException {
+
+        String rs = ("select max(userID) from users");        
+        ResultSet maxID = database.RunSQLQuery(rs);
+
+        int convertedMax = 0;
+
+        while (maxID.next()) {
+            convertedMax = maxID.getInt(1);
+        }
+
+        //System.out.println(convertedMax);
         int max = Integer.parseInt(rs) + 1;
 
         String sqlAddChoreL = "INSERT INTO users (userID, userActive, userWeekScore, userTotalScore) VALUES("
@@ -491,14 +509,6 @@ public class ChoresDatabase {
         x.deleteUser(userID);
     
 
-    }
+    }*/
     //Test select weekly chores function
- 
-     */
-    //Trigger test
-    public static void main(String[] args) throws SQLException {
-        ChoresDatabase x = new ChoresDatabase();
-
-        x.selectChores();
-    }
 }
