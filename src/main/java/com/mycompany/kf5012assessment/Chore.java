@@ -24,6 +24,7 @@ public class Chore {
     private float estimateTimeUserOne;
     private float estimateTimeUserTwo;
     private float completionTime;
+    private float estimateTime;
     
     private int chorePoints;
     //private float estimateTime;
@@ -169,6 +170,14 @@ public class Chore {
 
     public void setCompletionTime(float completionTime) {
         this.completionTime = completionTime;
+    }
+
+    public float getEstimateTime() {
+        return estimateTime;
+    }
+
+    public void setEstimateTime(float estimateTime) {
+        this.estimateTime = estimateTime;
     }
 
 }
