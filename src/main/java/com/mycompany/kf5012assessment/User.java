@@ -16,7 +16,12 @@ public class User {
     private int userActive; // is this the current active user
     private int userTotalScore; // Grand total score
     private int userWeekScore;  // Score for this week
+    private int estimateTimeID;
 
+    public int getEstimateTimeID() {
+        return estimateTimeID;
+    }
+   
     
     public int getUserID() {
         return userID;

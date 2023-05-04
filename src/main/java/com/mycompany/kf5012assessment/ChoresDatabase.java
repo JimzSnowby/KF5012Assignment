@@ -26,10 +26,9 @@ public class ChoresDatabase {
         database.Connect("E:\\University work\\Year 2\\Semester2\\SE practice\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-       // database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        // database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
 
         //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
-
         //Nihal:
         //database.Connect("C:\\Users\\nihal\\Documents\\FINALL\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("C:\\Users\\nihal\\Documents\\newGroupWork\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
@@ -384,6 +383,39 @@ public class ChoresDatabase {
                 + newchore.getChoreDay() + ", '"
                 + assignedTo + ", '"
                 + select + ", '"
+                + " '); ";
+
+        boolean success;
+        success = database.RunSQL(sqlAddChore);
+
+        if (!success) {
+            System.out.println("Failed to process query" + sqlAddChore);
+        }
+
+    }
+
+    //Add an assigned chore
+    public void addAssignedChore(Chore newChore, User newUser, int choreFrequencyID, int assignedTo, int select) throws SQLException {
+
+        String rs = ("select max(choresAssignedID) from choresAssigned;");
+        ResultSet maxID = database.RunSQLQuery(rs);
+
+        int convertedMax = 0;
+
+        while (maxID.next()) {
+            convertedMax = maxID.getInt(1);
+        }
+
+        //System.out.println(convertedMax);
+        int max = Integer.parseInt(rs) + 1;
+
+        String sqlAddChore = "INSERT INTO choresAssigned (choresAssignedID, choreID, userID, daysOfWeekID, choreCompletionTime, estimateTimeID) VALUES("
+                + max + ", "
+                + newChore.getChoreID() + ", "
+                + newUser.getUserID() + ", '"
+                + newChore.getChoreDay() + ", '"
+                + newChore.getCompletionTime() + ", '"
+                + newUser.getEstimateTimeID() + ", '"
                 + " '); ";
 
         boolean success;
