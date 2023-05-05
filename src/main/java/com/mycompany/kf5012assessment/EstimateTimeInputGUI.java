@@ -16,18 +16,17 @@ import javax.swing.table.DefaultTableModel;
 public class EstimateTimeInputGUI extends javax.swing.JFrame {
 
     private ArrayList<Chore> choresArrayList;
-    private ChoresDatabase db = new ChoresDatabase();
     private UserList users = new UserList();
+    private ChoresDatabase choresDB = new ChoresDatabase();
 
     /**
      * Creates new form EstimateTimeInputGUI
      */
-    private int currectUser;
-
+    private int currentUser;
+    
     public void updateTable() {
         DefaultTableModel model = (DefaultTableModel) estimateTimeTable.getModel();
         model.setRowCount(0);
-        ChoresDatabase choresDB = new ChoresDatabase();
         choresArrayList = new ArrayList();
         try {
             choresArrayList = choresDB.selectedThisWeekChores();
@@ -38,14 +37,13 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
         for (Chore chore : choresArrayList) {
             model.addRow(new Object[] {
                 chore.getChoreName(),
-                (currectUser == 1) ? chore.getEstimateTimeUserOne() : chore.getEstimateTimeUserTwo()
+                (currentUser == 1) ? chore.getEstimateTimeUserOne() : chore.getEstimateTimeUserTwo()
             });
         }
     }
 
     public EstimateTimeInputGUI(int selectedUsers) {
-        currectUser = selectedUsers;
-        ChoresDatabase choresDB = new ChoresDatabase();
+        currentUser = selectedUsers;
 
         try {
             choresArrayList = choresDB.selectedThisWeekChores();
@@ -61,6 +59,7 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
             System.out.println(users.getUserList().get(i).getUserID());
             // estimateTimeTable.add(Chore)
         }
+     
 
         initComponents();
         updateTable();
@@ -216,22 +215,22 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
             }
 
             // Set the estimated time value for the chore
-            if (currectUser == 1) {
+            if (currentUser == 1) {
                 chore.setEstimateTimeUserOne(estimatedTime);
-            } else if (currectUser == 2) {
+            } else if (currentUser == 2) {
                 chore.setEstimateTimeUserTwo(estimatedTime);
             }
-            System.out.println("Estimated time for " + currectUser + ": " + estimatedTime);
+            System.out.println("Estimated time for " + currentUser + ": " + estimatedTime);
 
             // Insert the estimated time value into the database
-            ChoresDatabase choresDB = new ChoresDatabase();
             ChoresDatabase.newchore = chore;
             try {
-                if (currectUser == 1) {
+                if (currentUser == 1) {
                     choresDB.updateEstimateTimeUserOne();
-                } else if (currectUser == 2) {
+                } else if (currentUser == 2) {
                     choresDB.updateEstimateTimeUserTwo();
                 }
+               
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
@@ -265,6 +264,7 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         AssignedChoresGUI assignedChoresButton = new AssignedChoresGUI();
         assignedChoresButton.setVisible(true);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
