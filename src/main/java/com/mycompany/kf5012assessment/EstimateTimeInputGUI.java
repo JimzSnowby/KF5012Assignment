@@ -235,12 +235,10 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
             try {
                 if (currectUser == 1) {
                     choresDB.updateEstimateTimeUserOne();
-<<<<<<< Updated upstream
                 } else if (currectUser == 2) {
-=======
+
                     hasSubmitUser1 = true;
                 } else if (currentUser == 2) {
->>>>>>> Stashed changes
                     choresDB.updateEstimateTimeUserTwo();
                     hasSubmitUser2 = true;
                 }
