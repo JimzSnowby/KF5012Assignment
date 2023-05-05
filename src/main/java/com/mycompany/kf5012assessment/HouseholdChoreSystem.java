@@ -18,7 +18,11 @@ public class HouseholdChoreSystem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
+   HomePageGUI HomePageGUI = new HomePageGUI();
+        HomePageGUI.pack(); // pack the dialog
+        HomePageGUI.setVisible(true);
+        // hide the current GUI
+      
         ArrayList<Chore> list = new ArrayList();
 //        Chore c1 = new Chore("Clean dishes", 20, 10, 1);
 //        c1.setChoreDay(1);

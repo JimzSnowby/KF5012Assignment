@@ -4,6 +4,7 @@
  */
 package com.mycompany.kf5012assessment;
 
+import static com.mycompany.kf5012assessment.ChoresDatabase.choresArrayList;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -220,7 +221,7 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
 
     private void oneOffChoreTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneOffChoreTypeActionPerformed
         // TODO add your handling code here:
-        
+
 
     }//GEN-LAST:event_oneOffChoreTypeActionPerformed
 
@@ -231,29 +232,10 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_weeklyChoreTypeActionPerformed
 
     private void submitNewChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitNewChoreButtonActionPerformed
-
         if (jTextField1.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "pls fill in a chore!");
-
+            JOptionPane.showMessageDialog(null, "Please fill in a chore!");
+            return;
         }
-//             
-//        if (oneOffChoreType.isSelected()) {
-//            ChoresDatabase choresDB = new ChoresDatabase();
-//            try {
-//                ArrayList<Chore> choresArrayList = choresDB.selectChoresFrequencyOneOff();
-//                // Perform operations with oneOffChores ArrayList
-//            } catch (SQLException ex) {
-//                Logger.getLogger(CreateNewChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        } else if (weeklyChoreType.isSelected()) {
-//            ChoresDatabase choresDB = new ChoresDatabase();
-//            try {
-//                ArrayList<Chore> choresArrayList = choresDB.selectChoresFrequencyWeekly();
-//                // Perform operations with weeklyChores ArrayList
-//            } catch (SQLException ex) {
-//                Logger.getLogger(CreateNewChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
 
         Chore chore = new Chore();
         chore.setChoreName(jTextField1.getText());
@@ -265,14 +247,13 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
             mainWindow.getData();
             mainWindow.displayTableData();
             mainWindow.recordTableChanges();
+            choresArrayList.add(chore);
+            mainWindow.resetFrame(); // Call resetFrame() to close and reopen the frame
         } catch (SQLException E) {
             System.err.println(E.getMessage());
             E.printStackTrace();
-            System.out.println("Exception occured");
+            System.out.println("Exception occurred");
         }
-
-        // Close the dialog
-        this.dispose();
 
     }//GEN-LAST:event_submitNewChoreButtonActionPerformed
 

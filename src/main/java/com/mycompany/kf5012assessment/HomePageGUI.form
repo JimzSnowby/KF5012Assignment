@@ -78,6 +78,7 @@
         <Property name="text" type="java.lang.String" value="Select Chores"/>
       </Properties>
       <Events>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="selectChoresButtonMouseEntered"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectChoresButtonActionPerformed"/>
       </Events>
     </Component>

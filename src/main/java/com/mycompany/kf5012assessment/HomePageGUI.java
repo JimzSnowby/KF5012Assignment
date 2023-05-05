@@ -36,6 +36,11 @@ public class HomePageGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         selectChoresButton.setText("Select Chores");
+        selectChoresButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                selectChoresButtonMouseEntered(evt);
+            }
+        });
         selectChoresButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectChoresButtonActionPerformed(evt);
@@ -115,6 +120,10 @@ public class HomePageGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void selectChoresButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectChoresButtonActionPerformed
+   selectChoresButton.setComponentPopupMenu(null);
+
+        selectChoresButton.setToolTipText("Click me!");
+
         SelectWeeklyChoreGUI selectWeeklyChoreGUI = new SelectWeeklyChoreGUI();
         selectWeeklyChoreGUI.pack(); // pack the dialog
         selectWeeklyChoreGUI.setLocationRelativeTo(this); // set the location relative to this component
@@ -122,6 +131,13 @@ public class HomePageGUI extends javax.swing.JFrame {
         // hide the current GUI
         this.setVisible(false);
     }//GEN-LAST:event_selectChoresButtonActionPerformed
+
+    private void selectChoresButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectChoresButtonMouseEntered
+        //guids the user 
+            selectChoresButton.setToolTipText("Click to select weekly chores");     
+
+
+    }//GEN-LAST:event_selectChoresButtonMouseEntered
 
     /**
      * @param args the command line arguments
