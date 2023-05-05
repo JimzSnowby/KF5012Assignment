@@ -18,6 +18,12 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
     private ArrayList<Chore> choresArrayList;
     private ChoresDatabase db = new ChoresDatabase();
     private UserList users = new UserList();
+<<<<<<< Updated upstream
+=======
+    private ChoresDatabase choresDB = new ChoresDatabase();
+    private boolean hasSubmitUser1 = false;
+    private boolean hasSubmitUser2 = false;
+>>>>>>> Stashed changes
 
     /**
      * Creates new form EstimateTimeInputGUI
@@ -229,12 +235,24 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
             try {
                 if (currectUser == 1) {
                     choresDB.updateEstimateTimeUserOne();
+<<<<<<< Updated upstream
                 } else if (currectUser == 2) {
+=======
+                    hasSubmitUser1 = true;
+                } else if (currentUser == 2) {
+>>>>>>> Stashed changes
                     choresDB.updateEstimateTimeUserTwo();
+                    hasSubmitUser2 = true;
+                }
+                
+                
+                if(hasSubmitUser1 && hasSubmitUser2){
+                    // RUN ALGO
                 }
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
+            
         }
 
         // Clear the table and update it with the new estimated time values

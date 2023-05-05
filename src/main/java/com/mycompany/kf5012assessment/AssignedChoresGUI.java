@@ -18,6 +18,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private ArrayList<Chore> allChores = new ArrayList(); // list of all chores
     private ArrayList<Chore> user1List = new ArrayList(); // list of chores assigned to user1
     private ArrayList<Chore> user2List = new ArrayList(); // list of chores assigned to user2
+    private ArrayList<Chore> user1Completed = new ArrayList(); // List of completed chores for U1
+    private ArrayList<Chore> user2Completed = new ArrayList();// AT END SEND LIST TO DB WITH 
     private String choreCount; // chore count not changing
     private int currentUser; // gets the ID of the current user
     private User user;

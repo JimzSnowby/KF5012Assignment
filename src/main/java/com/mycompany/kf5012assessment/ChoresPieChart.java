@@ -10,6 +10,7 @@ package com.mycompany.kf5012assessment;
  */
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -17,12 +18,32 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.chart.plot.PiePlot;
 
+
 public class ChoresPieChart {
+    private ChoresDatabase choresDB = new ChoresDatabase(); // Connect to DB
+    private ArrayList<Chore> choreList = new ArrayList();
+    private int user1Chores;
+    private int user2Chores;
+    
+    
+    public ChoresPieChart() {
+        try {
+            choreList = choresDB.selectChoresAssigned();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        
+        
+    }
+
    public static void main(String[] args) {
+      
+    
       // Create dataset
       DefaultPieDataset dataset = new DefaultPieDataset( );
       dataset.setValue("User 1", 65);
       dataset.setValue("User 2", 35);
+      dataset.setValue("User 1", setValueUser1());
 
       // Create chart
       JFreeChart chart = ChartFactory.createPieChart(
@@ -50,6 +71,24 @@ public class ChoresPieChart {
       frame.setContentPane(chartPanel);
       frame.pack();
       frame.setVisible(true);
+   }
+   
+   public int setValueUser1(){
+       for(Chore c : choreList){
+           if(c.getChoreAssignTo() == 1){
+               user1Chores ++;
+           } 
+       }
+       return user1Chores;
+   }
+    
+   public int setValueUser2(){
+       for(Chore c : choreList){
+           if(c.getChoreAssignTo() == 2){
+               user2Chores ++;
+           }
+       }
+       return user2Chores;
    }
 }
 
