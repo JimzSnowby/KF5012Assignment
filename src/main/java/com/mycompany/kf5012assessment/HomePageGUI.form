@@ -52,9 +52,9 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="aliceScoreLabel" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jButton2" alignment="1" max="32767" attributes="0"/>
+                          <Component id="BobProfileButton" alignment="1" max="32767" attributes="0"/>
                           <Component id="selectChoresButton" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jButton3" alignment="1" min="-2" pref="217" max="-2" attributes="0"/>
+                          <Component id="aliceProfileButton" alignment="1" min="-2" pref="217" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                   </Group>
@@ -92,9 +92,9 @@
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="selectChoresButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+              <Component id="BobProfileButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+              <Component id="aliceProfileButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="bobScoreLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -129,20 +129,23 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectChoresButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="BobProfileButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Bob Profile"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BobProfileButtonMouseEntered"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BobProfileButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="aliceProfileButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Alice Profile"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="aliceProfileButtonMouseClicked"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="aliceProfileButtonMouseEntered"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aliceProfileButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">

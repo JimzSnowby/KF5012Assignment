@@ -56,8 +56,8 @@ public class HomePageGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         selectChoresButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        BobProfileButton = new javax.swing.JButton();
+        aliceProfileButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         bobScoreLabel = new javax.swing.JLabel();
         bobWeekLabel = new javax.swing.JLabel();
@@ -86,17 +86,30 @@ public class HomePageGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Bob Profile");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        BobProfileButton.setText("Bob Profile");
+        BobProfileButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                BobProfileButtonMouseEntered(evt);
+            }
+        });
+        BobProfileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                BobProfileButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Alice Profile");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        aliceProfileButton.setText("Alice Profile");
+        aliceProfileButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                aliceProfileButtonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                aliceProfileButtonMouseEntered(evt);
+            }
+        });
+        aliceProfileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                aliceProfileButtonActionPerformed(evt);
             }
         });
 
@@ -145,9 +158,9 @@ public class HomePageGUI extends javax.swing.JFrame {
                                 .addComponent(bobScoreLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(aliceScoreLabel))
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BobProfileButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(selectChoresButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(aliceProfileButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(36, 36, 36))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
@@ -157,9 +170,7 @@ public class HomePageGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bobWeekScore)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(bobTotalScore)))
+                    .addComponent(bobTotalScore))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(aliceTotalLabel)
@@ -177,9 +188,9 @@ public class HomePageGUI extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(selectChoresButton)
                 .addGap(39, 39, 39)
-                .addComponent(jButton2)
+                .addComponent(BobProfileButton)
                 .addGap(44, 44, 44)
-                .addComponent(jButton3)
+                .addComponent(aliceProfileButton)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bobScoreLabel)
@@ -202,30 +213,30 @@ public class HomePageGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void BobProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BobProfileButtonActionPerformed
         EstimateTimeInputGUI etgi = new EstimateTimeInputGUI(1);
         etgi.pack(); // resize the window to fit its components
         etgi.setLocationRelativeTo(this); // center the window relative to this GUI
         etgi.setVisible(true);
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_BobProfileButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void aliceProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aliceProfileButtonActionPerformed
         EstimateTimeInputGUI etgi = new EstimateTimeInputGUI(2);
         etgi.pack(); // resize the window to fit its components
         etgi.setLocationRelativeTo(this); // center the window relative to this GUI
         etgi.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_aliceProfileButtonActionPerformed
 
     private void selectChoresButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectChoresButtonActionPerformed
-   selectChoresButton.setComponentPopupMenu(null);
+  // selectChoresButton.setComponentPopupMenu(null);
 
-        selectChoresButton.setToolTipText("Click me!");
+     //   selectChoresButton.setToolTipText("Click me!");
 
         SelectWeeklyChoreGUI selectWeeklyChoreGUI = new SelectWeeklyChoreGUI();
         selectWeeklyChoreGUI.pack(); // pack the dialog
-        selectWeeklyChoreGUI.setLocationRelativeTo(this); // set the location relative to this component
+        selectWeeklyChoreGUI.setLocationRelativeTo(this); 
         selectWeeklyChoreGUI.setVisible(true);
         // hide the current GUI
         this.setVisible(false);
@@ -233,10 +244,20 @@ public class HomePageGUI extends javax.swing.JFrame {
 
     private void selectChoresButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectChoresButtonMouseEntered
         //guids the user 
-            selectChoresButton.setToolTipText("Click to select weekly chores");     
-
-
+            selectChoresButton.setToolTipText("Click to select weekly chores for this week");     
     }//GEN-LAST:event_selectChoresButtonMouseEntered
+
+    private void BobProfileButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BobProfileButtonMouseEntered
+BobProfileButton.setToolTipText("Click here to view Bobs profile and put in estimate time!");
+    }//GEN-LAST:event_BobProfileButtonMouseEntered
+
+    private void aliceProfileButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aliceProfileButtonMouseClicked
+    }//GEN-LAST:event_aliceProfileButtonMouseClicked
+
+    private void aliceProfileButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aliceProfileButtonMouseEntered
+aliceProfileButton.setToolTipText("Click here to view Alice profile and put in estimate time!");
+
+    }//GEN-LAST:event_aliceProfileButtonMouseEntered
 
     /**
      * @param args the command line arguments
@@ -275,6 +296,8 @@ public class HomePageGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BobProfileButton;
+    private javax.swing.JButton aliceProfileButton;
     private javax.swing.JLabel aliceScoreLabel;
     private javax.swing.JLabel aliceTotalLabel;
     private javax.swing.JLabel aliceTotalScore;
@@ -285,8 +308,6 @@ public class HomePageGUI extends javax.swing.JFrame {
     private javax.swing.JLabel bobTotalScore;
     private javax.swing.JLabel bobWeekLabel;
     private javax.swing.JLabel bobWeekScore;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;

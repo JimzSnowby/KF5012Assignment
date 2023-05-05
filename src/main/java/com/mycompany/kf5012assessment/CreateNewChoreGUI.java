@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -87,6 +88,11 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         choreNameTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jLabel1.setText("Chore Name:");
 
@@ -99,6 +105,11 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
                 weeklyChoreTypeActionPerformed(evt);
             }
         });
+        weeklyChoreType.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                weeklyChoreTypeKeyPressed(evt);
+            }
+        });
 
         buttonGroup.add(oneOffChoreType);
         oneOffChoreType.setText("One-off ");
@@ -107,10 +118,20 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
                 oneOffChoreTypeActionPerformed(evt);
             }
         });
+        oneOffChoreType.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                oneOffChoreTypeKeyPressed(evt);
+            }
+        });
 
-        jLabel3.setText("Select the fequency of the chore");
+        jLabel3.setText("choose days to adds the new chore!");
 
         submitNewChoreButton.setText("Submit");
+        submitNewChoreButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                submitNewChoreButtonMouseEntered(evt);
+            }
+        });
         submitNewChoreButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitNewChoreButtonActionPerformed(evt);
@@ -118,6 +139,11 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         });
 
         cancelNewChoreButton.setText("Cancel");
+        cancelNewChoreButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cancelNewChoreButtonMouseEntered(evt);
+            }
+        });
         cancelNewChoreButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelNewChoreButtonActionPerformed(evt);
@@ -125,10 +151,25 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         });
 
         daySelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AnyDay ", "Monday ", "Tuesday ", "Wednesday ", "Thursday ", "Friday ", "Saturday ", "Sunday " }));
+        daySelect.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                daySelectKeyPressed(evt);
+            }
+        });
 
+        choreNameTextField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                choreNameTextFieldMouseEntered(evt);
+            }
+        });
         choreNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 choreNameTextFieldActionPerformed(evt);
+            }
+        });
+        choreNameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                choreNameTextFieldKeyPressed(evt);
             }
         });
 
@@ -157,10 +198,10 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(choreNameTextField)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(34, 34, 34)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(daySelect, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,6 +278,64 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
     private void choreNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choreNameTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_choreNameTextFieldActionPerformed
+
+    private void choreNameTextFieldMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_choreNameTextFieldMouseEntered
+        choreNameTextField.setToolTipText("Type a new chore name!");
+    }//GEN-LAST:event_choreNameTextFieldMouseEntered
+
+    private void submitNewChoreButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitNewChoreButtonMouseEntered
+        submitNewChoreButton.setToolTipText("submit a new chore!");        // TODO add your handling code here:
+    }//GEN-LAST:event_submitNewChoreButtonMouseEntered
+
+
+    private void cancelNewChoreButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelNewChoreButtonMouseEntered
+        cancelNewChoreButton.setToolTipText("cancel adding a new chore!");        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelNewChoreButtonMouseEntered
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
+
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            this.dispose();
+        }
+
+
+    }//GEN-LAST:event_formKeyPressed
+
+    private void choreNameTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_choreNameTextFieldKeyPressed
+   if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
+    }
+    }//GEN-LAST:event_choreNameTextFieldKeyPressed
+
+    private void daySelectKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_daySelectKeyPressed
+if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
+    }    }//GEN-LAST:event_daySelectKeyPressed
+
+    private void weeklyChoreTypeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_weeklyChoreTypeKeyPressed
+if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
+    }        
+    }//GEN-LAST:event_weeklyChoreTypeKeyPressed
+
+    private void oneOffChoreTypeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_oneOffChoreTypeKeyPressed
+if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
+    }
+    }//GEN-LAST:event_oneOffChoreTypeKeyPressed
 
     /**
      * @param args the command line arguments
