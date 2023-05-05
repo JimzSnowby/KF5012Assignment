@@ -62,7 +62,7 @@ public class ChoreCompletionPoints {
                 time = (estimate - actualTime) * difficulty; // SCENARIO (50 - 30) * 1.5 =  30
             } else{
                 time = (((actualTime - estimate) * -1) * difficulty) * 0.5f; // SCENARIO (((30 - 50) * -1) * 1.5) * 0.5 = 15
-                System.out.println(time);
+                System.out.println("Wat: "+time);
             }
             points = Math.round(time); // Round points to whole number
         }

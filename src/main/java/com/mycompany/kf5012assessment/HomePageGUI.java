@@ -4,6 +4,8 @@
  */
 package com.mycompany.kf5012assessment;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +17,8 @@ public class HomePageGUI extends javax.swing.JFrame {
     private ArrayList<User> users;
     private User user1;
     private User user2;
+    private LocalDate date = LocalDate.now();
+    private ChoreCompletionPoints completionPoints = new ChoreCompletionPoints();
     
     /**
      * Creates new form StartScreenGUI
@@ -30,10 +34,16 @@ public class HomePageGUI extends javax.swing.JFrame {
         
         initComponents();
         
+        if(date.getDayOfWeek().equals(DayOfWeek.MONDAY)){
+            completionPoints.totalCalculation(user1);
+            completionPoints.totalCalculation(user2);
+        }
+        
         bobWeekScore.setText(Integer.toString(user1.getUserWeekScore()));
         bobTotalScore.setText(Integer.toString(user1.getUserTotalScore()));
         aliceWeekScore.setText(Integer.toString(user2.getUserWeekScore()));
         aliceTotalScore.setText(Integer.toString(user2.getUserTotalScore()));
+        
     }
 
     /**
