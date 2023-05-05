@@ -24,26 +24,26 @@ public class ChoresDatabase {
 
         //James:
         //database.Connect("E:\\University work\\Year 2\\Semester2\\SE practice\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-        //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
 
         //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-       // database.Connect("D:\\hellllooooo\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-    //    database.Connect("C:\\Users\\nihal\\Documents\\nihall\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("D:\\hellllooooo\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("C:\\Users\\nihal\\Documents\\nihall\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("C:\\Users\\nihal\\Documents\\FINALL\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("C:\\Users\\nihal\\Documents\\newGroupWork\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //  database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\test\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //  database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\test\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Yoyo:
-        //    database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        //database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //database.Connect("D:\\CLONE\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
     }
 
@@ -79,12 +79,42 @@ public class ChoresDatabase {
                 }
                 chores.add(newChore);
 
-                //Testing
+                //Testing the function
                 //System.out.println("Chore ID: " + newChore.getChoreID() + " Chore name: " + newChore.getChoreName());
             }
         } catch (SQLException e) {
             System.out.println("Failed to process query in selectChores()");
             System.out.println("SQL attempted: " + sqlSelectChores);
+            System.out.println("Error: " + e.getErrorCode());
+            System.out.println("Message: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return chores;
+    }
+
+    //Select all assigned chores
+    public ArrayList<Chore> selectChoresAssigned() throws SQLException {
+
+        String sqlSelectChoresAssigned = "SELECT choreID, userID, assignedTo, daysOfWeekID, choreCompletionTime FROM choresAssigned;";
+
+        ResultSet choreList = database.RunSQLQuery(sqlSelectChoresAssigned);
+        ArrayList<Chore> chores = new ArrayList<Chore>();
+
+        ResultSet userList = database.RunSQLQuery(sqlSelectChoresAssigned);
+        ArrayList<User> users = new ArrayList<User>();
+
+        try {
+            while (choreList.next()) {
+                Chore newChore = new Chore();
+                User newUser = new User();
+                newChore.setChoreID(choreList.getInt(1));
+                newUser.setUserID(userList.getInt(2));
+                newChore.setChoreDay(choreList.getInt(3));
+                newChore.setCompletionTime(choreList.getInt(4));
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to process query in selectChores()");
+            System.out.println("SQL attempted: " + sqlSelectChoresAssigned);
             System.out.println("Error: " + e.getErrorCode());
             System.out.println("Message: " + e.getMessage());
             e.printStackTrace();
@@ -240,7 +270,7 @@ public class ChoresDatabase {
                 newChore.setChoreFrequency(choreList.getString(3));
                 chores.add(newChore);
 
-                //Testing   
+                //Testing the function   
                 /*
                 System.out.println("Chore ID: " + newChore.getChoreID() + " Frequency: "
                 + newChore.getChoreFrequency() + " Chore name: " + newChore.getChoreName());
@@ -378,8 +408,6 @@ public class ChoresDatabase {
             convertedMax = maxID.getInt(1) + 1;
         }
 
-        //System.out.println(convertedMax);
-        //int max = Integer.parseInt(rs) + 1;
         String sqlAddChore = "INSERT INTO chores (choreID, choreName, choreFrequencyID, daysOfWeekID, assignedTo, isSelected) "
                 + "VALUES (" + convertedMax + ", '" + newChore.getChoreName() + "' , " + choreFrequencyID + ", " + newchore.getChoreDay() + ", " + assignedTo + ", " + select + "); ";
 
@@ -431,8 +459,6 @@ public class ChoresDatabase {
             convertedMax = maxID.getInt(1) + 1;
         }
 
-        //System.out.println(convertedMax);
-        //int max = Integer.parseInt(rs) + 1;
         String sqlAddChoreL = "INSERT INTO users (userID, userActive, userWeekScore, userTotalScore) "
                 + "VALUES(" + convertedMax + ", " + userActive + ", " + weekScore + ", " + totalScore + "); ";
 
@@ -451,7 +477,7 @@ public class ChoresDatabase {
 
         boolean success = database.RunSQL(sqlDeleteUser);
 
-        //Testing
+        //Testing the function
         /*
         if (success) {
             System.out.println("User " + userID + " was successfully deleted");
@@ -481,7 +507,7 @@ public class ChoresDatabase {
 
         boolean success = database.RunSQL(sqlDropChores);
 
-        //Testing
+        //Testing the function
         /*
         if (success) {
             System.out.println("Chores table was successfully deleted");
@@ -505,17 +531,10 @@ public class ChoresDatabase {
 
     }
 
-    /*
-    Please don't delete, testing mission purposes
-
-    //Ask about the arraylist
-    public static void main(String[] args) {
-        //String update = "UPDATE chores SET choreName = ?, choreFrequencyID = ?, daysOfWeekID WHERE choreID = ? ";
-
-        for (int i = 0; i < choresArrayList.size(); i++) {
-            System.out.println(i);
-        }
-    }
+    /* 
+    
+    Testing mission 
+        
     //Test the update estimate function
     public static void main(String[] args) throws SQLException {
         ChoresDatabase x = new ChoresDatabase();
@@ -523,23 +542,22 @@ public class ChoresDatabase {
 
         newchore.setEstimateTimeUserOne(66);
         newchore.setEstimateTimeUserTwo(11);
-
         x.updateEstimateTimeUserTwo();
         x.updateEstimateTimeUserOne();
     } 
+    
     //Test the Chore class
     public static void main(String[] args) {
         ChoresDatabase x = new ChoresDatabase();
         Chore c = new Chore();
-
         c.setChoreID(21);
         c.setChoreName("Testing");
         c.setChoreFrequencyID(1);
         c.setChoreDay(1);
-        c.assignTo(1);
-                
+        c.assignTo(1);            
         x.addChore(newchore);
     }
+    
     //Test delete chores table function
     public static void main(String[] args) {
         ChoresDatabase x = new ChoresDatabase();
@@ -557,8 +575,6 @@ public class ChoresDatabase {
         ChoresDatabase x = new ChoresDatabase();
         int userID = 1;
         x.deleteUser(userID);
-    
-
-    }*/
-    //Test select weekly chores function
+    }
+     */
 }
