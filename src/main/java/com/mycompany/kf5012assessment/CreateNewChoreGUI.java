@@ -80,13 +80,11 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         weeklyChoreType = new javax.swing.JRadioButton();
         oneOffChoreType = new javax.swing.JRadioButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        newDaysTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         submitNewChoreButton = new javax.swing.JButton();
         cancelNewChoreButton = new javax.swing.JButton();
         daySelect = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        choreNameTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -110,31 +108,6 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
             }
         });
 
-        newDaysTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(newDaysTable);
-        if (newDaysTable.getColumnModel().getColumnCount() > 0) {
-            newDaysTable.getColumnModel().getColumn(0).setResizable(false);
-            newDaysTable.getColumnModel().getColumn(1).setResizable(false);
-            newDaysTable.getColumnModel().getColumn(2).setResizable(false);
-            newDaysTable.getColumnModel().getColumn(3).setResizable(false);
-            newDaysTable.getColumnModel().getColumn(4).setResizable(false);
-        }
-
         jLabel3.setText("Select the fequency of the chore");
 
         submitNewChoreButton.setText("Submit");
@@ -153,9 +126,9 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
 
         daySelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AnyDay ", "Monday ", "Tuesday ", "Wednesday ", "Thursday ", "Friday ", "Saturday ", "Sunday " }));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        choreNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                choreNameTextFieldActionPerformed(evt);
             }
         });
 
@@ -172,23 +145,22 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(18, 18, 18)
+                            .addComponent(weeklyChoreType)
+                            .addGap(26, 26, 26)
+                            .addComponent(oneOffChoreType))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(choreNameTextField)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(weeklyChoreType)
-                                .addGap(26, 26, 26)
-                                .addComponent(oneOffChoreType))
-                            .addComponent(jLabel3)
-                            .addComponent(daySelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jLabel3)
+                        .addGap(34, 34, 34)
+                        .addComponent(daySelect, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,19 +168,17 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(choreNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(weeklyChoreType)
                     .addComponent(oneOffChoreType))
-                .addGap(41, 41, 41)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(daySelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106)
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(daySelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(189, 189, 189)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submitNewChoreButton)
                     .addComponent(cancelNewChoreButton))
@@ -232,13 +202,13 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_weeklyChoreTypeActionPerformed
 
     private void submitNewChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitNewChoreButtonActionPerformed
-        if (jTextField1.getText().isEmpty()) {
+        if (choreNameTextField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please fill in a chore!");
             return;
         }
 
         Chore chore = new Chore();
-        chore.setChoreName(jTextField1.getText());
+        chore.setChoreName(choreNameTextField.getText());
         chore.setChoreDay(daySelect.getSelectedIndex() - 1);
         chore.setChoreFrequencyID(weeklyChoreType.isSelected() ? 1 : 2);
         ChoresDatabase db = new ChoresDatabase();
@@ -264,9 +234,9 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_cancelNewChoreButtonActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void choreNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choreNameTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_choreNameTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -308,13 +278,11 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JButton cancelNewChoreButton;
+    private javax.swing.JTextField choreNameTextField;
     private javax.swing.JComboBox<String> daySelect;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable newDaysTable;
     private javax.swing.JRadioButton oneOffChoreType;
     private javax.swing.JButton submitNewChoreButton;
     private javax.swing.JRadioButton weeklyChoreType;
