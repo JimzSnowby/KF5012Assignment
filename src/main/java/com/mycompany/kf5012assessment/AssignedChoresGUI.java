@@ -235,7 +235,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Boolean.class, java.lang.Float.class
+                java.lang.Object.class, java.lang.Boolean.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, true, true
@@ -645,14 +645,30 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         boolean checkBox; 
         float completeTime;
+        Object inputTime;
         
         // Iterates over the list to see which chores have their completed box ticked
         if (currentUser == 1) {
             try {
-                for (int i = 0; i < user1List.size(); i++) {
+                for(int i = 0; i < tableModel.getRowCount(); i++){ // Iterates over table
+                    String name = (String) tableModel.getValueAt(i, 0);
                     checkBox = (boolean) tableModel.getValueAt(i, 1);
                     completeTime = (float) tableModel.getValueAt(i, 2);
+                    inputTime = tableModel.getValueAt(i, 2);
+                    for (int j = 0; j < user1List.size(); j++) { // iterates over full list
+                        if(user1List.get(j).getChoreName() == name && 
+                                user1List.get(j).getChoreDay() == daySelector.getSelectedIndex()){
+                            user1List.get(j).setCompletionTime(completeTime);
+                        }
+                    }
+                }
+                for (int i = 0; i < user1List.size(); i++) {
+                    int row = choreTable.getSelectedRow();
+                    checkBox = (boolean) tableModel.getValueAt(row, 1);
+                    completeTime = (float) tableModel.getValueAt(row, 2);
+                    inputTime = tableModel.getValueAt(row, 2);
                     if (checkBox) {
+                        
                         user1List.get(i).setCompletionTime(completeTime);
                         awardPoints(i); // USING COMPLETE TIME CALCULATE POINTS
                         if (user1List.get(i).getChoreFrequencyID() == 2) {
@@ -674,7 +690,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             for (int i = 0; i < user2List.size(); i++) {
                 try {
                     checkBox = (boolean) tableModel.getValueAt(i, 1);
-                    if (checkBox) {
+                    inputTime = (float) tableModel.getValueAt(i, 2);
+                    if (inputTime != null) {
                         if (user2List.get(i).getChoreFrequencyID() == 2) {
                             choresDB.deleteChore(user2List.get(i).getChoreName()); // Deletes chore from DB if its a 1 off
                         } else {
