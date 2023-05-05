@@ -26,11 +26,11 @@ public class ChoresDatabase {
         //database.Connect("E:\\University work\\Year 2\\Semester2\\SE practice\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-      //  database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+      database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
 
         //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
-        database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
        // database.Connect("D:\\hellllooooo\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
     //    database.Connect("C:\\Users\\nihal\\Documents\\nihall\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("C:\\Users\\nihal\\Documents\\FINALL\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
@@ -393,7 +393,7 @@ public class ChoresDatabase {
     }
 
     //Add an assigned chore
-    public void addAssignedChore(Chore newChore, User newUser, int choreFrequencyID, int assignedTo, int select) throws SQLException {
+    public void addAssignedChore(Chore newChore, User newUser, int choreFrequencyID, int assignedTo) throws SQLException {
 
         String rs = ("select max(choresAssignedID) from choresAssigned;");
         ResultSet maxID = database.RunSQLQuery(rs);
