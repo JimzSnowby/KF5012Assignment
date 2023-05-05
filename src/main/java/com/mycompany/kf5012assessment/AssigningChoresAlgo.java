@@ -14,17 +14,20 @@ import java.util.logging.Logger;
  * @author w21023500
  */
 // For Task 7 Group work
+
 public class AssigningChoresAlgo {
 
     private ArrayList<Chore> choresArrayListUserOne;
     private ArrayList<Chore> choresArrayListUserTwo;
     private ArrayList<Chore> fullList;
     private ArrayList<Chore> toSend;
-    //private User userOne;
-    //private User userTwo;
+    User newUser;
+
+    private User userOne;
+    private User userTwo;
 
     //private choresArrayList = dummyList;
-    public AssigningChoresAlgo() {
+    public AssigningChoresAlgo() throws SQLException {
 
         ChoresDatabase choresDB = new ChoresDatabase();
 
@@ -37,12 +40,13 @@ public class AssigningChoresAlgo {
             System.out.println("Error occured in extracting data");
         }
         toSend = calculation(fullList);
-        for(Chore c : toSend){
-            choresDB.addAssignedChore(c, c.getChoreFrequencyID(), c.getChoreAssignTo());
+        for (Chore c : toSend) {
+            //choresDB.addAssignedChore(c.getChoreID(), newUser, c.getChoreFrequencyID(), );
+            choresDB.addAssignedChore(c, newUser, c.getChoreFrequencyID(), c.getChoreAssignTo());
         }
-        
-        
-        //   calculation();
+        System.out.println(fullList);
+
+        //  calculation();
     }
 
     public boolean unassignedChore(ArrayList<Chore> choreList) {
@@ -81,7 +85,6 @@ public class AssigningChoresAlgo {
         float User1LoadCarriedOver = 0; //// variables for last weeks imbalance 
         float User2LoadCarriedOver = 0;//variables for last weeks imbalance
         int numUnassignChores = 0;
-        
 
         int unassignedChores = fullChoreList.size();
 
@@ -113,6 +116,8 @@ public class AssigningChoresAlgo {
                     }
                 }
                 
+                
+
                 //  user1ChoresAssigned.addToChoreList(chosenChore);
                 User1Load = User1Load + chosenChore.getEstimateTimeUserOne();
                 chosenChore.assignTo(1);
@@ -145,17 +150,17 @@ public class AssigningChoresAlgo {
                         }
                     }
                 }
-                
+
                 //  user1ChoresAssigned.addToChoreList(chosenChore);
                 User2Load = User1Load + chosenChore.getEstimateTimeUserTwo();
                 chosenChore.assignTo(2);
                 assignedList.add(chosenChore);
                 unassignedChores--;
             }
-            
-            return assignedList;
 
         }
+        return assignedList;
+
 //Testing the assigning chores
 /*public void main(String[] args) {
 
