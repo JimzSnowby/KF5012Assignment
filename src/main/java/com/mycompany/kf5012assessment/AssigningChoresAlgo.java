@@ -20,7 +20,7 @@ public class AssigningChoresAlgo {
     private ArrayList<Chore> choresArrayListUserOne;
     private ArrayList<Chore> choresArrayListUserTwo;
     private ArrayList<Chore> fullList;
-    private ArrayList<Chore> toSend;
+    ArrayList<Chore> toSend;
     User newUser;
 
     private User userOne;

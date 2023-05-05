@@ -18,12 +18,10 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
     private ArrayList<Chore> choresArrayList;
     private ChoresDatabase db = new ChoresDatabase();
     private UserList users = new UserList();
-<<<<<<< Updated upstream
-=======
+
     private ChoresDatabase choresDB = new ChoresDatabase();
     private boolean hasSubmitUser1 = false;
     private boolean hasSubmitUser2 = false;
->>>>>>> Stashed changes
 
     /**
      * Creates new form EstimateTimeInputGUI
@@ -40,9 +38,9 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
-        
+
         for (Chore chore : choresArrayList) {
-            model.addRow(new Object[] {
+            model.addRow(new Object[]{
                 chore.getChoreName(),
                 (currectUser == 1) ? chore.getEstimateTimeUserOne() : chore.getEstimateTimeUserTwo()
             });
@@ -238,19 +236,22 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
                 } else if (currectUser == 2) {
 
                     hasSubmitUser1 = true;
-                } else if (currentUser == 2) {
+                } else if (currectUser == 2) {
                     choresDB.updateEstimateTimeUserTwo();
                     hasSubmitUser2 = true;
                 }
-                
-                
-                if(hasSubmitUser1 && hasSubmitUser2){
-                    // RUN ALGO
+
+                if (hasSubmitUser1 && hasSubmitUser2) {
+                    try {
+                        AssigningChoresAlgo algo = new AssigningChoresAlgo();  
+                    } catch (SQLException e) {
+                        System.out.println("Error occurred in extracting data");
+                    }
                 }
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
-            
+
         }
 
         // Clear the table and update it with the new estimated time values
