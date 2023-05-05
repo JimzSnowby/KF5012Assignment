@@ -34,7 +34,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             for (Chore c : allChores){
                 if(c.getChoreAssignTo() == 1){
                     user1List.add(c);
-                    
                 }
                 else if (c.getChoreAssignTo() == 2){
                     user2List.add(c);
@@ -54,6 +53,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                     currentUser = u.getUserID();
                     user = u;
                     updateDisplayTableDataUser1(selection);
+                    weekScore.setText(Integer.toString(u.getUserWeekScore()));
+                    totalScore.setText(Integer.toString(u.getUserTotalScore()));
                     System.out.println(currentUser);
                     choreCount = Integer.toString(user1List.size()); // Get list size as a string
                     break;
@@ -61,10 +62,13 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                     currentUser = u.getUserID();
                     user = u;
                     updateDisplayTableDataUser2(selection);
+                    weekScore.setText(Integer.toString(u.getUserWeekScore()));
+                    totalScore.setText(Integer.toString(u.getUserTotalScore()));
                     choreCount = Integer.toString(user2List.size()); // Get list size as a string
                     break;
                 }
         }
+        
         totalChores.setText(choreCount); // change the total chores text
         endOfWeekAlert();
     }
@@ -380,6 +384,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             updateDisplayTableDataUser2(daySelector.getSelectedIndex());
             updateChoreCount(2);
         }
+        weekScore.setText(Integer.toString(user.getUserWeekScore()));
+        totalScore.setText(Integer.toString(user.getUserTotalScore()));
         dialogSubmit.setVisible(true);
     }//GEN-LAST:event_acceptButtonActionPerformed
 
@@ -645,10 +651,10 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             try {
                 for (int i = 0; i < user1List.size(); i++) {
                     checkBox = (boolean) tableModel.getValueAt(i, 1);
-                    //completeTime = (float) tableModel.getValueAt(i, 2);
+                    completeTime = (float) tableModel.getValueAt(i, 2);
                     if (checkBox) {
-                        //user1List.get(i).setCompletionTime(completeTime);
-                        //awardPoints(i); // USING COMPLETE TIME CALCULATE POINTS
+                        user1List.get(i).setCompletionTime(completeTime);
+                        awardPoints(i); // USING COMPLETE TIME CALCULATE POINTS
                         if (user1List.get(i).getChoreFrequencyID() == 2) {
                             choresDB.deleteChore(user1List.get(i).getChoreName()); // Deletes chore from DB if its a 1 off
                         } else {

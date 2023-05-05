@@ -4,17 +4,36 @@
  */
 package com.mycompany.kf5012assessment;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author w21023500
  */
 public class HomePageGUI extends javax.swing.JFrame {
-
+    private ChoresDatabase choresDB = new ChoresDatabase(); // Connect to DB
+    private ArrayList<User> users;
+    private User user1;
+    private User user2;
+    
     /**
      * Creates new form StartScreenGUI
      */
     public HomePageGUI() {
+        try{
+            users = choresDB.selectUsers();
+        } catch (Exception e){
+            System.out.println("Error: " + e);
+        }
+        user1 = users.get(0);
+        user2 = users.get(1);
+        
         initComponents();
+        
+        bobWeekScore.setText(Integer.toString(user1.getUserWeekScore()));
+        bobTotalScore.setText(Integer.toString(user1.getUserTotalScore()));
+        aliceWeekScore.setText(Integer.toString(user2.getUserWeekScore()));
+        aliceTotalScore.setText(Integer.toString(user2.getUserTotalScore()));
     }
 
     /**
@@ -30,6 +49,16 @@ public class HomePageGUI extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        bobScoreLabel = new javax.swing.JLabel();
+        bobWeekLabel = new javax.swing.JLabel();
+        aliceScoreLabel = new javax.swing.JLabel();
+        aliceWeekLabel = new javax.swing.JLabel();
+        aliceTotalLabel = new javax.swing.JLabel();
+        bobTotalLabel = new javax.swing.JLabel();
+        bobWeekScore = new javax.swing.JLabel();
+        aliceWeekScore = new javax.swing.JLabel();
+        bobTotalScore = new javax.swing.JLabel();
+        aliceTotalScore = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
@@ -63,6 +92,26 @@ public class HomePageGUI extends javax.swing.JFrame {
 
         jLabel1.setText("Welcome");
 
+        bobScoreLabel.setText("Bob's Score:");
+
+        bobWeekLabel.setText("Week:");
+
+        aliceScoreLabel.setText("Alice's Score:");
+
+        aliceWeekLabel.setText("Week:");
+
+        aliceTotalLabel.setText("Total:");
+
+        bobTotalLabel.setText("Total:");
+
+        bobWeekScore.setText("0");
+
+        aliceWeekScore.setText("0");
+
+        bobTotalScore.setText("0");
+
+        aliceTotalScore.setText("0");
+
         jMenuBar1.setRequestFocusEnabled(false);
 
         jMenu1.setText("Home");
@@ -75,17 +124,41 @@ public class HomePageGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(selectChoresButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(120, 120, 120))))
+                        .addGap(120, 120, 120))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bobScoreLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(aliceScoreLabel))
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(selectChoresButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bobWeekLabel)
+                    .addComponent(bobTotalLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bobWeekScore)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, 0)
+                        .addComponent(bobTotalScore)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(aliceTotalLabel)
+                    .addComponent(aliceWeekLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(aliceWeekScore)
+                    .addComponent(aliceTotalScore))
+                .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,7 +170,23 @@ public class HomePageGUI extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addGap(44, 44, 44)
                 .addComponent(jButton3)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bobScoreLabel)
+                    .addComponent(aliceScoreLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bobWeekLabel)
+                    .addComponent(aliceWeekLabel)
+                    .addComponent(aliceWeekScore)
+                    .addComponent(bobWeekScore))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(aliceTotalLabel)
+                    .addComponent(bobTotalLabel)
+                    .addComponent(bobTotalScore)
+                    .addComponent(aliceTotalScore))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -176,6 +265,16 @@ public class HomePageGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel aliceScoreLabel;
+    private javax.swing.JLabel aliceTotalLabel;
+    private javax.swing.JLabel aliceTotalScore;
+    private javax.swing.JLabel aliceWeekLabel;
+    private javax.swing.JLabel aliceWeekScore;
+    private javax.swing.JLabel bobScoreLabel;
+    private javax.swing.JLabel bobTotalLabel;
+    private javax.swing.JLabel bobTotalScore;
+    private javax.swing.JLabel bobWeekLabel;
+    private javax.swing.JLabel bobWeekScore;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

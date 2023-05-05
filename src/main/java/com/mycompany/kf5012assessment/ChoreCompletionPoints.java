@@ -12,6 +12,7 @@ public class ChoreCompletionPoints {
     private Chore chore;
     private User user;
     private int points;
+    private ChoresDatabase choreDB;
 
     public int pointCalculation(Chore chore, int activeUser){
         float estimate = 0;
@@ -63,11 +64,20 @@ public class ChoreCompletionPoints {
                 time = (((actualTime - estimate) * -1) * difficulty) * 0.5f; // SCENARIO (((30 - 50) * -1) * 1.5) * 0.5 = 15
                 System.out.println(time);
             }
-            points = Math.round(time);
+            points = Math.round(time); // Round points to whole number
         }
         
         return points;
     }
     
+    // Set the users total at end of week
+    public void totalCalculation(User user){ // Set the users total at end of week
+       int total = user.getUserTotalScore();
+       int weekScore = user.getUserWeekScore();
+       
+       total = total + weekScore;
+       
+       user.setUserTotalScore(total);
+    }
 }
 
