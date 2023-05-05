@@ -325,7 +325,7 @@
               <Table columnCount="3" rowCount="5">
                 <Column editable="false" title="Chore" type="java.lang.Object"/>
                 <Column editable="true" title="Complete" type="java.lang.Boolean"/>
-                <Column editable="true" title="Completion Time" type="java.lang.Float"/>
+                <Column editable="true" title="Completion Time" type="java.lang.Integer"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
