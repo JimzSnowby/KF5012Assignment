@@ -201,47 +201,73 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitEstimeTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitEstimeTimeActionPerformed
-        DefaultTableModel model = (DefaultTableModel) estimateTimeTable.getModel();
-        int numRows = model.getRowCount();
+      DefaultTableModel model = (DefaultTableModel) estimateTimeTable.getModel();
+    int numRows = model.getRowCount();
 
-        // Loop through the rows in the table
-        for (int i = 0; i < numRows; i++) {
-            Chore chore = choresArrayList.get(i);
-            // Get the estimated time value from the table
-            int estimatedTime = (int) Double.parseDouble(model.getValueAt(i, 1).toString());
-
-            if (estimatedTime == 0) {
-                JOptionPane.showMessageDialog(null, "Please enter a non-zero estimated time value.");
-                return; // exit the method if the estimated time is 0
-            }
-
-            // Set the estimated time value for the chore
-            if (currectUser == 1) {
-                chore.setEstimateTimeUserOne(estimatedTime);
-            } else if (currectUser == 2) {
-                chore.setEstimateTimeUserTwo(estimatedTime);
-            }
-            System.out.println("Estimated time for " + currectUser + ": " + estimatedTime);
-
-            // Insert the estimated time value into the database
-            ChoresDatabase choresDB = new ChoresDatabase();
-            ChoresDatabase.newchore = chore;
-            try {
-                if (currectUser == 1) {
-                    choresDB.updateEstimateTimeUserOne();
-                } else if (currectUser == 2) {
-                    choresDB.updateEstimateTimeUserTwo();
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-            }
+    // Check if any estimated time value is not a valid number
+    for (int i = 0; i < numRows; i++) {
+        if (!model.getValueAt(i, 1).toString().matches("^\\d+(\\.\\d+)?$")) {
+            JOptionPane.showMessageDialog(null, "Please enter a valid estimated time value for all chores.");
+            return;
         }
+    }
 
-        // Clear the table and update it with the new estimated time values
-        model.setRowCount(0);
-        updateTable();
+    // Check if any estimated time value is outside the valid range
+    for (int i = 0; i < numRows; i++) {
+        int estimatedTime = (int) Double.parseDouble(model.getValueAt(i, 1).toString());
+        if (estimatedTime < 5 || estimatedTime > 120) {
+            JOptionPane.showMessageDialog(null, "Please enter an estimated time value between 5 minutes and 2 hours for all chores.");
+            return;
+        }
+    }
 
-        this.dispose();
+    // Check if all estimated time values are non-zero
+    boolean hasZeroEstimateTime = false;
+    for (int i = 0; i < numRows; i++) {
+        int estimatedTime = (int) Double.parseDouble(model.getValueAt(i, 1).toString());
+        if (estimatedTime == 0) {
+            hasZeroEstimateTime = true;
+            break;
+        }
+    }
+    if (hasZeroEstimateTime) {
+        JOptionPane.showMessageDialog(null, "Please enter non-zero estimated time values for all chores.");
+        return;
+    }
+
+    // Loop through the rows in the table
+    for (int i = 0; i < numRows; i++) {
+        Chore chore = choresArrayList.get(i);
+        // Get the estimated time value from the table
+        int estimatedTime = (int) Double.parseDouble(model.getValueAt(i, 1).toString());
+
+        // Set the estimated time value for the chore
+        if (currectUser == 1) {
+            chore.setEstimateTimeUserOne(estimatedTime);
+        } else if (currectUser == 2) {
+            chore.setEstimateTimeUserTwo(estimatedTime);
+        }
+        System.out.println("Estimated time for " + currectUser + ": " + estimatedTime);
+
+        // Insert the estimated time value into the database
+        ChoresDatabase choresDB = new ChoresDatabase();
+        ChoresDatabase.newchore = chore;
+        try {
+            if (currectUser == 1) {
+                choresDB.updateEstimateTimeUserOne();
+            } else if (currectUser == 2) {
+                choresDB.updateEstimateTimeUserTwo();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+
+    // Clear the table and update it with the new estimated time values
+    model.setRowCount(0);
+    updateTable();
+
+    this.dispose();
 
     }//GEN-LAST:event_submitEstimeTimeActionPerformed
 
