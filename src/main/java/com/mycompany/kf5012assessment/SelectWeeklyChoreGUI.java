@@ -6,7 +6,9 @@ package com.mycompany.kf5012assessment;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -19,7 +21,7 @@ import javax.swing.table.AbstractTableModel;
  * @author w21023500
  */
 public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
-    
+
     private final ChoresDatabase choresDB;
 
     /**
@@ -27,7 +29,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
      */
     // Define a private ArrayList of Strings to store the chores
     private ArrayList<Chore> choresArrayList;
-    
+
     public SelectWeeklyChoreGUI() {
         choresDB = new ChoresDatabase();
         choresArrayList = new ArrayList();
@@ -41,10 +43,9 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
         choresArrayList.get(1);
         choresArrayList.get(2);
-                choresArrayList.get(3);
+        choresArrayList.get(3);
         choresArrayList.get(4);
 
-        
         initComponents();
 
         // call updateTableData() to populate the table with data
@@ -195,7 +196,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
     public void addChore(String choreName, String choreType, List<String> days) {
         ChoresDatabase choresDB = new ChoresDatabase();
-        
+
         try {
             Chore newChore = new Chore();
             choresArrayList.add(newChore);
@@ -204,15 +205,26 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
             System.out.println("Error occured in inserting data");
             JOptionPane.showMessageDialog(null, "Error occured in adding chore");
         }
-        
+
         updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
     }
 
     private void chooseDayChoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseDayChoreActionPerformed
         // TODO add your handling code here:
-      //  Object selected = chooseDayChore.getSelectedItem();
+        //  Object selected = chooseDayChore.getSelectedItem();
+        // int dayNumber = chooseDayChore.getSelectedIndex();
+        //  System.out.println("Event happened");
+        // updateTableForSelectedDay(dayNumber);
+
         int dayNumber = chooseDayChore.getSelectedIndex();
-        System.out.println("Event happened");
+        System.out.println("Selected day number: " + dayNumber);
+        recordTableChanges(); // Save the current state of the table
+        updateTableForSelectedDay(dayNumber); // Update the table for the selected day
+
+        // Save the current table data
+        recordTableChanges();
+
+        // Update the table for the new selected day
         updateTableForSelectedDay(dayNumber);
     }//GEN-LAST:event_chooseDayChoreActionPerformed
 
@@ -223,7 +235,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         addChoreGUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //makes addchoreGUI visble 
         addChoreGUI.setVisible(true);
-        
+
         updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
 
     }//GEN-LAST:event_addChoreButtonActionPerformed
@@ -254,7 +266,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
                     } catch (SQLException ex) {
                         Logger.getLogger(SelectWeeklyChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }                
+                }
             }
         }
 
@@ -303,7 +315,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_submitChoreButtonMouseEntered
 
     private void cancelButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseEntered
-cancelButton.setToolTipText("cancel selecting your selected chores !");        // TODO add your handling code here:
+        cancelButton.setToolTipText("cancel selecting your selected chores !");        // TODO add your handling code here:
     }//GEN-LAST:event_cancelButtonMouseEntered
     private void addNewChore(String task, int day) {
         // Create  Chore with the given task and day
@@ -324,7 +336,7 @@ cancelButton.setToolTipText("cancel selecting your selected chores !");        /
         // Update the table to show the new chore
         updateTableForSelectedDay(0);
     }
-    
+
     public void getData() {
         ChoresDatabase choresDB = new ChoresDatabase();
         choresArrayList = new ArrayList();
@@ -335,8 +347,6 @@ cancelButton.setToolTipText("cancel selecting your selected chores !");        /
         }
     }
 
- 
-    
     public void displayTableData() {
         // Empty the existing data
 
@@ -348,57 +358,44 @@ cancelButton.setToolTipText("cancel selecting your selected chores !");        /
             Object[] rowData = {chore.getChoreName(), chore.isSelectedForThisWeek()};
             tableModel.addRow(rowData);
         }
-        
+
     }
 //takes the data from thable an writes the data back to the arraylist 
+// * This method records the changes made to the chore  table.
 
     public void recordTableChanges() {
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
-        //  tableModel.newDataAvailable();
-        for (int i = 0; i < tableModel.getRowCount(); i++) {  // Loop through the rows
-
-            String choreName = (String) tableModel.getValueAt(i, 0);
-            for (Chore nc : choresArrayList) {
-                
-                if (nc.getChoreName().equals(choreName)) {
-                    nc.setSelectedForThisWeek((boolean) tableModel.getValueAt(i, 1));
-                }
-                
-            }
-            
+        Map<String, Chore> choreMap = new HashMap<>();
+        for (Chore nc : choresArrayList) {
+            choreMap.put(nc.getChoreName(), nc);
         }
-        
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            String choreName = (String) tableModel.getValueAt(i, 0);
+            Chore chore = choreMap.get(choreName);
+            if (chore != null) {
+                chore.setSelectedForThisWeek((boolean) tableModel.getValueAt(i, 1));
+            }
+        }
     }
-// selected day fuction 
 
+// * This method updates the chore table based on the day of combobox 
     public void updateTableForSelectedDay(int dayNumberselected) {
-        recordTableChanges();
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
 
-        // goes through the list and add each chore's data to the table
-        try {
-            choresArrayList = choresDB.selectChores();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-        
         for (int i = 0; i < choresArrayList.size(); i++) {
             if (choresArrayList.get(i).getChoreDay() == dayNumberselected) {
                 tableModel.addRow(new Object[]{choresArrayList.get(i).getChoreName(), choresArrayList.get(i).isSelectedForThisWeek()});
-                
             }
         }
     }
-    
 
-       //this is for so when the user adds a new chore adds it to the table directly 
-   public void resetFrame() {
-      setVisible(false);
-      dispose();
-      new SelectWeeklyChoreGUI().setVisible(true);
-   }
+    //this is for so when the user adds a new chore adds it to the table directly 
+    public void resetFrame() {
+        setVisible(false);
+        dispose();
+        new SelectWeeklyChoreGUI().setVisible(true);
+    }
 
     /**
      * @param args the command line arguments
