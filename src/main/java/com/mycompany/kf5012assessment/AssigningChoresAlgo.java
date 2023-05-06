@@ -59,7 +59,7 @@ public class AssigningChoresAlgo {
     }
 
     // private float userTwoTotal = 0;
-    public static ArrayList<Chore> calculation(ArrayList<Chore> fullChoreList) {
+    public  ArrayList<Chore> calculation(ArrayList<Chore> fullChoreList) {
 
         ArrayList<Chore> assignedList = new ArrayList<Chore>();
 

@@ -65,10 +65,11 @@ public class ChoresPieChart {
 
         // Create window to display panel
         JFrame frame = new JFrame("Chores Pie Chart");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setContentPane(chartPanel);
         frame.pack();
         frame.setVisible(true);
+        
     }
 
 }

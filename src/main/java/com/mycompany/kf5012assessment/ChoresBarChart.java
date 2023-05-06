@@ -100,7 +100,7 @@ public class ChoresBarChart {
 
         // Create window to display panel
         JFrame frame = new JFrame("Chores Bar Chart");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setContentPane(chartPanel);
         frame.pack();
         frame.setVisible(true);
