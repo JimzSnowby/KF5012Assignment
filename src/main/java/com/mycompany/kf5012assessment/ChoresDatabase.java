@@ -139,11 +139,12 @@ public class ChoresDatabase {
     }
 
     //Update choresComplete in assignedChores table
-    public void updateChoresComplete(int choreID) throws SQLException {
+    public void updateChoresComplete(int choreID, float completionTime) throws SQLException {
         ArrayList<Chore> chores = new ArrayList<Chore>();
         Chore newChore = new Chore();
 
         String sqlUpdateChoresComplete = "UPDATE choresAssigned SET choreComplete = " + newChore.isChoreComplete() + 
+                ", choreCompletionTime = " + completionTime +
                 "WHERE choreID = " + newChore.getChoreID() + " ;";
 
         boolean success = database.RunSQL(sqlUpdateChoresComplete);
