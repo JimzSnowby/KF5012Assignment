@@ -263,6 +263,8 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
                 if (hasSubmitUser1 && hasSubmitUser2) {
                     try {
                         AssigningChoresAlgo algo = new AssigningChoresAlgo();
+                        algo.calculation(choresArrayList);
+                        
                     } catch (SQLException e) {
                         System.out.println("Error occurred in extracting data");
                     }
