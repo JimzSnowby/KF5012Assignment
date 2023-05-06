@@ -242,51 +242,51 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
     private void submitChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitChoreButtonActionPerformed
         recordTableChanges();
-        // iterate over the choresArrayList and update the database with the selected day
         ChoresDatabase choresDB = new ChoresDatabase();
-        boolean atLeastOneChoreSelected = false; // added variable to track if at least one chore is selected
-        List<Chore> selectedChores = new ArrayList<>(); // added list to store selected chores
-        for (int i = 0; i < choresArrayList.size(); i++) {
-            Chore chore = choresArrayList.get(i);
-            ChoresDatabase.newchore = chore;
-            int day = chore.getChoreDay();
-            int newDay = chooseDayChore.getSelectedIndex() - 1;
-            if (true) {
-                if (chore.isSelectedForThisWeek()) {
-                    atLeastOneChoreSelected = true; // set to true if at least one chore is selected
-                    selectedChores.add(chore); // add selected chore to list
-                    try {
-                        choresDB.updateToSelected();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(SelectWeeklyChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    try {
-                        choresDB.updateToUnselected();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(SelectWeeklyChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+        Map<Integer, List<Chore>> selectedChoresMap = new HashMap<>(); // uses a map to store the selected chores for each day 
+        for (Chore chore : choresArrayList) {
+            if (chore.isSelectedForThisWeek()) { //Determine which  day for which the chore is selected
+                int day = chooseDayChore.getSelectedIndex() - 1;
+                selectedChoresMap.putIfAbsent(day, new ArrayList<>()); //Checks if the day exists in the selectedChoresMap, if it doesnt , than it create a new list for that day
+                selectedChoresMap.get(day).add(chore); 
+                try {
+                    ChoresDatabase.newchore = chore;
+                    choresDB.updateToSelected();
+                } catch (SQLException ex) {
+                    Logger.getLogger(SelectWeeklyChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                try {
+                    ChoresDatabase.newchore = chore;
+                    choresDB.updateToUnselected();
+                } catch (SQLException ex) {
+                    Logger.getLogger(SelectWeeklyChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
 
-        // validation check to make sure user that the user selected at least one chore for the week
-        if (!atLeastOneChoreSelected) {
+        if (selectedChoresMap.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please select at least one chore for the week before submitting.", "No Chores Selected", JOptionPane.ERROR_MESSAGE);
-            return; // stop the execution of the method
+            return;
         }
 
-        // it will display selected chores in confirmation message
         StringBuilder message = new StringBuilder("Confirm your selected chores for this week?\n\nSelected Chores:\n");
-        for (Chore chore : selectedChores) {
-            message.append("- ").append(chore.getChoreName()).append("\n");
+        for (Map.Entry<Integer, List<Chore>> entry : selectedChoresMap.entrySet()) {
+            int day = entry.getKey();
+            List<Chore> selectedChores = entry.getValue();
+            message.append("Day ").append(day + 1).append(":\n");
+            for (Chore chore : selectedChores) {
+                message.append("- ").append(chore.getChoreName()).append("\n");
+            }
+            message.append("\n");
         }
+
         int confirm = JOptionPane.showConfirmDialog(this, message.toString(), "Confirm Selected Chores", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
             this.dispose();
             HomePageGUI mainForm = new HomePageGUI();
             mainForm.setVisible(true);
-            updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1); // move this line here
+            updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
         }
     }//GEN-LAST:event_submitChoreButtonActionPerformed
 
