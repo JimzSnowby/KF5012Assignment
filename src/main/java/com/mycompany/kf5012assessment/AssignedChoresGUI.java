@@ -657,14 +657,17 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                     checkBox = (boolean) tableModel.getValueAt(i, 1);
                     completeTime = (float) tableModel.getValueAt(i, 2);
                     inputTime = tableModel.getValueAt(i, 2);
-                    for (int j = 0; j < user1List.size(); j++) { // iterates over full list
-                        if (user1List.get(j).getChoreName() == name
-                                && user1List.get(j).getChoreDay() == daySelector.getSelectedIndex()) {
-                            user1List.get(j).setCompletionTime(completeTime);
-                            
-                            
+                    if (checkBox) {
+                        for (int j = 0; j < user1List.size(); j++) { // iterates over full list
+                            if (user1List.get(j).getChoreName() == name
+                                    && user1List.get(j).getChoreDay() == daySelector.getSelectedIndex()) { // Gets the checked item
+                                user1List.get(j).setCompletionTime(completeTime);
+                                user1List.get(j).setChoreComplete(true);
+                                choresDB.updateChoresComplete(user1List.get(j).getChoreID());
+                            }
                         }
                     }
+
                 }
 
                 for (int i = 0; i < user1List.size(); i++) {
