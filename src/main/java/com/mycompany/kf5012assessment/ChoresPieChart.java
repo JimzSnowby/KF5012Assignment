@@ -19,7 +19,7 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.chart.plot.PiePlot;
 
 public class ChoresPieChart {
-    public static void main(String[] args) {
+    public static void main() {
         ChoresDatabase choresDB = new ChoresDatabase();
         ArrayList<Chore> choreList = new ArrayList();
         int user1Chores = 0;
@@ -28,7 +28,7 @@ public class ChoresPieChart {
         try {
             choreList = choresDB.selectChoresAssigned();
         } catch (Exception e) {
-            System.out.println("Error: " + e);
+            System.out.println("Database connection  error " + e);
         }
         for (Chore c : choreList) {
             if (c.getChoreAssignTo() == 1) {
