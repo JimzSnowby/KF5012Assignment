@@ -98,7 +98,7 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menueButton = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         estimateTimeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -263,6 +263,8 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
                 if (hasSubmitUser1 && hasSubmitUser2) {
                     try {
                         AssigningChoresAlgo algo = new AssigningChoresAlgo();
+                        algo.calculation(choresArrayList);
+                        
                     } catch (SQLException e) {
                         System.out.println("Error occurred in extracting data");
                     }

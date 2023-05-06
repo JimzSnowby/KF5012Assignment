@@ -35,7 +35,8 @@ public class ChartsGUI extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Charts Selection");
 
         jButton1.setText("Bar Chart");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -52,6 +53,11 @@ public class ChartsGUI extends javax.swing.JFrame {
         });
 
         jMenu1.setText("HOME");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -88,6 +94,10 @@ public class ChartsGUI extends javax.swing.JFrame {
           ChoresPieChart.main();
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jMenu1ActionPerformed
 
     /**
      * @param args the command line arguments

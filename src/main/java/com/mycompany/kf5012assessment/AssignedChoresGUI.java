@@ -647,13 +647,34 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         boolean checkBox; 
         float completeTime;
+        Object inputTime;
         
         // Iterates over the list to see which chores have their completed box ticked
         if (currentUser == 1) {
             try {
-                for (int i = 0; i < user1List.size(); i++) {
+                for (int i = 0; i < tableModel.getRowCount(); i++) { // Iterates over table
+                    String name = (String) tableModel.getValueAt(i, 0);
                     checkBox = (boolean) tableModel.getValueAt(i, 1);
                     completeTime = (float) tableModel.getValueAt(i, 2);
+                    inputTime = tableModel.getValueAt(i, 2);
+                    if (checkBox) {
+                        for (int j = 0; j < user1List.size(); j++) { // iterates over full list
+                            if (user1List.get(j).getChoreName() == name
+                                    && user1List.get(j).getChoreDay() == daySelector.getSelectedIndex()) { // Gets the checked item
+                                user1List.get(j).setCompletionTime(completeTime); // Sets local vars
+                                user1List.get(j).setChoreComplete(true);
+                                choresDB.updateChoresComplete(user1List.get(j).getChoreID(), user1List.get(j).getCompletionTime()); // Updates DB
+                            }
+                        }
+                    }
+
+                }
+
+                for (int i = 0; i < user1List.size(); i++) {
+                    int row = choreTable.getSelectedRow();
+                    checkBox = (boolean) tableModel.getValueAt(row, 1);
+                    completeTime = (float) tableModel.getValueAt(row, 2);
+                    inputTime = tableModel.getValueAt(row, 2);
                     if (checkBox) {
                         user1List.get(i).setCompletionTime(completeTime);
                         awardPoints(i); // USING COMPLETE TIME CALCULATE POINTS
@@ -672,6 +693,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 System.out.println("Submit Error: " + e);
             }
         }
+
         if (currentUser == 2) {
             for (int i = 0; i < user2List.size(); i++) {
                 try {

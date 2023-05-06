@@ -23,15 +23,16 @@ public class ChoresDatabase {
         database = new DBConnection();
 
         //James:
-        //database.Connect("E:\\University work\\Year 2\\Semester2\\SE practice\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        database.Connect("G:\\University work\\Year 2\\Semester2\\SE practice\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-     //   database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //   database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
 
         //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
-        //database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        // database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //  database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\hellllooooo\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("C:\\Users\\nihal\\Documents\\nihall\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
@@ -54,8 +55,7 @@ public class ChoresDatabase {
      * Functions
      *
      */
-    
-    //Select all chores
+    //Select all chores from chores table
     public ArrayList<Chore> selectChores() throws SQLException {
 
         String sqlSelectChores = "SELECT choreID, choreName, choreFrequencyID, assignedTo, daysOfWeekID, isSelected FROM chores;";
@@ -95,7 +95,7 @@ public class ChoresDatabase {
         return chores;
     }
 
-    //Select all assigned chores
+    //Select all assigned chores from choresAssigned table
     public ArrayList<Chore> selectChoresAssigned() throws SQLException {
 
         String sqlSelectChoresAssigned = "SELECT choreID, userID, assignedTo, daysOfWeekID, choreCompletionTime FROM choresAssigned;";
@@ -127,10 +127,9 @@ public class ChoresDatabase {
 
     //assignedTo = 1 it is assigned to User 1
     //assignedTo = 2 it is assigned to User 2
-    //Assign a chore
+    //Assign a chore in chores table
     public void assignChore(String choreName, int assignedTo) throws SQLException {
-        String sqlUpdateChore = "UPDATE chores SET assignedTo = '" + assignedTo + "' "
-                + "WHERE choreName = '" + choreName + "' ;";
+        String sqlUpdateChore = "UPDATE chores SET assignedTo = " + assignedTo + "WHERE choreName = '" + choreName + "' ;";
 
         boolean success = database.RunSQL(sqlUpdateChore);
 
@@ -139,12 +138,27 @@ public class ChoresDatabase {
         }
     }
 
-    //Update user week score
+    //Update choresComplete in assignedChores table
+    public void updateChoresComplete(int choreID, float completionTime) throws SQLException {
+        ArrayList<Chore> chores = new ArrayList<Chore>();
+        Chore newChore = new Chore();
+
+        String sqlUpdateChoresComplete = "UPDATE choresAssigned SET choreComplete = " + newChore.isChoreComplete() + 
+                ", choreCompletionTime = " + completionTime +
+                "WHERE choreID = " + newChore.getChoreID() + " ;";
+
+        boolean success = database.RunSQL(sqlUpdateChoresComplete);
+
+        if (!success) {
+            System.out.println("Failed to process query" + sqlUpdateChoresComplete);
+        }
+    }
+
+    //Update user week score in users table
     public void updateUserWeekScore(int userWeekScore, int userID) throws SQLException {
         ArrayList<User> users = new ArrayList<User>();
 
-        String sqlUpdateChore = "UPDATE users SET userWeekScore = '" + userWeekScore + "' "
-                + "WHERE userActive = '" + users.get(userID) + "' ;";
+        String sqlUpdateChore = "UPDATE users SET userWeekScore = " + userWeekScore + "WHERE userActive = " + users.get(userID) + ";";
 
         boolean success = database.RunSQL(sqlUpdateChore);
 
@@ -153,12 +167,11 @@ public class ChoresDatabase {
         }
     }
 
-    //Update user total score
+    //Update user total score in users table
     public void updateUserTotalScore(int userTotalScore, int userID) throws SQLException {
         ArrayList<User> users = new ArrayList<User>();
 
-        String sqlUpdateChore = "UPDATE users SET userWeekScore = '" + userTotalScore + "' "
-                + "WHERE userActive = '" + users.get(userID) + "' ;";
+        String sqlUpdateChore = "UPDATE users SET userWeekScore = " + userTotalScore + "WHERE userActive = " + users.get(userID) + ";";
 
         boolean success = database.RunSQL(sqlUpdateChore);
 
@@ -167,7 +180,7 @@ public class ChoresDatabase {
         }
     }
 
-    //Delete a chore
+    //Delete a chore in chores table
     public void deleteChore(String choreName, int assignedTo) throws SQLException {
         String sqlDeleteChore = "DELETE FROM chores WHERE choreName = '" + choreName + "';";
 
@@ -178,7 +191,7 @@ public class ChoresDatabase {
         }
     }
 
-    //Select estimate times for user 1
+    //Select estimate times for user 1 from estimateTime table
     public ArrayList<Chore> selectEstimateTimeUserOne() throws SQLException {
 
         String sqlSelectChores = "SELECT choreEstimateTime, choreID  FROM estimateTime WHERE userID = 1;";
@@ -204,7 +217,7 @@ public class ChoresDatabase {
         return chores;
     }
 
-    //Select estimate times for user 2
+    //Select estimate times for user 2 from estimateTime table
     public ArrayList<Chore> selectEstimateTimeUserTwo() throws SQLException {
 
         String sqlSelectChores = "SELECT choreEstimateTime, choreID  FROM estimateTime WHERE userID = 2;";
@@ -230,10 +243,9 @@ public class ChoresDatabase {
         return chores;
     }
 
-    //Update estimate time for user 1
+    //Update estimate time for user 1 in estimateTime table
     public void updateEstimateTimeUserOne() throws SQLException {
-        String sqlUpdateEstimateTime1 = "UPDATE estimateTime SET choreEstimateTime = '" + newchore.getEstimateTimeUserOne() + "' "
-                + "WHERE userID = 1 ;";
+        String sqlUpdateEstimateTime1 = "UPDATE estimateTime SET choreEstimateTime = " + newchore.getEstimateTimeUserOne() +  "WHERE userID = 1 ;";
 
         boolean success = database.RunSQL(sqlUpdateEstimateTime1);
 
@@ -242,10 +254,9 @@ public class ChoresDatabase {
         }
     }
 
-    //Update estimate time for user 2
+    //Update estimate time for user 2 in estimateTime table
     public void updateEstimateTimeUserTwo() throws SQLException {
-        String sqlUpdateEstimateTime2 = "UPDATE estimateTime SET choreEstimateTime = '" + newchore.getEstimateTimeUserTwo() + "' "
-                + "WHERE userID = 2 ;";
+        String sqlUpdateEstimateTime2 = "UPDATE estimateTime SET choreEstimateTime = " + newchore.getEstimateTimeUserTwo() + "WHERE userID = 2 ;";
 
         boolean success = database.RunSQL(sqlUpdateEstimateTime2);
 
@@ -254,7 +265,7 @@ public class ChoresDatabase {
         }
     }
 
-    //Select weekly chores
+    //Select weekly chores from chores table
     public ArrayList<Chore> selectChoresFrequencyWeekly() throws SQLException {
 
         String sqlSelectChores = "SELECT choreID, choreName, choreFrequency "
@@ -289,7 +300,7 @@ public class ChoresDatabase {
         return chores;
     }
 
-    //Select one-off chores 
+    //Select one-off chores from chores table
     public ArrayList<Chore> selectChoresFrequencyOneOff() throws SQLException {
 
         String sqlSelectChores = "SELECT choreID, choreName "
@@ -320,7 +331,7 @@ public class ChoresDatabase {
 
     //isSelected = 1 is selected
     //isSelected = 0 is not selected
-    //Select all selected chores
+    //Select all selected chores from chores table
     public ArrayList<Chore> selectedThisWeekChores() throws SQLException {
 
         String sqlSelectedChores = "SELECT choreID, choreName FROM chores WHERE isSelected = 1;";
@@ -346,7 +357,7 @@ public class ChoresDatabase {
         return chores;
     }
 
-    //Update chore to be selected
+    //Update chore to be selected in chores table
     public void updateToSelected() throws SQLException {
         String updateToSelected = "UPDATE chores SET isSelected = 1 "
                 + "WHERE choreID = '" + newchore.getChoreID() + "' ;";
@@ -358,7 +369,7 @@ public class ChoresDatabase {
         }
     }
 
-    //Update chore to be unselected
+    //Update chore to be unselected in chores table
     public void updateToUnselected() throws SQLException {
         String updateToUnselected = "UPDATE chores SET isSelected = 0 "
                 + "WHERE choreID = '" + newchore.getChoreID() + "' ;";
@@ -370,7 +381,7 @@ public class ChoresDatabase {
         }
     }
 
-    //Select all users
+    //Select all users from users table
     public ArrayList<User> selectUsers() throws SQLException {
 
         String sqlSelectUsers = "SELECT userID, userActive, userWeekScore, userTotalScore FROM users;";
@@ -399,7 +410,7 @@ public class ChoresDatabase {
         return users;
     }
 
-    //Add a new chore
+    //Add a new chore in chores table
     public void addChore(Chore newChore, int choreFrequencyID, int assignedTo, int select) throws SQLException {
 
         String rs = ("select max(choreID) from chores;");
@@ -423,7 +434,7 @@ public class ChoresDatabase {
 
     }
 
-    //Add an assigned chore
+    //Add an assigned chore in choresAssigned table
     public void addAssignedChore(Chore newChore, User newUser, int choreFrequencyID, int assignedTo) throws SQLException {
 
         String rs = ("select max(choresAssignedID) from choresAssigned;");
@@ -450,7 +461,7 @@ public class ChoresDatabase {
 
     }
 
-    //Add a new user
+    //Add a new user in users table
     public static void addUser(User newUser, int userActive, int weekScore, int totalScore) throws SQLException {
 
         String rs = ("select max(userID) from users");
@@ -474,7 +485,7 @@ public class ChoresDatabase {
 
     }
 
-    //Delete an user
+    //Delete an user in users table
     public void deleteUser(int userID) {
         String sqlDeleteUser = "DELETE FROM users WHERE userID = " + userID + ";";
 
@@ -492,7 +503,7 @@ public class ChoresDatabase {
 
     }
 
-    //Delete a chore
+    //Delete a chore in chores table
     public void deleteChore(String choreName) {
         String sqlDeleteChore = "DELETE FROM chores WHERE choreName = '" + choreName + "';";
 
