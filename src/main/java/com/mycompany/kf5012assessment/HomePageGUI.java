@@ -69,6 +69,7 @@ public class HomePageGUI extends javax.swing.JFrame {
         aliceWeekScore = new javax.swing.JLabel();
         bobTotalScore = new javax.swing.JLabel();
         aliceTotalScore = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
@@ -135,6 +136,13 @@ public class HomePageGUI extends javax.swing.JFrame {
 
         aliceTotalScore.setText("0");
 
+        jButton1.setText("Charts");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         jMenuBar1.setRequestFocusEnabled(false);
 
         jMenu1.setText("Home");
@@ -160,7 +168,8 @@ public class HomePageGUI extends javax.swing.JFrame {
                                 .addComponent(aliceScoreLabel))
                             .addComponent(BobProfileButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(selectChoresButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(aliceProfileButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(aliceProfileButton, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(36, 36, 36))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
@@ -187,11 +196,13 @@ public class HomePageGUI extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(20, 20, 20)
                 .addComponent(selectChoresButton)
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
                 .addComponent(BobProfileButton)
-                .addGap(44, 44, 44)
+                .addGap(18, 18, 18)
                 .addComponent(aliceProfileButton)
                 .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bobScoreLabel)
                     .addComponent(aliceScoreLabel))
@@ -242,6 +253,7 @@ public class HomePageGUI extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_selectChoresButtonActionPerformed
 
+    
     private void selectChoresButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectChoresButtonMouseEntered
         //guids the user 
             selectChoresButton.setToolTipText("Click to select weekly chores for this week");     
@@ -258,6 +270,13 @@ BobProfileButton.setToolTipText("Click here to view Bobs profile and put in esti
 aliceProfileButton.setToolTipText("Click here to view Alice profile and put in estimate time!");
 
     }//GEN-LAST:event_aliceProfileButtonMouseEntered
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ChartsGUI chartGUI = new ChartsGUI();
+        chartGUI.pack();
+        chartGUI.setLocationRelativeTo(this); // center the window relative to this GUI
+        chartGUI.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -308,6 +327,7 @@ aliceProfileButton.setToolTipText("Click here to view Alice profile and put in e
     private javax.swing.JLabel bobTotalScore;
     private javax.swing.JLabel bobWeekLabel;
     private javax.swing.JLabel bobWeekScore;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
