@@ -55,7 +55,6 @@ public class ChoresDatabase {
      * Functions
      *
      */
-    
     //Select all chores from chores table
     public ArrayList<Chore> selectChores() throws SQLException {
 
@@ -128,11 +127,9 @@ public class ChoresDatabase {
 
     //assignedTo = 1 it is assigned to User 1
     //assignedTo = 2 it is assigned to User 2
-    
     //Assign a chore in chores table
     public void assignChore(String choreName, int assignedTo) throws SQLException {
-        String sqlUpdateChore = "UPDATE chores SET assignedTo = '" + assignedTo + "' "
-                + "WHERE choreName = '" + choreName + "' ;";
+        String sqlUpdateChore = "UPDATE chores SET assignedTo = " + assignedTo + "WHERE choreName = '" + choreName + "' ;";
 
         boolean success = database.RunSQL(sqlUpdateChore);
 
@@ -142,12 +139,12 @@ public class ChoresDatabase {
     }
 
     //Update choresComplete in assignedChores table
-    public void updateChoresComplete() throws SQLException {
+    public void updateChoresComplete(int choreID) throws SQLException {
         ArrayList<Chore> chores = new ArrayList<Chore>();
         Chore newChore = new Chore();
 
-        String sqlUpdateChoresComplete = "UPDATE choresAssigned SET choreComplete = '" + newChore.getCompletionTime() + "' "
-                + "WHERE choreID = '" +  newChore.getChoreID() + "' ;";
+        String sqlUpdateChoresComplete = "UPDATE choresAssigned SET choreComplete = " + newChore.isChoreComplete() + 
+                "WHERE choreID = " + newChore.getChoreID() + " ;";
 
         boolean success = database.RunSQL(sqlUpdateChoresComplete);
 
@@ -160,8 +157,7 @@ public class ChoresDatabase {
     public void updateUserWeekScore(int userWeekScore, int userID) throws SQLException {
         ArrayList<User> users = new ArrayList<User>();
 
-        String sqlUpdateChore = "UPDATE users SET userWeekScore = '" + userWeekScore + "' "
-                + "WHERE userActive = '" + users.get(userID) + "' ;";
+        String sqlUpdateChore = "UPDATE users SET userWeekScore = " + userWeekScore + "WHERE userActive = " + users.get(userID) + ";";
 
         boolean success = database.RunSQL(sqlUpdateChore);
 
@@ -174,8 +170,7 @@ public class ChoresDatabase {
     public void updateUserTotalScore(int userTotalScore, int userID) throws SQLException {
         ArrayList<User> users = new ArrayList<User>();
 
-        String sqlUpdateChore = "UPDATE users SET userWeekScore = '" + userTotalScore + "' "
-                + "WHERE userActive = '" + users.get(userID) + "' ;";
+        String sqlUpdateChore = "UPDATE users SET userWeekScore = " + userTotalScore + "WHERE userActive = " + users.get(userID) + ";";
 
         boolean success = database.RunSQL(sqlUpdateChore);
 
@@ -249,8 +244,7 @@ public class ChoresDatabase {
 
     //Update estimate time for user 1 in estimateTime table
     public void updateEstimateTimeUserOne() throws SQLException {
-        String sqlUpdateEstimateTime1 = "UPDATE estimateTime SET choreEstimateTime = '" + newchore.getEstimateTimeUserOne() + "' "
-                + "WHERE userID = 1 ;";
+        String sqlUpdateEstimateTime1 = "UPDATE estimateTime SET choreEstimateTime = " + newchore.getEstimateTimeUserOne() +  "WHERE userID = 1 ;";
 
         boolean success = database.RunSQL(sqlUpdateEstimateTime1);
 
@@ -261,8 +255,7 @@ public class ChoresDatabase {
 
     //Update estimate time for user 2 in estimateTime table
     public void updateEstimateTimeUserTwo() throws SQLException {
-        String sqlUpdateEstimateTime2 = "UPDATE estimateTime SET choreEstimateTime = '" + newchore.getEstimateTimeUserTwo() + "' "
-                + "WHERE userID = 2 ;";
+        String sqlUpdateEstimateTime2 = "UPDATE estimateTime SET choreEstimateTime = " + newchore.getEstimateTimeUserTwo() + "WHERE userID = 2 ;";
 
         boolean success = database.RunSQL(sqlUpdateEstimateTime2);
 
@@ -337,7 +330,6 @@ public class ChoresDatabase {
 
     //isSelected = 1 is selected
     //isSelected = 0 is not selected
-    
     //Select all selected chores from chores table
     public ArrayList<Chore> selectedThisWeekChores() throws SQLException {
 
