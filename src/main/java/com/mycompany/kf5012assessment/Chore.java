@@ -25,11 +25,10 @@ public class Chore {
     private float estimateTimeUserTwo;
     private float completionTime;
     private float estimateTime;
-    
     private int chorePoints;
     //private float estimateTime;
 
-    public Chore(int choreID, String choreName, int choreFrequencyID, String choreFrequency, int choreDay, boolean selectedForThisWeek, int choreAssignTo, int estimateTimeUser1, int estimateTimeUser2, float estimateTimeUserOne, float estimateTimeUserTwo) {
+    public Chore(int choreID, String choreName, int choreFrequencyID, String choreFrequency, int choreDay, boolean selectedForThisWeek, int choreAssignTo, int estimateTimeUser1, int estimateTimeUser2, float estimateTimeUserOne, float estimateTimeUserTwo, int chorePoints, float completionTime) {
         this.choreID = choreID;
         this.choreName = choreName;
         this.choreFrequencyID = choreFrequencyID;
