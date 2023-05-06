@@ -144,8 +144,7 @@ public class ChoresDatabase {
         ArrayList<Chore> chores = new ArrayList<Chore>();
         Chore newChore = new Chore();
 
-        String sqlUpdateChoresComplete = "UPDATE choresAssigned SET choreComplete = " + newChore.isChoreComplete() + 
-                ", choreCompletionTime = " + completionTime +
+        String sqlUpdateChoresComplete = "UPDATE choresAssigned SET choreComplete = " + newChore.isChoreComplete() +  "choreCompletionTime = " + completionTime + 
                 "WHERE choreID = " + newChore.getChoreID() + " ;";
 
         boolean success = database.RunSQL(sqlUpdateChoresComplete);
