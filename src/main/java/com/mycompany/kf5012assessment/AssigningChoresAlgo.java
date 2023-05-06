@@ -14,7 +14,6 @@ import java.util.logging.Logger;
  * @author w21023500
  */
 // For Task 7 Group work
-
 public class AssigningChoresAlgo {
 
     private ArrayList<Chore> choresArrayListUserOne;
@@ -115,8 +114,6 @@ public class AssigningChoresAlgo {
                         }
                     }
                 }
-                
-                
 
                 //  user1ChoresAssigned.addToChoreList(chosenChore);
                 User1Load = User1Load + chosenChore.getEstimateTimeUserOne();
@@ -157,6 +154,14 @@ public class AssigningChoresAlgo {
                 assignedList.add(chosenChore);
                 unassignedChores--;
             }
+            if(User1Load > User2Load){
+                User2LoadCarriedOver = User2Load- User1Load;
+                User1LoadCarriedOver=0;
+            }else{
+                User1LoadCarriedOver= User1Load-User2Load;
+                User2LoadCarriedOver=0;
+            }
+                
 
         }
         return assignedList;
@@ -182,6 +187,11 @@ public class AssigningChoresAlgo {
         }*/
         //NormaliseTotalTime();
     }
+
+    
+    
+
+
 
     /*  public void NormaliseTotalTime() {
         ArrayList<Chore> total = new ArrayList();
