@@ -222,10 +222,11 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
             String estTimeStr = model.getValueAt(i, 1).toString().trim();
 
             // Validate the estimated time value
-            if (!estTimeStr.matches("^\\d+$")) {
-                JOptionPane.showMessageDialog(this, "Please enter a valid estimated time value (a positive integer).", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            if (!estTimeStr.matches("^\\d*$") ) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid estimated time value!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 hasError = true;
-                break; 
+                break;
+            } else {
             }
 
             int estimatedTime = Integer.parseInt(estTimeStr);
@@ -304,7 +305,14 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_menueButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        this.dispose();   // TODO add your handling code here:
+
+        // Show a confirmation dialog to make sure the user really wants to cancel
+        int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel?", "Cancel Confirmation", JOptionPane.YES_NO_OPTION);
+
+        // If the user confirms that they want to cancel, close the window
+        if (result == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void viewAssignedChoresButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAssignedChoresButtonActionPerformed
@@ -316,19 +324,19 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
 
     private void estimateTimeTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_estimateTimeTableKeyPressed
 
- int keyCode = evt.getKeyCode();
-    int selectedRow = estimateTimeTable.getSelectedRow();
-    int selectedColumn = estimateTimeTable.getSelectedColumn();
+        int keyCode = evt.getKeyCode();
+        int selectedRow = estimateTimeTable.getSelectedRow();
+        int selectedColumn = estimateTimeTable.getSelectedColumn();
 
-    if (keyCode == KeyEvent.VK_TAB) {
-        if (selectedColumn < estimateTimeTable.getColumnCount() - 1) {
-            estimateTimeTable.setColumnSelectionInterval(selectedColumn + 1, selectedColumn + 1);
-        } else if (selectedRow < estimateTimeTable.getRowCount() - 1) {
-            estimateTimeTable.setRowSelectionInterval(selectedRow + 1, selectedRow + 1);
-            estimateTimeTable.setColumnSelectionInterval(0, 0);
+        if (keyCode == KeyEvent.VK_TAB) {
+            if (selectedColumn < estimateTimeTable.getColumnCount() - 1) {
+                estimateTimeTable.setColumnSelectionInterval(selectedColumn + 1, selectedColumn + 1);
+            } else if (selectedRow < estimateTimeTable.getRowCount() - 1) {
+                estimateTimeTable.setRowSelectionInterval(selectedRow + 1, selectedRow + 1);
+                estimateTimeTable.setColumnSelectionInterval(0, 0);
+            }
+            evt.consume();
         }
-        evt.consume(); 
-    }
     }//GEN-LAST:event_estimateTimeTableKeyPressed
 
     /**
