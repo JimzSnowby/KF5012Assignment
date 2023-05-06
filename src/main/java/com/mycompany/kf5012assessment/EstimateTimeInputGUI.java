@@ -4,6 +4,7 @@
  */
 package com.mycompany.kf5012assessment;
 
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.*;
 import javax.swing.JOptionPane;
@@ -93,7 +94,7 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
         nameLabelb = new javax.swing.JLabel();
         submitEstimeTime = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        viewAssignedChoresButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menueButton = new javax.swing.JMenu();
 
@@ -125,6 +126,11 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        estimateTimeTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                estimateTimeTableKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(estimateTimeTable);
 
         nameLabelb.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -144,10 +150,10 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("View Assigned Chores");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        viewAssignedChoresButton.setText("View Assigned Chores");
+        viewAssignedChoresButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                viewAssignedChoresButtonActionPerformed(evt);
             }
         });
 
@@ -175,7 +181,7 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
                                 .addGap(6, 6, 6)
                                 .addComponent(nameLabelb, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1))))
+                                .addComponent(viewAssignedChoresButton))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,7 +195,7 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameLabelb)
-                    .addComponent(jButton1))
+                    .addComponent(viewAssignedChoresButton))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
@@ -207,16 +213,28 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
     private void submitEstimeTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitEstimeTimeActionPerformed
         DefaultTableModel model = (DefaultTableModel) estimateTimeTable.getModel();
         int numRows = model.getRowCount();
+        boolean hasError = false;
 
         // Loop through the rows in the table
         for (int i = 0; i < numRows; i++) {
             Chore chore = choresArrayList.get(i);
             // Get the estimated time value from the table
-            int estimatedTime = (int) Double.parseDouble(model.getValueAt(i, 1).toString());
+            String estTimeStr = model.getValueAt(i, 1).toString().trim();
 
-            if (estimatedTime == 0) {
-                JOptionPane.showMessageDialog(null, "Please enter a non-zero estimated time value.");
-                return; // exit the method if the estimated time is 0
+            // Validate the estimated time value
+            if (!estTimeStr.matches("^\\d*$") ) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid estimated time value!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                hasError = true;
+                break;
+            } else {
+            }
+
+            int estimatedTime = Integer.parseInt(estTimeStr);
+
+            if (estimatedTime < 5 || estimatedTime > 120) {
+                JOptionPane.showMessageDialog(this, "Estimated time must be between 5 and 120 minutes.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                hasError = true;
+                break; // it will exit the method if theinput is invalid
             }
 
             // Set the estimated time value for the chore
@@ -231,6 +249,7 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
             ChoresDatabase choresDB = new ChoresDatabase();
             ChoresDatabase.newchore = chore;
             try {
+                //if its bob than we will use updateEstimateTimeUserOne method from the database 
                 if (currectUser == 1) {
                     choresDB.updateEstimateTimeUserOne();
                 } else if (currectUser == 2) {
@@ -243,7 +262,7 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
 
                 if (hasSubmitUser1 && hasSubmitUser2) {
                     try {
-                        AssigningChoresAlgo algo = new AssigningChoresAlgo();  
+                        AssigningChoresAlgo algo = new AssigningChoresAlgo();
                     } catch (SQLException e) {
                         System.out.println("Error occurred in extracting data");
                     }
@@ -254,12 +273,22 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
 
         }
 
-        // Clear the table and update it with the new estimated time values
-        model.setRowCount(0);
-        updateTable();
-
-        this.dispose();
-
+        // If there is no error occurred, it will than show a pop-up message with the user's chores and estimated times
+        if (!hasError) {
+            String message = "Your selected chores for this week with your estimate time:\n";
+            for (Chore chore : choresArrayList) {
+                if (currectUser == 1 && chore.getEstimateTimeUserOne() > 0) {
+                    message += "\n- " + chore.getChoreName() + ": " + chore.getEstimateTimeUserOne() + " minutes";
+                } else if (currectUser == 2 && chore.getEstimateTimeUserTwo() > 0) {
+                    message += "\n- " + chore.getChoreName() + ": " + chore.getEstimateTimeUserTwo() + " minutes";
+                }
+            }
+            JOptionPane.showMessageDialog(this, message, "Selected Chores", JOptionPane.INFORMATION_MESSAGE);
+            // Clear the table and update it with the new estimated time values
+            model.setRowCount(0);
+            updateTable();
+            this.dispose();
+        }
     }//GEN-LAST:event_submitEstimeTimeActionPerformed
 
 
@@ -276,13 +305,39 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_menueButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        this.dispose();   // TODO add your handling code here:
+
+        // Show a confirmation dialog to make sure the user really wants to cancel
+        int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel?", "Cancel Confirmation", JOptionPane.YES_NO_OPTION);
+
+        // If the user confirms that they want to cancel, close the window
+        if (result == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void viewAssignedChoresButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAssignedChoresButtonActionPerformed
         AssignedChoresGUI assignedChoresButton = new AssignedChoresGUI();
         assignedChoresButton.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_viewAssignedChoresButtonActionPerformed
+
+    // This method is called when a key is pressed on the estimateTimeTable
+
+    private void estimateTimeTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_estimateTimeTableKeyPressed
+
+        int keyCode = evt.getKeyCode();
+        int selectedRow = estimateTimeTable.getSelectedRow();
+        int selectedColumn = estimateTimeTable.getSelectedColumn();
+
+        if (keyCode == KeyEvent.VK_TAB) {
+            if (selectedColumn < estimateTimeTable.getColumnCount() - 1) {
+                estimateTimeTable.setColumnSelectionInterval(selectedColumn + 1, selectedColumn + 1);
+            } else if (selectedRow < estimateTimeTable.getRowCount() - 1) {
+                estimateTimeTable.setRowSelectionInterval(selectedRow + 1, selectedRow + 1);
+                estimateTimeTable.setColumnSelectionInterval(0, 0);
+            }
+            evt.consume();
+        }
+    }//GEN-LAST:event_estimateTimeTableKeyPressed
 
     /**
      * @param args the command line arguments
@@ -317,11 +372,11 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JTable estimateTimeTable;
-    private javax.swing.JButton jButton1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu menueButton;
     private javax.swing.JLabel nameLabelb;
     private javax.swing.JButton submitEstimeTime;
+    private javax.swing.JButton viewAssignedChoresButton;
     // End of variables declaration//GEN-END:variables
 }

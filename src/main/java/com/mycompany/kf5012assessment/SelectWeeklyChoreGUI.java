@@ -6,7 +6,9 @@ package com.mycompany.kf5012assessment;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -29,7 +31,6 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
     private ArrayList<Chore> choresArrayList;
 
     public SelectWeeklyChoreGUI() {
-        // initialize a new instance of ChoresDatabase and create a list of chores by calling its selectChores() method
         choresDB = new ChoresDatabase();
         choresArrayList = new ArrayList();
         try {
@@ -42,6 +43,8 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
         choresArrayList.get(1);
         choresArrayList.get(2);
+        choresArrayList.get(3);
+        choresArrayList.get(4);
 
         initComponents();
 
@@ -93,6 +96,11 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         choreScrollPane.setViewportView(choreTable);
 
         chooseDayChore.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Any day", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }));
+        chooseDayChore.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                chooseDayChoreMouseEntered(evt);
+            }
+        });
         chooseDayChore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chooseDayChoreActionPerformed(evt);
@@ -102,6 +110,11 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         chooseChoreLabel.setText("Choose day of chores ");
 
         submitChoreButton.setText("Submit");
+        submitChoreButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                submitChoreButtonMouseEntered(evt);
+            }
+        });
         submitChoreButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitChoreButtonActionPerformed(evt);
@@ -109,6 +122,11 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         });
 
         addChoreButton.setText("Add Chore");
+        addChoreButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                addChoreButtonMouseEntered(evt);
+            }
+        });
         addChoreButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addChoreButtonActionPerformed(evt);
@@ -116,6 +134,11 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         });
 
         cancelButton.setText("Cancel ");
+        cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cancelButtonMouseEntered(evt);
+            }
+        });
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
@@ -176,7 +199,6 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
         try {
             Chore newChore = new Chore();
-            //    choresDB.addChore(newChore);
             choresArrayList.add(newChore);
             JOptionPane.showMessageDialog(null, "New chore added successfully");
         } catch (Exception e) {
@@ -189,78 +211,114 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
     private void chooseDayChoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseDayChoreActionPerformed
         // TODO add your handling code here:
-        // Object selected = chooseDayChore.getSelectedItem();
+        //  Object selected = chooseDayChore.getSelectedItem();
+        // int dayNumber = chooseDayChore.getSelectedIndex();
+        //  System.out.println("Event happened");
+        // updateTableForSelectedDay(dayNumber);
+
         int dayNumber = chooseDayChore.getSelectedIndex();
-        System.out.println("Event happened");
+        System.out.println("Selected day number: " + dayNumber);
+        recordTableChanges(); // Save the current state of the table
+        updateTableForSelectedDay(dayNumber); // Update the table for the selected day
+
+        // Save the current table data
+        recordTableChanges();
+
+        // Update the table for the new selected day
         updateTableForSelectedDay(dayNumber);
     }//GEN-LAST:event_chooseDayChoreActionPerformed
 
     private void addChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addChoreButtonActionPerformed
         CreateNewChoreGUI addChoreGUI = new CreateNewChoreGUI(this, true);
-        //addChoreGUI.pack();
+        addChoreGUI.pack();
         addChoreGUI.setLocationRelativeTo(null);
         addChoreGUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+        //makes addchoreGUI visble 
         addChoreGUI.setVisible(true);
 
         updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
 
-        // doesnt work unless u refresh it 
     }//GEN-LAST:event_addChoreButtonActionPerformed
 
     private void submitChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitChoreButtonActionPerformed
-
         recordTableChanges();
-        // iterate over the choresArrayList and update the database with the selected day
         ChoresDatabase choresDB = new ChoresDatabase();
-        for (int i = 0; i < choresArrayList.size(); i++) {
-            Chore chore = choresArrayList.get(i);
-            ChoresDatabase.newchore = chore;
-            int day = chore.getChoreDay();
-            int newDay = chooseDayChore.getSelectedIndex() - 1;
-            if (true) {
-                //chore.setChoreDay(newDay);
-                System.out.println(chore.getChoreName() + ", " + chore.getChoreID() + " " + chore.isSelectedForThisWeek());
-
-                // Update chore's selection status
-                if (chore.isSelectedForThisWeek()) {
-                    try {
-                        choresDB.updateToSelected();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(SelectWeeklyChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                } else {
-                    try {
-                        choresDB.updateToUnselected();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(SelectWeeklyChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } // handle exception
-
+        Map<Integer, List<Chore>> selectedChoresMap = new HashMap<>(); // uses a map to store the selected chores for each day 
+        for (Chore chore : choresArrayList) {
+            if (chore.isSelectedForThisWeek()) { //Determine which  day for which the chore is selected
+                int day = chooseDayChore.getSelectedIndex() - 1;
+                selectedChoresMap.putIfAbsent(day, new ArrayList<>()); //Checks if the day exists in the selectedChoresMap, if it doesnt , than it create a new list for that day
+                selectedChoresMap.get(day).add(chore); 
+                try {
+                    ChoresDatabase.newchore = chore;
+                    choresDB.updateToSelected();
+                } catch (SQLException ex) {
+                    Logger.getLogger(SelectWeeklyChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                try {
+                    ChoresDatabase.newchore = chore;
+                    choresDB.updateToUnselected();
+                } catch (SQLException ex) {
+                    Logger.getLogger(SelectWeeklyChoreGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
 
-        // update the table to reflect the changes
-        updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
-          int confirm = JOptionPane.showConfirmDialog(this, "Confirm this is your selected chores for this week ?", "Confirm selected chores!", JOptionPane.YES_NO_OPTION);
+        if (selectedChoresMap.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please select at least one chore for the week before submitting.", "No Chores Selected", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        StringBuilder message = new StringBuilder("Confirm your selected chores for this week?\n\nSelected Chores:\n");
+        for (Map.Entry<Integer, List<Chore>> entry : selectedChoresMap.entrySet()) {
+            int day = entry.getKey();
+            List<Chore> selectedChores = entry.getValue();
+            message.append("Day ").append(day + 1).append(":\n");
+            for (Chore chore : selectedChores) {
+                message.append("- ").append(chore.getChoreName()).append("\n");
+            }
+            message.append("\n");
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this, message.toString(), "Confirm Selected Chores", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-        this.dispose();
-        HomePageGUI mainForm = new HomePageGUI();
-        mainForm.setVisible(true);
+            this.dispose();
+            HomePageGUI mainForm = new HomePageGUI();
+            mainForm.setVisible(true);
+            updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
         }
     }//GEN-LAST:event_submitChoreButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel selecting your chores for this week?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-        this.dispose();
-        HomePageGUI mainForm = new HomePageGUI();
-        mainForm.setVisible(true);
+            //closes window
+            this.dispose();
+            HomePageGUI mainForm = new HomePageGUI();
+            mainForm.setVisible(true);
         }
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void chooseDayChoreMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chooseDayChoreMouseEntered
+        chooseDayChore.setToolTipText("select days of the week!");
+
+    }//GEN-LAST:event_chooseDayChoreMouseEntered
+
+    private void addChoreButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addChoreButtonMouseEntered
+        addChoreButton.setToolTipText("click to add a new chore!");
+    }//GEN-LAST:event_addChoreButtonMouseEntered
+
+    private void submitChoreButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitChoreButtonMouseEntered
+        submitChoreButton.setToolTipText("submit your selected chores!");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_submitChoreButtonMouseEntered
+
+    private void cancelButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseEntered
+        cancelButton.setToolTipText("cancel selecting your selected chores !");        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelButtonMouseEntered
     private void addNewChore(String task, int day) {
-        // Create a new instance of Chore with the given task and day
+        // Create  Chore with the given task and day
         Chore newChore = new Chore();
         newChore.setChoreName(task);
         newChore.setChoreDay(day);
@@ -271,7 +329,6 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         // Add the new chore to the database
         ChoresDatabase choresDB = new ChoresDatabase();
         try {
-            //  choresDB.insertChore(newChore);
         } catch (Exception e) {
             System.out.println("Error occurred while inserting chore to database");
         }
@@ -289,12 +346,6 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
             System.out.println("Error occured in extracting data");
         }
     }
-    
-    public void resetFrame() {
-    setVisible(false);
-    dispose();
-    new SelectWeeklyChoreGUI().setVisible(true);
-}
 
     public void displayTableData() {
         // Empty the existing data
@@ -310,45 +361,40 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
 
     }
 //takes the data from thable an writes the data back to the arraylist 
+// * This method records the changes made to the chore  table.
 
     public void recordTableChanges() {
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
-        //  tableModel.newDataAvailable();
-        for (int i = 0; i < tableModel.getRowCount(); i++) {  // Loop through the rows
-
-            String choreName = (String) tableModel.getValueAt(i, 0);
-            for (Chore nc : choresArrayList) {
-
-                if (nc.getChoreName().equals(choreName)) {
-                    nc.setSelectedForThisWeek((boolean) tableModel.getValueAt(i, 1));
-                }
-
-            }
-
+        Map<String, Chore> choreMap = new HashMap<>();
+        for (Chore nc : choresArrayList) {
+            choreMap.put(nc.getChoreName(), nc);
         }
-
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            String choreName = (String) tableModel.getValueAt(i, 0);
+            Chore chore = choreMap.get(choreName);
+            if (chore != null) {
+                chore.setSelectedForThisWeek((boolean) tableModel.getValueAt(i, 1));
+            }
+        }
     }
-// selected day fuction 
 
+// * This method updates the chore table based on the day of combobox 
     public void updateTableForSelectedDay(int dayNumberselected) {
-        recordTableChanges();
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
-
-        // Iterate through the list and add each chore's data to the table
-        try {
-            choresArrayList = choresDB.selectChores();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
 
         for (int i = 0; i < choresArrayList.size(); i++) {
             if (choresArrayList.get(i).getChoreDay() == dayNumberselected) {
                 tableModel.addRow(new Object[]{choresArrayList.get(i).getChoreName(), choresArrayList.get(i).isSelectedForThisWeek()});
-
             }
         }
+    }
+
+    //this is for so when the user adds a new chore adds it to the table directly 
+    public void resetFrame() {
+        setVisible(false);
+        dispose();
+        new SelectWeeklyChoreGUI().setVisible(true);
     }
 
     /**

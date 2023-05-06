@@ -24,7 +24,7 @@ public class ChoresBarChart {
     
     public static void main(String[] args) {
         try {
-           choreList = choresDB.
+        //   choreList = choresDB.
        } catch (Exception e) {
            System.out.println("Error: " + e);
        }
