@@ -661,6 +661,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                         if (user1List.get(j).getChoreName() == name
                                 && user1List.get(j).getChoreDay() == daySelector.getSelectedIndex()) {
                             user1List.get(j).setCompletionTime(completeTime);
+                            
+                            
                         }
                     }
                 }
