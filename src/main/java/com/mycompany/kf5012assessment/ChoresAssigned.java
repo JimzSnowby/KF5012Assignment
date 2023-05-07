@@ -13,10 +13,10 @@ public class ChoresAssigned {
     private int choreID;
     private int userID;
     private int daysOfWeekID;
-    private int choreComplete;
+    private boolean choreComplete = false;
     private float choreCompletionTime;
 
-    public ChoresAssigned(int choresAssignedID, int choreID, int userID, int daysOfWeekID, int choreComplete, float choreCompletionTime) {
+    public ChoresAssigned(int choresAssignedID, int choreID, int userID, int daysOfWeekID, boolean choreComplete, float choreCompletionTime) {
         this.choresAssignedID = choresAssignedID;
         this.choreID = choreID;
         this.userID = userID;
@@ -57,11 +57,11 @@ public class ChoresAssigned {
         this.daysOfWeekID = daysOfWeekID;
     }
 
-    public int getChoreComplete() {
+    public boolean getChoreComplete() {
         return choreComplete;
     }
 
-    public void setChoreComplete(int choreComplete) {
+    public void setChoreComplete(boolean choreComplete) {
         this.choreComplete = choreComplete;
     }
 
