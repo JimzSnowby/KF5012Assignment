@@ -130,7 +130,7 @@ public class ChoresDatabase {
     //assignedTo = 2 it is assigned to User 2
     //Assign a chore in chores table
     public void assignChore(String choreName, int assignedTo) throws SQLException {
-        String sqlUpdateChore = "UPDATE chores SET assignedTo = " + assignedTo + "WHERE choreName = '" + choreName + "' ;";
+        String sqlUpdateChore = "UPDATE chores SET assignedTo = " + assignedTo + " WHERE choreName = '" + choreName + "' ;";
 
         boolean success = database.RunSQL(sqlUpdateChore);
 
