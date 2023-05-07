@@ -25,6 +25,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private User user;
     private LocalDate date = LocalDate.now(); // Get system date
     private ChoreCompletionPoints completionPoints = new ChoreCompletionPoints();
+    
+    private String highLightedChore;
 
     /*
      * Creates new form AssignedChoresGUI
@@ -212,7 +214,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("This weeks chores");
         setResizable(false);
 
@@ -292,13 +294,14 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         selectedChoreLabel.setText("Selected Chore:");
 
         selectedChore.setText("N/A");
+        selectedChore.setAutoscrolls(true);
+        selectedChore.setFocusable(false);
 
         completionTimeLabel.setText("Completion Time:");
 
         completionTimeInput.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         completionTimeInput.setActionCommand("<Not Set>");
         completionTimeInput.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        completionTimeInput.setFocusLostBehavior(javax.swing.JFormattedTextField.REVERT);
         completionTimeInput.setFocusable(false);
         completionTimeInput.setMinimumSize(new java.awt.Dimension(80, 22));
         completionTimeInput.setPreferredSize(new java.awt.Dimension(80, 22));
@@ -335,25 +338,21 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(selectedChoreLabel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(selectedChore)
-                                    .addComponent(completionTimeLabel)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(completionTimeInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(acceptButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))))))
+                            .addComponent(selectedChore)
+                            .addComponent(completionTimeLabel)
+                            .addComponent(selectedChoreLabel)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(completionTimeInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(acceptButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(Title)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(totalChores)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,8 +365,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(totalScoreLabel)
                     .addComponent(totalScore))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -375,23 +373,23 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
+                        .addGap(31, 31, 31)
                         .addComponent(selectedChoreLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(selectedChore)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(selectedChore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(30, 30, 30)
                         .addComponent(completionTimeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(completionTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(completionTimeInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(acceptButton)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Title)
-                        .addComponent(totalChores)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addComponent(totalChores))
+                    .addComponent(cancelButton))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
@@ -429,7 +427,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        this.dispose();
+
         dialogSubmit.dispose();
     }//GEN-LAST:event_okButtonActionPerformed
 
@@ -442,11 +440,10 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         int row = choreTable.rowAtPoint(evt.getPoint());
         int col = choreTable.columnAtPoint(evt.getPoint());
         Object cell;
-        
         if(row >= 0 && col >= 0){
             cell = choreTable.getValueAt(row, col);
+            highLightedChore = cell.toString();
             selectedChore.setText(cell.toString());
-            completionTimeInput.setText("");
             completionTimeInput.setFocusable(true);
             completionTimeInput.requestFocus();
         }
@@ -533,7 +530,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         switch (selection){
             case 0:
                 for (Chore c : user1List){
-                    if (c.getChoreDay() == 1){
+                    if (c.getChoreDay() == 1 && !c.isChoreComplete()){
                         tableList.add(c);
                     }
                 }
@@ -541,7 +538,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
             case 1:
                 for (Chore c : user1List){
-                    if (c.getChoreDay() == 2){
+                    if (c.getChoreDay() == 2 && !c.isChoreComplete()){
                         tableList.add(c);
                         System.out.println(c.getChoreName());
                     }
@@ -550,7 +547,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
             case 2:
                 for (Chore c : user1List){
-                    if (c.getChoreDay() == 3){
+                    if (c.getChoreDay() == 3 && !c.isChoreComplete()){
                         tableList.add(c);
                     }
                 }
@@ -558,7 +555,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
             case 3:
                 for (Chore c : user1List){
-                    if (c.getChoreDay() == 4){
+                    if (c.getChoreDay() == 4 && !c.isChoreComplete()){
                         tableList.add(c);
                     }
                 }
@@ -566,7 +563,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
             case 4:
                 for (Chore c : user1List){
-                    if (c.getChoreDay() == 5){
+                    if (c.getChoreDay() == 5 && !c.isChoreComplete()){
                         tableList.add(c);
                     }
                 }
@@ -574,7 +571,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
             case 5:
                 for (Chore c : user1List){
-                    if (c.getChoreDay() == 6){
+                    if (c.getChoreDay() == 6 && !c.isChoreComplete()){
                         tableList.add(c);
                     }
                 }
@@ -582,7 +579,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
             case 6:
                 for (Chore c : user1List){
-                    if (c.getChoreDay() == 7){
+                    if (c.getChoreDay() == 7 && !c.isChoreComplete()){
                         tableList.add(c);
                     }
                 }
@@ -590,7 +587,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
             case 7:
                 for (Chore c : user1List){
-                    if (c.getChoreDay() == 8){
+                    if (c.getChoreDay() == 8 && !c.isChoreComplete()){
                         tableList.add(c);
                     }
                 }
@@ -606,7 +603,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         
         for(int i = 0; i < tableList.size(); i++){
             tableModel.addRow(new Object[]{tableList.get(i).getChoreName(), tableList.get(i).isChoreComplete()});
-            
         }
         
     }
@@ -619,7 +615,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         switch (selection){
             case 0:
                 for (Chore c : user2List){
-                    if (c.getChoreDay() == 1){
+                    if (c.getChoreDay() == 1 && !c.isChoreComplete()){
                         tableList.add(c);
                     }
                 }
@@ -627,7 +623,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
             case 1:
                 for (Chore c : user2List){
-                    if (c.getChoreDay() == 2){
+                    if (c.getChoreDay() == 2 && !c.isChoreComplete()){
                         tableList.add(c);
                     }
                 }
@@ -635,7 +631,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
             case 2:
                 for (Chore c : user2List){
-                    if (c.getChoreDay() == 3){
+                    if (c.getChoreDay() == 3 && !c.isChoreComplete()){
                         tableList.add(c);
                     }
                 }
@@ -643,7 +639,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
             case 3:
                 for (Chore c : user2List){
-                    if (c.getChoreDay() == 4){
+                    if (c.getChoreDay() == 4 && !c.isChoreComplete()){
                         tableList.add(c);
                     }
                 }
@@ -651,7 +647,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
             case 4:
                 for (Chore c : user2List){
-                    if (c.getChoreDay() == 5){
+                    if (c.getChoreDay() == 5 && !c.isChoreComplete()){
                         tableList.add(c);
                     }
                 }
@@ -659,7 +655,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
             case 5:
                 for (Chore c : user2List){
-                    if (c.getChoreDay() == 6){
+                    if (c.getChoreDay() == 6 && !c.isChoreComplete()){
                         tableList.add(c);
                     }
                 }
@@ -667,7 +663,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
             case 6:
                 for (Chore c : user2List){
-                    if (c.getChoreDay() == 7){
+                    if (c.getChoreDay() == 7 && !c.isChoreComplete()){
                         tableList.add(c);
                     }
                 }
@@ -675,7 +671,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
             case 7:
                 for (Chore c : user2List){
-                    if (c.getChoreDay() == 78){
+                    if (c.getChoreDay() == 8 && !c.isChoreComplete()){
                         tableList.add(c);
                     }
                 }
@@ -709,11 +705,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     
     
     
-    
-    
-    
-    
-    
     public void submitData(){
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         boolean checkBox; 
@@ -724,7 +715,22 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         // Iterates over the list to see which chores have their completed box ticked
         if (currentUser == 1) {
             try {
-                for (int i = 0; i < tableModel.getRowCount(); i++) { // Iterates over Jtable
+                for (int i = 0; i < tableModel.getRowCount(); i++) {
+                    for (int j = 0; j < user1List.size(); j++) {
+                        if (user1List.get(j).getChoreName().equals(highLightedChore)) {
+                            user1List.get(j).setCompletionTime(Float.parseFloat(completionTimeInput.getText())); // Sets local vars
+                            user1List.get(j).setChoreComplete(true);
+                            System.out.println("INPUT TIME: "  + user1List.get(j).getCompletionTime() + "COMPLETE: " + user1List.get(j).isChoreComplete());
+                            choresDB.updateChoresComplete(user1List.get(j).getChoreID(), user1List.get(j).getCompletionTime());
+                            user1Completed.add(user1List.get(j)); // Add the chore to list of completed chores
+                            user1List.remove(j); // Remove from the list
+                            awardPoints(j);
+                        }
+                    }
+                }
+                
+                
+                /*for (int i = 0; i < tableModel.getRowCount(); i++) { // Iterates over Jtable
                     String name = (String) tableModel.getValueAt(i, 0);
                     checkBox = (boolean) tableModel.getValueAt(i, 1);
                     //completeTime = (float) tableModel.getValueAt(i, 2);
@@ -744,7 +750,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                         }
                     } else {
                         System.out.println("Not checked OR Null");
-                    }
+                    }*/
 
                 }
 
@@ -765,9 +771,9 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                         user1List.remove(i); // Remove from temp list
                     } else {
                         System.out.println("Not checked");
-                    }*/
+                    */
                 
-            } catch (Exception e) {
+             catch (Exception e) {
                 System.out.println("Submit Error: " + e);
             }
         }
