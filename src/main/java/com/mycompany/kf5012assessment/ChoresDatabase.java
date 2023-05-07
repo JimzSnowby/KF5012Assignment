@@ -23,12 +23,11 @@ public class ChoresDatabase {
         database = new DBConnection();
 
         //James:
-        database.Connect("G:\\University work\\Year 2\\Semester2\\SE practice\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("G:\\University work\\Year 2\\Semester2\\SE practice\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //   database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
         //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
-
         //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
         //database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
@@ -99,7 +98,10 @@ public class ChoresDatabase {
     //Select all assigned chores from choresAssigned table
     public ArrayList<Chore> selectChoresAssigned() throws SQLException {
 
-        String sqlSelectChoresAssigned = "SELECT choreID, userID, daysOfWeekID, choreComplete, choreCompletionTime FROM choresAssigned;";
+        String sqlSelectChoresAssigned = "SELECT choreID, userID, daysOfWeekID, choreComplete, choreCompletionTime "
+                + "FROM choresAssigned" 
+                + " INNER JOIN chores ON choreID.chores =  choreID.choresAssigned "
+                + " INNER JOIN chores ON userID.choresAssigned = assignedTo.chores;";
 
         ResultSet choreList = database.RunSQLQuery(sqlSelectChoresAssigned);
         ArrayList<Chore> chores = new ArrayList<Chore>();
