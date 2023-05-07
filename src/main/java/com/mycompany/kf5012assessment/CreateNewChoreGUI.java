@@ -20,7 +20,7 @@ import java.awt.event.KeyEvent;
  */
 public class CreateNewChoreGUI extends javax.swing.JDialog {
 
-    ArrayList<Chore> choress;
+    ArrayList<Chore> chores;
 
     /**
      * Creates new form CreateNewChoreGUI

@@ -22,8 +22,6 @@ public class AssigningChoresAlgo {
     ArrayList<Chore> toSend;
     User newUser;
 
-    private User userOne;
-    private User userTwo;
 
     //private choresArrayList = dummyList;
     public AssigningChoresAlgo() throws SQLException {

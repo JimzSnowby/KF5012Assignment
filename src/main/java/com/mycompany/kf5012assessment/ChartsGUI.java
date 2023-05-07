@@ -10,8 +10,6 @@ package com.mycompany.kf5012assessment;
  */
 public class ChartsGUI extends javax.swing.JFrame {
 
-    ChoresPieChart pieChart = new ChoresPieChart();
-    ChoresBarChart barChart = new ChoresBarChart();
 
     /**
      * Creates new form ChartsGUI
