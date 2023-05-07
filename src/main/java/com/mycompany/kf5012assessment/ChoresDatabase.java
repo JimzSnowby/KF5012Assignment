@@ -244,7 +244,7 @@ public class ChoresDatabase {
 
     //Update estimate time for user 1 in estimateTime table
     public void updateEstimateTimeUserOne() throws SQLException {
-        String sqlUpdateEstimateTime1 = "UPDATE estimateTime SET choreEstimateTime = " + newchore.getEstimateTimeUserOne() + "WHERE userID = 1 ;";
+        String sqlUpdateEstimateTime1 = "UPDATE estimateTime SET choreEstimateTime = " + newchore.getEstimateTimeUserOne() + " WHERE userID = 1 ;";
 
         boolean success = database.RunSQL(sqlUpdateEstimateTime1);
 
@@ -255,7 +255,7 @@ public class ChoresDatabase {
 
     //Update estimate time for user 2 in estimateTime table
     public void updateEstimateTimeUserTwo() throws SQLException {
-        String sqlUpdateEstimateTime2 = "UPDATE estimateTime SET choreEstimateTime = " + newchore.getEstimateTimeUserTwo() + "WHERE userID = 2 ;";
+        String sqlUpdateEstimateTime2 = "UPDATE estimateTime SET choreEstimateTime = " + newchore.getEstimateTimeUserTwo() + " WHERE userID = 2 ;";
 
         boolean success = database.RunSQL(sqlUpdateEstimateTime2);
 
