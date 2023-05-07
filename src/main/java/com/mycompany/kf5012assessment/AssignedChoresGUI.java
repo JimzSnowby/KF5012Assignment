@@ -13,6 +13,7 @@ import java.time.*;
  * @author james
  */
 public class AssignedChoresGUI extends javax.swing.JFrame {
+
     private ChoresDatabase choresDB = new ChoresDatabase(); // Connect to DB
     private ArrayList<User> usersList = new ArrayList(); // list of system users
     private ArrayList<Chore> allChores = new ArrayList(); // list of all chores
@@ -25,8 +26,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private User user;
     private LocalDate date = LocalDate.now(); // Get system date
     private ChoreCompletionPoints completionPoints = new ChoreCompletionPoints();
-    
-    
+
     private String highLightedChore;
 
     /*
@@ -37,18 +37,17 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             usersList = choresDB.selectUsers();
             allChores = choresDB.selectChores();
             //allChores = choresDB.selectChoresAssigned(); //Get table of assigned chores
-            for (Chore c : allChores){ // GET CHORES FOR COMPLETION
-                if(c.getChoreAssignTo() == 1 && !c.isChoreComplete()){
+            for (Chore c : allChores) { // GET CHORES FOR COMPLETION
+                if (c.getChoreAssignTo() == 1 && !c.isChoreComplete()) {
                     user1List.add(c);
-                }
-                else if (c.getChoreAssignTo() == 2 && !c.isChoreComplete()){
+                } else if (c.getChoreAssignTo() == 2 && !c.isChoreComplete()) {
                     user2List.add(c);
                 }
             }
-            for (Chore c : allChores){ // GET COMPLETE CHORE HISTORY
-                if(c.getChoreAssignTo() == 1 && c.isChoreComplete()){
+            for (Chore c : allChores) { // GET COMPLETE CHORE HISTORY
+                if (c.getChoreAssignTo() == 1 && c.isChoreComplete()) {
                     user1Completed.add(c);
-                } else if (c.getChoreAssignTo() == 2 && c.isChoreComplete()){
+                } else if (c.getChoreAssignTo() == 2 && c.isChoreComplete()) {
                     user2Completed.add(c);
                 }
             }
@@ -56,32 +55,32 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             System.out.println("Error occured in extracting data");
         }
         initComponents(); // Initializes GUI elements, PUT ALL METHODS AFTER THIS
-        
+
         dialogSubmit.pack();
         dialogSubmit.setLocationRelativeTo(this);
 
         int selection = daySelector.getSelectedIndex();
-        for (User u : usersList){
-                if (u.isUserActive() == 1){
-                    currentUser = u.getUserID();
-                    user = u;
-                    updateDisplayTableDataUser1(selection);
-                    weekScore.setText(Integer.toString(u.getUserWeekScore()));
-                    totalScore.setText(Integer.toString(u.getUserTotalScore()));
-                    System.out.println(currentUser);
-                    choreCount = Integer.toString(user1List.size()); // Get list size as a string
-                    break;
-                } else if (u.isUserActive() == 2){
-                    currentUser = u.getUserID();
-                    user = u;
-                    updateDisplayTableDataUser2(selection);
-                    weekScore.setText(Integer.toString(u.getUserWeekScore()));
-                    totalScore.setText(Integer.toString(u.getUserTotalScore()));
-                    choreCount = Integer.toString(user2List.size()); // Get list size as a string
-                    break;
-                }
+        for (User u : usersList) {
+            if (u.isUserActive() == 1) {
+                currentUser = u.getUserID();
+                user = u;
+                updateDisplayTableDataUser1(selection);
+                weekScore.setText(Integer.toString(u.getUserWeekScore()));
+                totalScore.setText(Integer.toString(u.getUserTotalScore()));
+                System.out.println(currentUser);
+                choreCount = Integer.toString(user1List.size()); // Get list size as a string
+                break;
+            } else if (u.isUserActive() == 2) {
+                currentUser = u.getUserID();
+                user = u;
+                updateDisplayTableDataUser2(selection);
+                weekScore.setText(Integer.toString(u.getUserWeekScore()));
+                totalScore.setText(Integer.toString(u.getUserTotalScore()));
+                choreCount = Integer.toString(user2List.size()); // Get list size as a string
+                break;
+            }
         }
-        
+
         totalChores.setText(choreCount); // change the total chores text
         endOfWeekAlert();
     }
@@ -416,13 +415,13 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void daySelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daySelectorActionPerformed
-       int selection = daySelector.getSelectedIndex();
-       for (User u : usersList){
-                if (u.isUserActive() == 1){
-                    updateDisplayTableDataUser1(selection);
-                } else if (u.isUserActive() == 2){
-                    updateDisplayTableDataUser2(selection);
-                }
+        int selection = daySelector.getSelectedIndex();
+        for (User u : usersList) {
+            if (u.isUserActive() == 1) {
+                updateDisplayTableDataUser1(selection);
+            } else if (u.isUserActive() == 2) {
+                updateDisplayTableDataUser2(selection);
+            }
         }
     }//GEN-LAST:event_daySelectorActionPerformed
 
@@ -462,24 +461,24 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_alertOkActionPerformed
 
     private void choreTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_choreTableMouseClicked
-        
+
         int row = choreTable.rowAtPoint(evt.getPoint());
         int col = choreTable.columnAtPoint(evt.getPoint());
         Object cell;
-        if(row >= 0 && col >= 0){
+        if (row >= 0 && col >= 0) {
             cell = choreTable.getValueAt(row, col);
             highLightedChore = cell.toString();
             selectedChore.setText(cell.toString());
             completionTimeInput.setFocusable(true);
             completionTimeInput.requestFocus();
         }
-        
+
     }//GEN-LAST:event_choreTableMouseClicked
 
     private void completionTimeInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_completionTimeInputKeyTyped
         // If a key other than a number is typed, block it
         char c = evt.getKeyChar();
-        if(!Character.isDigit(c)){
+        if (!Character.isDigit(c)) {
             evt.consume();
         }
     }//GEN-LAST:event_completionTimeInputKeyTyped
@@ -520,7 +519,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AssignedChoresGUI().setVisible(true);
-                
+
             }
         });
     }
@@ -554,23 +553,23 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private javax.swing.JLabel weekScore;
     private javax.swing.JLabel weekScoreLabel;
     // End of variables declaration//GEN-END:variables
-    
-    public void updateDisplayTableDataUser1(int selection){
+
+    public void updateDisplayTableDataUser1(int selection) {
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
         ArrayList<Chore> tableList = new ArrayList(); // Temp list to update the table
-        switch (selection){
+        switch (selection) {
             case 0:
-                for (Chore c : user1List){
-                    if (c.getChoreDay() == 1 && !c.isChoreComplete()){
+                for (Chore c : user1List) {
+                    if (c.getChoreDay() == 1 && !c.isChoreComplete()) {
                         tableList.add(c);
                     }
                 }
                 System.out.println("Monday");
                 break;
             case 1:
-                for (Chore c : user1List){
-                    if (c.getChoreDay() == 2 && !c.isChoreComplete()){
+                for (Chore c : user1List) {
+                    if (c.getChoreDay() == 2 && !c.isChoreComplete()) {
                         tableList.add(c);
                         System.out.println(c.getChoreName());
                     }
@@ -578,172 +577,164 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 System.out.println("Tuesday");
                 break;
             case 2:
-                for (Chore c : user1List){
-                    if (c.getChoreDay() == 3 && !c.isChoreComplete()){
+                for (Chore c : user1List) {
+                    if (c.getChoreDay() == 3 && !c.isChoreComplete()) {
                         tableList.add(c);
                     }
                 }
                 System.out.println("Wednesday");
                 break;
             case 3:
-                for (Chore c : user1List){
-                    if (c.getChoreDay() == 4 && !c.isChoreComplete()){
+                for (Chore c : user1List) {
+                    if (c.getChoreDay() == 4 && !c.isChoreComplete()) {
                         tableList.add(c);
                     }
                 }
                 System.out.println("Thursday");
                 break;
             case 4:
-                for (Chore c : user1List){
-                    if (c.getChoreDay() == 5 && !c.isChoreComplete()){
+                for (Chore c : user1List) {
+                    if (c.getChoreDay() == 5 && !c.isChoreComplete()) {
                         tableList.add(c);
                     }
                 }
                 System.out.println("Friday");
                 break;
             case 5:
-                for (Chore c : user1List){
-                    if (c.getChoreDay() == 6 && !c.isChoreComplete()){
+                for (Chore c : user1List) {
+                    if (c.getChoreDay() == 6 && !c.isChoreComplete()) {
                         tableList.add(c);
                     }
                 }
                 System.out.println("Saturday");
                 break;
             case 6:
-                for (Chore c : user1List){
-                    if (c.getChoreDay() == 7 && !c.isChoreComplete()){
+                for (Chore c : user1List) {
+                    if (c.getChoreDay() == 7 && !c.isChoreComplete()) {
                         tableList.add(c);
                     }
                 }
                 System.out.println("Sunday");
                 break;
             case 7:
-                for (Chore c : user1List){
-                    if (c.getChoreDay() == 8 && !c.isChoreComplete()){
+                for (Chore c : user1List) {
+                    if (c.getChoreDay() == 8 && !c.isChoreComplete()) {
                         tableList.add(c);
                     }
                 }
                 System.out.println("Any day");
                 break;
             default:
-                for (Chore c : user1List){
+                for (Chore c : user1List) {
                     tableList.add(c);
                 }
                 System.out.println("Default case");
                 break;
         }
-        
-        for(int i = 0; i < tableList.size(); i++){
+
+        for (int i = 0; i < tableList.size(); i++) {
             tableModel.addRow(new Object[]{tableList.get(i).getChoreName(), tableList.get(i).isChoreComplete()});
         }
-        
+
     }
-    
-    public void updateDisplayTableDataUser2(int selection){
+
+    public void updateDisplayTableDataUser2(int selection) {
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
         ArrayList<Chore> tableList = new ArrayList(); // Temp list to update the table
 
-        switch (selection){
+        switch (selection) {
             case 0:
-                for (Chore c : user2List){
-                    if (c.getChoreDay() == 1 && !c.isChoreComplete()){
+                for (Chore c : user2List) {
+                    if (c.getChoreDay() == 1 && !c.isChoreComplete()) {
                         tableList.add(c);
                     }
                 }
                 System.out.println("Monday");
                 break;
             case 1:
-                for (Chore c : user2List){
-                    if (c.getChoreDay() == 2 && !c.isChoreComplete()){
+                for (Chore c : user2List) {
+                    if (c.getChoreDay() == 2 && !c.isChoreComplete()) {
                         tableList.add(c);
                     }
                 }
                 System.out.println("Tuesday");
                 break;
             case 2:
-                for (Chore c : user2List){
-                    if (c.getChoreDay() == 3 && !c.isChoreComplete()){
+                for (Chore c : user2List) {
+                    if (c.getChoreDay() == 3 && !c.isChoreComplete()) {
                         tableList.add(c);
                     }
                 }
                 System.out.println("Wednesday");
                 break;
             case 3:
-                for (Chore c : user2List){
-                    if (c.getChoreDay() == 4 && !c.isChoreComplete()){
+                for (Chore c : user2List) {
+                    if (c.getChoreDay() == 4 && !c.isChoreComplete()) {
                         tableList.add(c);
                     }
                 }
                 System.out.println("Thursday");
                 break;
             case 4:
-                for (Chore c : user2List){
-                    if (c.getChoreDay() == 5 && !c.isChoreComplete()){
+                for (Chore c : user2List) {
+                    if (c.getChoreDay() == 5 && !c.isChoreComplete()) {
                         tableList.add(c);
                     }
                 }
                 System.out.println("Friday");
                 break;
             case 5:
-                for (Chore c : user2List){
-                    if (c.getChoreDay() == 6 && !c.isChoreComplete()){
+                for (Chore c : user2List) {
+                    if (c.getChoreDay() == 6 && !c.isChoreComplete()) {
                         tableList.add(c);
                     }
                 }
                 System.out.println("Saturday");
                 break;
             case 6:
-                for (Chore c : user2List){
-                    if (c.getChoreDay() == 7 && !c.isChoreComplete()){
+                for (Chore c : user2List) {
+                    if (c.getChoreDay() == 7 && !c.isChoreComplete()) {
                         tableList.add(c);
                     }
                 }
                 System.out.println("Sunday");
                 break;
             case 7:
-                for (Chore c : user2List){
-                    if (c.getChoreDay() == 8 && !c.isChoreComplete()){
+                for (Chore c : user2List) {
+                    if (c.getChoreDay() == 8 && !c.isChoreComplete()) {
                         tableList.add(c);
                     }
                 }
                 System.out.println("Sunday");
                 break;
             default:
-                for (Chore c : user2List){
+                for (Chore c : user2List) {
                     tableList.add(c);
                 }
                 System.out.println("Default case");
                 break;
         }
-        
-        for(int i = 0; i < tableList.size(); i++){
+
+        for (int i = 0; i < tableList.size(); i++) {
             tableModel.addRow(new Object[]{tableList.get(i).getChoreName(), tableList.get(i).isChoreComplete()});
         }
-        
+
     }
-    
-    public void updateChoreCount(int currentUser){
-        if (currentUser == 1){
+
+    public void updateChoreCount(int currentUser) {
+        if (currentUser == 1) {
             choreCount = Integer.toString(user1List.size());
         }
-        if (currentUser == 2){
+        if (currentUser == 2) {
             choreCount = Integer.toString(user2List.size());
         }
         totalChores.setText(choreCount);
     }
-    
-  
-    
-    
-    
-    public void submitData(){
+
+    public void submitData() {
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
-        boolean checkBox; 
-        float completeTime;
-        Object inputTime;
-        float floatVal;
-        
+
         // Iterates over the list to see which chores have their completed box ticked
         if (currentUser == 1) {
             try {
@@ -753,87 +744,46 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                             user1List.get(j).setCompletionTime(Float.parseFloat(completionTimeInput.getText())); // Sets local vars
                             user1List.get(j).setChoreComplete(true);
                             highLightedChore = null;
-                            System.out.println("INPUT TIME: "  + user1List.get(j).getCompletionTime() + "COMPLETE: " + user1List.get(j).isChoreComplete());
+                            System.out.println("INPUT TIME: " + user1List.get(j).getCompletionTime() + "COMPLETE: " + user1List.get(j).isChoreComplete());
                             choresDB.updateChoresComplete(user1List.get(j).getChoreID(), user1List.get(j).getCompletionTime());
                             user1Completed.add(user1List.get(j)); // Add the chore to list of completed chores
+                            awardPoints(j);
                             user1List.remove(j); // Remove from the list
-                            //awardPoints(j);
+
                         }
                     }
                 }
-                
-                
-                /*for (int i = 0; i < tableModel.getRowCount(); i++) { // Iterates over Jtable
-                    String name = (String) tableModel.getValueAt(i, 0);
-                    checkBox = (boolean) tableModel.getValueAt(i, 1);
-                    //completeTime = (float) tableModel.getValueAt(i, 2);
-                    inputTime = tableModel.getValueAt(i, 2);
-                    floatVal = Float.parseFloat(inputTime.toString());
-                    if (checkBox && inputTime != null) {
-                        for (int j = 0; j < user1List.size(); j++) { // iterates over full list
-                            if (user1List.get(j).getChoreName().equals(name)
-                                    && user1List.get(j).getChoreDay() == daySelector.getSelectedIndex()) { // Gets the checked item
-                                
-                                user1List.get(j).setCompletionTime(floatVal); // Sets local vars
-                                user1List.get(j).setChoreComplete(true);
-                                choresDB.updateChoresComplete(user1List.get(j).getChoreID(), user1List.get(j).getCompletionTime()); // Updates DB
-                                awardPoints(j); // USING COMPLETE TIME CALCULATE POINTS
-                                user1List.remove(i);
-                            }
-                        }
-                    } else {
-                        System.out.println("Not checked OR Null");
-                    }*/
 
-                }
-
-                /*for (int i = 0; i < user1List.size(); i++) {
-                    int row = choreTable.getSelectedRow();
-                    checkBox = (boolean) tableModel.getValueAt(row, 1);
-                    completeTime = (float) tableModel.getValueAt(row, 2);
-                    inputTime = tableModel.getValueAt(row, 2);
-                    if (checkBox) {
-                        user1List.get(i).setCompletionTime(completeTime);
-                        awardPoints(i); // USING COMPLETE TIME CALCULATE POINTS
-                        if (user1List.get(i).getChoreFrequencyID() == 2) {
-                            choresDB.deleteChore(user1List.get(i).getChoreName()); // Deletes chore from DB if its a 1 off
-                        } else {
-                            //  change assigned to 0
-                            choresDB.assignChore(user1List.get(i).getChoreName(), 0);
-                        }
-                        user1List.remove(i); // Remove from temp list
-                    } else {
-                        System.out.println("Not checked");
-                    */
-                
-             catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Submit Error: " + e);
             }
         }
 
         if (currentUser == 2) {
-            for (int i = 0; i < user2List.size(); i++) {
-                try {
-                    checkBox = (boolean) tableModel.getValueAt(i, 1);
-                    if (checkBox) {
-                        if (user2List.get(i).getChoreFrequencyID() == 2) {
-                            choresDB.deleteChore(user2List.get(i).getChoreName()); // Deletes chore from DB if its a 1 off
-                        } else {
-                            //  change assigned to 0
-                            choresDB.assignChore(user2List.get(i).getChoreName(), 0); 
+            try {
+                for (int i = 0; i < tableModel.getRowCount(); i++) {
+                    for (int j = 0; j < user2List.size(); j++) {
+                        if (user2List.get(j).getChoreName().equals(highLightedChore)) {
+                            user2List.get(j).setCompletionTime(Float.parseFloat(completionTimeInput.getText())); // Sets local vars
+                            user2List.get(j).setChoreComplete(true);
+                            highLightedChore = null;
+                            System.out.println("INPUT TIME: " + user2List.get(j).getCompletionTime() + "COMPLETE: " + user2List.get(j).isChoreComplete());
+                            choresDB.updateChoresComplete(user2List.get(j).getChoreID(), user1List.get(j).getCompletionTime());
+                            user2Completed.add(user2List.get(j)); // Add the chore to list of completed chores
+                            awardPoints(j);
+                            user2List.remove(j); // Remove from the list
+
                         }
-                        user2List.remove(i); // Remove from temp list
-                    } else {
-                        System.out.println("Not checked");
                     }
-                } catch (Exception e) {
-                    System.out.println("Submit Error: " + e);
-                } 
+                }
+
+            } catch (Exception e) {
+                System.out.println("Submit Error: " + e);
             }
         }
-  
+
     }
-    
+
     public void endOfWeekAlert() {
         DefaultTableModel tableModel = (DefaultTableModel) alertTable.getModel();
         tableModel.setRowCount(0);
@@ -854,13 +804,13 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             endOfWeekAlert.setVisible(true);
         }
     }
-    
-    public int awardPoints(int chore){
+
+    public void awardPoints(int chore) {
         int points = 0;
-        if (user.getUserID() == 1){
+        if (user.getUserID() == 1) {
             points = completionPoints.pointCalculation(user1List.get(chore), currentUser);
         }
-        if (user.getUserID() == 2){
+        if (user.getUserID() == 2) {
             points = completionPoints.pointCalculation(user2List.get(chore), currentUser);
         }
         int currentPoints = user.getUserWeekScore();
@@ -869,21 +819,13 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         user.setUserWeekScore(currentPoints + points);
         points = points + currentPoints;
         totalPoints = totalPoints + points;
-        
-        try{
+        System.out.println("USER: " + user.getUserID());
+        try {
             choresDB.updateUserWeekScore(points, user.getUserID());
             choresDB.updateUserTotalScore(totalPoints, user.getUserID());
             System.out.println("Week: " + user.getUserWeekScore() + "Total: " + user.getUserTotalScore());
-        }catch (Exception e){
-            System.out.print("Error: " + e);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
-        
-        // Algorithm if faster than estimate
-            // (EstimateTime - ActualTime) * choreDifficulty(Based on time, < 15 min is easy = 1, < 30 min is med =  1.5, > 30 is hard  = 2)
-        // Algorithm if slower than estimate, has a 5-10 minute leeway on lateness
-
-        return 1;
-    }    
-    
+    }
 }
-
