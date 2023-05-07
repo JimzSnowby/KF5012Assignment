@@ -16,6 +16,10 @@ public class ChoreCompletionPoints {
     private int points;
     private ChoresDatabase choreDB;
     private ArrayList<Chore> choreList = new ArrayList();
+    
+    // Algorithm if faster than estimate
+            // (EstimateTime - ActualTime) * choreDifficulty(Based on time, < 15 min is easy = 1, < 30 min is med =  1.5, > 30 is hard  = 2)
+        // Algorithm if slower than estimate, has a 5-10 minute leeway on lateness
 
     public int pointCalculation(Chore chore, int activeUser){
         float estimate = 0;
@@ -26,7 +30,7 @@ public class ChoreCompletionPoints {
             try{
                 choreList = choreDB.selectEstimateTimeUserOne(); // Get the list of estimates for user 1
             }catch (Exception e){
-                System.out.println("ERROR: " + e);
+                System.out.println("DB ERROR: " + e);
             }
             
             for(Chore c : choreList){
@@ -52,7 +56,7 @@ public class ChoreCompletionPoints {
                 time = (estimate - actualTime) * difficulty; // SCENARIO (50 - 30) * 1.5 =  30
                 System.out.println("FAST: "+time);
             } else{
-                time = (((actualTime - estimate) * -1) * difficulty) * 0.5f; // SCENARIO (((30 - 50) * -1) * 1.5) * 0.5 = 15
+                time = ((actualTime - estimate * -1) * difficulty) * 0.5f; // SCENARIO ((30 - 50 * -1) * 1.5) * 0.5 = 15
                 System.out.println("SLOW: "+time);
             }
             points = Math.round(time);

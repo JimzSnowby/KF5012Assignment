@@ -27,7 +27,6 @@ public class CompletedChoreHistoryGUI extends javax.swing.JFrame {
                 } else if (!c.isChoreComplete()){
                     System.out.println("Chore not complete");
                 }
-                
             }
         } catch (Exception e){
             System.out.print("DB Error: " + e);
