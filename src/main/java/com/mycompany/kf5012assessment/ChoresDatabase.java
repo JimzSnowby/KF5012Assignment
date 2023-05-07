@@ -135,6 +135,29 @@ public class ChoresDatabase {
         return chores;
     }
 
+    //Select userID from choresAssigned table
+    public ArrayList<User> selectUserIDChoresAssigned() throws SQLException {
+
+        String sqlSelectChoresAssigned = "SELECT userID FROM choresAssigned;";
+
+        ResultSet userList = database.RunSQLQuery(sqlSelectChoresAssigned);
+        ArrayList<User> users = new ArrayList<User>();
+
+        try {
+            while (userList.next()) {
+                User newUser = new User();
+                newUser.setUserID(userList.getInt(1));
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to process query in selectChores()");
+            System.out.println("SQL attempted: " + sqlSelectChoresAssigned);
+            System.out.println("Error: " + e.getErrorCode());
+            System.out.println("Message: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return users;
+    }
+
     //assignedTo = 1 it is assigned to User 1
     //assignedTo = 2 it is assigned to User 2
     //Assign a chore in chores table
