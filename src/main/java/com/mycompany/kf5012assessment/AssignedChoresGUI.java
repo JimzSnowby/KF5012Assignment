@@ -16,6 +16,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
 
     private ChoresDatabase choresDB = new ChoresDatabase(); // Connect to DB
     private ArrayList<User> usersList = new ArrayList(); // list of system users
+    private ArrayList<User> usersIDs = new ArrayList(); // list of system users
     private ArrayList<Chore> allChores = new ArrayList(); // list of all chores
     private ArrayList<Chore> user1List = new ArrayList(); // list of chores assigned to user1
     private ArrayList<Chore> user2List = new ArrayList(); // list of chores assigned to user2
@@ -34,23 +35,35 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
      */
     public AssignedChoresGUI() {
         try {
+            
             usersList = choresDB.selectUsers();
-            allChores = choresDB.selectChores();
-            //allChores = choresDB.selectChoresAssigned(); //Get table of assigned chores
+            //allChores = choresDB.selectChores();
+            allChores = choresDB.selectChoresAssigned(); //Get table of assigned chores
+            usersIDs = choresDB.selectUserIDChoresAssigned(); // Get userID from assigned Chores
+            
             for (Chore c : allChores) { // GET CHORES FOR COMPLETION
-                if (c.getChoreAssignTo() == 1 && !c.isChoreComplete()) {
+                for (User u : usersIDs){
+                    if (u.getUserID() == 1 && !c.isChoreComplete()){
+                        user1List.add(c);
+                    } else if (u.getUserID() == 2 && !c.isChoreComplete()){
+                        user2List.add(c);
+                    }
+                    
+                    
+                }
+                /*if (c.getChoreAssignTo() == 1 && !c.isChoreComplete()) {
                     user1List.add(c);
                 } else if (c.getChoreAssignTo() == 2 && !c.isChoreComplete()) {
                     user2List.add(c);
-                }
+                }*/
             }
-            for (Chore c : allChores) { // GET COMPLETE CHORE HISTORY
+            /*for (Chore c : allChores) { // GET COMPLETE CHORE HISTORY
                 if (c.getChoreAssignTo() == 1 && c.isChoreComplete()) {
                     user1Completed.add(c);
                 } else if (c.getChoreAssignTo() == 2 && c.isChoreComplete()) {
                     user2Completed.add(c);
                 }
-            }
+            }*/
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
