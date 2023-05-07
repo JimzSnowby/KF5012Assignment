@@ -448,8 +448,8 @@ public class ChoresDatabase {
         System.out.println(convertedMax);
         //int max = Integer.parseInt(rs) + 1;
 
-        String sqlAddChore = "INSERT INTO choresAssigned (choresAssignedID, choreID, userID, daysOfWeekID, choreCompletionTime, estimateTimeID) "
-                + "VALUES(" + convertedMax + ", " + newChore.getChoreID() + ", " + newUser.getUserID() + ", " + newChore.getChoreDay() + ", " + newChore.getCompletionTime() + ", " + newUser.getEstimateTimeID() + "); ";
+            String sqlAddChore = "INSERT INTO choresAssigned (choresAssignedID, choreID, userID, daysOfWeekID, choreComplete, choreCompletionTime) "
+                + "VALUES(" + convertedMax + ", " + newChore.getChoreID() + ", " + newUser.getUserID() +  ", " + newChore.getChoreDay() +  ", " + newChore.isChoreComplete() + ", " + newChore.getCompletionTime()+ "); ";
 
         boolean success;
         success = database.RunSQL(sqlAddChore);
