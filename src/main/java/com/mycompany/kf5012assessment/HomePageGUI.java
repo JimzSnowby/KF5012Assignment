@@ -229,7 +229,7 @@ public class HomePageGUI extends javax.swing.JFrame {
         etgi.pack(); // resize the window to fit its components
         etgi.setLocationRelativeTo(this); // center the window relative to this GUI
         etgi.setVisible(true);
-
+        
         // TODO add your handling code here:
     }//GEN-LAST:event_BobProfileButtonActionPerformed
 

@@ -20,11 +20,12 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private ArrayList<Chore> user2List = new ArrayList(); // list of chores assigned to user2
     private ArrayList<Chore> user1Completed = new ArrayList(); // List of completed chores for U1
     private ArrayList<Chore> user2Completed = new ArrayList();// AT END SEND LIST TO DB WITH 
-    private String choreCount; // chore count not changing
+    private String choreCount; // Number of Chores left
     private int currentUser; // gets the ID of the current user
     private User user;
     private LocalDate date = LocalDate.now(); // Get system date
     private ChoreCompletionPoints completionPoints = new ChoreCompletionPoints();
+    
     
     private String highLightedChore;
 
@@ -35,12 +36,20 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         try {
             usersList = choresDB.selectUsers();
             allChores = choresDB.selectChores();
-            for (Chore c : allChores){
+            //allChores = choresDB.selectChoresAssigned(); //Get table of assigned chores
+            for (Chore c : allChores){ // GET CHORES FOR COMPLETION
                 if(c.getChoreAssignTo() == 1 && !c.isChoreComplete()){
                     user1List.add(c);
                 }
                 else if (c.getChoreAssignTo() == 2 && !c.isChoreComplete()){
                     user2List.add(c);
+                }
+            }
+            for (Chore c : allChores){ // GET COMPLETE CHORE HISTORY
+                if(c.getChoreAssignTo() == 1 && c.isChoreComplete()){
+                    user1Completed.add(c);
+                } else if (c.getChoreAssignTo() == 2 && c.isChoreComplete()){
+                    user2Completed.add(c);
                 }
             }
         } catch (Exception e) {
@@ -110,6 +119,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         selectedChore = new javax.swing.JLabel();
         completionTimeLabel = new javax.swing.JLabel();
         completionTimeInput = new javax.swing.JFormattedTextField();
+        viewHistoryButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
 
@@ -311,6 +321,13 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             }
         });
 
+        viewHistoryButton.setText("View History");
+        viewHistoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewHistoryButtonActionPerformed(evt);
+            }
+        });
+
         menuFile.setText("File");
         menuBar.add(menuFile);
 
@@ -342,17 +359,19 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(selectedChore)
                             .addComponent(completionTimeLabel)
-                            .addComponent(selectedChoreLabel)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(completionTimeInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(acceptButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))))
+                                .addComponent(acceptButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(viewHistoryButton)
+                                .addComponent(selectedChoreLabel))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(Title)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(totalChores)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,7 +379,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(weekScoreLabel)
-                    .addComponent(weekScore))
+                    .addComponent(weekScore)
+                    .addComponent(viewHistoryButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(totalScoreLabel)
@@ -389,7 +409,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                         .addComponent(Title)
                         .addComponent(totalChores))
                     .addComponent(cancelButton))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
@@ -408,18 +428,25 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
 
     private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptButtonActionPerformed
         System.out.println("Current user: " + currentUser);
-        submitData();
-        if (currentUser == 1){
-            updateDisplayTableDataUser1(daySelector.getSelectedIndex());
-            updateChoreCount(1);
-        } 
-        if (currentUser == 2){
-            updateDisplayTableDataUser2(daySelector.getSelectedIndex());
-            updateChoreCount(2);
+        if (highLightedChore == null) {
+            System.out.println("No chore selected");
+            // CREATE AN ERROR IF NULL
+
+        } else {
+            submitData();
+            if (currentUser == 1) {
+                updateDisplayTableDataUser1(daySelector.getSelectedIndex());
+                updateChoreCount(1);
+            }
+            if (currentUser == 2) {
+                updateDisplayTableDataUser2(daySelector.getSelectedIndex());
+                updateChoreCount(2);
+            }
+            weekScore.setText(Integer.toString(user.getUserWeekScore()));
+            totalScore.setText(Integer.toString(user.getUserTotalScore()));
+            dialogSubmit.setVisible(true);
         }
-        weekScore.setText(Integer.toString(user.getUserWeekScore()));
-        totalScore.setText(Integer.toString(user.getUserTotalScore()));
-        dialogSubmit.setVisible(true);
+
     }//GEN-LAST:event_acceptButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -427,7 +454,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-
         dialogSubmit.dispose();
     }//GEN-LAST:event_okButtonActionPerformed
 
@@ -451,12 +477,17 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_choreTableMouseClicked
 
     private void completionTimeInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_completionTimeInputKeyTyped
-        // TODO add your handling code here:
+        // If a key other than a number is typed, block it
         char c = evt.getKeyChar();
         if(!Character.isDigit(c)){
             evt.consume();
         }
     }//GEN-LAST:event_completionTimeInputKeyTyped
+
+    private void viewHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewHistoryButtonActionPerformed
+        CompletedChoreHistoryGUI choreCompleteGUI = new CompletedChoreHistoryGUI();
+        choreCompleteGUI.setVisible(true);// TODO add your handling code here:
+    }//GEN-LAST:event_viewHistoryButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -519,6 +550,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private javax.swing.JLabel totalChores;
     private javax.swing.JLabel totalScore;
     private javax.swing.JLabel totalScoreLabel;
+    private javax.swing.JButton viewHistoryButton;
     private javax.swing.JLabel weekScore;
     private javax.swing.JLabel weekScoreLabel;
     // End of variables declaration//GEN-END:variables
@@ -720,11 +752,12 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                         if (user1List.get(j).getChoreName().equals(highLightedChore)) {
                             user1List.get(j).setCompletionTime(Float.parseFloat(completionTimeInput.getText())); // Sets local vars
                             user1List.get(j).setChoreComplete(true);
+                            highLightedChore = null;
                             System.out.println("INPUT TIME: "  + user1List.get(j).getCompletionTime() + "COMPLETE: " + user1List.get(j).isChoreComplete());
                             choresDB.updateChoresComplete(user1List.get(j).getChoreID(), user1List.get(j).getCompletionTime());
                             user1Completed.add(user1List.get(j)); // Add the chore to list of completed chores
                             user1List.remove(j); // Remove from the list
-                            awardPoints(j);
+                            //awardPoints(j);
                         }
                     }
                 }

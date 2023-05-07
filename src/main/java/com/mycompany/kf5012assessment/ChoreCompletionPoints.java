@@ -4,6 +4,8 @@
  */
 package com.mycompany.kf5012assessment;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author w21023500
@@ -13,6 +15,7 @@ public class ChoreCompletionPoints {
     private User user;
     private int points;
     private ChoresDatabase choreDB;
+    private ArrayList<Chore> choreList = new ArrayList();
 
     public int pointCalculation(Chore chore, int activeUser){
         float estimate = 0;
@@ -20,7 +23,18 @@ public class ChoreCompletionPoints {
         float time = 0;
         float difficulty = 1;
         if(activeUser == 1){
-            estimate = chore.getEstimateTimeUserOne();
+            try{
+                choreList = choreDB.selectEstimateTimeUserOne(); // Get the list of estimates for user 1
+            }catch (Exception e){
+                System.out.println("ERROR: " + e);
+            }
+            
+            for(Chore c : choreList){
+                if(c.getChoreID() == chore.getChoreID()){
+                    estimate = c.getEstimateTimeUserOne(); // Set estimate to number found in DB
+                }
+            }
+            
             actualTime = chore.getCompletionTime();
             if (estimate >= 60){
                 difficulty = 2;
@@ -33,12 +47,13 @@ public class ChoreCompletionPoints {
             } else {
                 System.out.println("ERROR: Invalid estimate");
             }
-            
+            System.out.println("EST TIME: " + estimate);
             if(actualTime < estimate){
                 time = (estimate - actualTime) * difficulty; // SCENARIO (50 - 30) * 1.5 =  30
+                System.out.println("FAST: "+time);
             } else{
                 time = (((actualTime - estimate) * -1) * difficulty) * 0.5f; // SCENARIO (((30 - 50) * -1) * 1.5) * 0.5 = 15
-                System.out.println(time);
+                System.out.println("SLOW: "+time);
             }
             points = Math.round(time);
             

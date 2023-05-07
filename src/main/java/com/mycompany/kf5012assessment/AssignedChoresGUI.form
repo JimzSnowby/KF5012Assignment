@@ -226,10 +226,13 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="selectedChore" min="-2" max="-2" attributes="0"/>
                           <Component id="completionTimeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="selectedChoreLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                               <Component id="completionTimeInput" alignment="0" max="32767" attributes="0"/>
                               <Component id="acceptButton" alignment="0" pref="85" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="viewHistoryButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="selectedChoreLabel" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -241,7 +244,7 @@
                       <Component id="totalChores" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="13" max="32767" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -252,6 +255,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="weekScoreLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="weekScore" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="viewHistoryButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -288,7 +292,7 @@
                   </Group>
                   <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="45" max="32767" attributes="0"/>
+              <EmptySpace pref="43" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -454,6 +458,14 @@
       </Properties>
       <Events>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="completionTimeInputKeyTyped"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="viewHistoryButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="View History"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewHistoryButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
