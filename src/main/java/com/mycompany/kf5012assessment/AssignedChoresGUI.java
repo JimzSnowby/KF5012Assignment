@@ -35,14 +35,13 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
      */
     public AssignedChoresGUI() {
         try {
-            
             usersList = choresDB.selectUsers();
-            //allChores = choresDB.selectChores();
-            allChores = choresDB.selectChoresAssigned(); //Get table of assigned chores
-            usersIDs = choresDB.selectUserIDChoresAssigned(); // Get userID from assigned Chores
+            allChores = choresDB.selectChores();
+            //allChores = choresDB.selectChoresAssigned(); //Get table of assigned chores
+            //usersIDs = choresDB.selectUserIDChoresAssigned(); // Get userID from assigned Chores
             
             for (Chore c : allChores) { // GET CHORES FOR COMPLETION
-                for (User u : usersIDs){
+                /*for (User u : usersIDs){
                     if (u.getUserID() == 1 && !c.isChoreComplete()){
                         user1List.add(c);
                     } else if (u.getUserID() == 2 && !c.isChoreComplete()){
@@ -50,12 +49,12 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                     }
                     
                     
-                }
-                /*if (c.getChoreAssignTo() == 1 && !c.isChoreComplete()) {
+                }*/
+                if (c.getChoreAssignTo() == 1 && !c.isChoreComplete()) {
                     user1List.add(c);
                 } else if (c.getChoreAssignTo() == 2 && !c.isChoreComplete()) {
                     user2List.add(c);
-                }*/
+                }
             }
             /*for (Chore c : allChores) { // GET COMPLETE CHORE HISTORY
                 if (c.getChoreAssignTo() == 1 && c.isChoreComplete()) {
@@ -66,6 +65,18 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             }*/
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
+        }
+        
+        try {
+            for (Chore c : allChores) { // GET COMPLETE CHORE HISTORY
+                if (c.getChoreAssignTo() == 1 && c.isChoreComplete()) {
+                    user1Completed.add(c);
+                } else if (c.getChoreAssignTo() == 2 && c.isChoreComplete()) {
+                    user2Completed.add(c);
+                }
+            }
+        } catch (Exception e){
+            
         }
         initComponents(); // Initializes GUI elements, PUT ALL METHODS AFTER THIS
 
