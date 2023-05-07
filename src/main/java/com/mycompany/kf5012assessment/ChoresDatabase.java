@@ -138,9 +138,9 @@ public class ChoresDatabase {
     //Select userID from choresAssigned table
     public ArrayList<User> selectUserIDChoresAssigned() throws SQLException {
 
-        String sqlSelectChoresAssigned = "SELECT userID FROM choresAssigned;";
+        String sqlSelectUserIDChoresAssigned = "SELECT userID FROM choresAssigned;";
 
-        ResultSet userList = database.RunSQLQuery(sqlSelectChoresAssigned);
+        ResultSet userList = database.RunSQLQuery(sqlSelectUserIDChoresAssigned);
         ArrayList<User> users = new ArrayList<User>();
 
         try {
@@ -150,7 +150,7 @@ public class ChoresDatabase {
             }
         } catch (SQLException e) {
             System.out.println("Failed to process query in selectChores()");
-            System.out.println("SQL attempted: " + sqlSelectChoresAssigned);
+            System.out.println("SQL attempted: " + sqlSelectUserIDChoresAssigned);
             System.out.println("Error: " + e.getErrorCode());
             System.out.println("Message: " + e.getMessage());
             e.printStackTrace();
@@ -189,12 +189,12 @@ public class ChoresDatabase {
     public void updateUserWeekScore(int userWeekScore, int userID) throws SQLException {
         ArrayList<User> users = new ArrayList<User>();
 
-        String sqlUpdateChore = "UPDATE users SET userWeekScore = " + userWeekScore + "WHERE userActive = " + users.get(userID) + ";";
+        String sqlUpdateUserWeekScore = "UPDATE users SET userWeekScore = " + userWeekScore + "WHERE userActive = " + users.get(userID) + ";";
 
-        boolean success = database.RunSQL(sqlUpdateChore);
+        boolean success = database.RunSQL(sqlUpdateUserWeekScore);
 
         if (!success) {
-            System.out.println("Failed to process query" + sqlUpdateChore);
+            System.out.println("Failed to process query" + sqlUpdateUserWeekScore);
         }
     }
 
@@ -202,12 +202,12 @@ public class ChoresDatabase {
     public void updateUserTotalScore(int userTotalScore, int userID) throws SQLException {
         ArrayList<User> users = new ArrayList<User>();
 
-        String sqlUpdateChore = "UPDATE users SET userWeekScore = " + userTotalScore + "WHERE userActive = " + users.get(userID) + ";";
+        String sqlUpdateUserTotalScore = "UPDATE users SET userWeekScore = " + userTotalScore + "WHERE userActive = " + users.get(userID) + ";";
 
-        boolean success = database.RunSQL(sqlUpdateChore);
+        boolean success = database.RunSQL(sqlUpdateUserTotalScore);
 
         if (!success) {
-            System.out.println("Failed to process query" + sqlUpdateChore);
+            System.out.println("Failed to process query" + sqlUpdateUserTotalScore);
         }
     }
 
@@ -225,9 +225,9 @@ public class ChoresDatabase {
     //Select estimate times for user 1 from estimateTime table
     public ArrayList<Chore> selectEstimateTimeUserOne() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreEstimateTime, choreID  FROM estimateTime WHERE userID = 1;";
+        String sqlEstimateTimeUserOne = "SELECT choreEstimateTime, choreID  FROM estimateTime WHERE userID = 1;";
 
-        ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
+        ResultSet choreList = database.RunSQLQuery(sqlEstimateTimeUserOne);
         ArrayList<Chore> chores = new ArrayList<Chore>();
 
         try {
@@ -240,7 +240,7 @@ public class ChoresDatabase {
             }
         } catch (SQLException e) {
             System.out.println("Failed to process query in selectChores()");
-            System.out.println("SQL attempted: " + sqlSelectChores);
+            System.out.println("SQL attempted: " + sqlEstimateTimeUserOne);
             System.out.println("Error: " + e.getErrorCode());
             System.out.println("Message: " + e.getMessage());
             e.printStackTrace();
@@ -251,9 +251,9 @@ public class ChoresDatabase {
     //Select estimate times for user 2 from estimateTime table
     public ArrayList<Chore> selectEstimateTimeUserTwo() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreEstimateTime, choreID  FROM estimateTime WHERE userID = 2;";
+        String sqlEstimateTimeUserTwo = "SELECT choreEstimateTime, choreID  FROM estimateTime WHERE userID = 2;";
 
-        ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
+        ResultSet choreList = database.RunSQLQuery(sqlEstimateTimeUserTwo);
         ArrayList<Chore> chores = new ArrayList<Chore>();
 
         try {
@@ -266,7 +266,7 @@ public class ChoresDatabase {
             }
         } catch (SQLException e) {
             System.out.println("Failed to process query in selectChores()");
-            System.out.println("SQL attempted: " + sqlSelectChores);
+            System.out.println("SQL attempted: " + sqlEstimateTimeUserTwo);
             System.out.println("Error: " + e.getErrorCode());
             System.out.println("Message: " + e.getMessage());
             e.printStackTrace();
@@ -299,12 +299,12 @@ public class ChoresDatabase {
     //Select weekly chores from chores table
     public ArrayList<Chore> selectChoresFrequencyWeekly() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreID, choreName, choreFrequency "
+        String sqlSelectChoresWeekly = "SELECT choreID, choreName, choreFrequency "
                 + "FROM chores "
                 + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID "
                 + "WHERE choreFrequency = 'Weekly';";
 
-        ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
+        ResultSet choreList = database.RunSQLQuery(sqlSelectChoresWeekly);
         ArrayList<Chore> chores = new ArrayList<Chore>();
 
         try {
@@ -323,7 +323,7 @@ public class ChoresDatabase {
             }
         } catch (SQLException e) {
             System.out.println("Failed to process query in selectChores()");
-            System.out.println("SQL attempted: " + sqlSelectChores);
+            System.out.println("SQL attempted: " + sqlSelectChoresWeekly);
             System.out.println("Error: " + e.getErrorCode());
             System.out.println("Message: " + e.getMessage());
             e.printStackTrace();
@@ -334,12 +334,12 @@ public class ChoresDatabase {
     //Select one-off chores from chores table
     public ArrayList<Chore> selectChoresFrequencyOneOff() throws SQLException {
 
-        String sqlSelectChores = "SELECT choreID, choreName "
+        String sqlSelectChoresOff = "SELECT choreID, choreName "
                 + "FROM chores "
                 + "INNER JOIN choreFrequency ON choreFrequency.choreFrequencyID = chores.choreFrequencyID "
                 + "WHERE choreFrequency = 'One-off';";
 
-        ResultSet choreList = database.RunSQLQuery(sqlSelectChores);
+        ResultSet choreList = database.RunSQLQuery(sqlSelectChoresOff);
         ArrayList<Chore> chores = new ArrayList<Chore>();
 
         try {
@@ -352,7 +352,7 @@ public class ChoresDatabase {
             }
         } catch (SQLException e) {
             System.out.println("Failed to process query in selectChores()");
-            System.out.println("SQL attempted: " + sqlSelectChores);
+            System.out.println("SQL attempted: " + sqlSelectChoresOff);
             System.out.println("Error: " + e.getErrorCode());
             System.out.println("Message: " + e.getMessage());
             e.printStackTrace();
@@ -390,25 +390,25 @@ public class ChoresDatabase {
 
     //Update chore to be selected in chores table
     public void updateToSelected() throws SQLException {
-        String updateToSelected = "UPDATE chores SET isSelected = 1 "
+        String sqlUpdateToSelected = "UPDATE chores SET isSelected = 1 "
                 + "WHERE choreID = '" + newchore.getChoreID() + "' ;";
 
-        boolean success = database.RunSQL(updateToSelected);
+        boolean success = database.RunSQL(sqlUpdateToSelected);
 
         if (!success) {
-            System.out.println("Failed to process query" + updateToSelected);
+            System.out.println("Failed to process query" + sqlUpdateToSelected);
         }
     }
 
     //Update chore to be unselected in chores table
     public void updateToUnselected() throws SQLException {
-        String updateToUnselected = "UPDATE chores SET isSelected = 0 "
+        String sqlUpdateToUnselected = "UPDATE chores SET isSelected = 0 "
                 + "WHERE choreID = '" + newchore.getChoreID() + "' ;";
 
-        boolean success = database.RunSQL(updateToUnselected);
+        boolean success = database.RunSQL(sqlUpdateToUnselected);
 
         if (!success) {
-            System.out.println("Failed to process query" + updateToUnselected);
+            System.out.println("Failed to process query" + sqlUpdateToUnselected);
         }
     }
 
@@ -480,14 +480,14 @@ public class ChoresDatabase {
         System.out.println(convertedMax);
         //int max = Integer.parseInt(rs) + 1;
 
-        String sqlAddChore = "INSERT INTO choresAssigned (choresAssignedID, choreID, userID, daysOfWeekID, choreComplete, choreCompletionTime) "
+        String sqlAddAssignedChore = "INSERT INTO choresAssigned (choresAssignedID, choreID, userID, daysOfWeekID, choreComplete, choreCompletionTime) "
                 + "VALUES(" + convertedMax + ", " + newChore.getChoreID() + ", " + newUser.getUserID() + ", " + newChore.getChoreDay() + ", " + newChore.isChoreComplete() + ", " + newChore.getCompletionTime() + "); ";
 
         boolean success;
-        success = database.RunSQL(sqlAddChore);
+        success = database.RunSQL(sqlAddAssignedChore);
 
         if (!success) {
-            System.out.println("Failed to process query" + sqlAddChore);
+            System.out.println("Failed to process query" + sqlAddAssignedChore);
         }
 
     }
@@ -504,14 +504,14 @@ public class ChoresDatabase {
             convertedMax = maxID.getInt(1) + 1;
         }
 
-        String sqlAddChoreL = "INSERT INTO users (userID, userActive, userWeekScore, userTotalScore) "
+        String sqlAddUser = "INSERT INTO users (userID, userActive, userWeekScore, userTotalScore) "
                 + "VALUES(" + convertedMax + ", " + userActive + ", " + weekScore + ", " + totalScore + "); ";
 
         boolean success;
-        success = database.RunSQL(sqlAddChoreL);
+        success = database.RunSQL(sqlAddUser);
 
         if (!success) {
-            System.out.println("Failed to process query" + sqlAddChoreL);
+            System.out.println("Failed to process query" + sqlAddUser);
         }
 
     }
