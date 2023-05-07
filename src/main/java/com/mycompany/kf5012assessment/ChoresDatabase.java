@@ -23,11 +23,11 @@ public class ChoresDatabase {
         database = new DBConnection();
 
         //James:
-        database.Connect("G:\\University work\\Year 2\\Semester2\\SE practice\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("G:\\University work\\Year 2\\Semester2\\SE practice\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //   database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-        //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
 
         //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
@@ -99,7 +99,7 @@ public class ChoresDatabase {
     //Select all assigned chores from choresAssigned table
     public ArrayList<Chore> selectChoresAssigned() throws SQLException {
 
-        String sqlSelectChoresAssigned = "SELECT choreID, userID, assignedTo, daysOfWeekID, choreCompletionTime FROM choresAssigned;";
+        String sqlSelectChoresAssigned = "SELECT choreID, userID, daysOfWeekID, choreComplete, choreCompletionTime FROM choresAssigned;";
 
         ResultSet choreList = database.RunSQLQuery(sqlSelectChoresAssigned);
         ArrayList<Chore> chores = new ArrayList<Chore>();
@@ -114,7 +114,16 @@ public class ChoresDatabase {
                 newChore.setChoreID(choreList.getInt(1));
                 newUser.setUserID(userList.getInt(2));
                 newChore.setChoreDay(choreList.getInt(3));
-                newChore.setCompletionTime(choreList.getInt(4));
+                int sel2 = choreList.getInt(4);
+
+                if (sel2 == 0) {
+                    newChore.setChoreComplete(false);
+                } else {
+                    newChore.setChoreComplete(true);
+
+                }
+                chores.add(newChore);
+                newChore.setCompletionTime(choreList.getInt(5));
             }
         } catch (SQLException e) {
             System.out.println("Failed to process query in selectChores()");
@@ -448,8 +457,8 @@ public class ChoresDatabase {
         System.out.println(convertedMax);
         //int max = Integer.parseInt(rs) + 1;
 
-            String sqlAddChore = "INSERT INTO choresAssigned (choresAssignedID, choreID, userID, daysOfWeekID, choreComplete, choreCompletionTime) "
-                + "VALUES(" + convertedMax + ", " + newChore.getChoreID() + ", " + newUser.getUserID() +  ", " + newChore.getChoreDay() +  ", " + newChore.isChoreComplete() + ", " + newChore.getCompletionTime()+ "); ";
+        String sqlAddChore = "INSERT INTO choresAssigned (choresAssignedID, choreID, userID, daysOfWeekID, choreComplete, choreCompletionTime) "
+                + "VALUES(" + convertedMax + ", " + newChore.getChoreID() + ", " + newUser.getUserID() + ", " + newChore.getChoreDay() + ", " + newChore.isChoreComplete() + ", " + newChore.getCompletionTime() + "); ";
 
         boolean success;
         success = database.RunSQL(sqlAddChore);
