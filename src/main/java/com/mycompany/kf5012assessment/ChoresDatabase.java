@@ -483,18 +483,18 @@ public class ChoresDatabase {
         String v = newchore.getChoreName();
         System.out.println(v);
 
-        String sqlAddChore2 = "INSERT INTO chores (choreID, choreName, choreFrequencyID, daysOfWeekID, assignedTo, isSelected) "
+        String sqlAddChore = "INSERT INTO chores (choreID, choreName, choreFrequencyID, daysOfWeekID, assignedTo, isSelected) "
                 + "VALUES(" + convertedMax + ", '" + name + "', " + choreFrequencyID + ", "
                 + newchore.getChoreDay() + ", " + assignedTo + ", " + select + "); ";
 
         boolean success;
-        success = database.RunSQL(sqlAddChore2);
+        success = database.RunSQL(sqlAddChore);
 
         if (success) {
             System.out.println("Chore " + name + " was successfully added");
         }
         if (!success) {
-            System.out.println("Failed to process query" + sqlAddChore2);
+            System.out.println("Failed to process query" + sqlAddChore);
         }
 
     }
