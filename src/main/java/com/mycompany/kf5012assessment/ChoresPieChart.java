@@ -19,12 +19,15 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.chart.plot.PiePlot;
 
 public class ChoresPieChart {
+
     public static void main() {
+
         ChoresDatabase choresDB = new ChoresDatabase();
         ArrayList<Chore> choreList = new ArrayList();
-        int user1Chores = 0;
-        int user2Chores = 0;
+        int user1Chores = 90;
+        int user2Chores = 4;
         
+
         try {
             choreList = choresDB.selectChoresAssigned();
         } catch (Exception e) {
@@ -33,7 +36,7 @@ public class ChoresPieChart {
         for (Chore c : choreList) {
             if (c.getChoreAssignTo() == 1) {
                 user1Chores++;
-            }else {
+            } else {
                 user2Chores++;
             }
         }
@@ -69,7 +72,7 @@ public class ChoresPieChart {
         frame.setContentPane(chartPanel);
         frame.pack();
         frame.setVisible(true);
-        
+
     }
 
 }
