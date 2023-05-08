@@ -139,7 +139,7 @@ public class Chore {
     }
 
     public Chore() {
-        choreName = "not set";
+        this.choreName = choreName;
         estimateTimeUserOne = 0;
         estimateTimeUserTwo = 0;
         choreAssignTo = 0;
