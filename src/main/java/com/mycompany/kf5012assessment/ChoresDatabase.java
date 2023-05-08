@@ -28,7 +28,7 @@ public class ChoresDatabase {
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-        //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
         //database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
@@ -195,6 +195,23 @@ public class ChoresDatabase {
             System.out.println("Failed to process query" + sqlUpdateChoresComplete);
         }
     }
+    
+    //Update userActive in users table 
+    public void updateUserActive(int active, int userID) throws SQLException {
+        ArrayList<User> users = new ArrayList<User>();
+
+        String sqlUpdateUserActive = "UPDATE users SET userActive = " + active + "WHERE userID = " + users.get(userID) + ";";
+
+        boolean success = database.RunSQL(sqlUpdateUserActive);
+
+        if (success) {
+            System.out.println("Users active status was sucessfully updated to " + active);
+        }
+        if (!success) {
+            System.out.println("Failed to process query" + sqlUpdateUserActive);
+        }
+    }
+
 
     //Update user week score in users table
     public void updateUserWeekScore(int userWeekScore, int userID) throws SQLException {
@@ -627,12 +644,15 @@ public class ChoresDatabase {
     
     /*
     Testing the addChore() function
+        */
+    
     public static void main(String[] args) throws SQLException {
         ChoresDatabase x = new ChoresDatabase();
         Chore newChore = newchore;
-        newChore.setChoreName("Feed the fishes");
+        newChore.setChoreID(1);
+        
+        x.updateToSelected();
 
-        x.addChore(newchore, 1, 2, 1);
     }
-    */
+
 }
