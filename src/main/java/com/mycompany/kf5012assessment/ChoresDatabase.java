@@ -28,10 +28,9 @@ public class ChoresDatabase {
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //   database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-       // database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        // database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
-        
         database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         // database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //  database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
@@ -302,6 +301,9 @@ public class ChoresDatabase {
 
         boolean success = database.RunSQL(sqlUpdateEstimateTime1);
 
+        if (success) {
+            System.out.println("Estimate time was successfully updated to " + newchore.getEstimateTimeUserOne());
+        }
         if (!success) {
             System.out.println("Failed to process query" + sqlUpdateEstimateTime1);
         }
@@ -313,6 +315,9 @@ public class ChoresDatabase {
 
         boolean success = database.RunSQL(sqlUpdateEstimateTime2);
 
+        if (success) {
+            System.out.println("Estimate time was successfully updated to " + newchore.getEstimateTimeUserTwo());
+        }
         if (!success) {
             System.out.println("Failed to process query" + sqlUpdateEstimateTime2);
         }
