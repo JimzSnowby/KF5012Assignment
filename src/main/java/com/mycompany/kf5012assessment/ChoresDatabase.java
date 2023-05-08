@@ -26,14 +26,13 @@ public class ChoresDatabase {
         //James:
         //database.Connect("G:\\University work\\Year 2\\Semester2\\SE practice\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //   database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-        // database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
-        database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        // database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //  database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("D:\\hellllooooo\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //database.Connect("C:\\Users\\nihal\\Documents\\nihall\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
@@ -492,7 +491,8 @@ public class ChoresDatabase {
         System.out.println(v);
 
         String sqlAddChore2 = "INSERT INTO chores (choreID, choreName, choreFrequencyID, daysOfWeekID, assignedTo, isSelected) "
-                + "VALUES(" + convertedMax + ", '" + name + "', " + choreFrequencyID + ", " + newchore.getChoreDay() + ", " + assignedTo + ", " + select + "); ";
+                + "VALUES(" + convertedMax + ", '" + name + "', " + choreFrequencyID + ", " + 
+                newchore.getChoreDay() + ", " + assignedTo + ", " + select + "); ";
 
         boolean success;
         success = database.RunSQL(sqlAddChore2);
@@ -623,12 +623,16 @@ public class ChoresDatabase {
         }
 
     }
-    /* Test the add chore
+    
+    
+    /*
+    Testing the addChore() function
     public static void main(String[] args) throws SQLException {
         ChoresDatabase x = new ChoresDatabase();
         Chore newChore = newchore;
-        newChore.setChoreName("hellooo");
+        newChore.setChoreName("Feed the fishes");
 
         x.addChore(newchore, 1, 2, 1);
-    }*/
+    }
+    */
 }
