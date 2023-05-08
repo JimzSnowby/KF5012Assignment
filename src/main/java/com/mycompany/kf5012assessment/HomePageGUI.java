@@ -229,6 +229,12 @@ public class HomePageGUI extends javax.swing.JFrame {
         etgi.pack(); // resize the window to fit its components
         etgi.setLocationRelativeTo(this); // center the window relative to this GUI
         etgi.setVisible(true);
+        try {
+            choresDB.updateUserActive(0,2);
+            choresDB.updateUserActive(1,1);
+        } catch (Exception e){
+            System.out.println("SQL ERROR: " + e);
+        }
         
         // TODO add your handling code here:
     }//GEN-LAST:event_BobProfileButtonActionPerformed
@@ -238,6 +244,12 @@ public class HomePageGUI extends javax.swing.JFrame {
         etgi.pack(); // resize the window to fit its components
         etgi.setLocationRelativeTo(this); // center the window relative to this GUI
         etgi.setVisible(true);
+        try {
+            choresDB.updateUserActive(0,1);
+            choresDB.updateUserActive(1,2);
+        } catch (Exception e){
+            System.out.println("SQL ERROR: " + e);
+        }
     }//GEN-LAST:event_aliceProfileButtonActionPerformed
 
     private void selectChoresButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectChoresButtonActionPerformed
