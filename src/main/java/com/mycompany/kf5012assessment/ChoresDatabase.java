@@ -193,7 +193,7 @@ public class ChoresDatabase {
     public void updateUserWeekScore(int userWeekScore, int userID) throws SQLException {
         ArrayList<User> users = new ArrayList<User>();
 
-        String sqlUpdateUserWeekScore = "UPDATE users SET userWeekScore = " + userWeekScore + "WHERE userActive = " + users.get(userID) + ";";
+        String sqlUpdateUserWeekScore = "UPDATE users SET userWeekScore = " + userWeekScore + " WHERE userActive = " + userID + ";";
 
         boolean success = database.RunSQL(sqlUpdateUserWeekScore);
 
@@ -209,7 +209,7 @@ public class ChoresDatabase {
     public void updateUserTotalScore(int userTotalScore, int userID) throws SQLException {
         ArrayList<User> users = new ArrayList<User>();
 
-        String sqlUpdateUserTotalScore = "UPDATE users SET userTotalScore = " + userTotalScore + "WHERE userActive = " + users.get(userID) + ";";
+        String sqlUpdateUserTotalScore = "UPDATE users SET userTotalScore = " + userTotalScore + " WHERE userActive = " + userID + ";";
 
         boolean success = database.RunSQL(sqlUpdateUserTotalScore);
 
