@@ -285,10 +285,12 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
             // adds a new line to separate each day's chores
             message.append("\n");
         }
-//confirm message 
+//confirm message to the user 
         int confirm = JOptionPane.showConfirmDialog(this, message.toString(), "Confirm Selected Chores", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
+            //dispose
             this.dispose();
+            //opns homepage 
             HomePageGUI mainForm = new HomePageGUI();
             mainForm.setVisible(true);
             updateTableForSelectedDay(chooseDayChore.getSelectedIndex() - 1);
@@ -300,21 +302,27 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         if (confirm == JOptionPane.YES_OPTION) {
             //closes window
             this.dispose();
+            //home page visble 
             HomePageGUI mainForm = new HomePageGUI();
             mainForm.setVisible(true);
         }
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void chooseDayChoreMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chooseDayChoreMouseEntered
+      //gives the user a message if they hover over the button
         chooseDayChore.setToolTipText("select days of the week!");
 
     }//GEN-LAST:event_chooseDayChoreMouseEntered
 
     private void addChoreButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addChoreButtonMouseEntered
+           //gives the user a message if they hover over the button
+
         addChoreButton.setToolTipText("click to add a new chore!");
     }//GEN-LAST:event_addChoreButtonMouseEntered
 
     private void submitChoreButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitChoreButtonMouseEntered
+             //gives the user a message if they hover over the button
+
         submitChoreButton.setToolTipText("submit your selected chores!");
         // TODO add your handling code here:
     }//GEN-LAST:event_submitChoreButtonMouseEntered
@@ -342,6 +350,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         updateTableForSelectedDay(0);
     }
 
+  //gets from the database and stores it in the arraylist 
     public void getData() {
         ChoresDatabase choresDB = new ChoresDatabase();
         choresArrayList = new ArrayList();
@@ -352,6 +361,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         }
     }
 
+    
     public void displayTableData() {
         // Empty the existing data
 

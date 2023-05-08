@@ -47,26 +47,6 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         return mainWindow;
     }
 
-    public boolean[] getTickedRows(JTable table) {
-        try {
-            int rowCount = table.getRowCount();
-            boolean[] tickedRows = new boolean[rowCount];
-
-            // Loop through each row and check if it has been ticked
-            for (int i = 0; i < rowCount; i++) {
-                Boolean value = (Boolean) table.getValueAt(i, 0);
-                tickedRows[i] = value != null && value;
-            }
-
-            return tickedRows;
-        } catch (Exception e) {
-            // Log the error
-            System.out.println("Error: " + e.getMessage());
-            return new boolean[0];
-        }
-
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -232,14 +212,10 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
 
     private void oneOffChoreTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneOffChoreTypeActionPerformed
         // TODO add your handling code here:
-
-
     }//GEN-LAST:event_oneOffChoreTypeActionPerformed
 
     private void weeklyChoreTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weeklyChoreTypeActionPerformed
         // TODO add your handling code here:
-
-
     }//GEN-LAST:event_weeklyChoreTypeActionPerformed
 
     private void submitNewChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitNewChoreButtonActionPerformed
@@ -249,15 +225,19 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
         }
 
         Chore chore = new Chore();
+        // Set the name of the chore to the value entered in the choreNameTextField
         chore.setChoreName(choreNameTextField.getText());
-        chore.setChoreDay(daySelect.getSelectedIndex() - 1);
+       // Set the day of the week for the chore based on the selected index in the daySelect combo box
+        chore.setChoreDay(daySelect.getSelectedIndex());
+      // Set the frequency ID of the chore based on whether the weeklyChoreType radio button is selected or not
         chore.setChoreFrequencyID(weeklyChoreType.isSelected() ? 1 : 2);
+
         ChoresDatabase db = new ChoresDatabase();
         try {
             db.addChore(chore, chore.getChoreFrequencyID(), 0, 0);
-            mainWindow.getData();
-            mainWindow.displayTableData();
-            mainWindow.recordTableChanges();
+//            mainWindow.getData();
+//            mainWindow.displayTableData();
+//            mainWindow.recordTableChanges();
             choresArrayList.add(chore);
             mainWindow.resetFrame(); // Call resetFrame() to close and reopen the frame
         } catch (SQLException E) {
@@ -265,7 +245,6 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
             E.printStackTrace();
             System.out.println("Exception occurred");
         }
-
     }//GEN-LAST:event_submitNewChoreButtonActionPerformed
 
     private void cancelNewChoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelNewChoreButtonActionPerformed
@@ -303,38 +282,38 @@ public class CreateNewChoreGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_formKeyPressed
 
     private void choreNameTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_choreNameTextFieldKeyPressed
-   if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            this.dispose();
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                this.dispose();
+            }
         }
-    }
     }//GEN-LAST:event_choreNameTextFieldKeyPressed
 
     private void daySelectKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_daySelectKeyPressed
-if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            this.dispose();
-        }
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                this.dispose();
+            }
     }    }//GEN-LAST:event_daySelectKeyPressed
 
     private void weeklyChoreTypeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_weeklyChoreTypeKeyPressed
-if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            this.dispose();
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                this.dispose();
+            }
         }
-    }        
     }//GEN-LAST:event_weeklyChoreTypeKeyPressed
 
     private void oneOffChoreTypeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_oneOffChoreTypeKeyPressed
-if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            this.dispose();
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel creating a new task?", "Confirm Cancel", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                this.dispose();
+            }
         }
-    }
     }//GEN-LAST:event_oneOffChoreTypeKeyPressed
 
     /**
