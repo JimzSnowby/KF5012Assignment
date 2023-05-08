@@ -640,19 +640,5 @@ public class ChoresDatabase {
         }
 
     }
-    
-    
-    /*
-    Testing the addChore() function
-        */
-    
-    public static void main(String[] args) throws SQLException {
-        ChoresDatabase x = new ChoresDatabase();
-        Chore newChore = newchore;
-        newChore.setChoreID(1);
-        
-        x.updateToSelected();
-
-    }
 
 }
