@@ -63,7 +63,8 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         initComponents(); // Initializes GUI elements, PUT ALL METHODS AFTER THIS
         dialogSubmit.pack(); 
         dialogSubmit.setLocationRelativeTo(this); // Adjust popup location
-
+        
+        
 
         int selection = daySelector.getSelectedIndex(); // Get the currently selected day from the selector
         for (User u : usersList) {
