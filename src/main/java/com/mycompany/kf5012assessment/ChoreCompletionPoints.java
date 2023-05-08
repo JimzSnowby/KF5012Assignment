@@ -11,15 +11,11 @@ import java.util.ArrayList;
  * @author w21023500
  */
 public class ChoreCompletionPoints {
-    private Chore chore;
-    private User user;
     private int points;
     private ChoresDatabase choreDB;
     private ArrayList<Chore> choreList = new ArrayList();
     
-    // Algorithm if faster than estimate
-            // (EstimateTime - ActualTime) * choreDifficulty(Based on time, < 15 min is easy = 1, < 30 min is med =  1.5, > 30 is hard  = 2)
-        // Algorithm if slower than estimate, has a 5-10 minute leeway on lateness
+    // (EstimateTime - ActualTime) * choreDifficulty(Based on time, < 15 min is easy = 1, < 30 min is med =  1.5, > 30 is hard  = 2)
 
     public int pointCalculation(Chore chore, int activeUser){
         float estimate = 0;
@@ -39,7 +35,7 @@ public class ChoreCompletionPoints {
                 }
             }
             
-            actualTime = chore.getCompletionTime();
+            actualTime = chore.getCompletionTime(); // Gets the completion time of the chore inputted by the user
             if (estimate >= 60){
                 difficulty = 2;
             }
@@ -63,8 +59,19 @@ public class ChoreCompletionPoints {
             
         }
         if(activeUser == 2){
-            estimate = chore.getEstimateTimeUserTwo();
-            actualTime = chore.getCompletionTime();
+            try{
+                choreList = choreDB.selectEstimateTimeUserTwo(); // Get the list of estimates for user 2
+            }catch (Exception e){
+                System.out.println("DB ERROR: " + e);
+            }
+            
+            for(Chore c : choreList){
+                if(c.getChoreID() == chore.getChoreID()){
+                    estimate = c.getEstimateTimeUserTwo(); // Set estimate to number found in DB
+                }
+            }
+            
+            actualTime = chore.getCompletionTime(); // Gets the completion time of the chore inputted by the user
             if (estimate >= 60){
                 difficulty = 2;
             }
@@ -76,12 +83,13 @@ public class ChoreCompletionPoints {
             } else {
                 System.out.println("ERROR: Invalid estimate");
             }
-            
+            System.out.println("EST TIME: " + estimate);
             if(actualTime < estimate){
                 time = (estimate - actualTime) * difficulty; // SCENARIO (50 - 30) * 1.5 =  30
+                System.out.println("FAST: "+time);
             } else{
-                time = (((actualTime - estimate) * -1) * difficulty) * 0.5f; // SCENARIO (((30 - 50) * -1) * 1.5) * 0.5 = 15
-                System.out.println("Wat: "+time);
+                time = ((actualTime - estimate * -1) * difficulty) * 0.5f; // SCENARIO ((30 - 50 * -1) * 1.5) * 0.5 = 15
+                System.out.println("SLOW: "+time);
             }
             points = Math.round(time); // Round points to whole number
         }
@@ -90,7 +98,7 @@ public class ChoreCompletionPoints {
     }
     
     // Set the users total at end of week
-    public void totalCalculation(User user){ // Set the users total at end of week
+    public void totalCalculation(User user){
        int total = user.getUserTotalScore();
        int weekScore = user.getUserWeekScore();
        

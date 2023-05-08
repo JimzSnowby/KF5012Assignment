@@ -7,6 +7,7 @@ package com.mycompany.kf5012assessment;
 import java.util.*;
 import javax.swing.table.*;
 import java.time.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,7 +17,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
 
     private ChoresDatabase choresDB = new ChoresDatabase(); // Connect to DB
     private ArrayList<User> usersList = new ArrayList(); // list of system users
-    private ArrayList<User> usersIDs = new ArrayList(); // list of system users
     private ArrayList<Chore> allChores = new ArrayList(); // list of all chores
     private ArrayList<Chore> user1List = new ArrayList(); // list of chores assigned to user1
     private ArrayList<Chore> user2List = new ArrayList(); // list of chores assigned to user2
@@ -24,12 +24,13 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private ArrayList<Chore> user2Completed = new ArrayList(); // AT END SEND LIST TO DB WITH 
     private String choreCount; // Number of Chores left
     private int currentUser; // gets the ID of the current user
-    private User user;
+    private User user; 
     private LocalDate date = LocalDate.now(); // Get system date
-    private ChoreCompletionPoints completionPoints = new ChoreCompletionPoints();
+    private ChoreCompletionPoints completionPoints = new ChoreCompletionPoints(); // Get methods for motivation component
 
-    private String highLightedChore;
-    private ArrayList<ChoresAssigned> assignedChoreList = new ArrayList();
+    private String highLightedChore; // Get the chore selected in the JTable
+    
+    //private ArrayList<ChoresAssigned> assignedChoreList = new ArrayList(); // USE THIS FOR CHORESASSIGNED TABLE
 
     /*
      * Creates new form AssignedChoresGUI
@@ -38,83 +39,54 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         try {
             usersList = choresDB.selectUsers();
             allChores = choresDB.selectChores();
-            //allChores = choresDB.selectChoresAssigned(); //Get table of assigned chores
+            //allChores = choresDB.selectChoresAssigned(); //Get table from choresAssigned table
+
             
-            //assignedChoreList = choresDB.selectChoresAssigned();
-            
-            for(Chore c : allChores){
-                if (c.getChoreAssignTo() == 1 && !c.isChoreComplete()){
+            for(Chore c : allChores){ // USES CHORE TABLE FROM DB, CANT SEEM TO CONNECT TO CHORESASSIGNED TABLE
+                if (c.getChoreAssignTo() == 1 && !c.isChoreComplete()){ // Get the chore assigned to user 1 if not complete
                     user1List.add(c);
-                } else if (c.getChoreAssignTo() == 2 && !c.isChoreComplete()){
+                } else if (c.getChoreAssignTo() == 2 && !c.isChoreComplete()){ // Get the chore assigned to user 2 if not complete
                     user2List.add(c);
                 }
             }
             
-           /* for(ChoresAssigned chore : assignedChoreList){
+           /* for(ChoresAssigned chore : assignedChoreList){ // USE FOR CONNECTING TO CHORESASSIGNED TABLE
                 if(chore.getUserID() == 1 && !chore.getChoreComplete()){
                     user1List.add(chore);
                 }
             }*/
-        
-            /*for (Chore c : allChores) { // GET CHORES FOR COMPLETION
-                for (User u : usersList){
-                    if (u.getUserID() == 1 && !c.isChoreComplete()){
-                        user1List.add(c);
-                    } else if (u.getUserID() == 2 && !c.isChoreComplete()){
-                        user2List.add(c);
-                    }
-                    
-                    
-                }
-                if (c.getChoreAssignTo() == 1 && !c.isChoreComplete()) {
-                    user1List.add(c);
-                } else if (c.getChoreAssignTo() == 2 && !c.isChoreComplete()) {
-                    user2List.add(c);
-                }
-            }*/
-            
+  
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
-        
-        try {
-            for (Chore c : allChores) { // GET COMPLETE CHORE HISTORY
-                if (c.getChoreAssignTo() == 1 && c.isChoreComplete()) {
-                    user1Completed.add(c);
-                } else if (c.getChoreAssignTo() == 2 && c.isChoreComplete()) {
-                    user2Completed.add(c);
-                }
-            }
-        } catch (Exception e){
-            System.out.println("HISTORY ERROR: " + e);
-        }
+
         initComponents(); // Initializes GUI elements, PUT ALL METHODS AFTER THIS
+        dialogSubmit.pack(); 
+        dialogSubmit.setLocationRelativeTo(this); // Adjust popup location
 
-        dialogSubmit.pack();
-        dialogSubmit.setLocationRelativeTo(this);
 
-        int selection = daySelector.getSelectedIndex();
+        int selection = daySelector.getSelectedIndex(); // Get the currently selected day from the selector
         for (User u : usersList) {
             if (u.isUserActive() == 1) {
                 currentUser = u.getUserID();
                 user = u;
                 updateDisplayTableDataUser1(selection);
-                weekScore.setText(Integer.toString(u.getUserWeekScore()));
-                totalScore.setText(Integer.toString(u.getUserTotalScore()));
-                System.out.println(currentUser);
+                weekScore.setText(Integer.toString(u.getUserWeekScore())); // Get the score for current week
+                totalScore.setText(Integer.toString(u.getUserTotalScore())); // Get the total score
                 choreCount = Integer.toString(user1List.size()); // Get list size as a string
                 break;
             } else if (u.isUserActive() == 2) {
                 currentUser = u.getUserID();
                 user = u;
                 updateDisplayTableDataUser2(selection);
-                weekScore.setText(Integer.toString(u.getUserWeekScore()));
-                totalScore.setText(Integer.toString(u.getUserTotalScore()));
+                weekScore.setText(Integer.toString(u.getUserWeekScore())); // Get the score for current week
+                totalScore.setText(Integer.toString(u.getUserTotalScore())); // Get the total score
                 choreCount = Integer.toString(user2List.size()); // Get list size as a string
                 break;
             }
         }
-
+        
+        System.out.println("Current User: " + currentUser);
         totalChores.setText(choreCount); // change the total chores text
         endOfWeekAlert();
     }
@@ -380,31 +352,34 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(totalScore))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(weekScoreLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(weekScore))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(daySelectorLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(selectedChore)
+                                    .addComponent(completionTimeLabel)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(completionTimeInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(acceptButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(selectedChoreLabel)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(daySelectorLabel)
+                                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(Title)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(daySelector, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(selectedChore)
-                            .addComponent(completionTimeLabel)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(completionTimeInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(acceptButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(viewHistoryButton)
-                                .addComponent(selectedChoreLabel))))
+                                .addComponent(totalChores)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Title)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(totalChores)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                        .addComponent(weekScoreLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(weekScore)
+                        .addGap(91, 91, 91)
+                        .addComponent(viewHistoryButton)
+                        .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -414,7 +389,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                     .addComponent(weekScoreLabel)
                     .addComponent(weekScore)
                     .addComponent(viewHistoryButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(totalScoreLabel)
                     .addComponent(totalScore))
@@ -429,7 +404,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(selectedChoreLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(selectedChore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(selectedChore)
                         .addGap(30, 30, 30)
                         .addComponent(completionTimeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -442,13 +417,14 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                         .addComponent(Title)
                         .addComponent(totalChores))
                     .addComponent(cancelButton))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void daySelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daySelectorActionPerformed
+        // Update the JTable according to the day that is selected
         int selection = daySelector.getSelectedIndex();
         for (User u : usersList) {
             if (u.isUserActive() == 1) {
@@ -460,11 +436,10 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_daySelectorActionPerformed
 
     private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptButtonActionPerformed
-        System.out.println("Current user: " + currentUser);
-        if (highLightedChore == null) {
-            System.out.println("No chore selected");
-            // CREATE AN ERROR IF NULL
-
+        // Submit the data to the DB and refresh the UI
+        if (highLightedChore == null) { // Checks if there is a chore selected
+            // CREATES AN ERROR MESSAGE IF NULL
+            JOptionPane.showMessageDialog(this, "No chore selected.");
         } else {
             submitData();
             if (currentUser == 1) {
@@ -479,7 +454,6 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             totalScore.setText(Integer.toString(user.getUserTotalScore()));
             dialogSubmit.setVisible(true);
         }
-
     }//GEN-LAST:event_acceptButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -495,7 +469,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_alertOkActionPerformed
 
     private void choreTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_choreTableMouseClicked
-
+        // Get the select cell from the table when clicked and unlock the input box
         int row = choreTable.rowAtPoint(evt.getPoint());
         int col = choreTable.columnAtPoint(evt.getPoint());
         Object cell;
@@ -518,8 +492,9 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_completionTimeInputKeyTyped
 
     private void viewHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewHistoryButtonActionPerformed
+        // Open table of past completed chores
         CompletedChoreHistoryGUI choreCompleteGUI = new CompletedChoreHistoryGUI();
-        choreCompleteGUI.setVisible(true);// TODO add your handling code here:
+        choreCompleteGUI.setVisible(true);
     }//GEN-LAST:event_viewHistoryButtonActionPerformed
 
     /**
@@ -591,8 +566,9 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     public void updateDisplayTableDataUser1(int selection) {
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
+        
         ArrayList<Chore> tableList = new ArrayList(); // Temp list to update the table
-        switch (selection) {
+        switch (selection) { // Depending on the selected day, display that days data
             case 0:
                 for (Chore c : user1List) {
                     if (c.getChoreDay() == 1 && !c.isChoreComplete()) {
@@ -666,18 +642,17 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
         }
 
-        for (int i = 0; i < tableList.size(); i++) {
+        for (int i = 0; i < tableList.size(); i++) { // Insert data into table from the selected list
             tableModel.addRow(new Object[]{tableList.get(i).getChoreName(), tableList.get(i).isChoreComplete()});
         }
-
     }
 
     public void updateDisplayTableDataUser2(int selection) {
         DefaultTableModel tableModel = (DefaultTableModel) choreTable.getModel();
         tableModel.setRowCount(0);
+        
         ArrayList<Chore> tableList = new ArrayList(); // Temp list to update the table
-
-        switch (selection) {
+        switch (selection) { // Depending on the selected day, display that days data
             case 0:
                 for (Chore c : user2List) {
                     if (c.getChoreDay() == 1 && !c.isChoreComplete()) {
@@ -750,13 +725,13 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 break;
         }
 
-        for (int i = 0; i < tableList.size(); i++) {
+        for (int i = 0; i < tableList.size(); i++) { // Insert data into table from the selected list
             tableModel.addRow(new Object[]{tableList.get(i).getChoreName(), tableList.get(i).isChoreComplete()});
         }
-
     }
 
     public void updateChoreCount(int currentUser) {
+        // Update the number of remaining chores label
         if (currentUser == 1) {
             choreCount = Integer.toString(user1List.size());
         }
@@ -819,10 +794,11 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     }
 
     public void endOfWeekAlert() {
+        // Display a table of uncomplete chores at the end of the week
         DefaultTableModel tableModel = (DefaultTableModel) alertTable.getModel();
         tableModel.setRowCount(0);
 
-        if (date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+        if (date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) { // Check the system date 
             if (currentUser == 1) {
                 for (Chore c : user1List) {
                     tableModel.addRow(new Object[]{c.getChoreName()});
@@ -833,6 +809,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                     tableModel.addRow(new Object[]{c.getChoreName()});
                 }
             }
+            // Format the gui elements
             endOfWeekAlert.pack();
             endOfWeekAlert.setLocationRelativeTo(AssignedChoresGUI.this);
             endOfWeekAlert.setVisible(true);
@@ -840,6 +817,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     }
 
     public void awardPoints(int chore) {
+        // Awards the user points based on if they were faster or slower than the estimated time
         int points = 0;
         if (user.getUserID() == 1) {
             points = completionPoints.pointCalculation(user1List.get(chore), currentUser);
@@ -850,11 +828,14 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
         int currentPoints = user.getUserWeekScore();
         int totalPoints = user.getUserTotalScore();
 
-        user.setUserWeekScore(currentPoints + points);
-        points = points + currentPoints;
-        totalPoints = totalPoints + points;
+        points = points + currentPoints; // add the new points to the weeks score
+        totalPoints = totalPoints + points; // add the points to the total score
+        
+        user.setUserWeekScore(points);
+        user.setUserTotalScore(totalPoints);
+        
         System.out.println("USER: " + user.getUserID());
-        try {
+        try { // Update the DB 
             choresDB.updateUserWeekScore(points, user.getUserID());
             choresDB.updateUserTotalScore(totalPoints, user.getUserID());
             System.out.println("Week: " + user.getUserWeekScore() + "Total: " + user.getUserTotalScore());
