@@ -10,15 +10,15 @@ package com.mycompany.kf5012assessment;
  */
 public class ChoresAssigned {
     private int choresAssignedID;
-    private int choreID;
+    private String choreName;
     private int userID;
     private int daysOfWeekID;
     private boolean choreComplete = false;
     private float choreCompletionTime;
 
-    public ChoresAssigned(int choresAssignedID, int choreID, int userID, int daysOfWeekID, boolean choreComplete, float choreCompletionTime) {
+    public ChoresAssigned(int choresAssignedID, String choreName, int userID, int daysOfWeekID, boolean choreComplete, float choreCompletionTime) {
         this.choresAssignedID = choresAssignedID;
-        this.choreID = choreID;
+        this.choreName = choreName;
         this.userID = userID;
         this.daysOfWeekID = daysOfWeekID;
         this.choreComplete = choreComplete;
@@ -33,12 +33,12 @@ public class ChoresAssigned {
         this.choresAssignedID = choresAssignedID;
     }
 
-    public int getChoreID() {
-        return choreID;
+    public String getChoreName() {
+        return choreName;
     }
 
-    public void setChoreID(int choreID) {
-        this.choreID = choreID;
+    public void setChoreID(String choreName) {
+        this.choreName = choreName;
     }
 
     public int getUserID() {
