@@ -317,6 +317,7 @@ public class EstimateTimeInputGUI extends javax.swing.JFrame {
     private void viewAssignedChoresButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAssignedChoresButtonActionPerformed
         AssignedChoresGUI assignedChoresButton = new AssignedChoresGUI();
         assignedChoresButton.setVisible(true);
+        
     }//GEN-LAST:event_viewAssignedChoresButtonActionPerformed
 
     // This method is called when a key is pressed on the estimateTimeTable
