@@ -616,11 +616,4 @@ public class ChoresDatabase {
         }
 
     }
-    
-       public static void main(String[] args) throws SQLException {
-        ChoresDatabase x = new ChoresDatabase();
-        Chore newChore = newchore;
-        
-        x.updateUserActive(1, 2);
-    }
 }
