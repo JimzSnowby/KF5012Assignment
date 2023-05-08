@@ -163,6 +163,7 @@ public class CompletedChoreHistoryGUI extends javax.swing.JFrame {
     }
     
     public void updateTable(){
+        // Update the JTable with completed chores and the user who compelted it
         DefaultTableModel tableModel = (DefaultTableModel) choreHistoryTable.getModel();
         tableModel.setRowCount(0);
         for (int i = 0; i < choreList.size(); i++){
