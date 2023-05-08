@@ -67,22 +67,25 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
 
         int selection = daySelector.getSelectedIndex(); // Get the currently selected day from the selector
         for (User u : usersList) {
-            if (u.isUserActive() == 1) {
-                currentUser = u.getUserID();
-                user = u;
-                updateDisplayTableDataUser1(selection);
-                weekScore.setText(Integer.toString(u.getUserWeekScore())); // Get the score for current week
-                totalScore.setText(Integer.toString(u.getUserTotalScore())); // Get the total score
-                choreCount = Integer.toString(user1List.size()); // Get list size as a string
-                break;
-            } else if (u.isUserActive() == 2) {
-                currentUser = u.getUserID();
-                user = u;
-                updateDisplayTableDataUser2(selection);
-                weekScore.setText(Integer.toString(u.getUserWeekScore())); // Get the score for current week
-                totalScore.setText(Integer.toString(u.getUserTotalScore())); // Get the total score
-                choreCount = Integer.toString(user2List.size()); // Get list size as a string
-                break;
+            if (u.isUserActive() == 1) { // Get the active user from the DB
+                if (u.getUserID() == 1) {
+                    currentUser = u.getUserID();
+                    user = u;
+                    updateDisplayTableDataUser1(selection);
+                    weekScore.setText(Integer.toString(u.getUserWeekScore())); // Get the score for current week
+                    totalScore.setText(Integer.toString(u.getUserTotalScore())); // Get the total score
+                    choreCount = Integer.toString(user1List.size()); // Get list size as a string
+                    break;
+                } else if (u.getUserID() == 2) {
+                    currentUser = u.getUserID();
+                    user = u;
+                    updateDisplayTableDataUser2(selection);
+                    weekScore.setText(Integer.toString(u.getUserWeekScore())); // Get the score for current week
+                    totalScore.setText(Integer.toString(u.getUserTotalScore())); // Get the total score
+                    choreCount = Integer.toString(user2List.size()); // Get list size as a string
+                    break;
+                }
+
             }
         }
         
