@@ -41,11 +41,10 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
         //forces chore 2 to be tuesday
         //choresArrayList.get(2).setDay(2);
 
-        choresArrayList.get(1);
-        choresArrayList.get(2);
-        choresArrayList.get(3);
-        choresArrayList.get(4);
-
+//        choresArrayList.get(1);
+//        choresArrayList.get(2);
+//        choresArrayList.get(3);
+//        choresArrayList.get(4);
         initComponents();
 
         // call updateTableData() to populate the table with data
@@ -248,7 +247,7 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
             if (chore.isSelectedForThisWeek()) { //Determine which  day for which the chore is selected
                 int day = chooseDayChore.getSelectedIndex() - 1;
                 selectedChoresMap.putIfAbsent(day, new ArrayList<>()); //Checks if the day exists in the selectedChoresMap, if it doesnt , than it create a new list for that day
-                selectedChoresMap.get(day).add(chore); 
+                selectedChoresMap.get(day).add(chore);
                 try {
                     ChoresDatabase.newchore = chore;
                     choresDB.updateToSelected();
@@ -270,17 +269,23 @@ public class SelectWeeklyChoreGUI extends javax.swing.JFrame {
             return;
         }
 
+        // create a new StringBuilder instance with the message
         StringBuilder message = new StringBuilder("Confirm your selected chores for this week?\n\nSelected Chores:\n");
-        for (Map.Entry<Integer, List<Chore>> entry : selectedChoresMap.entrySet()) {
+        for (Map.Entry<Integer, List<Chore>> entry : selectedChoresMap.entrySet()) // loopsthrough the selected chores map and append each day's chores to the message
+        {
+            // get the day number and the list of chores 
             int day = entry.getKey();
             List<Chore> selectedChores = entry.getValue();
+            // show the day number to the message
             message.append("Day ").append(day + 1).append(":\n");
+            // loop through the list of chores and append each one to the message
             for (Chore chore : selectedChores) {
                 message.append("- ").append(chore.getChoreName()).append("\n");
             }
+            // adds a new line to separate each day's chores
             message.append("\n");
         }
-
+//confirm message 
         int confirm = JOptionPane.showConfirmDialog(this, message.toString(), "Confirm Selected Chores", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
             this.dispose();
