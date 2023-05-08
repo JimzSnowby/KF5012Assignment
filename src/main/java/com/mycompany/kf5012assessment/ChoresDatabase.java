@@ -55,7 +55,6 @@ public class ChoresDatabase {
      * Functions
      *
      */
-    
     //Select all chores from chores table
     public ArrayList<Chore> selectChores() throws SQLException {
 
@@ -75,6 +74,7 @@ public class ChoresDatabase {
 
                 int sel = choreList.getInt(6);
 
+                //Translates boolean into an int
                 if (sel == 0) {
                     newChore.setSelectedForThisWeek(false);
                 } else {
@@ -119,6 +119,7 @@ public class ChoresDatabase {
                 newChore.setChoreDay(choreList.getInt(3));
                 int sel2 = choreList.getInt(4);
 
+                //Translates boolean into an int
                 if (sel2 == 0) {
                     newChore.setChoreComplete(false);
                 } else {
@@ -220,7 +221,7 @@ public class ChoresDatabase {
         boolean success = database.RunSQL(sqlUpdateUserTotalScore);
 
         if (success) {
-            System.out.println("Week score was successfully updated to " + userTotalScore);
+            System.out.println("Total score was successfully updated to " + userTotalScore);
         }
         if (!success) {
             System.out.println("Failed to process query" + sqlUpdateUserTotalScore);
