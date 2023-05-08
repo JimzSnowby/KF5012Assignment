@@ -24,7 +24,7 @@ public class ChoresDatabase {
         database = new DBConnection();
 
         //Database connnection
-        database.Connect("");
+        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
     }
 
     /**
@@ -177,7 +177,7 @@ public class ChoresDatabase {
     public void updateUserActive(int active, int userID) throws SQLException {
         ArrayList<User> users = new ArrayList<User>();
 
-        String sqlUpdateUserActive = "UPDATE users SET userActive = " + active + "WHERE userID = " + users.get(userID) + ";";
+        String sqlUpdateUserActive = "UPDATE users SET userActive = " + active + " WHERE userID = " + userID + ";";
 
         boolean success = database.RunSQL(sqlUpdateUserActive);
 
@@ -616,5 +616,11 @@ public class ChoresDatabase {
         }
 
     }
-
+    
+       public static void main(String[] args) throws SQLException {
+        ChoresDatabase x = new ChoresDatabase();
+        Chore newChore = newchore;
+        
+        x.updateUserActive(1, 2);
+    }
 }
