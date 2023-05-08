@@ -27,7 +27,7 @@ public class ChoresDatabase {
         //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //   database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
         //Maja:
-        //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
+        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
         //Nihal:
         
@@ -75,6 +75,7 @@ public class ChoresDatabase {
 
                 int sel = choreList.getInt(6);
 
+                //Translates boolean into an int
                 if (sel == 0) {
                     newChore.setSelectedForThisWeek(false);
                 } else {
@@ -100,7 +101,7 @@ public class ChoresDatabase {
     public ArrayList<Chore> selectChoresAssigned() throws SQLException {
 
         String sqlSelectChoresAssigned = "SELECT choreID, userID, daysOfWeekID, choreComplete, choreCompletionTime "
-                + "FROM choresAssigned" 
+                + "FROM choresAssigned"
                 + " INNER JOIN chores ON choreID.chores =  choreID.choresAssigned "
                 + " INNER JOIN chores ON userID.choresAssigned = assignedTo.chores;";
 
@@ -119,6 +120,7 @@ public class ChoresDatabase {
                 newChore.setChoreDay(choreList.getInt(3));
                 int sel2 = choreList.getInt(4);
 
+                //Translates boolean into an int
                 if (sel2 == 0) {
                     newChore.setChoreComplete(false);
                 } else {
@@ -170,6 +172,9 @@ public class ChoresDatabase {
 
         boolean success = database.RunSQL(sqlUpdateChore);
 
+        if (success) {
+            System.out.println(choreName + " was sucessfully updated");
+        }
         if (!success) {
             System.out.println("Failed to process query" + sqlUpdateChore);
         }
@@ -184,6 +189,9 @@ public class ChoresDatabase {
 
         boolean success = database.RunSQL(sqlUpdateChoresComplete);
 
+        if (success) {
+            System.out.println(newChore.getChoreID() + " was sucessfully updated");
+        }
         if (!success) {
             System.out.println("Failed to process query" + sqlUpdateChoresComplete);
         }
@@ -197,6 +205,9 @@ public class ChoresDatabase {
 
         boolean success = database.RunSQL(sqlUpdateUserWeekScore);
 
+        if (success) {
+            System.out.println("Week score was successfully updated to " + userWeekScore);
+        }
         if (!success) {
             System.out.println("Failed to process query" + sqlUpdateUserWeekScore);
         }
@@ -206,10 +217,13 @@ public class ChoresDatabase {
     public void updateUserTotalScore(int userTotalScore, int userID) throws SQLException {
         ArrayList<User> users = new ArrayList<User>();
 
-        String sqlUpdateUserTotalScore = "UPDATE users SET userWeekScore = " + userTotalScore + "WHERE userActive = " + users.get(userID) + ";";
+        String sqlUpdateUserTotalScore = "UPDATE users SET userTotalScore = " + userTotalScore + "WHERE userActive = " + users.get(userID) + ";";
 
         boolean success = database.RunSQL(sqlUpdateUserTotalScore);
 
+        if (success) {
+            System.out.println("Total score was successfully updated to " + userTotalScore);
+        }
         if (!success) {
             System.out.println("Failed to process query" + sqlUpdateUserTotalScore);
         }
@@ -284,6 +298,9 @@ public class ChoresDatabase {
 
         boolean success = database.RunSQL(sqlUpdateEstimateTime1);
 
+        if (success) {
+            System.out.println("Estimate time was successfully updated to " + newchore.getEstimateTimeUserOne());
+        }
         if (!success) {
             System.out.println("Failed to process query" + sqlUpdateEstimateTime1);
         }
@@ -295,6 +312,9 @@ public class ChoresDatabase {
 
         boolean success = database.RunSQL(sqlUpdateEstimateTime2);
 
+        if (success) {
+            System.out.println("Estimate time was successfully updated to " + newchore.getEstimateTimeUserTwo());
+        }
         if (!success) {
             System.out.println("Failed to process query" + sqlUpdateEstimateTime2);
         }
@@ -399,6 +419,9 @@ public class ChoresDatabase {
 
         boolean success = database.RunSQL(sqlUpdateToSelected);
 
+        if (success) {
+            System.out.println("Chore " + newchore.getChoreID() + " was successfully updated to selected");
+        }
         if (!success) {
             System.out.println("Failed to process query" + sqlUpdateToSelected);
         }
@@ -411,6 +434,9 @@ public class ChoresDatabase {
 
         boolean success = database.RunSQL(sqlUpdateToUnselected);
 
+        if (success) {
+            System.out.println("Chore " + newchore.getChoreID() + " was successfully updated to unselected");
+        }
         if (!success) {
             System.out.println("Failed to process query" + sqlUpdateToUnselected);
         }
@@ -463,6 +489,10 @@ public class ChoresDatabase {
         boolean success;
         success = database.RunSQL(sqlAddChore);
 
+        if (success) {
+            System.out.println("Chore " + newChore.getChoreName() + " was successfully added");
+        }
+
         if (!success) {
             System.out.println("Failed to process query" + sqlAddChore);
         }
@@ -490,6 +520,10 @@ public class ChoresDatabase {
         boolean success;
         success = database.RunSQL(sqlAddAssignedChore);
 
+        if (success) {
+            System.out.println("User " + newUser.getUserID() + " was successfully assigned");
+        }
+
         if (!success) {
             System.out.println("Failed to process query" + sqlAddAssignedChore);
         }
@@ -514,6 +548,10 @@ public class ChoresDatabase {
         boolean success;
         success = database.RunSQL(sqlAddUser);
 
+        if (success) {
+            System.out.println("User " + convertedMax + " was successfully added");
+        }
+
         if (!success) {
             System.out.println("Failed to process query" + sqlAddUser);
         }
@@ -526,12 +564,10 @@ public class ChoresDatabase {
 
         boolean success = database.RunSQL(sqlDeleteUser);
 
-        //Testing the function
-        /*
         if (success) {
             System.out.println("User " + userID + " was successfully deleted");
         }
-         */
+
         if (!success) {
             System.out.println("Failed to process query" + sqlDeleteUser);
         }
@@ -543,6 +579,10 @@ public class ChoresDatabase {
         String sqlDeleteChore = "DELETE FROM chores WHERE choreName = '" + choreName + "';";
 
         boolean success = database.RunSQL(sqlDeleteChore);
+
+        if (success) {
+            System.out.println("Chore " + choreName + " was successfully deleted");
+        }
 
         if (!success) {
             System.out.println("Failed to process query" + sqlDeleteChore);
@@ -556,12 +596,10 @@ public class ChoresDatabase {
 
         boolean success = database.RunSQL(sqlDropChores);
 
-        //Testing the function
-        /*
         if (success) {
             System.out.println("Chores table was successfully deleted");
         }
-         */
+
         if (!success) {
             System.out.println("Failed to process query" + sqlDropChores);
         }
@@ -574,56 +612,13 @@ public class ChoresDatabase {
 
         boolean success = database.RunSQL(sqlDropUsers);
 
+        if (success) {
+            System.out.println("Users table was successfully deleted");
+        }
+
         if (!success) {
             System.out.println("Failed to process query" + sqlDropUsers);
         }
 
     }
-
-    /* 
-    
-    Testing mission 
-        
-    //Test the update estimate function
-    public static void main(String[] args) throws SQLException {
-        ChoresDatabase x = new ChoresDatabase();
-        Chore c = new Chore();
-
-        newchore.setEstimateTimeUserOne(66);
-        newchore.setEstimateTimeUserTwo(11);
-        x.updateEstimateTimeUserTwo();
-        x.updateEstimateTimeUserOne();
-    } 
-    
-    //Test the Chore class
-    public static void main(String[] args) {
-        ChoresDatabase x = new ChoresDatabase();
-        Chore c = new Chore();
-        c.setChoreID(21);
-        c.setChoreName("Testing");
-        c.setChoreFrequencyID(1);
-        c.setChoreDay(1);
-        c.assignTo(1);            
-        x.addChore(newchore);
-    }
-    
-    //Test delete chores table function
-    public static void main(String[] args) {
-        ChoresDatabase x = new ChoresDatabase();
-        x.dropChoresTable();
-    }
-    
-    //Test select chores function
-    public static void main(String[] args) throws SQLException {
-        ChoresDatabase x = new ChoresDatabase();
-        x.selectChores();
-    }
-    
-    //Test deletion function
-    public static void main(String[] args) throws SQLException {
-        ChoresDatabase x = new ChoresDatabase();
-        int userID = 1;
-        x.deleteUser(userID);
-    }
-     */
 }
