@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 public class CompletedChoreHistoryGUI extends javax.swing.JFrame {
     private ChoresDatabase choresDB = new ChoresDatabase(); // Connect to DB
     private ArrayList<Chore> choreList = new ArrayList();
-    private int activeUser;
+
     
     /**
      * Creates new form CompletedChoreHistoryGUI
