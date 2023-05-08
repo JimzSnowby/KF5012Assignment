@@ -24,7 +24,7 @@ public class ChoresDatabase {
         database = new DBConnection();
 
         //Database connnection
-        database.Connect("");
+        database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
     }
 
     /**
