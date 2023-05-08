@@ -21,7 +21,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private ArrayList<Chore> user1List = new ArrayList(); // list of chores assigned to user1
     private ArrayList<Chore> user2List = new ArrayList(); // list of chores assigned to user2
     private ArrayList<Chore> user1Completed = new ArrayList(); // List of completed chores for U1
-    private ArrayList<Chore> user2Completed = new ArrayList();// AT END SEND LIST TO DB WITH 
+    private ArrayList<Chore> user2Completed = new ArrayList(); // AT END SEND LIST TO DB WITH 
     private String choreCount; // Number of Chores left
     private int currentUser; // gets the ID of the current user
     private User user;
@@ -29,6 +29,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
     private ChoreCompletionPoints completionPoints = new ChoreCompletionPoints();
 
     private String highLightedChore;
+    private ArrayList<ChoresAssigned> assignedChoreList = new ArrayList();
 
     /*
      * Creates new form AssignedChoresGUI
@@ -38,10 +39,25 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
             usersList = choresDB.selectUsers();
             allChores = choresDB.selectChores();
             //allChores = choresDB.selectChoresAssigned(); //Get table of assigned chores
-            //usersIDs = choresDB.selectUserIDChoresAssigned(); // Get userID from assigned Chores
             
-            for (Chore c : allChores) { // GET CHORES FOR COMPLETION
-                /*for (User u : usersIDs){
+            //assignedChoreList = choresDB.selectChoresAssigned();
+            
+            for(Chore c : allChores){
+                if (c.getChoreAssignTo() == 1 && !c.isChoreComplete()){
+                    user1List.add(c);
+                } else if (c.getChoreAssignTo() == 2 && !c.isChoreComplete()){
+                    user2List.add(c);
+                }
+            }
+            
+           /* for(ChoresAssigned chore : assignedChoreList){
+                if(chore.getUserID() == 1 && !chore.getChoreComplete()){
+                    user1List.add(chore);
+                }
+            }*/
+        
+            /*for (Chore c : allChores) { // GET CHORES FOR COMPLETION
+                for (User u : usersList){
                     if (u.getUserID() == 1 && !c.isChoreComplete()){
                         user1List.add(c);
                     } else if (u.getUserID() == 2 && !c.isChoreComplete()){
@@ -49,20 +65,14 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                     }
                     
                     
-                }*/
+                }
                 if (c.getChoreAssignTo() == 1 && !c.isChoreComplete()) {
                     user1List.add(c);
                 } else if (c.getChoreAssignTo() == 2 && !c.isChoreComplete()) {
                     user2List.add(c);
                 }
-            }
-            /*for (Chore c : allChores) { // GET COMPLETE CHORE HISTORY
-                if (c.getChoreAssignTo() == 1 && c.isChoreComplete()) {
-                    user1Completed.add(c);
-                } else if (c.getChoreAssignTo() == 2 && c.isChoreComplete()) {
-                    user2Completed.add(c);
-                }
             }*/
+            
         } catch (Exception e) {
             System.out.println("Error occured in extracting data");
         }
@@ -76,7 +86,7 @@ public class AssignedChoresGUI extends javax.swing.JFrame {
                 }
             }
         } catch (Exception e){
-            
+            System.out.println("HISTORY ERROR: " + e);
         }
         initComponents(); // Initializes GUI elements, PUT ALL METHODS AFTER THIS
 

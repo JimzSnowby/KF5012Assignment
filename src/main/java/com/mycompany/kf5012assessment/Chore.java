@@ -144,7 +144,6 @@ public class Chore {
         estimateTimeUserTwo = 0;
         choreAssignTo = 0;
         selectedForThisWeek = false;
-
     }
 
     public Chore(String name, float estimateOne, float estimateTwo, boolean selected) {
