@@ -23,31 +23,8 @@ public class ChoresDatabase {
     public ChoresDatabase() {
         database = new DBConnection();
 
-        //James:
-        //database.Connect("G:\\University work\\Year 2\\Semester2\\SE practice\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //Maja:
-        database.Connect("/Users/majabosy/Documents/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
-        //Nihal:
-        //database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("C:\\Users\\nihal\\Documents\\UpdateFriday\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("D:\\hellllooooo\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("C:\\Users\\nihal\\Documents\\nihall\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("C:\\Users\\nihal\\Documents\\FINALL\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("C:\\Users\\nihal\\Documents\\newGroupWork\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("C:\\Users\\nihal\\Documents\\software\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("D:\\test\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("D:\\KF5012Assignment\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("D:\\test\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //database.Connect("D:\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
-        //Yoyo:
-        //database.Connect("/Users/yoyosiu/Documents/GitHub/KF5012Assignment/src/main/java/com/mycompany/kf5012assessment/kf5012db.db");
-        //database.Connect("D:\\CLONE\\KF5012Assignment\\src\\main\\java\\com\\mycompany\\kf5012assessment\\kf5012db.db");
+        //Database connnection
+        database.Connect("");
     }
 
     /**
@@ -195,7 +172,7 @@ public class ChoresDatabase {
             System.out.println("Failed to process query" + sqlUpdateChoresComplete);
         }
     }
-    
+
     //Update userActive in users table 
     public void updateUserActive(int active, int userID) throws SQLException {
         ArrayList<User> users = new ArrayList<User>();
@@ -211,7 +188,6 @@ public class ChoresDatabase {
             System.out.println("Failed to process query" + sqlUpdateUserActive);
         }
     }
-
 
     //Update user week score in users table
     public void updateUserWeekScore(int userWeekScore, int userID) throws SQLException {
@@ -507,18 +483,18 @@ public class ChoresDatabase {
         String v = newchore.getChoreName();
         System.out.println(v);
 
-        String sqlAddChore2 = "INSERT INTO chores (choreID, choreName, choreFrequencyID, daysOfWeekID, assignedTo, isSelected) "
-                + "VALUES(" + convertedMax + ", '" + name + "', " + choreFrequencyID + ", " + 
-                newchore.getChoreDay() + ", " + assignedTo + ", " + select + "); ";
+        String sqlAddChore = "INSERT INTO chores (choreID, choreName, choreFrequencyID, daysOfWeekID, assignedTo, isSelected) "
+                + "VALUES(" + convertedMax + ", '" + name + "', " + choreFrequencyID + ", "
+                + newchore.getChoreDay() + ", " + assignedTo + ", " + select + "); ";
 
         boolean success;
-        success = database.RunSQL(sqlAddChore2);
+        success = database.RunSQL(sqlAddChore);
 
         if (success) {
             System.out.println("Chore " + name + " was successfully added");
         }
         if (!success) {
-            System.out.println("Failed to process query" + sqlAddChore2);
+            System.out.println("Failed to process query" + sqlAddChore);
         }
 
     }
