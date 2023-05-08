@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 // For Task 7 Group work
 public class AssigningChoresAlgo {
-
+    private ChoresDatabase choresDB = new ChoresDatabase();
     private ArrayList<Chore> choresArrayListUserOne;
     private ArrayList<Chore> choresArrayListUserTwo;
     private ArrayList<Chore> fullList;
@@ -118,6 +118,12 @@ public class AssigningChoresAlgo {
                 chosenChore.assignTo(1);
                 assignedList.add(chosenChore);
                 unassignedChores--;
+                try {
+                    choresDB.addAssignedChore(chosenChore, newUser, chosenChore.getChoreFrequencyID(), chosenChore.getChoreAssignTo());
+                } catch (Exception e){
+                    System.out.println("ASSIGN ERROR: " + e);
+                }
+                
 
             } else {
                 // Sorting the list and coparing the estimate times
@@ -151,6 +157,11 @@ public class AssigningChoresAlgo {
                 chosenChore.assignTo(2);
                 assignedList.add(chosenChore);
                 unassignedChores--;
+                try {
+                    choresDB.addAssignedChore(chosenChore, newUser, chosenChore.getChoreFrequencyID(), chosenChore.getChoreAssignTo());
+                } catch (Exception e){
+                    System.out.println("ASSIGN ERROR: " + e);
+                }
             }
             if(User1Load > User2Load){
                 User2LoadCarriedOver = User2Load- User1Load;
